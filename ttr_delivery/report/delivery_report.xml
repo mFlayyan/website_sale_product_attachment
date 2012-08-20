@@ -1,0 +1,13 @@
+<openerp>
+    <data>
+        <!-- Replace standard shipping report from delivery -->
+        <report
+            auto="False"
+            id="delivery.report_shipping"
+            model="stock.picking"
+            name="delivery.sale.shipping.ttr"
+            rml="ttr_delivery/report/shipping.rml"
+            string="Delivery order"
+            multi="True" />
+    </data>
+</openerp>
