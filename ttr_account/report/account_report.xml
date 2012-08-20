@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+        <!-- Replace standard invoice from account -->
+        <report
+            auto="False"
+            id="account.account_invoices"
+            model="account.invoice"
+            name="account.invoice.ttr"
+            rml="ttr_account/report/account_print_invoice.rml"
+            string="Invoices"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"
+            attachment_use="1"
+            multi="True" />
+        <!-- Replace report invoice from account_invoice_layout -->
+        <report
+            auto="False"
+            id="account_invoice_layout.account_invoices_1"
+            model="account.invoice"
+            name="account_invoice_layout.invoice.layout.ttr"
+            rml="ttr_account/report/report_account_invoice_layout.rml"
+            string="Invoices with Layout" />
+    </data>
+</openerp>
