@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--
+            =========== Add line to sale order form ===========
+        -->
+        <record
+            id="ttr_view_order_form_x1"
+            model="ir.ui.view">
+            <field name="name">ttr.sale.order.form.x1</field>
+            <field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field
+                name="inherit_id"
+                ref="sale.view_order_form" />
+            <field
+                name="arch"
+                type="xml">
+                <data>
+                    <xpath
+                        expr="//field[@name='order_line']/form/notebook/page/field[@name='product_uos']"
+                        position="after">
+                        <field name="line" />
+                    </xpath>
+                    <xpath
+                        expr="//field[@name='order_line']/tree/field[@name='product_uos']"
+                        position="after">
+                        <field name="line" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <!--
+            =========== Add client_order_ref to view_sales_order_filter ===========
+        -->
+        <record
+            id="ttr_view_sales_order_filter_x1"
+            model="ir.ui.view">
+            <field name="name">ttr.sale.order.list.select.x1</field>
+            <field name="model">sale.order</field>
+            <field name="type">search</field>
+            <field
+                name="inherit_id"
+                ref="sale.view_sales_order_filter" />
+            <field
+                name="arch"
+                type="xml">
+                <data>
+                    <field
+                        name="name"
+                        position="after">
+                        <field name="client_order_ref" />
+                    </field>
+                </data>
+            </field>
+        </record>
+        <!--
+            =========== Add line to view_sales_order_filter ===========
+        -->
+        <record
+            id="ttr_view_order_line_form2_x1"
+            model="ir.ui.view">
+            <field name="name">ttr.sale.order.line.form2.x1</field>
+            <field name="model">sale.order.line</field>
+            <field name="type">form</field>
+            <field
+                name="inherit_id"
+                ref="sale.view_order_line_form2" />
+            <field
+                name="arch"
+                type="xml">
+                <data>
+                    <field
+                        name="product_uom"
+                        position="after">
+                        <field name="line" />
+                    </field>
+                </data>
+            </field>
+        </record>        
+    </data>
+</openerp>

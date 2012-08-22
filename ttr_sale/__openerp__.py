@@ -2,7 +2,7 @@
     'name': 'ttr_sale',
     'description': '''Technotrading Sale Customizations''',
     'application': True,
-    'version': '6.0.r005',
+    'version': '6.0.r006',
     'author': 'Therp',
     'category': 'ttr modules',
     'website': 'http://technotrading.nl',
@@ -12,7 +12,7 @@
         'sale',
     ],
     'update_xml': [
-        'view/account_invoice_view.xml',
-        'report/account_report.xml',
+        'view/sale_view.xml',
+        'report/sale_report.xml',
         ],
 }
