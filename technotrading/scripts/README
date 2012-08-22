@@ -1,0 +1,22 @@
+Dependencies:
+-------------
+
+Use need to use the xlrd library, so:
+$> sudo apt-get install python-xlrd
+
+OR
+
+$> sudo easy_install xlrd
+
+Using the scripts:
+-----------------
+
+./flxcore_product_import.py -s localhost -p 8069 -u admin -w PASSWORD -d DATABASE_NAME file_to_import.xls
+
+-s: specify the OpenERP server hostname
+-p: specify the OpenERP XMLRPC port number
+-u: specify the OpenERP username for connecting
+-w: specify the OpenERP password for connecting
+-d: specify the OpenERP database on which we're going to work
+
+file_to_import.xls: must be a MS Excel 97/2003 file.

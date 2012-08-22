@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            auto="False"
+            id="account_invoices"
+            model="account.invoice"
+            name="account.invoice.background"
+            rml="technotrading_custom/report/account_print_invoice.rml"
+            string="Invoices /w background"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"
+            attachment_use="1"
+            multi="True"
+	    header="False"
+	   />
+    </data>
+</openerp>

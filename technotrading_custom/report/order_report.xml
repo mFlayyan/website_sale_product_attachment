@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            auto="False"
+            id="purchase_order"
+            model="purchase.order"
+            name="purchase.order.background"
+            rml="technotrading_custom/report/order.rml"
+            string="Purchase order /w background"
+            attachment_use="1"
+            multi="True"
+            header="False"
+           />
+    </data>
+</openerp>

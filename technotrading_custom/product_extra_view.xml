@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="product_search_form_view" model="ir.ui.view">
+            <field name="name">product.search.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                 <field name="categ_id" position="after">
+			<field name="x_magerp_impa1"/>
+			<field name="x_magerp_merk_type"/>
+                 </field>
+	    </field>
+        </record>
+    </data>
+</openerp>
+    

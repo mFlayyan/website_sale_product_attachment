@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+	<!-- this view definition fixes https://bugs.launchpad.net/openobject-addons/+bug/773616,
+	     Can buy all products from all suppliers (including unpurchasable products!)
+	  -->
+	<record model="ir.ui.view" id="purchase_supplier_view">
+	    <field name="name">purchase.order.line.form</field>
+	    <field name="model">purchase.order.line</field>
+	    <field name="type">form</field>
+	    <field name="inherit_id" ref="purchase.purchase_order_line_form" />
+	    <field name="arch" type="xml">
+		<field name="product_id" position="attributes">
+		    <attribute name="domain">
+			[('seller_ids.name', '=', parent.partner_id),('purchase_ok', '=', True)]
+		    </attribute>
+		</field>
+	    </field>
+	</record>
+    </data>
+</openerp>
+

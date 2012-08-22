@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            auto="False"
+            id="request_quotation"
+            model="purchase.order"
+            name="request.quotation.background"
+            rml="technotrading_custom/report/request_quotation.rml"
+            string="Request Quotation /w background"
+            attachment_use="1"
+            multi="True"
+            header="False"
+           />
+    </data>
+</openerp>
