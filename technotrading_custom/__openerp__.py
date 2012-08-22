@@ -22,20 +22,20 @@
 ##############################################################################
 {
     'name': 'technotrading custom',
-    'version': '0.1',
-    'author': 'flxCore',
-    'website': 'http://www.flxcore.nl/',
-    'description': """
-        Techno Trading Custom
-    """,
-    'depends': ['account', 'sale'
+    'version': '6.0.r010',
+    'author': 'FlxCore, Therp',
+    'website': 'http://www.technotrading.nl/',
+    'description': '''Techno Trading Custom''',
+    'depends': [
+        'account',
+        'sale',
+        'magentoerpconnect',
     ],
     'data': [
-        'product_extra_view.xml',
-        'res_company_view.xml',
-        'product_view.xml',
+        'view/product_product_extra_view.xml',
+        'view/res_company_view.xml',
         'report/account_report.xml',
-	'report/sale_report.xml',
+        'report/sale_report.xml',
         'report/request_quotation_report.xml',
         'report/order_report.xml',
     ],
