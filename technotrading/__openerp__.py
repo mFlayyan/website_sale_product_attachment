@@ -22,22 +22,24 @@
 ##############################################################################
 {
     'name': 'technotrading',
-    'version': '0.1',
-    'author': 'flxCore',
-    'website': 'http://www.flxcore.nl/',
-    'description': """
-        Techno Trading
-    """,
+    'version': '6.0.r008',
+    'author': 'FlxCore, Therp',
+    'website': 'http://www.technotrading.nl/',
+    'description': '''Techno Trading customizations''',
     'depends': [
-        'magentoerpconnect',
+        'account',
+        'product'
+        'stock',
     ],
     'init_xml': [
     ],
     'demo_xml': [
     ],
     'update_xml': [
-        'technotrading_view.xml',
-        'technotrading_data.xml',
+        'data/ir_property_data.xml',
+        'view/account_invoice_view.xml',
+        'view/product_product_view.xml',
+        'view/stock_picking_view.xml',
         'wizard/wizard_export_product_stats_view.xml',
     ],
     'active': False,

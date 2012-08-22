@@ -1,5 +1,8 @@
-# Copyright 2011 flxCore    This software is licensed under the
-# GNU Affero General Public License version 3 (see the file LICENSE).
-
-import technotrading
+import account_invoice
+import product_product
+import product_template
+import stock_move_costs_stats
+import stock_picking_costs_stats
+import stock_picking_direct_costs_stats
+import stock_picking
 import wizard

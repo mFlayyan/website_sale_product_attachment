@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="invoice_supplier_form_technotrading" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form.technotrading</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Logistic Pickings">
+                    <separator string="Logistic Pickings" colspan="4"/>
+                    <field name="logistic_picking_ids" nolabel="1" colspan="4"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</data>
+</openerp>
