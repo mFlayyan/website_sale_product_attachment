@@ -9,8 +9,8 @@
     'email': 'info@technotrading.nl',
     'depends': [
         'base',
-        'account'
-        'sale'
+        'account',
+        'sale',
         'stock',
     ],
     'update_xml': [

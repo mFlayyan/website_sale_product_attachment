@@ -5,7 +5,7 @@
             auto="False"
             id="purchase.report_purchase_quotation"
             model="purchase.order"
-            name="purchase.quotation.ttr"
+            name="report.purchase.quotation.ttr"
             rml="ttr_purchase/report/request_quotation.rml"
             string="Request for Quotation" />
     </data>

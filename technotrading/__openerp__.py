@@ -28,7 +28,7 @@
     'description': '''Techno Trading customizations''',
     'depends': [
         'account',
-        'product'
+        'product',
         'stock',
     ],
     'init_xml': [

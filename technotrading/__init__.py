@@ -1,8 +1,8 @@
 import account_invoice
 import product_product
 import product_template
-import stock_move_costs_stats
-import stock_picking_costs_stats
-import stock_picking_direct_costs_stats
 import stock_picking
+import stock_picking_direct_costs_stats
+import stock_picking_costs_stats
+import stock_move_costs_stats
 import wizard

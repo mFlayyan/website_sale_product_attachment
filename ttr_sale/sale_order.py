@@ -15,7 +15,7 @@ from osv import osv
 class sale_order(osv.osv):
     _name = 'sale.order'
     _description = 'Sales Order'
-    inherit = 'sale.order'
+    _inherit = 'sale.order'
 
     _columns = {
         'client_order_ref': fields.char(

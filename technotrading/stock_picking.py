@@ -22,4 +22,5 @@ class stock_picking(osv.osv):
             'account.invoice', 'stock_picking_clearance_invoice_rel',
             'picking_id', 'invoice_id', 'Clearance Invoices'),
     }
+
 stock_picking()

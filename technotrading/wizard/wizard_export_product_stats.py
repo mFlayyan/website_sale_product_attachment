@@ -4,7 +4,6 @@
 
 import time
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 import StringIO
 import base64
 import xlwt
@@ -23,7 +22,10 @@ class export_product_stats_wizard(osv.osv_memory):
         'date_to': fields.date('Date to', required=True),
         'file_data': fields.binary('File', readonly=True),
         'file_name': fields.char('Filename', size=64, readonly=True),
-        'state': fields.selection([('init', 'Init'),('generate_reports', 'Generate Reports')], 'Filename', readonly=True, required=True),
+        'state': fields.selection(
+                        [('init', 'Init'),
+                         ('generate_reports', 'Generate Reports')],
+                        'Filename', readonly=True, required=True),
     }
 
     _defaults = {
@@ -35,8 +37,10 @@ class export_product_stats_wizard(osv.osv_memory):
     def generate_reports(self, cr, uid, ids, context=None):
         wizard = self.browse(cr, uid, ids[0], context=context)
 
-        if datetime.strptime(wizard.date_from,'%Y-%m-%d') > datetime.strptime(wizard.date_to,'%Y-%m-%d'):
-            raise osv.except_osv(_('Error'), _('The date from should be before the date to'))
+        if datetime.strptime(wizard.date_from, '%Y-%m-%d') > datetime.strptime(wizard.date_to, '%Y-%m-%d'):
+            raise osv.except_osv(
+                        _('Error'),
+                        _('The date from should be before the date to'))
 
         self.date_from = wizard.date_from
         self.date_to = wizard.date_to
@@ -78,7 +82,7 @@ class export_product_stats_wizard(osv.osv_memory):
                 lambda x, d, p: x['product_name']),
             # D
             ('Total Stock Value berekend', 1, 80, 'number',
-                lambda x, d, p: x['total_subtotal']+x['total_transport_costs']+x['total_subtotal']*x['product_clearance_costs_perc']/100),
+                lambda x, d, p: x['total_subtotal'] + x['total_transport_costs'] + x['total_subtotal'] * x['product_clearance_costs_perc'] / 100),
             # E
             ('Total Net Purchase Value', 1, 80, 'number',
                 lambda x, d, p: x['total_subtotal']),
@@ -87,7 +91,7 @@ class export_product_stats_wizard(osv.osv_memory):
                 lambda x, d, p: x['total_transport_costs']),
             # G
             ('Total Clearance Costs', 1, 80, 'number',
-                lambda x, d, p: x['total_subtotal']*x['product_clearance_costs_perc']/100),
+                lambda x, d, p: x['total_subtotal'] * x['product_clearance_costs_perc'] / 100),
             # H
             ('Quantity', 1, 80, 'number',
                 lambda x, d, p: x['product_qty']),
@@ -156,7 +160,6 @@ class export_product_stats_wizard(osv.osv_memory):
                 self.rownum = rownum
                 super(rowdict, self).__init__(*args, **kwargs)
 
-
         product_proxy = self.pool.get('product.product')
         product_ids = product_proxy.search(cr, uid, [], context=context)
 
@@ -175,10 +178,10 @@ class export_product_stats_wizard(osv.osv_memory):
         GROUP BY
             product_id
         """, (self.date_from, self.date_to,))
-        stats_data = dict(((x['product_id'],x) for x in cr.dictfetchall()))
+        stats_data = dict(((x['product_id'], x) for x in cr.dictfetchall()))
 
         sale_line_proxy = self.pool.get('sale.order.line')
-        sale_line_ids = sale_line_proxy.search(cr, uid, [('state', 'in', ['confirmed','done']),('order_id.date_order','>=',self.date_from),('order_id.date_order','<=',self.date_to)])
+        sale_line_ids = sale_line_proxy.search(cr, uid, [('state', 'in', ['confirmed', 'done']), ('order_id.date_order', '>=', self.date_from), ('order_id.date_order', '<=', self.date_to)])
         stats_sales = {}
         for line in sale_line_proxy.browse(cr, uid, sale_line_ids, context=context):
             if not line.product_id:

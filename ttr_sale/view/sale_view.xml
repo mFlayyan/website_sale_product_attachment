@@ -23,8 +23,8 @@
                         <field name="line" />
                     </xpath>
                     <xpath
-                        expr="//field[@name='order_line']/tree/field[@name='product_uos']"
-                        position="after">
+                        expr="//field[@name='order_line']/tree/field[@name='name']"
+                        position="before">
                         <field name="line" />
                     </xpath>
                 </data>

@@ -41,6 +41,6 @@ class ttr_request_quotation(report_sxw.rml_parse):
                     context={'partner_id': partner_id})[product_id]
 
 
-report_sxw.report_sxw('purchase.quotation.ttr', 'purchase.order',
+report_sxw.report_sxw('report.purchase.quotation.ttr', 'purchase.order',
                       'addons/ttr_purchase/report/request_quotation.rml',
                       parser=ttr_request_quotation)
