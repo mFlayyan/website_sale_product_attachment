@@ -10,7 +10,6 @@
     'depends': [
         'base',
         'account',
-        'account_invoice_layout',
     ],
     'update_xml': [
         'view/account_invoice_view.xml',
