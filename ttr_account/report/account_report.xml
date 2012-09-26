@@ -1,11 +1,12 @@
 <openerp>
     <data>
-        <!-- Replace standard invoice from account -->
+        <!-- Replace standard invoice from account
+        N.B.: not only id, but also name must be the same as original!! -->
         <report
             auto="False"
             id="account.account_invoices"
             model="account.invoice"
-            name="account.invoice.ttr"
+            name="account.invoice"
             rml="ttr_account/report/account_print_invoice.rml"
             string="Invoices"
             attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"

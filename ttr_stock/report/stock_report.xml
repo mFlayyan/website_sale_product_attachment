@@ -4,7 +4,7 @@
         <report
             id="report_picking_list"
             model="stock.picking"
-            name="stock.picking.list.ttr"
+            name="stock.picking.list"
             string="Packing list"
             rml="ttr_stock/report/picking.rml" />
     </data>

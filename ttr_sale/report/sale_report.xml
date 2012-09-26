@@ -5,7 +5,7 @@
             auto="False"
             id="sale.report_sale_order"
             model="sale.order"
-            name="sale.order.ttr"
+            name="sale.order"
             rml="ttr_sale/report/sale_order.rml"
             string="Quotation / Order" />
     </data>
