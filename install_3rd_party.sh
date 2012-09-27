@@ -18,4 +18,13 @@ ln -s $HOME/bzr/extra-6.0/product_links  $HOME/3rd_party_modules_6.0/product_lin
 ln -s $HOME/bzr/extra-6.0/product_m2mcategories  $HOME/3rd_party_modules_6.0/product_m2mcategories 
 ln -s $HOME/bzr/therp-addons/trp_update_tax  $HOME/3rd_party_modules_6.0/trp_update_tax
 
+# Hieronder ook een aantal modules, omdat anders de web 6.0 client niet vooruit te branden is
+# zorg ervoor dat de akretion addons-no-fluff is geïnstalleerd:
+# bzr branch lp:~akretion-team/+junk/addons-no-fluff
+ln -s $HOME/bzr/addons-no-fluff/account_no_dashboard $HOME/3rd_party_modules_6.0/account_no_dashboard
+ln -s $HOME/bzr/addons-no-fluff/admin_no_dashboard $HOME/3rd_party_modules_6.0/admin_no_dashboard
+ln -s $HOME/bzr/addons-no-fluff/purchase_no_dashboard $HOME/3rd_party_modules_6.0/purchase_no_dashboard
+ln -s $HOME/bzr/addons-no-fluff/sale_no_dashboard $HOME/3rd_party_modules_6.0/sale_no_dashboard
+ln -s $HOME/bzr/addons-no-fluff/stock_no_dashboard $HOME/3rd_party_modules_6.0/stock_no_dashboard
+
 exit 0
