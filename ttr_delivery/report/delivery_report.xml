@@ -3,7 +3,7 @@
         <!-- Replace standard shipping report from delivery -->
         <report
             auto="False"
-            id="delivery.report_shipping"
+            id="delivery.report.delivery.sale.shipping"
             model="stock.picking"
             name="delivery.sale.shipping"
             rml="ttr_delivery/report/shipping.rml"
