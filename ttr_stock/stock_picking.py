@@ -25,7 +25,7 @@ class stock_picking(osv.osv):
     }
 
     def action_invoice_create(self, cursor, user, ids, journal_id=False,
-            group=False, inv_type='out_invoice', context=None):
+            group=False, type='out_invoice', context=None):
         '''Make sure client_order_ref gets written to all invoices for
         the sale order belonging to this stock picking. This is the approach
         that was taken by Flexcore. IMHO this is really the wrong way
@@ -37,7 +37,7 @@ class stock_picking(osv.osv):
         invoice_obj = self.pool.get('account.invoice')
         picking_obj = self.pool.get('stock.picking')
         result = super(stock_picking, self).action_invoice_create(cursor, user,
-                ids, journal_id=journal_id, group=group, type=inv_type,
+                ids, journal_id=journal_id, group=group, type=type,
                 context=context)
         picking_ids = result.keys()
         invoice_ids = result.values()
