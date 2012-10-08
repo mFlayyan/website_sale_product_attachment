@@ -22,19 +22,21 @@
 ##############################################################################
 {
     'name': 'technotrading custom',
-    'version': '6.0.r011',
+    'version': '6.0.r022',
     'author': 'FlxCore, Therp',
     'website': 'http://www.technotrading.nl/',
     'description': '''Techno Trading Custom''',
     'depends': [
         'account',
         'sale',
-        # 'magentoerpconnect',
+        'magentoerpconnect',
     ],
     'data': [
         # 2012-08-22 deactivate changes to product_product, because we will
         # handle integration of magento-erp connection later
-        #  'view/product_product_view.xml',
+        # 2012-10-08 readded back changes, because needed even without
+        # using mageno integration
+        'view/product_product_view.xml',
         'view/res_company_view.xml',
         'report/account_report.xml',
         'report/sale_report.xml',
