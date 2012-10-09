@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <report
-            id="report_picking_list"
+            id="stock.report_picking_list"
             model="stock.picking"
             name="stock.picking.list"
             string="Packing list"
