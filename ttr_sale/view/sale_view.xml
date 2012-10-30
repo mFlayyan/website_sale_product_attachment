@@ -18,7 +18,7 @@
                 type="xml">
                 <data>
                     <xpath
-                        expr="//field[@name='order_line']/form/notebook/page/field[@name='product_uos']"
+                        expr="//field[@name='order_line']/form/notebook/page/group/field[@name='product_uos']"
                         position="after">
                         <field name="line" />
                     </xpath>

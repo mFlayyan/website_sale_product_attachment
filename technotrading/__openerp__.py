@@ -30,6 +30,7 @@
         'account',
         'product',
         'stock',
+        'purchase',
     ],
     'init_xml': [
     ],

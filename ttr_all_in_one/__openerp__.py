@@ -15,6 +15,7 @@
         'ttr_purchase',
         'ttr_sale',
         'ttr_stock',
+        'base_report_xlwt',
     ],
     'update_xml': [
     ],
