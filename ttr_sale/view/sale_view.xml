@@ -78,5 +78,38 @@
                 </data>
             </field>
         </record>        
-    </data>
+	
+	<!-- This view overwrites an override from base_sale_multichannels,
+	     only to change the tab on the product form on which the external information
+	     is referenced. Can't seem to change the expr property on the original form
+	     using a normal xpath override on the original xpath element...
+	  -->
+        <record model="ir.ui.view" id="base_sale_multichannels.base_sale_multichannel_view_order_form">
+            <field name="name">base_sale_multichannel_view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_automatic_workflow.sale_order_view_form" />
+            <field name="type">form</field>
+            <field eval="30" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <group name="automatic_workflow" position="after">
+                        <field name="referential_id" invisible="True"/>
+                        <group name="external_payment" attrs="{'invisible': [('referential_id', '=', False)]}">
+                            <separator string="External Payment" colspan="4"/>
+                            <field name="ext_total_amount" />
+                            <field name="need_to_update" select="1"/>
+                        </group>
+                    </group>
+                    <!-- xpath expr="/form/notebook/page/field/form/notebook/page[@string='Order Line']/group" position="after" -->
+                    <xpath expr="/form/notebook/page/field/form/notebook/page[@string='Extra Info']" position="inside">
+                        <group name='External Information' colspan="4">
+                            <separator string="External Information" colspan="4" />
+                            <field name="ext_product_ref" select="1" />
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+</data>
 </openerp>
