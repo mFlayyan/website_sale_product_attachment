@@ -10,8 +10,8 @@
             rml="ttr_account/report/account_print_invoice.rml"
             string="Invoices"
             attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"
-            attachment_use="1"
-            multi="True" />
+            attachment_use="False"
+            multi="False"/>
         <!-- Replace report invoice from account_invoice_layout -->
         <!-- 2012-09-26 Hier uit gehaald, want module is wel aangepast op
             Technotrading server, maar NIET geinstalleerd!

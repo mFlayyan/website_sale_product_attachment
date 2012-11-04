@@ -8,9 +8,9 @@
             name="account.invoice.background"
             rml="technotrading_custom/report/account_print_invoice.rml"
             string="Invoices /w background"
-            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"
-            attachment_use="1"
-            multi="True"
+            attachment="False"
+            attachment_use="False"
+            multi="False"
 	    header="False"
 	   />
     </data>
