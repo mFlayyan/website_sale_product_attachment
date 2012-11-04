@@ -14,8 +14,13 @@
                 type="xml">
                 <field
                     name="categ_id"
-                    position="after">
+                    position="before">
                     <field name="code" />
+		    <newline/>
+		</field>
+                <field
+                    name="categ_id"
+                    position="after">
                     <field name="x_magerp_impa1" />
                     <field name="x_magerp_merk_type" />
                 </field>
