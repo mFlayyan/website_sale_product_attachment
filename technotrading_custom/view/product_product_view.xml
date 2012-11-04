@@ -15,6 +15,7 @@
                 <field
                     name="categ_id"
                     position="after">
+                    <field name="code" />
                     <field name="x_magerp_impa1" />
                     <field name="x_magerp_merk_type" />
                 </field>

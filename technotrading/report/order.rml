@@ -137,6 +137,8 @@
     <images/>
   </stylesheet>
   <story>
+    <para style="terp_default_8">[[repeatIn(objects,'o')]]</para>
+    <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
   <pto>
   <pto_header>
     <blockTable colWidths="250.00,60.0,80.0,60.0,85.0" repeatRows="1" style="Table_Header_Pur_ord_Line">
@@ -159,8 +161,6 @@
       </tr>
     </blockTable>
   </pto_header>
-    <para style="terp_default_8">[[repeatIn(objects,'o')]]</para>
-    <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
     <para style="terp_default_9">
       <font color="white"> </font>
     </para>
@@ -279,7 +279,7 @@
             <para style="terp_default_Right_9">[[ o.product_id.default_code ]] [[ get_product_code(o.product_id.id,o.partner_id.id) or '' ]] </para>
           </td>
           <td>
-            <para style="terp_default_9">[[ line.product_id.product_tmpl_id.name ]]</para>
+            <para style="terp_default_9">[[ line.product_id.name ]]</para>
           </td>
           <td>
             <para style="terp_default_Right_9">[[ o.product_id.x_magerp_impa1 ]]</para>
