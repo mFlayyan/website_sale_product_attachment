@@ -34,7 +34,7 @@ class account_invoice(report_sxw.rml_parse):
 report_sxw.report_sxw(
     'report.account.invoice.background',
     'account.invoice',
-    'technotrading_custom/report/account_print_invoice.rml',
+    'technotrading_custom/report/account_print_invoice_w_background.rml',
     parser=account_invoice,
     )
 
