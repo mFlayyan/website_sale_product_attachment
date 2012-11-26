@@ -6,7 +6,7 @@
             id="purchase_order"
             model="purchase.order"
             name="purchase.order.background"
-            rml="technotrading_custom/report/order.rml"
+            rml="technotrading_custom/report/purchase_order_w_background.rml"
             string="Purchase order /w background"
             attachment_use="1"
             multi="True"
