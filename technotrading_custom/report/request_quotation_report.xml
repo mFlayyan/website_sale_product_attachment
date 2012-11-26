@@ -6,7 +6,7 @@
             id="request_quotation"
             model="purchase.order"
             name="request.quotation.background"
-            rml="technotrading_custom/report/request_quotation.rml"
+            rml="technotrading_custom/report/request_quotation_w_background.rml"
             string="Request Quotation /w background"
             attachment_use="1"
             multi="True"

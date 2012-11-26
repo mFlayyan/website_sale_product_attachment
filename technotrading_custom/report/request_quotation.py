@@ -36,7 +36,7 @@ class request_quotation(report_sxw.rml_parse):
         product_obj=pooler.get_pool(self.cr.dbname).get('product.product')
         return product_obj._product_code(self.cr, self.uid, [product_id], name=None, arg=None, context={'partner_id': partner_id})[product_id]
 
-report_sxw.report_sxw('report.request.quotation.background','purchase.order','technotrading_custom/report/request_quotation.rml',parser=request_quotation)
+report_sxw.report_sxw('report.request.quotation.background','purchase.order','technotrading_custom/report/request_quotation_w_background.rml',parser=request_quotation)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
