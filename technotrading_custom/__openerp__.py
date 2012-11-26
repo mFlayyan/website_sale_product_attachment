@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'technotrading custom',
-    'version': '6.0.r022',
+    'version': '6.0.r036',
     'author': 'FlxCore, Therp',
     'website': 'http://www.technotrading.nl/',
     'description': '''Techno Trading Custom''',

@@ -223,7 +223,7 @@
             <para style="terp_default_Right_9">[[ order_line.product_id.default_code ]]</para>
           </td>
           <td>
-            <para style="terp_default_9">[[ order_line.product_id.name_template ]]</para>
+            <para style="terp_default_9">[[ order_line.product_id.product_tmpl_id.name or order_line.name ]]</para>
           </td>
           <td>
             <para style="terp_default_Right_9">[[ get_product_code(order_line.product_id.id,order.partner_id.id) or '' ]]</para>
