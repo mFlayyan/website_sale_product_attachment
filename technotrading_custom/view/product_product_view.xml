@@ -15,7 +15,7 @@
                 <field
                     name="categ_id"
                     position="before">
-                    <field name="code" />
+                    <field name="default_code" />
 		    <newline/>
 		</field>
                 <field
