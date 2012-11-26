@@ -41,7 +41,7 @@
         'report/account_report.xml',
         'report/sale_report.xml',
         'report/request_quotation_report.xml',
-        'report/order_report.xml',
+        'report/purchase_order_report.xml',
     ],
     'active': False,
     'installable': True,

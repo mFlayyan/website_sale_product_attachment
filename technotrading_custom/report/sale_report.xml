@@ -6,7 +6,7 @@
             id="sale_order"
             model="sale.order"
             name="sale.order.background"
-            rml="technotrading_custom/report/sale_order.rml"
+            rml="technotrading_custom/report/sale_order_w_background.rml"
             string="Sales order /w background"
             attachment_use="1"
             multi="True"
