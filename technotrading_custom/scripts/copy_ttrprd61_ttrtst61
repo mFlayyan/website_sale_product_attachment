@@ -57,7 +57,9 @@ HEREDOC
 sudo -u $test_user psql -c "update external_referential set version_id=1, type_name='Magento', location='http://localhost:80/'" $test_db
 sudo -u $test_user psql -c "update external_mappinglines_template set version_id=1" $test_db
 # Search the templates for existing mappings
-sudo -u $test_user psql -c "update external_mapping set key_for_external_id = 'attribute_id' where external_list_method = 'ol_catalog_product_attribute.list';"  $test_db
+#sudo -u $test_user psql -c "update external_mapping set key_for_external_id = 'attribute_id' where external_list_method = 'ol_catalog_product_attribute.list';"  $test_db
+sudo -u $test_user psql -c "delete from external_mapping where id = 9;" $test_db
 sudo -u $test_user psql -c "update external_mapping set template_id = (select id from external_mapping_template where external_mapping.external_key_name = external_mapping_template.key_for_external_id);"  $test_db
 sudo -u $test_user psql -c "update sale_shop set type_name = 'Magento' where id > 1;"  $test_db
 sudo -u $test_user psql -c "update ir_model_data set referential_id = external_referential_id where external_referential_id is not NULL;"  $test_db
+sudo -u $test_user psql -c "delete from ir_model_data where name like 'product_product/%' and module like 'extref/%';" $test_db
