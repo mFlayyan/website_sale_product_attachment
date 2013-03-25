@@ -1,63 +1,138 @@
 # -*- coding: utf-8 -*-
-# http://wiki.python.org/moin/PrintFails
 import sys
+import string
 import codecs, locale
-sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout);
-sys.stderr = codecs.getwriter(locale.getpreferredencoding())(sys.stderr);
 
 import libttrimport
-connection = libttrimport.get_connection()
-product_obj = connection.get_model('product.product')
-product_ids = product_obj.search([], 0)
-products_nl = product_obj.read(product_ids, ['default_code', 'name', 'list_price', 'standard_price'], {'lang': 'nl_NL'})
-products_us = product_obj.read(product_ids, ['default_code', 'name', 'list_price', 'standard_price'], {'lang': 'en_US'})
-prod_dict_nl_new = dict([(x['default_code'], x['name']) for x in products_nl])
-prod_dict_us_new = dict([(x['default_code'], x['name']) for x in products_us])
-price_new = dict([(x['default_code'], x['list_price']) for x in products_nl])
-cost_new = dict([(x['default_code'], x['standard_price']) for x in products_nl])
-
 import libttrimportlive
+
+# http://wiki.python.org/moin/PrintFails
+sys.stdout = codecs.getwriter(
+    locale.getpreferredencoding())(sys.stdout);
+sys.stderr = codecs.getwriter(
+    locale.getpreferredencoding())(sys.stderr);
+
 connection = libttrimportlive.get_connection()
 product_obj = connection.get_model('product.product')
 product_ids = product_obj.search([], 0)
-products_nl = product_obj.read(product_ids, ['default_code', 'name', 'list_price', 'standard_price'], {'lang': 'nl_NL'})
-products_us = product_obj.read(product_ids, ['default_code', 'name', 'list_price', 'standard_price'], {'lang': 'en_US'})
-prod_dict_nl = dict([(x['default_code'], x['name']) for x in products_nl])
-prod_dict_us = dict([(x['default_code'], x['name']) for x in products_us])
-price = dict([(x['default_code'], x['list_price']) for x in products_nl])
-cost = dict([(x['default_code'], x['standard_price']) for x in products_nl])
+fields_obj = connection.get_model('ir.model.fields')
+
+connection_new = libttrimport.get_connection()
+product_obj_new = connection_new.get_model('product.product')
+product_ids_new = product_obj_new.search([], 0)
+
+multilang_fields = [
+    'default_code', 'name', 'description', 'description_sale']
+all_fields = multilang_fields + [
+    'categ_id', 'list_price', 'standard_price', 'weight']
+field_ids = fields_obj.search(
+    [('model', 'in', ('product.product', 'product.template')),
+     ('name', 'in', all_fields)])
+field_read = fields_obj.read(
+    field_ids, ['name', 'ttype', 'translate'])
+fields = dict([(x['name'], x) for x in field_read])
+
+context_nl = {'lang': 'nl_NL'}
+context_en = {'lang': 'en_EN'}
+products_nl = product_obj.read(
+    product_ids, all_fields, context_nl)
+products_en = product_obj.read(
+    product_ids, multilang_fields, context_en)
+products_dict_nl = dict([(x['default_code'], x) for x in products_nl])
+products_dict_en = dict([(x['default_code'], x) for x in products_en])
 
 
-for id_ in sorted(prod_dict_nl.keys()):
-    if id_ not in prod_dict_nl_new:
-        print "\"Niet in Magento dd. 21-11-2012: %s\", \"%s\",\"%s\"," % (
-            id_, prod_dict_nl[id_].replace('"', '""'), prod_dict_us[id_].replace('"', '""'))
-for id_ in sorted(prod_dict_nl_new.keys()):
-    if id_ not in prod_dict_nl:
-        print "\"Alleen in Magento: %s\", \"%s\",\"%s\"," % (
-            id_, prod_dict_nl_new[id_].replace('"', '""'), prod_dict_us_new[id_].replace('"', '""'))
+products_nl_new = product_obj_new.read(
+    product_ids_new, all_fields, context_nl)
+products_en_new = product_obj_new.read(
+    product_ids_new, multilang_fields, context_en)
+products_dict_nl_new = dict([(x['default_code'], x) for x in products_nl_new])
+products_dict_en_new = dict([(x['default_code'], x) for x in products_en_new])
+
+compare = {
+    'float': lambda x, y: int(round(x * 100)) == int(round(y * 100)),
+    'many2one': lambda x, y: (x and x[1] or '') == (y and y[1] or ''),
+    'int': lambda x, y: x == y,
+    'selection': lambda x, y: x == y,
+    'text': lambda x, y: (x or '').replace('\r', '') == (y or '').replace('\r', ''),
+    'char': lambda x, y: (x or '').replace('\r', '') == (y or '').replace('\r', ''),
+    }
+
+conv = {
+    'float': lambda x: x,
+    'many2one': lambda x: x and x[1].replace('"', '""') or '',
+    'int': lambda x: x,
+    'selection': lambda x: unicode(x).replace('"', '""'),
+    'text': lambda x: x and x.replace('"', '""') or '',
+    'char': lambda x: x and x.replace('"', '""') or '',
+    }
+
+header = "\"Code\""
+header_vals = []
+
+for field in all_fields:
+    if field == 'default_code':
+        continue
+    if fields[field]['translate']:
+        header += ",\"%s\",\"%s\""
+        header_vals.append("%s (nl)" % field)
+        header_vals.append("%s (en)" % field)
     else:
-        nl = us = False
-        pr = prnw = 0.0
-        cpr = cprnw = 0.0
-        if int(round(price_new[id_]*100)) != int(round(price[id_]*100)):
-            pr = price[id_]
-            prnw = price_new[id_]
-        if int(round(cost_new[id_]*100)) != int(round(cost[id_]*100)):
-            cpr = cost[id_]
-            cprnw = cost_new[id_]
-        if prod_dict_nl_new[id_].lower() != prod_dict_nl[id_].lower():
-            nl = True
-        if prod_dict_us_new[id_].lower() != prod_dict_us[id_].lower():
-            us = True
-        if nl or us:
-            print "\"%s in OpenERP\",\"%s\",\"%s\",%s,%s" % (
-                id_,
-                nl and prod_dict_nl[id_].replace('"', '""') or '',
-                us and prod_dict_us[id_].replace('"', '""') or '',
-                pr and pr or '', cpr and cpr or '')
-            print "\"%s in Magneto\",\"%s\",\"%s\",%s,%s" % (
-                id_,
-                nl and prod_dict_nl_new[id_].replace('"', '""') or '',
-                us and prod_dict_us_new[id_].replace('"', '""') or '',
-                prnw and prnw or '', cprnw and cprnw or '')
+        header += ",\"%s\""
+        header_vals.append("%s" % field)
+
+print header % tuple(header_vals)
+
+for id_ in sorted(products_dict_nl.keys()):
+    if id_ not in products_dict_nl_new:
+        print "\"Niet in Magento dd. 09-03-2013: %s\", \"%s\",\"%s\"," % (
+            id_, products_dict_nl[id_]['name'].replace('"', '""'),
+            products_dict_en[id_]['name'].replace('"', '""'))
+
+for id_ in sorted(products_dict_nl_new.keys()):
+    if id_ not in products_dict_nl:
+        print "\"Alleen in Magento: %s\", \"%s\",\"%s\"," % (
+            id_, products_dict_nl_new[id_]['name'].replace('"', '""'),
+            products_dict_en_new[id_]['name'].replace('"', '""'))
+    else:
+        diff = False
+        old = "\"%s in OpenERP\""
+        new = "\"%s in Magento\""
+        old_vals = [id_]
+        new_vals = [id_]
+        for field in all_fields:
+            if field == 'default_code':
+                continue
+            field_type = fields[field]['ttype']
+            old += ",\"%s\""
+            new += ",\"%s\""
+            if not compare[field_type](
+                products_dict_nl[id_][field],
+                products_dict_nl_new[id_][field]):
+
+                old_vals.append(conv[field_type](
+                        products_dict_nl[id_][field]))
+                new_vals.append(conv[field_type](
+                        products_dict_nl_new[id_][field]))
+                diff = True
+            else:
+                old_vals.append('')
+                new_vals.append('')
+            if fields[field]['translate']:
+                old += ",\"%s\""
+                new += ",\"%s\""
+                if not compare[field_type](
+                    products_dict_en[id_][field],
+                    products_dict_en_new[id_][field]):
+                    old_vals.append(conv[field_type](
+                            products_dict_en[id_][field]))
+                    new_vals.append(conv[field_type](
+                            products_dict_en_new[id_][field]))
+                    diff = True
+                else:
+                    old_vals.append('')
+                    new_vals.append('')
+
+        if diff:
+            print old % tuple(old_vals)
+            print new % tuple(new_vals)
