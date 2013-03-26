@@ -14,6 +14,7 @@ sys.stderr = codecs.getwriter(
 
 # User configuration
 model = 'product.category'
+models = (model,)
 identifier = 'id'
 multilang_fields = [
     identifier, 'name']
@@ -32,10 +33,10 @@ res_ids_new = obj_new.search([], 0)
 
 # Field info
 field_ids = fields_obj.search(
-    [('model', '=', model),
+    [('model', 'in', models),
      ('name', 'in', all_fields)])
 field_read = fields_obj.read(
-    field_ids, ['name', 'ttype', 'translate'])
+    field_ids, ['name', 'ttype', 'translate', 'string'])
 fields = dict([(x['name'], x) for x in field_read])
 
 context_nl = {'lang': 'nl_NL'}
@@ -72,7 +73,7 @@ conv = {
     'char': lambda x: x and x.replace('"', '""') or '',
     }
 
-header = "\"id\""
+header = "\"%s\"" % identifier
 header_vals = []
 
 for field in all_fields:

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import sys
-import string
 import codecs, locale
 
 import libttrimport
@@ -12,50 +11,77 @@ sys.stdout = codecs.getwriter(
 sys.stderr = codecs.getwriter(
     locale.getpreferredencoding())(sys.stderr);
 
-connection = libttrimportlive.get_connection()
-product_obj = connection.get_model('product.product')
-product_ids = product_obj.search([], 0)
-fields_obj = connection.get_model('ir.model.fields')
-
-connection_new = libttrimport.get_connection()
-product_obj_new = connection_new.get_model('product.product')
-product_ids_new = product_obj_new.search([], 0)
-
+# User configuration
+preferred_lang = 'nl_NL'
+model = 'product.product'
+models = (model, 'product.template')
+identifier = 'default_code'
 multilang_fields = [
-    'default_code', 'name', 'description', 'description_sale']
+    identifier, 'name', 'description', 'description_sale']
 all_fields = multilang_fields + [
     'categ_id', 'list_price', 'standard_price', 'weight']
-field_ids = fields_obj.search(
-    [('model', 'in', ('product.product', 'product.template')),
-     ('name', 'in', all_fields)])
-field_read = fields_obj.read(
-    field_ids, ['name', 'ttype', 'translate'])
-fields = dict([(x['name'], x) for x in field_read])
+
+connection = libttrimportlive.get_connection()
+obj = connection.get_model(model)
+res_ids = obj.search([], 0)
+fields_obj = connection.get_model('ir.model.fields')
+translation_obj = connection.get_model('ir.translation')
+
+connection_new = libttrimport.get_connection()
+obj_new = connection_new.get_model(model)
+res_ids_new = obj_new.search([], 0)
 
 context_nl = {'lang': 'nl_NL'}
 context_en = {'lang': 'en_EN'}
-products_nl = product_obj.read(
-    product_ids, all_fields, context_nl)
-products_en = product_obj.read(
-    product_ids, multilang_fields, context_en)
-products_dict_nl = dict([(x['default_code'], x) for x in products_nl])
-products_dict_en = dict([(x['default_code'], x) for x in products_en])
+
+field_ids = fields_obj.search(
+    [('model', 'in', models),
+     ('name', 'in', all_fields)])
+field_read = fields_obj.read(
+    field_ids, [
+        'name', 'ttype', 'translate', 'field_description',
+        ], context_nl)
+fields = dict([(x['name'], x) for x in field_read])
+
+def get_field_name(field):
+    # Private methods (such as _get_source) cannot be called remotely
+    return fields[field]['field_description']
+
+    res = None
+    for model in models:
+        res = translation_obj._get_source(
+            '%s,%s' % (model, field),
+            'field', preferred_lang)
+        if res:
+            break
+    return res or fields[field]['field_description']
+
+resources_nl = obj.read(
+    res_ids, all_fields, context_nl)
+resources_en = obj.read(
+    res_ids, multilang_fields, context_en)
+resources_dict_nl = dict([(x[identifier], x) for x in resources_nl])
+resources_dict_en = dict([(x[identifier], x) for x in resources_en])
 
 
-products_nl_new = product_obj_new.read(
-    product_ids_new, all_fields, context_nl)
-products_en_new = product_obj_new.read(
-    product_ids_new, multilang_fields, context_en)
-products_dict_nl_new = dict([(x['default_code'], x) for x in products_nl_new])
-products_dict_en_new = dict([(x['default_code'], x) for x in products_en_new])
+resources_nl_new = obj_new.read(
+    res_ids_new, all_fields, context_nl)
+resources_en_new = obj_new.read(
+    res_ids_new, multilang_fields, context_en)
+resources_dict_nl_new = dict([(x[identifier], x) for x in resources_nl_new])
+resources_dict_en_new = dict([(x[identifier], x) for x in resources_en_new])
 
 compare = {
     'float': lambda x, y: int(round(x * 100)) == int(round(y * 100)),
     'many2one': lambda x, y: (x and x[1] or '') == (y and y[1] or ''),
     'int': lambda x, y: x == y,
     'selection': lambda x, y: x == y,
-    'text': lambda x, y: (x or '').replace('\r', '') == (y or '').replace('\r', ''),
-    'char': lambda x, y: (x or '').replace('\r', '') == (y or '').replace('\r', ''),
+    'text': lambda x, y: (
+        (x or '').replace('\r', '').lower() ==
+        (y or '').replace('\r', '').lower()),
+    'char': lambda x, y: (
+        (x or '').replace('\r', '').lower() ==
+        (y or '').replace('\r', '').lower()),
     }
 
 conv = {
@@ -67,33 +93,33 @@ conv = {
     'char': lambda x: x and x.replace('"', '""') or '',
     }
 
-header = "\"Code\""
+header = "\"%s\"" % get_field_name(identifier)
 header_vals = []
 
 for field in all_fields:
-    if field == 'default_code':
+    if field == identifier:
         continue
     if fields[field]['translate']:
         header += ",\"%s\",\"%s\""
-        header_vals.append("%s (nl)" % field)
-        header_vals.append("%s (en)" % field)
+        header_vals.append("%s (nl)" % get_field_name(field))
+        header_vals.append("%s (en)" % get_field_name(field))
     else:
         header += ",\"%s\""
-        header_vals.append("%s" % field)
+        header_vals.append("%s" % fields[field]['field_description'])
 
 print header % tuple(header_vals)
 
-for id_ in sorted(products_dict_nl.keys()):
-    if id_ not in products_dict_nl_new:
+for id_ in sorted(resources_dict_nl.keys()):
+    if id_ not in resources_dict_nl_new:
         print "\"Niet in Magento dd. 09-03-2013: %s\", \"%s\",\"%s\"," % (
-            id_, products_dict_nl[id_]['name'].replace('"', '""'),
-            products_dict_en[id_]['name'].replace('"', '""'))
+            id_, resources_dict_nl[id_]['name'].replace('"', '""'),
+            resources_dict_en[id_]['name'].replace('"', '""'))
 
-for id_ in sorted(products_dict_nl_new.keys()):
-    if id_ not in products_dict_nl:
+for id_ in sorted(resources_dict_nl_new.keys()):
+    if id_ not in resources_dict_nl:
         print "\"Alleen in Magento: %s\", \"%s\",\"%s\"," % (
-            id_, products_dict_nl_new[id_]['name'].replace('"', '""'),
-            products_dict_en_new[id_]['name'].replace('"', '""'))
+            id_, resources_dict_nl_new[id_]['name'].replace('"', '""'),
+            resources_dict_en_new[id_]['name'].replace('"', '""'))
     else:
         diff = False
         old = "\"%s in OpenERP\""
@@ -101,19 +127,19 @@ for id_ in sorted(products_dict_nl_new.keys()):
         old_vals = [id_]
         new_vals = [id_]
         for field in all_fields:
-            if field == 'default_code':
+            if field == identifier:
                 continue
             field_type = fields[field]['ttype']
             old += ",\"%s\""
             new += ",\"%s\""
             if not compare[field_type](
-                products_dict_nl[id_][field],
-                products_dict_nl_new[id_][field]):
+                resources_dict_nl[id_][field],
+                resources_dict_nl_new[id_][field]):
 
                 old_vals.append(conv[field_type](
-                        products_dict_nl[id_][field]))
+                        resources_dict_nl[id_][field]))
                 new_vals.append(conv[field_type](
-                        products_dict_nl_new[id_][field]))
+                        resources_dict_nl_new[id_][field]))
                 diff = True
             else:
                 old_vals.append('')
@@ -122,12 +148,12 @@ for id_ in sorted(products_dict_nl_new.keys()):
                 old += ",\"%s\""
                 new += ",\"%s\""
                 if not compare[field_type](
-                    products_dict_en[id_][field],
-                    products_dict_en_new[id_][field]):
+                    resources_dict_en[id_][field],
+                    resources_dict_en_new[id_][field]):
                     old_vals.append(conv[field_type](
-                            products_dict_en[id_][field]))
+                            resources_dict_en[id_][field]))
                     new_vals.append(conv[field_type](
-                            products_dict_en_new[id_][field]))
+                            resources_dict_en_new[id_][field]))
                     diff = True
                 else:
                     old_vals.append('')
