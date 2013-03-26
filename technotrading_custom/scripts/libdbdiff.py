@@ -72,6 +72,12 @@ class dbdiff(object):
                 'name', 'ttype', 'translate', 'field_description',
                 ], context_nl)
         fields = dict([(x['name'], x) for x in field_read])
+        if 'id' in self.all_fields:
+            fields['id'] = {
+                'ttype': 'integer',
+                'translate': False,
+                'field_description': 'Database ID',
+                }
         
         def get_field_name(field):
             # Private methods (such as _get_source) cannot be called remotely
