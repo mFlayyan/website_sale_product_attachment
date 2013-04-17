@@ -29,6 +29,7 @@
     'depends': [
         'account',
         'product',
+        'purchase',
         'stock',
         'purchase',
     ],

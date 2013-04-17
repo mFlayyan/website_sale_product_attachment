@@ -2,7 +2,7 @@
     'name': 'ttr_sale',
     'description': '''Technotrading Sale Customizations''',
     'application': True,
-    'version': '6.0.r006',
+    'version': '6.1.r041',
     'author': 'Therp',
     'category': 'ttr modules',
     'website': 'http://technotrading.nl',

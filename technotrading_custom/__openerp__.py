@@ -22,14 +22,14 @@
 ##############################################################################
 {
     'name': 'technotrading custom',
-    'version': '6.0.r036',
-    'author': 'FlxCore, Therp',
+    'version': '6.1.r041',
+    'author': 'FlxCore, Therp BV',
     'website': 'http://www.technotrading.nl/',
     'description': '''Techno Trading Custom''',
     'depends': [
         'account',
         'sale',
-        'magentoerpconnect',
+        'base_external_referentials',
     ],
     'data': [
         # 2012-08-22 deactivate changes to product_product, because we will
