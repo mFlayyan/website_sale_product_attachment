@@ -79,9 +79,8 @@ for address in new_addresses:
         print "*** No identifier for %s" % address
         continue
     if identifier in address_map:
-        print "Matched %s " % address
-        print "with %s " % address_obj.read(
-            address_map[identifier]['id'], ['zip', 'street', 'partner_id'])
+        print "Magento-relatie %s komt overeen met bestaande relatie %s " % (address['partner_id'][1], address_obj.read(
+                address_map[identifier]['id'], ['zip', 'street', 'partner_id'])['partner_id'][1])
     else:
         print "--- No match for %s" % address
 
