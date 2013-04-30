@@ -23,6 +23,8 @@
                     position="after">
                     <field name="x_magerp_impa1" />
                     <field name="x_magerp_merk_type" />
+		    <field name="x_magerp_unitor_number" />
+		    <field name="x_magerp_issa" />
                 </field>
             </field>
         </record>

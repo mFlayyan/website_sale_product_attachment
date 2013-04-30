@@ -11,4 +11,8 @@ class product_product(osv.osv):
         'x_magerp_merk_type': fields.many2one(
             'magerp.product_attribute_options', 'Merk / Type',
             domain=[('attribute_id', '=', 140)]),
+        'x_magerp_unitor_number': fields.char(
+            'Unitor number', size=100),
+        'x_magerp_issa': fields.char(
+            'ISSA', size=100),
         }
