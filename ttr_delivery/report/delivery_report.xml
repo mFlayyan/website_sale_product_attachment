@@ -8,6 +8,6 @@
             name="sale.shipping"
             rml="ttr_delivery/report/shipping.rml"
             string="Delivery order"
-            multi="True" />
+            multi="False" />
     </data>
 </openerp>
