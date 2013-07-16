@@ -39,8 +39,9 @@ conv = {
 class dbdiff(object):
     def __init__(
             self, model, identifier, fields=None,
-            models=None, preferred_lang='nl_NL'):
+            models=None, preferred_lang='nl_NL', domain=None):
         self.identifier = identifier
+        self.domain = domain or []
         self.preferred_lang = preferred_lang
         self.model = model
         if models is None:
@@ -56,13 +57,13 @@ class dbdiff(object):
     def perform(self):
         connection = libttrimportlive.get_connection()
         obj = connection.get_model(self.model)
-        res_ids = obj.search([], 0)
+        res_ids = obj.search(self.domain, 0)
         fields_obj = connection.get_model('ir.model.fields')
         # self.translation_obj = connection.get_model('ir.translation')
 
         connection_new = libttrimport.get_connection()
         obj_new = connection_new.get_model(self.model)
-        res_ids_new = obj_new.search([], 0)
+        res_ids_new = obj_new.search(self.domain, 0)
 
         field_ids = fields_obj.search(
             [('model', 'in', self.models),
@@ -134,6 +135,10 @@ class dbdiff(object):
                     id_, resources_dict_nl_new[id_]['name'].replace('"', '""'),
                     resources_dict_en_new[id_]['name'].replace('"', '""'))
             else:
+                if id_ == 199:
+                    import pdb
+                    pdb.set_trace()
+
                 diff = False
                 old = "\"%s in OpenERP\""
                 new = "\"%s in Magento\""
