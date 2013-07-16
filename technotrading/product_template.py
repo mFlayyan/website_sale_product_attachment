@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 '''
 Created on 22 aug. 2012
 
@@ -26,6 +26,12 @@ class product_template(osv.osv):
         # field needed for property_desired_margin
         'property_desired_margin': fields.float(
             'Desired Margin', readonly=True,),
+        # Enlarge name column length because of lengthy names
+        # in Magento
+        'name': fields.char(
+            'Name', size=256,
+            required=True, translate=True,
+            select=True),
     }
 
 

@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 '''
 Created on 22 aug. 2012
 
@@ -20,6 +20,12 @@ class product_product(osv.osv):
         'clearance_costs_perc': fields.float('Clearance Costs Perc'),
         'stock_value': fields.float('Stock Value'),
         'comment': fields.char('Comment', size=100),
+        # Enlarge name column length because of lengthy names
+        # in Magento
+        'name_template': fields.related(
+            'product_tmpl_id', 'name',
+            string="Name", type='char',
+            size=256, store=True, select=True),
     }
 
     _defaults = {
