@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'technotrading',
-    'version': '6.0.r008',
+    'version': '6.1.r050',
     'author': 'FlxCore, Therp',
     'website': 'http://www.technotrading.nl/',
     'description': '''Techno Trading customizations''',
@@ -42,7 +42,6 @@
         'view/account_invoice_view.xml',
         'view/product_product_view.xml',
         'view/stock_picking_view.xml',
-        'wizard/wizard_export_product_stats_view.xml',
     ],
     'active': False,
     'installable': True,

@@ -2,7 +2,7 @@
     'name': 'ttr_all_in_one',
     'description': '''The one Technotrading module to rule them all''',
     'application': True,
-    'version': '6.0.r012',
+    'version': '6.1.r050',
     'author': 'Therp',
     'category': 'ttr modules',
     'website': 'http://technotrading.nl',
@@ -15,7 +15,6 @@
         'ttr_purchase',
         'ttr_sale',
         'ttr_stock',
-        'base_report_xlwt',
     ],
     'update_xml': [
     ],
