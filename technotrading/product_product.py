@@ -26,6 +26,18 @@ class product_product(osv.osv):
             'product_tmpl_id', 'name',
             string="Name", type='char',
             size=256, store=True, select=True),
+        'purchase_period': fields.integer('Purchase period', 
+            help="""Period in weeks to resupply for. 
+            Used by the purchase proposal."""),
+        'turnover_period': fields.integer('Turnover period', 
+            help="""Turnover period in weeks to calculate average 
+            turnover per week. Used by the purchase proposal."""),
+        'turnover_average': fields.float('Turnover per week', digits=(15,2),
+            help="""Average turnover per weeks. 
+            Used by the purchase proposal."""),
+        'ultimate_purchase': fields.date('Ultimate purchase date',
+            help="""Ultimate date to purchase for not running out of 
+            stock. Used by the purchase proposal."""), 
     }
 
     _defaults = {

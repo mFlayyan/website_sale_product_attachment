@@ -21,6 +21,43 @@
                 <separator string="Comment"/>
                 <field name="comment" colspan="4" nolabel="1"/>
             </xpath>
+            <field name="seller_ids" position="before">
+                <group colspan="2" col="4">
+                    <separator string="Purchase parameters" colspan="4"/>
+                    <field name="purchase_period"/>
+                    <field name="turnover_period"/>
+                </group>
+            </field>
+        </field>
+    </record>
+    
+    <record id="product_supplierinfo_tree_view_technotrading" model="ir.ui.view">
+        <field name="name">product.supplierinfo.tree.view.technotrading</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="type">tree</field>
+    	<field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="arch" type="xml">
+            <field name="delay" position="replace" >
+            </field>
+        	<field name="min_qty" position="replace" >
+            	<field name="delivery_period"/>
+                <field name="purchase_multiple"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="product_supplierinfo_form_view_technotrading" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.view.technotrading</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="type">form</field>
+    	<field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <field name="delay" position="replace" >
+            	<field name="delivery_period"/>
+            </field>
+        	<field name="min_qty" position="replace" >
+                <field name="purchase_multiple"/>
+            </field>
         </field>
     </record>
 
@@ -35,6 +72,24 @@
                 <newline/>
                 <field name="stock_value"/>
             </field>
+        </field>
+    </record>
+
+    <record id="view_category_property_form_technotrading" model="ir.ui.view">
+        <field name="name">product.category.stock.property.form.technotrading</field>
+        <field name="model">product.category</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <group col="2" colspan="2">
+                	<separator string="Purchase parameters" colspan="2"/>
+	            	<field name="delivery_period"/>
+                    <field name="purchase_period"/>
+                    <field name="turnover_period"/>
+                </group>
+                <newline/>
+            </form>
         </field>
     </record>
 
