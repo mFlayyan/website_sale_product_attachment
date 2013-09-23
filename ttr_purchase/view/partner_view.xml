@@ -1,6 +1,43 @@
 <openerp>
     <data>
 
+   <!-- Proposal purchase -->
+        <record id="wizard_create_purchase_technotrading" model="ir.ui.view">
+            <field name="name">Create proposal purchase</field>
+            <field name="model">purchase.purchase_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Create proposal purchase">
+		            <group col="2" colspan="2">
+                        <field name="partner_id" invisible="1"/>
+                        <field name="name"/>
+                        <field name="delivery_period"/>
+                    </group>
+		            <group col="2" colspan="2">
+                        <field name="purchase_period"/>
+                        <separator string="Select products where:" colspan="2"/>
+                        <field name="ultimate_purchase_from"/>
+                        <field name="ultimate_purchase_to"/>
+                        <field name="primary_supplier_only"/>
+                        <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+                        <button name="create_purchase" string="Create purchase order" 
+                            type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_create_purchase_technotrading_act"
+                model="ir.actions.act_window" >
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Create purchase order from proposal</field>
+            <field name="view_type">form</field>
+            <field name="res_model">purchase.purchase_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_create_purchase_technotrading"/>
+            <field name ="target">new</field>
+        </record>
+    <!-- View modifications -->
         <record id="view_partner_property_form_technotrading" model="ir.ui.view">
             <field name="name">res.partner.purchase.property.form.technotrading</field>
             <field name="model">res.partner</field>
@@ -10,14 +47,37 @@
             <field name="arch" type="xml">
                 <field name="property_product_pricelist_purchase" 
                 	position="after" >
-	                <separator string="Purchase parameters" colspan="2"/>
-	                <group col="2" colspan="2">
-		            	<field name="delivery_period"/>
-	                    <field name="purchase_period"/>
-	                    <field name="turnover_period"/>
+	                <group col="2" colspan="2"
+	                		attrs="{'invisible': [('supplier','=',False)]}">
+		                <separator string="Purchase parameters" col="1"/>
+		                <group col="1">
+							<button icon="gtk-go-forward" type="action"
+								name="%(ttr_purchase.wizard_create_purchase_technotrading_act)d"
+								string="create purchase"
+								help="create purchase order from proposal"/>
+		                </group>
+		                <group col="4" colspan="2">
+			            	<field name="ultimate_purchase"/>
+			            	<field name="delivery_period"/>
+		                    <field name="purchase_period"/>
+		                    <field name="turnover_period"/>
+		                </group>
 	                </group>
                 </field>
             </field>
+        </record>
+
+        <record id="view_partners_tree_crm2" model="ir.ui.view">
+                <field name="name">view.res.partner.tree.crm.inherited2</field>
+                <field name="model">res.partner</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="base.view_partner_tree"/>
+                <field eval="18" name="priority"/>
+                <field name="arch" type="xml">
+                    <field name="name" position="after">
+                        <field name="ultimate_purchase"/>
+                    </field>
+                </field>
         </record>
 
     </data>

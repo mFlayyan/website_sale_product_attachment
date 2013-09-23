@@ -34,6 +34,11 @@ class res_partner(osv.osv):
         'turnover_period': fields.integer('Turnover period', 
             help="""Turnover period in weeks to calculate average 
             turnover per week. Used by the purchase proposal."""),
+        'ultimate_purchase': fields.date('Ultimate purchase',
+            readonly="1",
+            help="""Ultimate date to purchase for not running out of 
+            stock for any product supplied by this supplier. Used by the 
+            purchase proposal."""),
     }
 
 res_partner()
