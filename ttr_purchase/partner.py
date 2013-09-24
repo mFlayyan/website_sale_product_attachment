@@ -22,6 +22,22 @@
 from osv import fields, osv
 
 class res_partner(osv.osv):
+        
+    def _product_ids(self, cr, uid, ids, field_name, arg, context=None):    #+++
+        #determine products supplied
+        result = {}
+        psi_obj = self.pool.get("product.supplierinfo")
+        for this_obj in self.browse(cr, uid, ids, context=context):
+            product_ids = []
+            psi_ids = psi_obj.search(
+                cr, uid, [("name", "=", this_obj.id)], context=context)
+            for psi in psi_obj.browse(cr, uid, psi_ids, context=context):
+                product_id = psi.product_id.id
+                product_ids.append(product_id)
+            result[this_obj.id] = {"product_ids": product_ids,}
+                    
+        return result
+    
     _inherit = 'res.partner'
     _columns = {
         'delivery_period': fields.integer('Delivery period', 
@@ -39,6 +55,8 @@ class res_partner(osv.osv):
             help="""Ultimate date to purchase for not running out of 
             stock for any product supplied by this supplier. Used by the 
             purchase proposal."""),
+        "product_ids": fields.function(_product_ids, multi="_product_ids",
+            string="Products", type="one2many", relation="product.product",),
     }
 
 res_partner()

@@ -14,6 +14,8 @@
                         <field name="delivery_period"/>
                     </group>
 		            <group col="2" colspan="2">
+                        <field name="partner_address_id"
+                        domain="[('partner_id', '=', partner_id),]"/>
                         <field name="purchase_period"/>
                         <separator string="Select products where:" colspan="2"/>
                         <field name="ultimate_purchase_from"/>
@@ -45,25 +47,30 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="priority">36</field>
             <field name="arch" type="xml">
-                <field name="property_product_pricelist_purchase" 
+            	<page string="Sales &amp; Purchases" 
                 	position="after" >
-	                <group col="2" colspan="2"
+                	<page string="Purchase proposal"
 	                		attrs="{'invisible': [('supplier','=',False)]}">
-		                <separator string="Purchase parameters" col="1"/>
+		                <separator string="Purchase parameters" colspan="4"/>
+		                <group col="6" colspan="3">
+			            	<field name="ultimate_purchase"/>
+			            	<field name="delivery_period"/>
+			            	<newline/>
+		                    <field name="purchase_period"/>
+		                    <field name="turnover_period"/>
+		                </group>
 		                <group col="1">
 							<button icon="gtk-go-forward" type="action"
 								name="%(ttr_purchase.wizard_create_purchase_technotrading_act)d"
 								string="create purchase"
 								help="create purchase order from proposal"/>
 		                </group>
-		                <group col="4" colspan="2">
-			            	<field name="ultimate_purchase"/>
-			            	<field name="delivery_period"/>
-		                    <field name="purchase_period"/>
-		                    <field name="turnover_period"/>
-		                </group>
-	                </group>
-                </field>
+		                <separator string="Products" colspan="4"/>
+		                    <field colspan="4" name="product_ids" nolabel="1"
+				                widget="one2many_list" mode="tree">
+				            </field>
+	                </page>
+                </page>
             </field>
         </record>
 

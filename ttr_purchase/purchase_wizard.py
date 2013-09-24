@@ -27,11 +27,11 @@ class purchase_wizard(osv.osv):
             partner_id = context.get("active_id", False)
             result["partner_id"] = partner_id
             result["primary_supplier_only"] = True
-                
             if partner_id:
                 sup_cls = self.pool.get("res.partner")
                 sup_obj = sup_cls.browse(cr, uid, partner_id, context=context)
                 result["name"] = sup_obj.name
+                result["partner_address_id"] = sup_obj.address[0].id or False
                 result["delivery_period"] = sup_obj.delivery_period
                 result["purchase_period"] = sup_obj.purchase_period
                 result["ultimate_purchase_from"] = sup_obj.ultimate_purchase
@@ -67,12 +67,12 @@ class purchase_wizard(osv.osv):
 
         sql = """
         WITH PW AS (SELECT PP.id AS product_id,
+        COALESCE(NULLIF(PS.delivery_period, 0), NULLIF(RP.delivery_period, 0),
+        NULLIF(PC.delivery_period, 0), %s) AS delivery_period,
         COALESCE(NULLIF(PP.purchase_period, 0), NULLIF(%s, 0), 
         NULLIF(RP.purchase_period, 0), 
         NULLIF(PC.purchase_period, 0), %s) AS purchase_period,
-        COALESCE(NULLIF(PS.purchase_multiple, 0), %s) AS purchase_multiple,
-        COALESCE(NULLIF(PS.delivery_period, 0), NULLIF(RP.delivery_period, 0),
-        NULLIF(PC.delivery_period, 0), %s) AS delivery_period
+        COALESCE(NULLIF(PS.purchase_multiple, 0), %s) AS purchase_multiple
         FROM product_template PT
         JOIN product_product PP ON PP.product_tmpl_id = PT.id 
         AND PP.ultimate_purchase between DATE(%s) AND DATE(%s)
@@ -87,7 +87,7 @@ class purchase_wizard(osv.osv):
         FROM PW
         LEFT JOIN stock_location SL ON SL.name = 'Procurements';
         """
-        cr.execute(sql, (purchase_period, 13, 1, 13, ultimate_purchase_from,
+        cr.execute(sql, (13, 13, 1, 13, ultimate_purchase_from,
             ultimate_purchase_to, partner_id, primary_supplier_only),)
         rows = cr.dictfetchall()
 
@@ -136,8 +136,13 @@ class purchase_wizard(osv.osv):
                     order_vals.get('fiscal_position' or False), date_planned,
                     context=context)
                 line_values = line_values.get("value")
+                list_taxes_id=[]
+                taxes_id = line_values.get("taxes_id")
+                for tax_id in taxes_id:
+                    list_taxes_id.append([6, 0, [tax_id]])
+                line_values["taxes_id"] = list_taxes_id
                 line_values["product_id"] = product_id
-                lines.append([0, False, dict(line_values)])
+                lines.append([0, 0, dict(line_values)])
             order_vals["minimum_planned_date"] = min_planned
             order_vals["order_line"] = lines
             pur_order_cls.create(cr, uid, order_vals, context=context)
@@ -151,6 +156,7 @@ class purchase_wizard(osv.osv):
     _columns = {
         "partner_id": fields.many2one("res.partner", "Supplier", readonly="1"),
         "name": fields.char("Name", size=256, readonly="1"),
+        "partner_address_id": fields.many2one("res.partner.address", "Address"),
         "delivery_period": fields.integer("Delivery period", readonly="1",  
             help="""Default delivery time for this supplier in weeks between the 
             creation of the purchase order and the reception of the products in 

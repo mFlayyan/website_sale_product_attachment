@@ -35,7 +35,11 @@ class product_product(osv.osv):
         COALESCE(NULLIF(PP.turnover_period, 0), NULLIF(RP.turnover_period, 0),
         NULLIF(PC.turnover_period, 0), %s) AS turnover_period,
         COALESCE(NULLIF(PS.delivery_period, 0), NULLIF(RP.delivery_period, 0),
-        NULLIF(PC.delivery_period, 0), %s) AS delivery_period
+        NULLIF(PC.delivery_period, 0), %s) AS delivery_period,
+        COALESCE(NULLIF(PP.purchase_period, 0),
+        NULLIF(RP.purchase_period, 0), 
+        NULLIF(PC.purchase_period, 0), %s) AS purchase_period,
+        COALESCE(NULLIF(PS.purchase_multiple, 0), 1) AS purchase_multiple
         FROM product_template PT
         JOIN product_product PP ON PP.product_tmpl_id = PT.id
         LEFT JOIN product_supplierinfo PS
@@ -45,35 +49,46 @@ class product_product(osv.osv):
         WHERE PP.active 
         AND (PT.supply_method = 'buy' OR NOT PP.ultimate_purchase IS NULL) )
         
-        SELECT TP.product_id AS id, TP.delivery_period,
-        COALESCE(SUM(SM.product_qty), 0)/TP.turnover_period AS turnover_average
+        SELECT TP.product_id AS id, MAX(TP.delivery_period) AS delivery_period,
+        COALESCE(SUM(SM.product_qty), 0)/MAX(TP.turnover_period)
+        AS turnover_average, MAX(TP.purchase_period) AS purchase_period, 
+        MAX(TP.purchase_multiple) AS purchase_multiple,
+        COALESCE((SELECT COUNT(*) FROM purchase_order_line PL         
+        WHERE TP.product_id = PL.product_id AND PL.state='draft'), 0) 
+        AS purchase_draft
         FROM TP
         LEFT JOIN stock_move SM on SM.product_id = TP.product_id
         AND sale_line_id > 0 AND NOT state = 'cancelled' AND DATE(create_date)
         BETWEEN DATE(NOW()) - 7 * TP.turnover_period AND DATE(NOW())
-        GROUP BY TP.product_id, TP.delivery_period, TP.turnover_period
-        ORDER BY TP.product_id;""", (13, 13) )
+        GROUP BY TP.product_id;""", (13, 13, 13) )
         rows = cr.dictfetchall()
         product_cls = self.pool.get("product.product")
         for row in rows: 
             id = row["id"]
             turnover_average = round(row["turnover_average"], 2)
             delivery_period = row["delivery_period"]
+            purchase_draft = row["purchase_draft"]
+            purchase_period = row["purchase_period"]
+            purchase_multiple = row["purchase_multiple"]
             product_obj = product_cls.read(cr, uid, id, [
                         "supply_method", "virtual_available"], context=context)
             buy = product_obj.get("supply_method" or false)
-            stock = product_obj.get("virtual_available" or false)
+            stock = product_obj.get("virtual_available" or false)                
+            qty = round(turnover_average * purchase_period - stock, 0)
+            qty = int((qty + purchase_multiple - 1) /purchase_multiple)
+            qty = qty * purchase_multiple
             
-            if (buy and buy == "buy" and turnover_average != 0):
+            if (buy and buy == "buy" 
+                and turnover_average != 0):
                 stock_days = 7 * (
                     (stock or 0) / turnover_average - delivery_period)
                 stock_days = int(round(stock_days+.5, 0))
                 sql = """
                 UPDATE product_product
-                SET turnover_average = %s,
-                ultimate_purchase = DATE(NOW()) + %s
+                SET turnover_average = %s, ultimate_purchase = 
+                CASE WHEN %s > 0 THEN NULL ELSE DATE(NOW()) + %s END
                 WHERE id = %s
-                """ % (turnover_average, stock_days, id)
+                """ % (turnover_average, purchase_draft, stock_days, id)
             else:   #remove data when supply method no longer = "buy"
                 turnover_average = 0
                 sql = """
