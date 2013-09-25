@@ -59,9 +59,9 @@
 		                    <field name="purchase_period"/>
 		                    <field name="turnover_period"/>
 		                </group>
-		                <group col="1" attrs="{
-		                		'invisible': [('ultimate_purchase','=',True)]}">
-							<button icon="gtk-go-forward" type="action"
+		                <group col="1">
+							<button icon="gtk-go-forward" type="action" attrs="{
+		                		'invisible': [('ultimate_purchase','=',False)]}"
 								name="%(ttr_purchase.wizard_create_purchase_technotrading_act)d"
 								string="create purchase"
 								help="create purchase order from proposal"/>

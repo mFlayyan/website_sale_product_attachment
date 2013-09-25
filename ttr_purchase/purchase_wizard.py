@@ -35,7 +35,11 @@ class purchase_wizard(osv.osv):
                 result["delivery_period"] = sup_obj.delivery_period
                 result["purchase_period"] = sup_obj.purchase_period
                 result["ultimate_purchase_from"] = sup_obj.ultimate_purchase
-                result["ultimate_purchase_to"] =result["ultimate_purchase_from"] 
+                result["ultimate_purchase_to"] =result["ultimate_purchase_from"]
+                if sup_obj.ultimate_purchase < fields.date.context_today(
+                                                self, cr, uid, context=context):
+                    result["ultimate_purchase_to"] = fields.date.context_today(
+                                                self, cr, uid, context=context) 
         return result
     
     def _data(self, cr, uid, ids, context=None):
