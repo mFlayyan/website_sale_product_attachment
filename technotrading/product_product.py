@@ -24,20 +24,25 @@ class product_product(osv.osv):
         """calculate turnover_average over a certain period (turnover_period)
         The turnover_period can be stored per product, supplier or
         product category (in order of precedence). 
-        The delivery period can be stored per supplier_info, supplier or product 
-        category. Both default to 13 weeks.
+        The delivery and purchase period can be stored per supplier_info, 
+        supplier or product category. 
+        Defaults are codes in the cr.execute parameters.
         One query retrieves turnover_average and delivery_period per product.
         Each product is updated with turnover_average and ultimate_purchase
         ( = now - delivery_period + virtual stock / turnover_average).
+        In case the turnover period exceeds the products age the latter defaults
+        The WITH clause determines the parameters per product. 
+        The final SELECT calculates turnover and detects procurements.
         """
         result = {}
-        cr.execute("""WITH TP AS (SELECT PP.id AS product_id,
+        sql ="""WITH TP AS (SELECT PP.id AS product_id,
+        EXTRACT(EPOCH FROM AGE(DATE(NOW()), DATE(PP.create_date)))/(24*60*60*7) 
+        AS prod_age,
         COALESCE(NULLIF(PP.turnover_period, 0), NULLIF(RP.turnover_period, 0),
         NULLIF(PC.turnover_period, 0), %s) AS turnover_period,
         COALESCE(NULLIF(PS.delivery_period, 0), NULLIF(RP.delivery_period, 0),
         NULLIF(PC.delivery_period, 0), %s) AS delivery_period,
-        COALESCE(NULLIF(PP.purchase_period, 0),
-        NULLIF(RP.purchase_period, 0), 
+        COALESCE(NULLIF(PP.purchase_period, 0), NULLIF(RP.purchase_period, 0), 
         NULLIF(PC.purchase_period, 0), %s) AS purchase_period,
         COALESCE(NULLIF(PS.purchase_multiple, 0), 1) AS purchase_multiple
         FROM product_template PT
@@ -50,8 +55,10 @@ class product_product(osv.osv):
         AND (PT.supply_method = 'buy' OR NOT PP.ultimate_purchase IS NULL) )
         
         SELECT TP.product_id AS id, MAX(TP.delivery_period) AS delivery_period,
-        COALESCE(SUM(SM.product_qty), 0)/MAX(TP.turnover_period)
-        AS turnover_average, MAX(TP.purchase_period) AS purchase_period, 
+        COALESCE(SUM(SM.product_qty), 0) /
+        MAX(CASE WHEN TP.turnover_period < TP.prod_age THEN TP.turnover_period
+        WHEN TP.prod_age > 1 THEN TP.prod_age ELSE 1 END) AS turnover_average, 
+        MAX(TP.purchase_period) AS purchase_period, 
         MAX(TP.purchase_multiple) AS purchase_multiple,
         COALESCE((SELECT COUNT(*) FROM purchase_order_line PL         
         WHERE TP.product_id = PL.product_id AND PL.state='draft'), 0) 
@@ -59,8 +66,11 @@ class product_product(osv.osv):
         FROM TP
         LEFT JOIN stock_move SM on SM.product_id = TP.product_id
         AND sale_line_id > 0 AND NOT state = 'cancelled' AND DATE(create_date)
-        BETWEEN DATE(NOW()) - 7 * TP.turnover_period AND DATE(NOW())
-        GROUP BY TP.product_id;""", (13, 13, 13) )
+        BETWEEN DATE(NOW()) -
+        7 * CASE WHEN TP.turnover_period < TP.prod_age THEN TP.turnover_period
+        WHEN TP.prod_age > 1 THEN TP.prod_age ELSE 1 END AND DATE(NOW())
+        GROUP BY TP.product_id;"""
+        cr.execute(sql, (52, 13, 13) )
         rows = cr.dictfetchall()
         product_cls = self.pool.get("product.product")
         for row in rows: 
@@ -73,8 +83,9 @@ class product_product(osv.osv):
             product_obj = product_cls.read(cr, uid, id, [
                         "supply_method", "virtual_available"], context=context)
             buy = product_obj.get("supply_method" or false)
-            stock = product_obj.get("virtual_available" or false)                
-            qty = round(turnover_average * purchase_period - stock, 0)
+            stock = product_obj.get("virtual_available" or false)
+            qty = round(turnover_average * 
+                            (purchase_period + delivery_period) - stock, 0)
             qty = int((qty + purchase_multiple - 1) /purchase_multiple)
             qty = qty * purchase_multiple
             

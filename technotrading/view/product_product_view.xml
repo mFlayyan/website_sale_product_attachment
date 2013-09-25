@@ -42,6 +42,7 @@
         <field name="arch" type="xml">
         	<field name="virtual_available" position="after" >
                 <field name="ultimate_purchase"/>
+                <field name="turnover_average"/>
             </field>
         </field>
     </record>

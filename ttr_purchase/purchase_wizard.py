@@ -87,7 +87,7 @@ class purchase_wizard(osv.osv):
         FROM PW
         LEFT JOIN stock_location SL ON SL.name = 'Procurements';
         """
-        cr.execute(sql, (13, 13, 1, 13, ultimate_purchase_from,
+        cr.execute(sql, (13, purchase_period, 13, 1, ultimate_purchase_from,
             ultimate_purchase_to, partner_id, primary_supplier_only),)
         rows = cr.dictfetchall()
 
@@ -116,15 +116,18 @@ class purchase_wizard(osv.osv):
                     and min_planned
                     or row["date_planned"])
                 date_planned = row["date_planned"]
+                delivery_period = row["delivery_period"]
                 purchase_period = row["purchase_period"]
                 purchase_multiple = row["purchase_multiple"]
+                
                 product = prod_cls.browse(cr, uid, product_id, context=context)
                 buy = product.supply_method
                 stock = product.virtual_available
                 turnover_average = product.turnover_average
                 uom_id = product.uom_id.id
                 
-                qty = round(turnover_average * purchase_period - stock, 0)
+                qty = round(turnover_average * 
+                            (purchase_period + delivery_period) - stock, 0)
                 qty = int((qty + purchase_multiple - 1) /purchase_multiple)
                 qty = qty * purchase_multiple
                 #pricelist_id, product_id, qty, uom_id, partner_id,
@@ -143,9 +146,23 @@ class purchase_wizard(osv.osv):
                 line_values["taxes_id"] = list_taxes_id
                 line_values["product_id"] = product_id
                 lines.append([0, 0, dict(line_values)])
+                
+                product.write({"ultimate_purchase": False}, context=context)
             order_vals["minimum_planned_date"] = min_planned
             order_vals["order_line"] = lines
             pur_order_cls.create(cr, uid, order_vals, context=context)
+            
+            sql = """
+            UPDATE res_partner RP
+            SET ultimate_purchase =
+            (SELECT MIN(PP.ultimate_purchase)
+             FROM product_supplierinfo PS
+             JOIN product_product PP
+             ON PS.product_id = PP.id AND PS.sequence = 1
+             AND PP.active AND NOT PP.ultimate_purchase IS NULL
+             WHERE PS.name = RP.id)
+            WHERE active AND (supplier OR NOT ultimate_purchase IS NULL);"""
+            cr.execute(sql)
         return res
 
         
