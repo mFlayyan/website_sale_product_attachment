@@ -9,6 +9,7 @@ http://www.therp.nl
 
 Wizard to create purchase order from proposal
 '''
+from datetime import date
 from openerp.osv import fields,osv
 
 class purchase_wizard(osv.osv):
@@ -36,10 +37,9 @@ class purchase_wizard(osv.osv):
                 result["purchase_period"] = sup_obj.purchase_period
                 result["ultimate_purchase_from"] = sup_obj.ultimate_purchase
                 result["ultimate_purchase_to"] =result["ultimate_purchase_from"]
-                if sup_obj.ultimate_purchase < fields.date.context_today(
-                                                self, cr, uid, context=context):
-                    result["ultimate_purchase_to"] = fields.date.context_today(
-                                                self, cr, uid, context=context) 
+                today = date.today().isoformat()
+                if sup_obj.ultimate_purchase < today:
+                    result["ultimate_purchase_to"] = today
         return result
     
     def _data(self, cr, uid, ids, context=None):
@@ -104,8 +104,7 @@ class purchase_wizard(osv.osv):
         if rows != []:
             order_vals = pur_order_cls.onchange_partner_id(
                             cr, uid, ids, partner_id)["value"]
-            date_order = fields.date.context_today(
-                                                self, cr, uid, context=context)
+            date_order = date.today().isoformat()
             order_vals["partner_id"] = partner_id
             order_vals["origin"] = "purchase proposal"
             order_vals["location_id"] = rows[0]["location_id"]

@@ -20,7 +20,7 @@ from osv import fields
 class product_product(osv.osv):
     _inherit = 'product.product'
     
-    def calc_purchase_date(self, cr, uid, ids, context=None):
+    def calc_purchase_date(self, cr, uid, context=None):
         """calculate turnover_average over a certain period (turnover_period)
         The turnover_period can be stored per product, supplier or
         product category (in order of precedence). 
@@ -35,6 +35,8 @@ class product_product(osv.osv):
         The final SELECT calculates turnover and detects procurements.
         """
         result = {}
+        if not isinstance(context, dict):
+            context={} 
         sql ="""WITH TP AS (SELECT PP.id AS product_id,
         EXTRACT(EPOCH FROM AGE(DATE(NOW()), DATE(PP.create_date)))/(24*60*60*7) 
         AS prod_age,
@@ -66,9 +68,9 @@ class product_product(osv.osv):
         FROM TP
         LEFT JOIN stock_move SM on SM.product_id = TP.product_id
         AND sale_line_id > 0 AND NOT state = 'cancelled' AND DATE(create_date)
-        BETWEEN DATE(NOW()) -
-        7 * CASE WHEN TP.turnover_period < TP.prod_age THEN TP.turnover_period
-        WHEN TP.prod_age > 1 THEN TP.prod_age ELSE 1 END AND DATE(NOW())
+        BETWEEN DATE(NOW()) - 7 * CAST(
+        CASE WHEN TP.turnover_period < TP.prod_age THEN TP.turnover_period WHEN
+        TP.prod_age > 1 THEN TP.prod_age ELSE 1 END AS INTEGER) AND DATE(NOW())
         GROUP BY TP.product_id;"""
         cr.execute(sql, (52, 13, 13) )
         rows = cr.dictfetchall()
