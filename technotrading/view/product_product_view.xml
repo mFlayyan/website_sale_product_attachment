@@ -54,8 +54,6 @@
     	<field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
         <field name="arch" type="xml">
             <field name="delay" position="replace" >
-            </field>
-        	<field name="min_qty" position="replace" >
             	<field name="delivery_period"/>
                 <field name="purchase_multiple"/>
             </field>
@@ -70,8 +68,6 @@
         <field name="arch" type="xml">
             <field name="delay" position="replace" >
             	<field name="delivery_period"/>
-            </field>
-        	<field name="min_qty" position="replace" >
                 <field name="purchase_multiple"/>
             </field>
         </field>

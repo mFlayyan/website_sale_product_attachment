@@ -9,12 +9,17 @@ http://www.therp.nl
 
 Wizard to create purchase order from proposal
 '''
+from openerp.tools.translate import _
 from datetime import date
-from openerp.osv import fields,osv
+from openerp.tools.misc import (
+    DEFAULT_SERVER_DATE_FORMAT as DATEFMT,
+    )
+from openerp.osv.orm import TransientModel
+from openerp.osv import fields
 
-class purchase_wizard(osv.osv):
+class purchase_wizard(TransientModel):
     def default_get(self, cr, uid, fields, context=None):
-        """At start partner_id is to be taken from acive_id, later defaults are
+        """At start partner_id is to be taken from active_id, later defaults are
         retained in the wizard record.   
         """
         result = {}
@@ -37,7 +42,7 @@ class purchase_wizard(osv.osv):
                 result["purchase_period"] = sup_obj.purchase_period
                 result["ultimate_purchase_from"] = sup_obj.ultimate_purchase
                 result["ultimate_purchase_to"] =result["ultimate_purchase_from"]
-                today = date.today().isoformat()
+                today = date.today().strftime(DATEFMT)
                 if sup_obj.ultimate_purchase < today:
                     result["ultimate_purchase_to"] = today
         return result
@@ -48,17 +53,18 @@ class purchase_wizard(osv.osv):
         data["partner_id"] = data.get("partner_id")[0]
         return data
     
-    def _nextview(self, cr, uid, ids, data, context):
+    def _nextview(self, cr, uid, ids, context=None):
         #direct the wizard to the next window
-        module = "res.partner"
-        action = "Suppliers"
+        module = "base"
+        action = "action_partner_supplier_form"
         mod_obj = self.pool.get("ir.model.data")
         act_obj = self.pool.get("ir.actions.act_window")
 
         result = mod_obj._get_id(cr, uid, module, action)
         res_id = mod_obj.read(cr, uid, [result], ["res_id"])[0]["res_id"]
-        result = act_obj.read(cr, uid, [res_id])[0]
-        result["context"] = unicode(data)
+        result = act_obj.read(cr, uid, [res_id], ["res_model", "view_type"])[0]
+        result["view_mode"] = "tree"
+        result["context"] = context
         return result
     
     def create_purchase(self, cr, uid, ids, context=None):
@@ -89,7 +95,7 @@ class purchase_wizard(osv.osv):
         SELECT PW.*, DATE(NOW()) + 7 * PW.delivery_period AS date_planned, 
         SL.id AS location_id
         FROM PW
-        LEFT JOIN stock_location SL ON SL.name = 'Procurements';
+        LEFT JOIN stock_location SL ON SL.name = 'Input';
         """
         cr.execute(sql, (13, purchase_period, 13, 1, ultimate_purchase_from,
             ultimate_purchase_to, partner_id, primary_supplier_only),)
@@ -104,7 +110,7 @@ class purchase_wizard(osv.osv):
         if rows != []:
             order_vals = pur_order_cls.onchange_partner_id(
                             cr, uid, ids, partner_id)["value"]
-            date_order = date.today().isoformat()
+            date_order = date.today().strftime(DATEFMT)
             order_vals["partner_id"] = partner_id
             order_vals["origin"] = "purchase proposal"
             order_vals["location_id"] = rows[0]["location_id"]
@@ -124,7 +130,6 @@ class purchase_wizard(osv.osv):
                 purchase_multiple = row["purchase_multiple"]
                 
                 product = prod_cls.browse(cr, uid, product_id, context=context)
-                buy = product.supply_method
                 stock = product.virtual_available
                 turnover_average = product.turnover_average
                 uom_id = product.uom_id.id
@@ -133,14 +138,14 @@ class purchase_wizard(osv.osv):
                             (purchase_period + delivery_period) - stock, 0)
                 qty = int((qty + purchase_multiple - 1) /purchase_multiple)
                 qty = qty * purchase_multiple
-                #pricelist_id, product_id, qty, uom_id, partner_id,
-                #date_order=False, fiscal_position_id=False, date_planned=False,
-                #name=False, price_unit=False, notes=False, context=None
+                
+                local_context = context.copy()
+                local_context.update({"wizard": True})
                 line_values = pur_line_cls.onchange_product_uom(cr, uid, ids, 
                     order_vals.get("pricelist_id" or False), product_id,
                     qty, uom_id, partner_id, date_order, 
                     order_vals.get('fiscal_position' or False), date_planned,
-                    context=context)
+                    context=unicode(local_context))
                 line_values = line_values.get("value")
                 list_taxes_id=[]
                 taxes_id = line_values.get("taxes_id")
@@ -166,10 +171,8 @@ class purchase_wizard(osv.osv):
              WHERE PS.name = RP.id)
             WHERE active AND (supplier OR NOT ultimate_purchase IS NULL);"""
             cr.execute(sql)
-        return res
-
         
-        return self._nextview(cr, uid, ids, data, context=context)
+        return self._nextview(cr, uid, ids, context=context)
 
     _name = "purchase.purchase_wizard"
     _description = "wizard create proposal purchase"

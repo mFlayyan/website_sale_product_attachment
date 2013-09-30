@@ -176,7 +176,7 @@ msgstr "Periode in weken om bij te bestellen. \n"
 #. module: ttr_purchase
 #: view:purchase.purchase_wizard:0
 msgid "Create purchase order"
-msgstr "Maak inkooporder van voorstel"
+msgstr "Maak inkoopofferte van voorstel"
 
 #. module: technotrading
 #: model:ir.model,name:technotrading.model_stock_picking_direct_costs_stats
@@ -196,7 +196,7 @@ msgstr "Additional Costs"
 #. module: ttr_purchase
 #: view:purchase.purchase_wizard:0
 msgid "Create proposal purchase"
-msgstr "Maak inkooporder van voorstel"
+msgstr "Maak inkoopofferte van voorstel"
 
 #. module: technotrading
 #: field:product.product,discount:0

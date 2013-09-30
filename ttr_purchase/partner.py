@@ -29,11 +29,18 @@ class res_partner(osv.osv):
         psi_obj = self.pool.get("product.supplierinfo")
         for this_obj in self.browse(cr, uid, ids, context=context):
             product_ids = []
-            psi_ids = psi_obj.search(
+            """psi_ids = psi_obj.search(
                 cr, uid, [("name", "=", this_obj.id)], context=context)
             for psi in psi_obj.browse(cr, uid, psi_ids, context=context):
-                product_id = psi.product_id.id
-                product_ids.append(product_id)
+                product_ids.append(psi.product_id.id)"""
+            sql = """
+                SELECT DISTINCT PS.product_id
+                FROM product_supplierinfo PS
+                WHERE name = %s"""
+            cr.execute(sql, [this_obj.id])
+            rows = cr.dictfetchall()
+            for row in rows:
+                product_ids.append(row["product_id"])
             result[this_obj.id] = {"product_ids": product_ids,}
                     
         return result
