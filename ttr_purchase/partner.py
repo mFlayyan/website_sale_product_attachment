@@ -27,21 +27,17 @@ class res_partner(osv.osv):
         #determine products supplied
         result = {}
         psi_obj = self.pool.get("product.supplierinfo")
-        for this_obj in self.browse(cr, uid, ids, context=context):
+        for partner_id in ids:
             product_ids = []
-            """psi_ids = psi_obj.search(
-                cr, uid, [("name", "=", this_obj.id)], context=context)
-            for psi in psi_obj.browse(cr, uid, psi_ids, context=context):
-                product_ids.append(psi.product_id.id)"""
             sql = """
                 SELECT DISTINCT PS.product_id
                 FROM product_supplierinfo PS
                 WHERE name = %s"""
-            cr.execute(sql, [this_obj.id])
+            cr.execute(sql, [partner_id])
             rows = cr.dictfetchall()
             for row in rows:
                 product_ids.append(row["product_id"])
-            result[this_obj.id] = {"product_ids": product_ids,}
+            result[partner_id] = {"product_ids": product_ids,}
                     
         return result
     
