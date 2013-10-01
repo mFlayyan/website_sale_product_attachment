@@ -1,5 +1,9 @@
 # -*- coding: UTF-8 -*-
 '''
+Modified 30 sep. 2013
+@author: Hans van Dijk, Therp
+def onchange_product_id provides quantity base on purchase proposal rules
+
 Created on 10 apr. 2013
 
 @author: Ronald Portier, Therp
@@ -21,8 +25,8 @@ class purchase_order_line(osv.osv):
             partner_id, date_order=False, fiscal_position_id=False,
             date_planned=False, name=False, price_unit=False, notes=False,
             context=None):
-        """Because of the purchase proposal we calculate the qty"""
-        if (qty == 0 and product_id and not context.get("wizard" or False)):
+        #"Because of the purchase proposal we calculate the qty when set to 0"
+        if (qty == 0 and product_id):
             sql = """WITH PW AS (SELECT PP.id AS product_id,
             COALESCE(NULLIF(PS.delivery_period, 0),
             NULLIF(RP.delivery_period, 0),

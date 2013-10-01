@@ -139,8 +139,6 @@ class purchase_wizard(TransientModel):
                 qty = int((qty + purchase_multiple - 1) /purchase_multiple)
                 qty = qty * purchase_multiple
                 
-                local_context = context.copy()
-                local_context.update({"wizard": True})
                 line_values = pur_line_cls.onchange_product_uom(cr, uid, ids, 
                     order_vals.get("pricelist_id" or False), product_id,
                     qty, uom_id, partner_id, date_order, 
@@ -168,9 +166,10 @@ class purchase_wizard(TransientModel):
              JOIN product_product PP
              ON PS.product_id = PP.id AND PS.sequence = 1
              AND PP.active AND NOT PP.ultimate_purchase IS NULL
-             WHERE PS.name = RP.id)
+             WHERE PS.name = RP.id),
+            write_date = NOW() AT TIME ZONE 'UTC', write_uid = %s
             WHERE active AND (supplier OR NOT ultimate_purchase IS NULL);"""
-            cr.execute(sql)
+            cr.execute(sql, [uid])
         
         return self._nextview(cr, uid, ids, context=context)
 
