@@ -29,20 +29,23 @@ Alle benodigde menu's staan op hoofdmenu Inkoop.
 * Leveranciers onder Adresboek,
 * Producten onder Producten,
 * Productcategoriën onder Instellingen/Producten
+
 De dagelijkse run (Purchase Proposal Refresh) is ingesteld om elke nacht te worden uitgevoerd. Deze staat op hoofdmenu Instellingen onder Instellingen/Personeels enquêtes/Geplande acties
 
 Begrippen
 =========
  
-* Inkoopvoorstel: feitelijk de uiterste besteldatum, die elke nacht per product en leverancier wordt bepaald en de bestelhoeveelheid die in de inkoopofferte wordt berekend.
-* Uiterste besteldatum, op deze datum wordt het minimale voorraadniveau bereikt.
-* - per product: voor zich sprekend; 
-* - per leverancier: de uiterste besteldatum van het meest urgente product, dat primair door deze leverancier wordt geleverd; 
-* Omzetperiode: het afgelopen aantal weken waarover de weekomzet wordt berekend; 
-* Weekomzet: de gemiddelde omzet per week in de omzetperiode; 
-* Levertijd: periode die verstrijkt tussen het maken van de inkooporder en de levering van de goederen; 
-* Bestelperiode: de periode waarvoor de te bestellen hoeveelheid wordt berekend; 
-* Bestelveelvoud: Aantal eenheden dat in een verpakking wordt geleverd, de bestelling wordt afgerond op dit veelvoud.
+* Inkoopvoorstel: feitelijk de uiterste besteldatum, die elke nacht per product en leverancier wordt bepaald en de bestelhoeveelheid die in de inkoopofferte wordt berekend
+* Uiterste besteldatum, op deze datum wordt het minimale voorraadniveau bereikt
+
+   * per product: voor zich sprekend; 
+   * per leverancier: de uiterste besteldatum van het meest urgente product, dat primair door deze leverancier wordt geleverd
+
+* Omzetperiode: het afgelopen aantal weken waarover de weekomzet wordt berekend
+* Weekomzet: de gemiddelde omzet per week in de omzetperiode
+* Levertijd: periode die verstrijkt tussen het maken van de inkooporder en de levering van de goederen. Neem de ijzeren voorraad hierin op.
+* Bestelperiode: de periode waarvoor de te bestellen hoeveelheid wordt berekend
+* Bestelveelvoud: Aantal eenheden dat in een verpakking wordt geleverd, de bestelling wordt afgerond op dit veelvoud
 
 Instellingen
 ============
@@ -54,8 +57,9 @@ Per product(/leverancier) staan de betrokken gegevens op tabblad leveranciers (s
 * bestelperiode
 * omzetperiode
 * per leverancier
-* - levertijd
-* - bestelveelvoud
+
+  * levertijd
+  * bestelveelvoud
 
 Per leverancier staan de betrokken gegevens op tabblad inkoopvoorstel. De instellingen gelden voorzover niet opgegeven bij het product.
 
@@ -112,6 +116,15 @@ Menu: Inkoop, Producten, Producten; tabblad Leveranciers.
 
 Vul de omzet-, lever- en inkoopperiode in. De levertijd moet worden ingevoerd in het lijstje van leveranciers. Daar kan ook een bestelveelvoud worden ingevuld.
 Als een van deze instellingen voor alle producten of een categorie gelijk is, kan deze misschien beter per productcategorie of leverancier worden opgegeven.
+
+Voorbeeld: 
+
+* IJzeren voorraad = 8 weken;
+* maken inkoopofferte t/m aflevering goederen = 13 weken
+* bijbestellen voor 10 weken
+
+De levertijd wordt dan ingesteld op 21 (8 + 13) en de bestelperiode op 10. De uiterste besteldatum is de dag waarop er nog voor 21 weken voorraad is.
+Op het moment van bestellen wordt dan besteld voor 31 (21 + 10) weken minus de virtuele voorraad.
 
 Leverancier
 ,,,,,,,,,,,
