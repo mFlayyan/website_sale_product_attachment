@@ -14,7 +14,7 @@ from datetime import date
 from openerp.tools.misc import (
     DEFAULT_SERVER_DATE_FORMAT as DATEFMT,
     )
-from openerp.osv.orm import TransientModel
+from openerp.osv.orm import TransientModel, except_orm
 from openerp.osv import fields
 
 class purchase_wizard(TransientModel):
@@ -47,12 +47,6 @@ class purchase_wizard(TransientModel):
                     result["ultimate_purchase_to"] = today
         return result
     
-    def _data(self, cr, uid, ids, context=None):
-        #get the data from the form, reduce partner list to id
-        data = self.read(cr, uid, ids)[0]
-        data["partner_id"] = data.get("partner_id")[0]
-        return data
-    
     def _nextview(self, cr, uid, ids, context=None):
         #direct the wizard to the next window
         module = "base"
@@ -63,13 +57,14 @@ class purchase_wizard(TransientModel):
         result = mod_obj._get_id(cr, uid, module, action)
         res_id = mod_obj.read(cr, uid, [result], ["res_id"])[0]["res_id"]
         result = act_obj.read(cr, uid, [res_id], ["res_model", "view_type"])[0]
-        result["view_mode"] = "tree"
+        result["view_mode"] = "tree, form"
         result["context"] = context
         return result
     
     def create_purchase(self, cr, uid, ids, context=None):
-        data = self._data(cr, uid, ids)
-        partner_id = data.get("partner_id")
+        #get the data from the form, reduce partner list to id
+        data = self.read(cr, uid, ids)[0]
+        partner_id = data.get("partner_id")[0]
         primary_supplier_only = data.get("primary_supplier_only")
         ultimate_purchase_from = data.get("ultimate_purchase_from")
         ultimate_purchase_to = data.get("ultimate_purchase_to")
@@ -86,11 +81,12 @@ class purchase_wizard(TransientModel):
         FROM product_template PT
         JOIN product_product PP ON PP.product_tmpl_id = PT.id 
         AND PP.ultimate_purchase between DATE(%s) AND DATE(%s)
-        LEFT JOIN product_supplierinfo PS
-        ON PS.product_id = PP.id
+        JOIN product_supplierinfo PS
+        ON PS.name = %s AND PS.product_id = PP.id AND (NOT %s OR PS.sequence = 
+            (SELECT MIN(sequence) FROM product_supplierinfo PX
+            WHERE PX.name = PS.name AND PX.product_id = PS.product_id))
         LEFT JOIN res_partner RP ON RP.id = PS.name AND RP.active 
         LEFT JOIN product_category PC ON PC.id = PT.categ_id
-        WHERE PS.name = %s AND (PS.sequence = 1 OR NOT %s)
         )
         SELECT PW.*, DATE(NOW()) + 7 * PW.delivery_period AS date_planned, 
         SL.id AS location_id
@@ -108,6 +104,9 @@ class purchase_wizard(TransientModel):
         pur_line_cls = self.pool.get("purchase.order.line")
         prod_cls = self.pool.get("product.product")
         if rows != []:
+            if not rows[0]["location_id"]:
+                raise except_orm(_("Error"), 
+                      _("Internal location with name 'Input' does not exist.") )
             order_vals = pur_order_cls.onchange_partner_id(
                             cr, uid, ids, partner_id)["value"]
             date_order = date.today().strftime(DATEFMT)
@@ -143,7 +142,7 @@ class purchase_wizard(TransientModel):
                     order_vals.get("pricelist_id" or False), product_id,
                     qty, uom_id, partner_id, date_order, 
                     order_vals.get('fiscal_position' or False), date_planned,
-                    context=unicode(local_context))
+                    context=context)
                 line_values = line_values.get("value")
                 list_taxes_id=[]
                 taxes_id = line_values.get("taxes_id")
@@ -157,20 +156,7 @@ class purchase_wizard(TransientModel):
             order_vals["minimum_planned_date"] = min_planned
             order_vals["order_line"] = lines
             pur_order_cls.create(cr, uid, order_vals, context=context)
-            
-            sql = """
-            UPDATE res_partner RP
-            SET ultimate_purchase =
-            (SELECT MIN(PP.ultimate_purchase)
-             FROM product_supplierinfo PS
-             JOIN product_product PP
-             ON PS.product_id = PP.id AND PS.sequence = 1
-             AND PP.active AND NOT PP.ultimate_purchase IS NULL
-             WHERE PS.name = RP.id),
-            write_date = NOW() AT TIME ZONE 'UTC', write_uid = %s
-            WHERE active AND (supplier OR NOT ultimate_purchase IS NULL);"""
-            cr.execute(sql, [uid])
-        
+                    
         return self._nextview(cr, uid, ids, context=context)
 
     _name = "purchase.purchase_wizard"
