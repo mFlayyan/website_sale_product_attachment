@@ -24,8 +24,8 @@
             <field name="seller_ids" position="before">
                 <group colspan="2" col="4">
                     <separator string="Purchase parameters" colspan="4"/>
-                    <field name="purchase_period" 
-                    	on_change="calc_purchase_date()"/>
+                    <field name="purchase_period"/>
+                    	<!--on_change="calc_purchase_date()"-->
                     <field name="ultimate_purchase"/>
                     <field name="turnover_period"/>
                     <field name="turnover_average"/>
