@@ -13,21 +13,30 @@ from osv import fields, osv
 
 class res_partner(osv.osv):
         
-    def _product_ids(self, cr, uid, ids, field_name, arg, context=None):    #+++
+    def _product_supplierinfo(self, cr, uid, ids, field_name, arg, context=None):
         #determine products supplied
         result = {}
-        psi_obj = self.pool.get("product.supplierinfo")
+        #make sure all ids will be in result and make an sql-list of them
+        sep = ""
+        sql_ids = ""
+        if (type(ids) != list): ids = [ids]
         for partner_id in ids:
-            product_ids = []
-            sql = """
-                SELECT DISTINCT PS.product_id
-                FROM product_supplierinfo PS
-                WHERE name = %s"""
-            cr.execute(sql, [partner_id])
-            rows = cr.dictfetchall()
-            for row in rows:
-                product_ids.append(row["product_id"])
-            result[partner_id] = {"product_ids": product_ids,}
+            result[partner_id] = {}
+            sql_ids += str(partner_id)
+            sep=","
+        sql = """
+    	    SELECT DISTINCT PS.name AS partner_id, PS.product_id
+    	    FROM product_supplierinfo PS
+    	    WHERE PS.name IN (%s)""" % sql_ids
+        cr.execute(sql)
+    	rows = cr.dictfetchall()
+        for row in rows:
+            partner_id = row["partner_id"]
+            product_ids = ("product_ids" in result[partner_id]
+                       and result[partner_id]["product_ids"]
+                       or  [])
+            product_ids.append(row["product_id"])
+            result[row["partner_id"]] = {"product_ids": product_ids,}
                     
         return result
     
@@ -48,7 +57,8 @@ class res_partner(osv.osv):
             help="""Ultimate date to purchase for not running out of 
             stock for any product supplied by this supplier. Used by the 
             purchase proposal."""),
-        "product_ids": fields.function(_product_ids, multi="_product_ids",
+        "product_ids": fields.function(
+            _product_supplierinfo, multi="_product_supplierinfo",
             string="Products", type="one2many", relation="product.product",),
     }
 

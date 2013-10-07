@@ -17,14 +17,21 @@ from openerp.osv import osv
 class purchase_order(osv.osv):
     _inherit = 'purchase.order'
 
-    def update_proposal(self, cr, uid, id, context=None):
+    def update_proposal(self, cr, uid, ids, context=None):
+        #make a sql-list from ids
+        sep = ""
+        sql_ids = ""
+        if (type(ids) != list): ids = [ids]
+        for product_id in ids:
+            sql_ids += str(product_id)
+            sep=","
         sql = """
         UPDATE product_product
         SET ultimate_purchase = NULL,
         write_date = NOW() AT TIME ZONE 'UTC', write_uid = %s
         WHERE id IN(SELECT OL.product_id FROM purchase_order_line AS OL
-            WHERE OL.order_id = %s AND state='draft')"""
-        cr.execute(sql, (uid, id))
+            WHERE OL.order_id IN (%s) AND state='draft')""" % (uid, sql_ids)
+        cr.execute(sql)
         sql = """
         UPDATE res_partner RP
         SET ultimate_purchase =
