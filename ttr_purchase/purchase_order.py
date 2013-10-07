@@ -21,8 +21,9 @@ class purchase_order(osv.osv):
         #make a sql-list from ids
         sep = ""
         sql_ids = ""
-        if (type(ids) != list): ids = [ids]
-        for product_id in ids:
+        my_ids = ids
+        if (type(my_ids) != list): my_ids = [my_ids]
+        for product_id in my_ids:
             sql_ids += str(product_id)
             sep=","
         sql = """
@@ -47,19 +48,16 @@ class purchase_order(osv.osv):
         
         return True
     
-    def create(self, cr, uid, vals, context=None):
-        result = {}
-        
+    def create(self, cr, uid, vals, context=None):        
         purchase_id = super(purchase_order, self).create(
                                                 cr, uid, vals, context=context)
-        result = self.update_proposal(cr, uid, purchase_id, context=context)
+        self.update_proposal(cr, uid, purchase_id, context=context)
         
-        return result
+        return purchase_id
     
     def write(self, cr, uid, id, default, context=None):
-        result = {}
-        
-        super(purchase_order, self).write(cr, uid, id, default, context=context) 
-        result = self.update_proposal(cr, uid, id, context=context)
+        result = super(purchase_order, self).write(
+                                        cr, uid, id, default, context=context) 
+        self.update_proposal(cr, uid, id, context=context)
         
         return result

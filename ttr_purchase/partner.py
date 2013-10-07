@@ -19,8 +19,9 @@ class res_partner(osv.osv):
         #make sure all ids will be in result and make an sql-list of them
         sep = ""
         sql_ids = ""
-        if (type(ids) != list): ids = [ids]
-        for partner_id in ids:
+        my_ids = ids
+        if (type(my_ids) != list): my_ids = [my_ids]
+        for partner_id in my_ids:
             result[partner_id] = {}
             sql_ids += str(partner_id)
             sep=","
