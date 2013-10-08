@@ -63,8 +63,10 @@ class product_product(osv.osv):
         WHEN TP.prod_age > 1 THEN TP.prod_age ELSE 1 END) AS turnover_average, 
         MAX(TP.purchase_period) AS purchase_period, 
         MAX(TP.purchase_multiple) AS purchase_multiple,
-        COALESCE((SELECT COUNT(*) FROM purchase_order_line PL         
-        WHERE TP.product_id = PL.product_id AND PL.state='draft'), 0) 
+        COALESCE((SELECT COUNT(*) 
+            FROM purchase_order PO JOIN purchase_order_line PL
+            ON PO.id = PL.order_id and PO.state <> 'cancel'    
+            WHERE TP.product_id = PL.product_id AND PL.state='draft'), 0) 
         AS purchase_draft
         FROM TP
         LEFT JOIN sale_order_line OL on OL.product_id = TP.product_id
