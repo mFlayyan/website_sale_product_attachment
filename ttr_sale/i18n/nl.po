@@ -36,3 +36,9 @@ msgstr "Verkoop order"
 msgid "Sales Order Line"
 msgstr "Verkoop orderregel"
 
+#. module: ttr_sale
+#: report:sale.order:0
+msgid "Taxes :"
+msgstr "BTW :"
+
+

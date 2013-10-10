@@ -15,6 +15,7 @@ http://www.therp.nl
 '''
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 
 class product_product(osv.osv):
@@ -27,9 +28,9 @@ class product_product(osv.osv):
         The delivery and purchase period can be stored per supplier_info, 
         supplier or product category. 
         Defaults are codes in the cr.execute parameters.
-        One query retrieves turnover_average and delivery_period per product.
+        One query retrieves turnover_average and stock_period_min per product.
         Each product is updated with turnover_average and ultimate_purchase
-        ( = now - delivery_period + virtual stock / turnover_average).
+        ( = now - stock_period_min + virtual stock / turnover_average).
         In case the turnover period exceeds the products age the latter defaults
         The WITH clause determines the parameters per product. 
         The final SELECT calculates turnover and detects procurements.
@@ -38,14 +39,14 @@ class product_product(osv.osv):
         if not isinstance(context, dict):
             context={} 
         sql ="""WITH TP AS (SELECT PP.id AS product_id,
-        EXTRACT(EPOCH FROM AGE(DATE(NOW()), DATE(PP.create_date)))/(24*60*60*7) 
+        EXTRACT(EPOCH FROM AGE(DATE(NOW()), DATE(PP.create_date)))/(24*60*60) 
         AS prod_age,
         COALESCE(NULLIF(PP.turnover_period, 0), NULLIF(RP.turnover_period, 0),
         NULLIF(PC.turnover_period, 0), %s) AS turnover_period,
-        COALESCE(NULLIF(PS.delivery_period, 0), NULLIF(RP.delivery_period, 0),
-        NULLIF(PC.delivery_period, 0), %s) AS delivery_period,
-        COALESCE(NULLIF(PP.purchase_period, 0), NULLIF(RP.purchase_period, 0), 
-        NULLIF(PC.purchase_period, 0), %s) AS purchase_period,
+        COALESCE(NULLIF(PS.stock_period_min, 0), NULLIF(RP.stock_period_min, 0),
+        NULLIF(PC.stock_period_min, 0), %s) AS stock_period_min,
+        COALESCE(NULLIF(PP.stock_period_max, 0), NULLIF(RP.stock_period_max, 0), 
+        NULLIF(PC.stock_period_max, 0), %s) AS stock_period_max,
         COALESCE(NULLIF(PS.purchase_multiple, 0), 1) AS purchase_multiple
         FROM product_template PT
         JOIN product_product PP ON PP.product_tmpl_id = PT.id
@@ -57,11 +58,11 @@ class product_product(osv.osv):
         AND (PT.supply_method = 'buy' AND PT.procure_method='make_to_stock'
         OR NOT PP.ultimate_purchase IS NULL) )
         
-        SELECT TP.product_id AS id, MAX(TP.delivery_period) AS delivery_period,
+        SELECT TP.product_id AS id, MAX(TP.stock_period_min) AS stock_period_min,
         COALESCE(SUM(OL.product_uos_qty), 0) /
         MAX(CASE WHEN TP.turnover_period < TP.prod_age THEN TP.turnover_period
         WHEN TP.prod_age > 1 THEN TP.prod_age ELSE 1 END) AS turnover_average, 
-        MAX(TP.purchase_period) AS purchase_period, 
+        MAX(TP.stock_period_max) AS stock_period_max, 
         MAX(TP.purchase_multiple) AS purchase_multiple,
         COALESCE((SELECT COUNT(*) 
             FROM purchase_order PO JOIN purchase_order_line PL
@@ -71,34 +72,29 @@ class product_product(osv.osv):
         FROM TP
         LEFT JOIN sale_order_line OL on OL.product_id = TP.product_id
         AND OL.type = 'make_to_stock' AND NOT state IN ('draft', 'cancel')
-        AND DATE(OL.create_date) BETWEEN DATE(NOW()) - 7 * CAST(
+        AND DATE(OL.create_date) BETWEEN DATE(NOW()) - CAST(
         CASE WHEN TP.turnover_period < TP.prod_age THEN TP.turnover_period WHEN
         TP.prod_age > 1 THEN TP.prod_age ELSE 1 END AS INTEGER) AND DATE(NOW())
         GROUP BY TP.product_id;"""
-        cr.execute(sql, (52, 13, 13) )
+        cr.execute(sql, (365, 91, 182) )
         rows = cr.dictfetchall()
         product_cls = self.pool.get("product.product")
         for row in rows: 
             product_id = row["id"]
             turnover_average = round(row["turnover_average"], 2)
-            delivery_period = row["delivery_period"]
+            stock_period_min = row["stock_period_min"]
             purchase_draft = row["purchase_draft"]
-            purchase_period = row["purchase_period"]
+            stock_period_max = row["stock_period_max"]
             purchase_multiple = row["purchase_multiple"]
             product_obj = product_cls.read(cr, uid, product_id, ["procure_method",
                         "supply_method", "virtual_available"], context=context)
             buy = product_obj.get("supply_method")
             proc_meth = product_obj.get("procure_method")
             stock = product_obj.get("virtual_available")
-            qty = round(turnover_average * 
-                            (purchase_period + delivery_period) - stock, 0)
-            qty = int((qty + purchase_multiple - 1) /purchase_multiple)
-            qty = qty * purchase_multiple
             
             if (buy == "buy" and proc_meth == "make_to_stock"
                 and turnover_average != 0):
-                stock_days = 7 * (
-                    (stock or 0) / turnover_average - delivery_period)
+                stock_days = (stock or 0) / turnover_average - stock_period_min
                 stock_days = int(round(stock_days+.5, 0))
                 sql = """
                 UPDATE product_product
@@ -132,11 +128,21 @@ class product_product(osv.osv):
         cr.execute(sql, [uid])
         return result
     
+    def _product(self, cr, uid, ids, field_name, arg, context=None):
+        #determine products supplied
+        result = {}
+        for this_obj in self.browse(cr, uid, ids):
+            stock_value = (this_obj.standard_price * 
+            (1 + this_obj.clearance_costs_perc + this_obj.logistic_costs_perc))
+            result[this_obj.id] = {"stock_value": stock_value}
+        return result
+    
     _columns = {
         'discount': fields.integer('Discount'),
         'logistic_costs_perc': fields.float('Logistic Cost Perc'),
         'clearance_costs_perc': fields.float('Clearance Costs Perc'),
-        'stock_value': fields.float('Stock Value'),
+        'stock_value': fields.function(_product, multi="_product",
+            string="Stock Value", type="float", digits=(12,2),),
         'comment': fields.char('Comment', size=100),
         # Enlarge name column length because of lengthy names
         # in Magento
@@ -144,20 +150,21 @@ class product_product(osv.osv):
             'product_tmpl_id', 'name',
             string="Name", type='char',
             size=256, store=True, select=True),
-        'purchase_period': fields.integer('Purchase period', 
-            help="""Period in weeks to resupply for. 
+        'stock_period_max': fields.integer('Maximium stock', 
+            help="""Maximum stock in days turnover to resupply for. 
             Used by the purchase proposal."""),
         'turnover_period': fields.integer('Turnover period', 
-            help="""Turnover period in weeks to calculate average 
-            turnover per week. Used by the purchase proposal."""),
-        'turnover_average': fields.float('Turnover per week', digits=(15,2),
+            help="""Turnover days to calculate average 
+            turnover per day. Used by the purchase proposal."""),
+        'turnover_average': fields.float('Turnover per day', digits=(15,3),
             readonly="1",
-            help="""Average turnover per weeks. 
+            help="""Average turnover per day. 
             Used by the purchase proposal."""),
         'ultimate_purchase': fields.date('Ultimate purchase',
             readonly="1",
             help="""Ultimate date to purchase for not running out of 
             stock. Used by the purchase proposal."""), 
+        'hs_code': fields.char('HS-code', size=2)
     }
 
     _defaults = {

@@ -131,12 +131,12 @@ msgid "wizard create proposal purchase"
 msgstr "wizard maak inkoopofferte van voorstel"
 
 #. modules: ttr_purchase, technotrading
-#: field:product.category,delivery_period:0
-#: field:product.supplierinfo,delivery_period:0
-#: field:purchase.purchase_wizard,delivery_period:0
-#: field:res.partner,delivery_period:0
-msgid "Delivery period"
-msgstr "Levertijd"
+#: field:product.category,stock_period_min:0
+#: field:product.supplierinfo,stock_period_min:0
+#: field:purchase.purchase_wizard,stock_period_min:0
+#: field:res.partner,stock_period_min:0
+msgid "Minimum stock"
+msgstr "Minimum voorraad"
 
 #. module: technotrading
 #: field:stock.picking.costs.stats,supl_clearance_costs:0
@@ -165,12 +165,12 @@ msgid "Select only if this product is to be considered as a clearance cost compo
 msgstr "Select only if this product is to be considered as a clearance cost component, not a standard product."
 
 #. modules: ttr_purchase, technotrading
-#: help:product.category,purchase_period:0
-#: help:product.product,purchase_period:0
-#: help:res.partner,purchase_period:0
-msgid "Period in weeks to resupply for. \n"
+#: help:product.category,stock_period_max:0
+#: help:product.product,stock_period_max:0
+#: help:res.partner,stock_period_max:0
+msgid "Maximum stock in days turnover to resupply for. \n"
 "            Used by the purchase proposal."
-msgstr "Periode in weken om bij te bestellen. \n"
+msgstr "Maximum voorraad in dagen na bijbestellen. \n"
 "            Dient voor inkoopvoorstel."
 
 #. module: ttr_purchase
@@ -234,10 +234,10 @@ msgstr "Informatie over een leverancier"
 #: help:product.category,turnover_period:0
 #: help:product.product,turnover_period:0
 #: help:res.partner,turnover_period:0
-msgid "Turnover period in weeks to calculate average \n"
-"            turnover per week. Used by the purchase proposal."
-msgstr "Omzetperiode in weken voor de berekening van \n"
-"            de gemiddelde weekomzet. Dient voor inkoopvoorstel."
+msgid "Turnover days to calculate average \n"
+"            turnover per day. Used by the purchase proposal."
+msgstr "Omzetperiode in dagen voor de berekening van \n"
+"            de gemiddelde dagomzet. Dient voor inkoopvoorstel."
 
 #. module: technotrading
 #: field:stock.move.costs.stats,prorata_logistic_costs:0
@@ -254,10 +254,16 @@ msgstr "Subtotaal"
 msgid "Purchase multiple"
 msgstr "Bestelveelvoud"
 
+#. module: technotrading
+#: field:product.supplierinfo,country_id:0
+msgid "Country of origin"
+msgstr "Land van herkomst"
+
 #. module: ttr_purchase
-#: help:purchase.purchase_wizard,purchase_period:0
-msgid "Default period for this supplier in weeks to resupply for."
-msgstr "Standaard periode in weken om bij te bestellen voor de leverancier."
+#: help:purchase.purchase_wizard,stock_period_max:0
+msgid "Default period for this supplier in dayss to resupply for."
+msgstr "Standaard maximum voorraad in dagen voor de leverancier (voor zover\n"
+"             niet opgegeven bij product)."
 
 #. module: technotrading
 #: help:stock.move.costs.stats,stock_value:0
@@ -272,8 +278,8 @@ msgstr "Commentaar"
 
 #. module: technotrading
 #: field:product.product,turnover_average:0
-msgid "Turnover per week"
-msgstr "Omzet per week"
+msgid "Turnover per day"
+msgstr "Omzet per dag"
 
 #. module: ttr_purchase
 #: field:purchase.purchase_wizard,name:0
@@ -348,21 +354,17 @@ msgid "Reference must be unique per Company!"
 msgstr "Referentie moet uniek zijn per bedrijf!"
 
 #. modules: ttr_purchase, technotrading
-#: field:product.category,purchase_period:0
-#: field:product.product,purchase_period:0
-#: field:purchase.purchase_wizard,purchase_period:0
-#: field:res.partner,purchase_period:0
-msgid "Purchase period"
-msgstr "Inkoopperiode"
+#: field:product.category,stock_period_max:0
+#: field:product.product,stock_period_max:0
+#: field:purchase.purchase_wizard,stock_period_max:0
+#: field:res.partner,stock_period_max:0
+msgid "Maximum stock"
+msgstr "Maximum voorraad"
 
 #. module: ttr_purchase
-#: help:purchase.purchase_wizard,delivery_period:0
-msgid "Default delivery time for this supplier in weeks between the \n"
-"            creation of the purchase order and the reception of the products in \n"
-"            your warehouse."
-msgstr "Standaard levertijd van leverancier in weken tussen het \n"
-"            aanmaken van de inkoopofferte en de ontvangst van de goederen \n"
-"            in het magazijn."
+#: help:purchase.purchase_wizard,stock_period_min:0
+msgid "Minimum stock for this supplier in days."
+msgstr "Standaard minimum voorraad voor leverancier.\n"
 
 #. module: ttr_purchase
 #: view:res.partner:0
@@ -444,21 +446,18 @@ msgstr "Clearance Costs Perc"
 
 #. module: technotrading
 #: help:product.product,turnover_average:0
-msgid "Average turnover per week. \n"
+msgid "Average turnover per day. \n"
 "            Used by the purchase proposal."
-msgstr "Gemiddelde weekomzet. \n"
+msgstr "Gemiddelde dagomzet. \n"
 "            Dient voor inkoopvoorstel."
 
 #. modules: ttr_purchase, technotrading
-#: help:product.category,delivery_period:0
-#: help:product.supplierinfo,delivery_period:0
-#: help:res.partner,delivery_period:0
-msgid "Delivery time in weeks between the creation of the \n"
-"            purchase order and the reception of the products in your \n"
-"            warehouse. Used by the purchase proposal."
-msgstr "Levertijd in weken tussen het aanmaken van de \n"
-"            inkoopofferte en de ontvangst van de goederen in het \n"
-"            magazijn."
+#: help:product.category,stock_period_min:0
+#: help:product.supplierinfo,stock_period_min:0
+#: help:res.partner,stock_period_min:0
+msgid "Minimum stock in days of turnover.\n"
+"            Used by the purchase proposal."
+msgstr "Minimum voorraad in dagen."
 
 #. module: technotrading
 #: help:stock.move.costs.stats,line_prorata:0
@@ -503,4 +502,9 @@ msgstr "Stock Value"
 #: field:stock.picking.costs.stats,amount_total:0
 msgid "Amount Total"
 msgstr "Amount Total"
+
+#. module: ttr_sale, ttr_purchase
+#: report:sale.order:0
+msgid "Taxes :"
+msgstr "BTW :"
 

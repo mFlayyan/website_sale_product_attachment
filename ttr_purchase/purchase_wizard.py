@@ -38,8 +38,8 @@ class purchase_wizard(TransientModel):
                 sup_obj = sup_cls.browse(cr, uid, partner_id, context=context)
                 result["name"] = sup_obj.name
                 result["partner_address_id"] = sup_obj.address[0].id or False
-                result["delivery_period"] = sup_obj.delivery_period
-                result["purchase_period"] = sup_obj.purchase_period
+                result["stock_period_min"] = sup_obj.stock_period_min
+                result["stock_period_max"] = sup_obj.stock_period_max
                 result["ultimate_purchase_from"] = sup_obj.ultimate_purchase
                 result["ultimate_purchase_to"] =result["ultimate_purchase_from"]
                 today = date.today().strftime(DATEFMT)
@@ -68,15 +68,13 @@ class purchase_wizard(TransientModel):
         primary_supplier_only = data.get("primary_supplier_only")
         ultimate_purchase_from = data.get("ultimate_purchase_from")
         ultimate_purchase_to = data.get("ultimate_purchase_to")
-        purchase_period = data.get("purchase_period")
+        stock_period_max = data.get("stock_period_max")
 
         sql = """
         WITH PW AS (SELECT PP.id AS product_id,
-        COALESCE(NULLIF(PS.delivery_period, 0), NULLIF(RP.delivery_period, 0),
-        NULLIF(PC.delivery_period, 0), %s) AS delivery_period,
-        COALESCE(NULLIF(PP.purchase_period, 0), NULLIF(%s, 0), 
-        NULLIF(RP.purchase_period, 0), 
-        NULLIF(PC.purchase_period, 0), %s) AS purchase_period,
+        COALESCE(NULLIF(PP.stock_period_max, 0), NULLIF(%s, 0), 
+        NULLIF(RP.stock_period_max, 0), 
+        NULLIF(PC.stock_period_max, 0), %s) AS stock_period_max,
         COALESCE(NULLIF(PS.purchase_multiple, 0), %s) AS purchase_multiple
         FROM product_template PT
         JOIN product_product PP ON PP.product_tmpl_id = PT.id 
@@ -88,12 +86,11 @@ class purchase_wizard(TransientModel):
         LEFT JOIN res_partner RP ON RP.id = PS.name AND RP.active 
         LEFT JOIN product_category PC ON PC.id = PT.categ_id
         )
-        SELECT PW.*, DATE(NOW()) + 7 * PW.delivery_period AS date_planned, 
-        SL.id AS location_id
+        SELECT PW.*, SL.id AS location_id
         FROM PW
         LEFT JOIN stock_location SL ON SL.name = 'Input';
         """
-        cr.execute(sql, (13, purchase_period, 13, 1, ultimate_purchase_from,
+        cr.execute(sql, (stock_period_max, 182, 1, ultimate_purchase_from,
             ultimate_purchase_to, partner_id, primary_supplier_only),)
         rows = cr.dictfetchall()
 
@@ -119,13 +116,7 @@ class purchase_wizard(TransientModel):
             lines = []
             for row in rows:  
                 product_id = row["product_id"]
-                min_planned = (
-                    min_planned and min_planned < row["date_planned"] 
-                    and min_planned
-                    or row["date_planned"])
-                date_planned = row["date_planned"]
-                delivery_period = row["delivery_period"]
-                purchase_period = row["purchase_period"]
+                stock_period_max = row["stock_period_max"]
                 purchase_multiple = row["purchase_multiple"]
                 
                 product = prod_cls.browse(cr, uid, product_id, context=context)
@@ -133,15 +124,14 @@ class purchase_wizard(TransientModel):
                 turnover_average = product.turnover_average
                 uom_id = product.uom_id.id
                 
-                qty = round(turnover_average * 
-                            (purchase_period + delivery_period) - stock, 0)
+                qty = round(turnover_average * stock_period_max - stock, 0)
                 qty = int((qty + purchase_multiple - 1) /purchase_multiple)
                 qty = qty * purchase_multiple
                 
                 line_values = pur_line_cls.onchange_product_uom(cr, uid, ids, 
                     order_vals.get("pricelist_id" or False), product_id,
                     qty, uom_id, partner_id, date_order, 
-                    order_vals.get('fiscal_position' or False), date_planned,
+                    order_vals.get('fiscal_position' or False), False,
                     context=context)
                 line_values = line_values.get("value")
                 list_taxes_id=[]
@@ -153,7 +143,6 @@ class purchase_wizard(TransientModel):
                 lines.append([0, 0, dict(line_values)])
                 
                 product.write({"ultimate_purchase": False}, context=context)
-            order_vals["minimum_planned_date"] = min_planned
             order_vals["order_line"] = lines
             pur_order_cls.create(cr, uid, order_vals, context=context)
                     
@@ -165,12 +154,10 @@ class purchase_wizard(TransientModel):
         "partner_id": fields.many2one("res.partner", "Supplier", readonly="1"),
         "name": fields.char("Name", size=256, readonly="1"),
         "partner_address_id": fields.many2one("res.partner.address", "Address"),
-        "delivery_period": fields.integer("Delivery period", readonly="1",  
-            help="""Default delivery time for this supplier in weeks between the 
-            creation of the purchase order and the reception of the products in 
-            your warehouse."""),
-        "purchase_period": fields.integer("Purchase period", 
-            help="Default period for this supplier in weeks to resupply for."),
+        "stock_period_min": fields.integer("Delivery period", readonly="1",  
+            help="""Minimum stock for this supplier in days."""),
+        "stock_period_max": fields.integer("Maximum stock", 
+            help="Default period for this supplier in days to resupply for."),
         "ultimate_purchase_from": fields.date("From ultimate purchase",
             help="Lower ultimate date to purchase on product."),
         "ultimate_purchase_to": fields.date("To ultimate purchase",

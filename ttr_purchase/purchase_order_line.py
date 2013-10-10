@@ -28,12 +28,12 @@ class purchase_order_line(osv.osv):
         #"Because of the purchase proposal we calculate the qty when set to 0"
         if (qty == 0 and product_id):
             sql = """WITH PW AS (SELECT PP.id AS product_id,
-            COALESCE(NULLIF(PS.delivery_period, 0),
-            NULLIF(RP.delivery_period, 0),
-            NULLIF(PC.delivery_period, 0), %s) AS delivery_period,
-            COALESCE(NULLIF(PP.purchase_period, 0),
-            NULLIF(RP.purchase_period, 0),
-            NULLIF(PC.purchase_period, 0), %s) AS purchase_period,
+            COALESCE(NULLIF(PS.stock_period_min, 0),
+            NULLIF(RP.stock_period_min, 0),
+            NULLIF(PC.stock_period_min, 0), %s) AS stock_period_min,
+            COALESCE(NULLIF(PP.stock_period_max, 0),
+            NULLIF(RP.stock_period_max, 0),
+            NULLIF(PC.stock_period_max, 0), %s) AS stock_period_max,
             COALESCE(NULLIF(PS.purchase_multiple, 0), %s) AS purchase_multiple
             FROM product_template PT
             JOIN product_product PP ON PP.product_tmpl_id = PT.id
@@ -42,7 +42,7 @@ class purchase_order_line(osv.osv):
             LEFT JOIN product_category PC ON PC.id = PT.categ_id
             WHERE PS.name = %s AND PP.id = %s
             )
-            SELECT PW.*, DATE(NOW()) + 7 * PW.delivery_period AS date_planned
+            SELECT PW.*, DATE(NOW()) + 7 * PW.stock_period_min AS date_planned
             FROM PW;
             """
             cr.execute(sql, (13, 13, 1, partner_id, product_id),)
@@ -50,8 +50,8 @@ class purchase_order_line(osv.osv):
             if rows != []:
                 for row in rows:
                     date_planned = row["date_planned"]
-                    delivery_period = row["delivery_period"]
-                    purchase_period = row["purchase_period"]
+                    stock_period_min = row["stock_period_min"]
+                    stock_period_max = row["stock_period_max"]
                     purchase_multiple = row["purchase_multiple"]
     
                 product = self.pool.get("product.product").browse(
@@ -59,8 +59,7 @@ class purchase_order_line(osv.osv):
                 stock = product.virtual_available
                 turnover_average = product.turnover_average
                 
-                qty = round(turnover_average * 
-                            (purchase_period + delivery_period) - stock, 0)
+                qty = round(turnover_average * stock_period_max - stock, 0)
                 qty = int((qty + purchase_multiple - 1) /purchase_multiple)
                 qty = qty * purchase_multiple
         result = super(purchase_order_line, self).product_id_change(

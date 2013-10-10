@@ -18,10 +18,10 @@ class product_supplierinfo(osv.osv):
         'purchase_multiple': fields.float('Purchase multiple', 
             help="""Purchase in multiples of. 
             Used by the purchase proposal."""),
-        'delivery_period': fields.integer('Delivery period', 
-            help="""Delivery time in weeks between the creation of the 
-            purchase order and the reception of the products in your 
-            warehouse. Used by the purchase proposal."""),
+        'stock_period_min': fields.integer('Minimum stock', 
+            help="""Minimum stock in days of turnover. 
+            Used by the purchase proposal."""),
+        'country_id': fields.many2one('res.country','Country of origin'),  
     }
 product_supplierinfo()
 
@@ -29,15 +29,14 @@ product_supplierinfo()
 class product_category(osv.osv):
     _inherit = "product.category"
     _columns = {
-        'delivery_period': fields.integer('Delivery period', 
-            help="""Delivery time in weeks between the creation of the 
-            purchase order and the reception of the products in your 
-            warehouse. Used by the purchase proposal."""),
-        'purchase_period': fields.integer('Purchase period', 
-            help="""Period in weeks to resupply for. 
+        'stock_period_min': fields.integer('Minimum stock', 
+            help="""Minimum stock in days of turnover. 
+            Used by the purchase proposal."""),
+        'stock_period_max': fields.integer('Maximium stock', 
+            help="""Maximum stock in days turnover to resupply for. 
             Used by the purchase proposal."""),
         'turnover_period': fields.integer('Turnover period', 
-            help="""Turnover period in weeks to calculate average 
-            turnover per week. Used by the purchase proposal."""),
+            help="""Turnover days to calculate average 
+            turnover per day. Used by the purchase proposal."""),    
     }
 product_category()

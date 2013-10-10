@@ -11,12 +11,12 @@
 		            <group col="2" colspan="2">
                         <field name="partner_id" invisible="1"/>
                         <field name="name"/>
-                        <field name="delivery_period"/>
+                        <field name="stock_period_min"/>
                     </group>
 		            <group col="2" colspan="2">
                         <field name="partner_address_id"
                         domain="[('partner_id', '=', partner_id),]"/>
-                        <field name="purchase_period"/>
+                        <field name="stock_period_max"/>
                         <separator string="Select products where:" colspan="2"/>
                         <field name="ultimate_purchase_from"/>
                         <field name="ultimate_purchase_to"/>
@@ -54,9 +54,9 @@
 		                <separator string="Purchase parameters" colspan="4"/>
 		                <group col="6" colspan="3">
 			            	<field name="ultimate_purchase"/>
-			            	<field name="delivery_period"/>
+			            	<field name="stock_period_min"/>
 			            	<newline/>
-		                    <field name="purchase_period"/>
+		                    <field name="stock_period_max"/>
 		                    <field name="turnover_period"/>
 		                </group>
 		                <group col="1">

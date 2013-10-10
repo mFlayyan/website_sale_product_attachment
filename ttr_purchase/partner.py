@@ -43,11 +43,11 @@ class res_partner(osv.osv):
     
     _inherit = 'res.partner'
     _columns = {
-        'delivery_period': fields.integer('Delivery period', 
+        'stock_period_min': fields.integer('Delivery period', 
             help="""Delivery time in weeks between the creation of the 
             purchase order and the reception of the products in your 
             warehouse. Used by the purchase proposal."""),
-        'purchase_period': fields.integer('Purchase period', 
+        'stock_period_max': fields.integer('Purchase period', 
             help="""Period in weeks to resupply for. 
             Used by the purchase proposal."""),
         'turnover_period': fields.integer('Turnover period', 
