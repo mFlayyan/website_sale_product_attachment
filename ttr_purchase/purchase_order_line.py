@@ -28,9 +28,6 @@ class purchase_order_line(osv.osv):
         #"Because of the purchase proposal we calculate the qty when set to 0"
         if (qty == 0 and product_id):
             sql = """WITH PW AS (SELECT PP.id AS product_id,
-            COALESCE(NULLIF(PS.stock_period_min, 0),
-            NULLIF(RP.stock_period_min, 0),
-            NULLIF(PC.stock_period_min, 0), %s) AS stock_period_min,
             COALESCE(NULLIF(PP.stock_period_max, 0),
             NULLIF(RP.stock_period_max, 0),
             NULLIF(PC.stock_period_max, 0), %s) AS stock_period_max,
@@ -42,15 +39,13 @@ class purchase_order_line(osv.osv):
             LEFT JOIN product_category PC ON PC.id = PT.categ_id
             WHERE PS.name = %s AND PP.id = %s
             )
-            SELECT PW.*, DATE(NOW()) + 7 * PW.stock_period_min AS date_planned
+            SELECT PW.*
             FROM PW;
             """
-            cr.execute(sql, (13, 13, 1, partner_id, product_id),)
+            cr.execute(sql, (182, 1, partner_id, product_id),)
             rows = cr.dictfetchall()
             if rows != []:
                 for row in rows:
-                    date_planned = row["date_planned"]
-                    stock_period_min = row["stock_period_min"]
                     stock_period_max = row["stock_period_max"]
                     purchase_multiple = row["purchase_multiple"]
     
@@ -67,7 +62,7 @@ class purchase_order_line(osv.osv):
                     partner_id,
                     date_order=date_order,
                     fiscal_position_id=fiscal_position_id,
-                    date_planned=date_planned,
+                    date_planned=False,
                     name=name,
                     price_unit=price_unit,
                     notes=notes,
