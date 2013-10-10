@@ -13,7 +13,7 @@ Het inkoopvoorstel bestaat uit een aantal instellingen, processen en voorziening
 
 * Instelling per product / leverancier van minimale en maximale voorraad;
 * Elke dag automatische berekening van de gemiddelde omzet en een uiterste besteldatum;
-* Per product is te zien wat de uiterste besteldatum en de weekomzet zijn;
+* Per product is te zien wat de uiterste besteldatum en de dagomzet zijn;
 * Per (primaire) leverancier is te zien wat de vroegste besteldatum van diens producten is;
 * Per leverancier zijn de door hem geleverde producten te zien;
 * Vanuit het leveranciersformulier kan de aanmaak van de inkoopofferte worden gestart, waarbij producten kunnen worden geselecteerd op basis van de uiterste besteldatum. Producten die incidenteel bij deze leverancier besteld worden zijn uitgesloten, maar kunnen ook mee besteld worden. De te bestellen hoeveelheid wordt automatisch berekend;
@@ -41,44 +41,44 @@ Begrippen
    * per product: voor zich sprekend; 
    * per leverancier: de uiterste besteldatum van het meest urgente product, dat primair door deze leverancier wordt geleverd
 
-* Omzetperiode: het afgelopen aantal weken waarover de weekomzet wordt berekend
-* Weekomzet: de gemiddelde omzet per week in de omzetperiode
-* Levertijd: periode die verstrijkt tussen het maken van de inkooporder en de levering van de goederen. Neem de ijzeren voorraad hierin op.
-* Bestelperiode: de periode waarvoor de te bestellen hoeveelheid wordt berekend
+* Omzetperiode: het afgelopen aantal dagen waarover de dagomzet wordt berekend
+* dagomzet: de gemiddelde omzet per dag in de omzetperiode
+* Minimum voorraad: periode die verstrijkt tussen het maken van de inkooporder en de levering van de goederen. Neem de ijzeren voorraad hierin op.
+* Maximum voorraad: de periode waarvoor de te bestellen hoeveelheid wordt berekend
 * Bestelveelvoud: Aantal eenheden dat in een verpakking wordt geleverd, de bestelling wordt afgerond op dit veelvoud
 
 Instellingen
 ============
 
-Instellingen kunnen op een aantal plaatsen worden opgegeven. Bij voorkeur per product/leverancier, maar per leverancier of productcategorie kunnen standaardwaarden worden opgegeven. Instellingen per product gaan altijd voor, zijn die niet ingevuld dan gelden die van de leverancier of productcategorie. Als nergens een instelling is ingevuld geldt 13 weken voor de bestelperiode en de levertijd en 52 weken voor de omzetperiode. Bestelveelvoud is dan 1.
+Instellingen kunnen op een aantal plaatsen worden opgegeven. Bij voorkeur per product/leverancier, maar per leverancier of productcategorie kunnen standaardwaarden worden opgegeven. Instellingen per product gaan altijd voor, zijn die niet ingevuld dan gelden die van de leverancier of productcategorie. Als nergens een instelling is ingevuld geldt 91 dagen voor de maximum voorraad en de minimum voorraad en 364 dagen voor de omzetperiode. Bestelveelvoud is dan 1.
 
 Per product(/leverancier) staan de betrokken gegevens op tabblad leveranciers (suppliers)
 
-* bestelperiode
+* maximum voorraad
 * omzetperiode
 * per leverancier
 
-  * levertijd
+  * minimum voorraad
   * bestelveelvoud
 
 Per leverancier staan de betrokken gegevens op tabblad inkoopvoorstel. De instellingen gelden voorzover niet opgegeven bij het product.
 
-* bestelperiode
+* maximum voorraad
 * omzetperiode
-* levertijd
+* minimum voorraad
 
 Per productcategorie, deze instelingen gelden als ze niet zijn opgegeven bij product of leverancier.
 
-* bestelperiode
+* maximum voorraad
 * omzetperiode
-* levertijd
+* minimum voorraad
 
 Berekeningen
 ============
 
-* Weekomzet: Gemiddelde omzet per week gedurende de omzetperiode
-* Uiterste leverdatum: Vandaag + (Virtuele voorraad / weekomzet) - levertijd
-* Bestelhoeveelheid: Weekomzet * (bestelperiode + levertijd) - virtuele voorraad
+* dagomzet: Gemiddelde omzet per dag gedurende de omzetperiode
+* Uiterste leverdatum: Vandaag + (Virtuele voorraad / dagomzet) - minimum voorraad
+* Bestelhoeveelheid: dagomzet * (maximum voorraad + minimum voorraad) - virtuele voorraad
 
 Procedure
 =========
@@ -86,7 +86,7 @@ Procedure
 Inkoopvoorstel
 ..............
 
-Elke dag berekent een programma (Purchase Proposal Refresh) de weekomzet en uiterste besteldatum per product en de uiterste besteldatum per leverancier.
+Elke dag berekent een programma (Purchase Proposal Refresh) de gemiddelde dagomzet en uiterste besteldatum per product en de uiterste besteldatum per leverancier.
 
 Zolang een product in een inkoopofferte is opgenomen, wordt de bestelling niet meegeteld in de virtuele voorraad en daarom wordt het door het proces overgeslagen (uiterste besteldatum is leeg), zodat het niet dubbel in het bestelproces komt.
 Zodra een bestelling definitief is, wordt het product weer dagelijks beoordeeld.
@@ -114,31 +114,31 @@ Product
 ,,,,,,,
 Menu: Inkoop, Producten, Producten; tabblad Leveranciers.
 
-Vul de omzet-, lever- en inkoopperiode in. De levertijd moet worden ingevoerd in het lijstje van leveranciers. Daar kan ook een bestelveelvoud worden ingevuld.
+Vul de omzetperiode, de minimum en de maximum voorraad in. De minimum voorraad moet worden ingevoerd in het lijstje van leveranciers. Daar kan ook een bestelveelvoud worden ingevuld.
 Als een van deze instellingen voor alle producten of een categorie gelijk is, kan deze misschien beter per productcategorie of leverancier worden opgegeven.
 
 Voorbeeld: 
 
-* IJzeren voorraad = 8 weken;
-* maken inkoopofferte t/m aflevering goederen = 13 weken
-* bijbestellen voor 10 weken
+* IJzeren voorraad = 60 dagen;
+* maken inkoopofferte t/m aflevering goederen = 90 dagen;
+* bijbestellen voor 75 dagen.
 
-De levertijd wordt dan ingesteld op 21 (8 + 13) en de bestelperiode op 10. De uiterste besteldatum is de dag waarop er nog voor 21 weken voorraad is.
-Op het moment van bestellen wordt dan besteld voor 31 (21 + 10) weken minus de virtuele voorraad.
+De minimum voorraad wordt dan ingesteld op 150 (60 + 90) en de maximum voorraad op 180. De uiterste besteldatum is de dag waarop er nog voor 150 dagen voorraad is.
+Op het moment van bestellen wordt dan besteld voor 225 (150 + 75) dagen minus de virtuele voorraad.
 
 Leverancier
 ,,,,,,,,,,,
 Menu: Inkoop, Adresboek, Leveranciers; tabblad Inkoopvoorstel.
 
-Lever- en inkoopperiode voor de leverancier kunnen worden opgegeven, die gelden dan voor de producten waarbij die instellingen mankeren.
+Minimum en maximum voorraad voor de leverancier kunnen worden opgegeven, die gelden dan voor de producten waarbij die instellingen mankeren.
 
 Productcategorie
 ,,,,,,,,,,,,,,,,
 Menu: Inkoop, Instellingen, Producten, Productcategoriën.
 
-Omzet-, lever- en inkoopperiode voor de productcategorie kunnen worden opgegeven, die gelden dan voor de producten waarbij die instellingen mankeren en ook niet per leverancier zijn opgegeven.
+Omzetperiode, minimum en maximum voorraad voor de productcategorie kunnen worden opgegeven, die gelden dan voor de producten waarbij die instellingen mankeren en ook niet per leverancier zijn opgegeven.
 
 Algemeen
 ,,,,,,,,
-Als helemaal geen periode's zijn opgegeven, gelden 52 weken voor de omzet- en 13 weken voor de lever- en inkoopperiode. Voor bestelveelvoud is 1 de standaardwaarde.
+Als helemaal geen periode's zijn opgegeven, gelden 364 dagen voor de omzet- en 91 dagen voor de lever- en inkoopperiode. Voor bestelveelvoud is 1 de standaardwaarde.
 
