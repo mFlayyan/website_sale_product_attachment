@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-09-19 09:00+0000\n"
-"PO-Revision-Date: 2012-09-19 11:06+0200\n"
+"PO-Revision-Date: 2012-09-19 09:06+0200\n"
 "Last-Translator: Ronald Portier <rportier@therp.nl>\n"
 "Language-Team: NL <rportier@therp.nl>\n"
 "MIME-Version: 1.0\n"
@@ -35,3 +35,10 @@ msgstr "Verkoop order"
 #: model:ir.model,name:ttr_sale.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Verkoop orderregel"
+
+#. module: ttr_sale
+#: report:sale.order:0
+msgid "Taxes :"
+msgstr "BTW :"
+
+

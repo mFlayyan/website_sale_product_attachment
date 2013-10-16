@@ -9,6 +9,9 @@
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="priority">50</field>
         <field name="arch" type="xml">
+            <field name="ean13" position="after">
+                <field name="hs_code"/>
+            </field>
             <field name="price_extra" position="after">
                 <field name="discount"/>
             </field>
@@ -21,6 +24,55 @@
                 <separator string="Comment"/>
                 <field name="comment" colspan="4" nolabel="1"/>
             </xpath>
+            <field name="seller_ids" position="before">
+                <group colspan="2" col="4">
+                    <separator string="Purchase parameters" colspan="4"/>
+                    <field name="stock_period_max"/>
+                    <field name="ultimate_purchase"/>
+                    <field name="turnover_period"/>
+                    <field name="turnover_average"/>
+                </group>
+            </field>
+        </field>
+    </record>
+    
+    <record id="product_product_tree_view_technotrading" model="ir.ui.view">
+        <field name="name">product.product.tree.view.technotrading</field>
+        <field name="model">product.product</field>
+        <field name="type">tree</field>
+    	<field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+        	<field name="virtual_available" position="after" >
+                <field name="ultimate_purchase"/>
+                <field name="turnover_average"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="product_supplierinfo_tree_view_technotrading" model="ir.ui.view">
+        <field name="name">product.supplierinfo.tree.view.technotrading</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="type">tree</field>
+    	<field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="arch" type="xml">
+            <field name="delay" position="after" >
+            	<field name="stock_period_min"/>
+                <field name="purchase_multiple"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="product_supplierinfo_form_view_technotrading" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.view.technotrading</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="type">form</field>
+    	<field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <field name="delay" position="after" >
+            	<field name="stock_period_min"/>
+                <field name="purchase_multiple"/>
+                <field name="country_id"/>
+            </field>
         </field>
     </record>
 
@@ -35,6 +87,24 @@
                 <newline/>
                 <field name="stock_value"/>
             </field>
+        </field>
+    </record>
+
+    <record id="view_category_property_form_technotrading" model="ir.ui.view">
+        <field name="name">product.category.stock.property.form.technotrading</field>
+        <field name="model">product.category</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <group col="2" colspan="2">
+                	<separator string="Purchase parameters" colspan="2"/>
+	            	<field name="stock_period_min"/>
+                    <field name="stock_period_max"/>
+                    <field name="turnover_period"/>
+                </group>
+                <newline/>
+            </form>
         </field>
     </record>
 
