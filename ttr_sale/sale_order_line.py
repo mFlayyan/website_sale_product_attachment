@@ -55,7 +55,7 @@ class sale_order_line(osv.osv):
 
         warning_msgs = (result.get('warning') and result['warning']['message']
                         or '')
-        if (_("Not enough stock ! : ") not in warning_msgs):
+        if (product and _("Not enough stock ! : ") not in warning_msgs):
             product_obj = self.pool.get('product.product')
             product_obj = product_obj.browse(cr, uid, product, context=context)
     
