@@ -164,7 +164,7 @@ class product_product(osv.osv):
             readonly="1",
             help="""Ultimate date to purchase for not running out of 
             stock. Used by the purchase proposal."""), 
-        'hs_code': fields.char('HS-code', size=2)
+        'hs_code': fields.char('HS-code', size=32)
     }
 
     _defaults = {
