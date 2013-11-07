@@ -27,9 +27,9 @@
     'website': 'http://www.technotrading.nl/',
     'description': '''Techno Trading Custom''',
     'depends': [
-     #   'account',
-     #   'sale',
-     #   'base_external_referentials',
+        'account',
+        'sale',
+        'base_external_referentials',
     ],
     'data': [
         # 2012-08-22 deactivate changes to product_product, because we will
