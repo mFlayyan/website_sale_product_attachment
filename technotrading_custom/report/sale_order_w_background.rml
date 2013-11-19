@@ -319,7 +319,7 @@
             <para style="terp_default_10">[[ line.product_id.default_code ]]</para>
           </td>
           <td>
-            <para style="terp_default_10">[[ line.product_id.name or line.name ]] </para>
+            <para style="terp_default_10">[[ line.name_order or line.name or line.product_id.name ]] </para>
           </td>
           <td>
             <para style="terp_default_Right_9">[[ line.product_id.x_magerp_impa1 ]]</para>
