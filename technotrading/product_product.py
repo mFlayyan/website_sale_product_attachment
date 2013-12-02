@@ -139,8 +139,10 @@ class product_product(osv.osv):
     
     _columns = {
         'discount': fields.integer('Discount'),
-        'logistic_costs_perc': fields.float('Logistic Cost Perc'),
-        'clearance_costs_perc': fields.float('Clearance Costs Perc'),
+        'logistic_costs_perc': fields.float('Logistic costs perc', 
+                                                                digits=(5,3),),
+        'clearance_costs_perc': fields.float('Clearance costs perc', 
+                                                                digits=(5,3),),
         'stock_value': fields.function(_product, multi="_product",
             string="Stock Value", type="float", digits=(12,2),),
         'comment': fields.char('Comment', size=100),
