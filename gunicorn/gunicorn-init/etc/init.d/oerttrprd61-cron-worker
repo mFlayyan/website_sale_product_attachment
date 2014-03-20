@@ -11,7 +11,7 @@
 USER=oerttrprd61
 CONFIGFILE="/etc/openerp/$USER.cfg"
 PIDFILE=/var/run/openerp/$USER.pid
-DAEMON=/home/$USER/bzr/oe_technotrading/oerttrprd61-cron-worker
+DAEMON=/home/$USER/bzr/oe_technotrading/gunicorn/openerp-cron-worker
 
 PATH=/sbin:/user/sbin:/bin:/usr/bin
 DESC=openerp-cron-worker
