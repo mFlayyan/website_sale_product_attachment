@@ -88,7 +88,7 @@ def list_databases():
 if __name__ == '__main__':
     os.environ['TZ'] = 'UTC'
     config = openerp.tools.config
-    confif.parse_config(['-c', '/etc/openerp/oerttrprd61.cfg', '-d', 'technotrading'])
+    config.parse_config(['-c', '/etc/openerp/oerttrprd61.cfg', '-d', 'technotrading'])
     if config['log_handler'] == [':INFO']:
         # Replace the default value, which is suitable for openerp-server.
         config['log_handler'].append('openerp.addons.base.ir.ir_cron:DEBUG')
