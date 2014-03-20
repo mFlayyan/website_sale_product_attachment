@@ -10,12 +10,12 @@
 ### END INIT INFO
 USER=oerttrprd61
 CONFIGFILE="/etc/openerp/$USER.cfg"
-PIDFILE=/var/run/openerp/${USER}-cron-worker.pid
-DAEMON=/home/$USER/bzr/oe_technotrading/gunicorn/openerp-cron-worker
+PIDFILE=/var/run/openerp/${USER}-gunicorn.pid
+DAEMON=/home/$USER/virtualenv/python/bin/gunicorn
 
 PATH=/sbin:/user/sbin:/bin:/usr/bin
-DESC=openerp-cron-worker
-NAME=openerp-cron-worker
+DESC=${USER}-gunicorn
+NAME=${USER}-gunicorn
 
 if [ -e "/home/$USER/python-env" ]; then
     . /home/$USER/python-env
@@ -24,7 +24,7 @@ fi
 # you can define EXTRAOPTS when restarting the server, e.g.
 # EXTRAOPTS=" -d hrm3 -u hr_deluxe,hr_deluxe_nn " /etc/init.d/oervwnhrmdev2 restart
 
-DAEMON_OPTS=""
+DAEMON_OPTS="openerp:wsgi.core.application -c /home/oerttrprd61/bzr/oe_technotrading/gunicorn/gunicorn.conf.py"
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 1
