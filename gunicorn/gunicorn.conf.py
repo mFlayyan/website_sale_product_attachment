@@ -16,7 +16,7 @@ sys.path.append('/home/oerttrprd61/bzr/openobject-server')
 import openerp
 
 # Standard OpenERP XML-RPC port is 8069
-bind = '127.0.0.1:8069'
+bind = '0.0.0.0:8069'
 
 # Gunicorn recommends 2-4 x number_of_cpu_cores, but
 # you'll want to vary this a bit to find the best for your
