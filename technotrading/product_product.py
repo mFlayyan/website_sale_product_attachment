@@ -99,19 +99,17 @@ class product_product(osv.osv):
                 sql = """
                 UPDATE product_product
                 SET turnover_average = %s, ultimate_purchase = 
-                CASE WHEN %s > 0 THEN NULL ELSE DATE(NOW()) + %s END,
-                write_date = NOW() AT TIME ZONE 'UTC', write_uid = %s
+                CASE WHEN %s > 0 THEN NULL ELSE DATE(NOW()) + %s END
                 WHERE id = %s
                 """ % (
-                  turnover_average, purchase_draft, stock_days, uid, product_id)
+                  turnover_average, purchase_draft, stock_days, product_id)
             else:   #remove data when supply method no longer = "buy"
                 turnover_average = 0
                 sql = """
                 UPDATE product_product
-                SET turnover_average = 0, ultimate_purchase = NULL,
-                write_date = NOW() AT TIME ZONE 'UTC', write_uid = %s
+                SET turnover_average = 0, ultimate_purchase = NULL
                 WHERE id = %s
-                """ % (uid, product_id)
+                """ % product_id
             cr.execute(sql)
             result = {"value": {"turnover_average": turnover_average}}
         sql = """
@@ -122,10 +120,9 @@ class product_product(osv.osv):
          JOIN product_product PP
          ON PS.product_id = PP.id AND PS.sequence = 1
          AND PP.active AND NOT PP.ultimate_purchase IS NULL
-         WHERE PS.name = RP.id),
-        write_date = NOW() AT TIME ZONE 'UTC', write_uid = %s
+         WHERE PS.name = RP.id)
         WHERE active AND (supplier OR NOT ultimate_purchase IS NULL);"""
-        cr.execute(sql, [uid])
+        cr.execute(sql)
         return result
     
     def _product(self, cr, uid, ids, field_name, arg, context=None):
