@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 '''
 Created on 18 sep. 2013
 
@@ -88,7 +88,7 @@ class purchase_wizard(TransientModel):
         )
         SELECT PW.*, SL.id AS location_id
         FROM PW
-        LEFT JOIN stock_location SL ON SL.name = 'Input';
+        LEFT JOIN stock_location SL ON SL.name = 'Stock';
         """
         cr.execute(sql, (stock_period_max, 182, 1, ultimate_purchase_from,
             ultimate_purchase_to, partner_id, primary_supplier_only),)
@@ -103,7 +103,7 @@ class purchase_wizard(TransientModel):
         if rows != []:
             if not rows[0]["location_id"]:
                 raise except_orm(_("Error"), 
-                      _("Internal location with name 'Input' does not exist.") )
+                      _("Internal location with name 'Stock' does not exist.") )
             order_vals = pur_order_cls.onchange_partner_id(
                             cr, uid, ids, partner_id)["value"]
             date_order = date.today().strftime(DATEFMT)
