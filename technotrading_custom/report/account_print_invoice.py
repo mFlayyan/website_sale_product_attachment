@@ -22,6 +22,7 @@
 import time
 from report import report_sxw
 
+
 class account_invoice(report_sxw.rml_parse):
     """
     This is a copy of the standard report but with a background image"""
@@ -31,11 +32,14 @@ class account_invoice(report_sxw.rml_parse):
             'time': time,
         })
 
+from netsvc import Service
+del Service._services['report.account.invoice.background']
+
 report_sxw.report_sxw(
     'report.account.invoice.background',
     'account.invoice',
     'technotrading_custom/report/account_print_invoice_w_background.rml',
     parser=account_invoice,
-    )
+)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
