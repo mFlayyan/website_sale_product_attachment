@@ -32,9 +32,6 @@ class account_invoice(report_sxw.rml_parse):
             'time': time,
         })
 
-from netsvc import Service
-del Service._services['report.account.invoice.background']
-
 report_sxw.report_sxw(
     'report.account.invoice.background',
     'account.invoice',
