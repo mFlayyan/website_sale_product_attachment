@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <!-- Introduces manual fields, which are not defined in this
+        module. Use with ttr_magento_mockup when you are not working
+        on a derivation of the production database
+        -->       
         <record
             id="product_search_form_view"
             model="ir.ui.view">

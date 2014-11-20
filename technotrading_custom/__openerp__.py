@@ -30,12 +30,9 @@
         'account',
         'sale',
         'base_external_referentials',
+        'magentoerpconnect', #  or ttr_magento_mockup
     ],
     'data': [
-        # 2012-08-22 deactivate changes to product_product, because we will
-        # handle integration of magento-erp connection later
-        # 2012-10-08 readded back changes, because needed even without
-        # using mageno integration
         'view/product_product_view.xml',
         'view/res_company_view.xml',
         'report/account_report.xml',
