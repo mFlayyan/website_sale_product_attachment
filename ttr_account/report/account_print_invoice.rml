@@ -142,6 +142,7 @@
   <pto>
     <para style="terp_default_8">[[ repeatIn(objects,'o') ]]</para>
     <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
+
     <pto_header><!-- Must be after setLang() -->
     <blockTable colWidths="30.0,175.0,50.0,80.0,60.0,65.0,70.0" style="Table7">
       <tr>
@@ -275,7 +276,7 @@
             <para style="terp_default_9">[[ l.product_id.default_code ]]</para>
           </td>
           <td>
-            <para style="terp_default_9">[[ l.product_id.name_template ]]</para>
+            <para style="terp_default_9">[[ l.product_id.name ]]</para>
           </td>
           <td>
 	    <para style="terp_default_Right_9">[[ l.product_id.x_magerp_impa1 ]]</para>
