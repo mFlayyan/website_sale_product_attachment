@@ -278,7 +278,7 @@
             <para style="terp_default_9">[[ l.product_id.default_code ]]</para>
           </td>
           <td>
-            <para style="terp_default_9">[[ l.product_id.name_template ]]</para>
+            <para style="terp_default_9">[[ l.product_id.name ]]</para>
           </td>
           <td>
 	    <para style="terp_default_Right_9">[[ l.product_id.x_magerp_impa1 ]]</para>
