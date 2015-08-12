@@ -249,7 +249,7 @@
         </td>
 	<td>
           <para style="terp_tblheader_General_Centre">Payment terms</para>
-	  <para style="terp_tblheader_General_Centre">[[ o.state &lt;&gt; 'draft' and removeParentNode('para') ]] </para>
+     	  <para style="terp_tblheader_General_Centre">[[ o.state &lt;&gt; 'draft' and removeParentNode('para') ]] </para>
         </td>
       </tr>
     </blockTable>
@@ -271,8 +271,7 @@
           <para style="terp_default_Centre_8">[[ (o.user_id.name) or '-' ]]</para>
         </td>
 	<td>
-          <para style="terp_default_Centre_8">[[ o.state=='draft' and removeParentNode('para') ]] [[ o.payment_term.name ]]</para>
-          <para style="terp_default_Centre_8">[[ o.state &lt;&gt; 'draft' and removeParentNode('para') ]] </para>
+          <para style="terp_default_Centre_8">[[ o.payment_term.name ]]</para>
         </td>
      </tr>
     </blockTable>
