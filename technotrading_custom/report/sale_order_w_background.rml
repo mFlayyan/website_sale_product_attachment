@@ -248,7 +248,7 @@
           <para style="terp_tblheader_General_Centre">Handled by</para>
         </td>
 	<td>
-          <para style="terp_tblheader_General_Centre">[[ o.state=='draft' and removeParentNode('para') ]] Payment terms</para>
+          <para style="terp_tblheader_General_Centre">Payment terms</para>
 	  <para style="terp_tblheader_General_Centre">[[ o.state &lt;&gt; 'draft' and removeParentNode('para') ]] </para>
         </td>
       </tr>
