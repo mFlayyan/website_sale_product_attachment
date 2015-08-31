@@ -292,7 +292,11 @@
       </para>
 <para style="terp_default_1">
         <font color="white"> </font>
-      </para>
+    </para>
+<spacer length="1cm" />
+<para style="terp_default_9">[[o.note]]</para>
+
+
 
  <para style="terp_default_9">[[ (o.address_id and o.address_id.country_id and o.address_id.country_id.code == 'NL' and removeParentNode('para')) or '' ]]By signing this reception note, we acknowledge the fact that the delivery is an intracommunautair procurement, with destination: [[ o.address_id and o.address_id.country_id and o.address_id.country_id.name or '']]</para>
 
