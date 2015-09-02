@@ -302,7 +302,7 @@
 </section>
 
 
- <para style="terp_default_9">[[ (o.address_id and o.address_id.country_id and o.address_id.country_id.code == 'NL' and removeParentNode('para')) or '' ]]By signing this reception note, we acknowledge the fact that the delivery is an intracommunautair procurement, with destination: [[ o.address_id and o.address_id.country_id and o.address_id.country_id.name or '']]</para>
+ <para style="terp_default_9">[[ (o.sale_id.partner_invoice_id and o.sale_id.partner_invoice_id.country_id and o.sale_id.partner_invoice_id.country_id.code == 'NL' and removeParentNode('para')) or '' ]]By signing this reception note, we acknowledge the fact that the delivery is an intracommunautair procurement, with destination: [[ o.sale_id.partner_invoice_id and o.sale_id.partner_invoice_id.country_id and o.sale_id.partner_invoice_id.country_id.name or '']]</para>
 
   </pto>
    </story>
