@@ -41,5 +41,5 @@
         'report/purchase_order_report.xml',
     ],
     'active': False,
-    'installable': True,
+    'installable': False,
 }

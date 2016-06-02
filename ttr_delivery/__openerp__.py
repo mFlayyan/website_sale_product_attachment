@@ -14,4 +14,5 @@
     'update_xml': [
         'report/delivery_report.xml',
     ],
+    'installable': False,
 }

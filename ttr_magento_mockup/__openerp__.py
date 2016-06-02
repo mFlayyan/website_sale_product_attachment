@@ -25,4 +25,5 @@ installation, but a running test server is no longer necesarry.
         'technotrading_custom',
     ],
     'data': [],
+    'installable': False,
 }

@@ -17,4 +17,5 @@
         'view/stock_view.xml',
         'report/stock_report.xml',
         ],
+    'installable': False,
 }

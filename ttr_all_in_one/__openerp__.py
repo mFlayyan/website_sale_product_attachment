@@ -18,4 +18,5 @@
     ],
     'update_xml': [
     ],
+    'installable': False,
 }

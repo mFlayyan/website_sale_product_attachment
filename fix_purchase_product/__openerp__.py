@@ -9,5 +9,5 @@
     'category': 'Extensions',
     'update_xml': ['purchase_supplier_view.xml'],
     'active': False,
-    'installable': True
+    'installable': False,
 }

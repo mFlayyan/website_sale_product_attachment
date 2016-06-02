@@ -15,4 +15,5 @@
         'view/account_invoice_view.xml',
         'report/account_report.xml',
         ],
+    'installable': False,
 }
