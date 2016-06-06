@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_product_form_view_technotrading" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <group name="group_standard_price" position="inside">
+                    <field name="discount"/>
+                </group>
+                <field name="type" position="after">
+                    <field name="logistic_costs_perc"/>
+                    <field name="clearance_costs_perc"/>
+                </field>
+                <xpath expr="//page[@name='notes']" position="inside">
+                    <separator string="Comment"/>
+                    <field name="comment" placeholder="Comment"/>
+                </xpath>
+                <field name="seller_ids" position="before">
+                    <group colspan="2" col="4">
+                        <separator string="Purchase parameters" colspan="4"/>
+                        <field name="stock_period_max"/>
+                        <field name="ultimate_purchase"/>
+                        <field name="turnover_period"/>
+                        <field name="turnover_average"/>
+                    </group>
+                </field>
+                <group name="inventory" position="inside">
+                    <field name="stock_value"/>
+                </group>
+            </field>
+        </record>
+        <record id="product_product_tree_view_technotrading" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.view_stock_product_tree" />
+            <field name="arch" type="xml">
+                <field name="virtual_available" position="after" >
+                    <field name="ultimate_purchase"/>
+                    <field name="turnover_average"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
