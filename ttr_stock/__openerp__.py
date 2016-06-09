@@ -1,21 +1,18 @@
 {
-    'name': 'ttr_stock',
-    'description': '''Technotrading Stock Customizations''',
+    'name': 'Technotrading stock customizations',
+    'summary': 'Supports custom stock valuation and statistics',
     'application': True,
-    'version': '6.0.r007',
-    'author': 'Therp',
-    'category': 'ttr modules',
-    'website': 'http://technotrading.nl',
-    'email': 'info@technotrading.nl',
+    'version': '9.0.1.0.0',
+    'author': 'Therp BV',
+    'category': 'Inventory Management',
     'depends': [
         'base',
         'account',
         'sale',
         'stock',
+        'ttr_product',
     ],
-    'update_xml': [
-        'view/stock_view.xml',
-        'report/stock_report.xml',
-        ],
-    'installable': False,
+    'data': [
+        'reports/stock_report.xml',
+    ],
 }
