@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <!-- TODO: this is an unmigrated 6.1 file, restore
+             when the magento fields have been migrated /-->
         <!-- Introduces manual fields, which are not defined in this
         module. Use with ttr_magento_mockup when you are not working
         on a derivation of the production database

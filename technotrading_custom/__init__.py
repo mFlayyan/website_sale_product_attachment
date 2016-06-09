@@ -1,3 +1,0 @@
-import res_company
-import report
-import external_referential

@@ -6,14 +6,14 @@
     'author': 'Therp BV',
     'category': 'Specific Industry Applications',
     'depends': [
-        # 'technotrading',
+        'ttr_reports',
         # 'technotrading_custom',
         # 'ttr_account',
         # 'ttr_delivery',
         # 'ttr_purchase',
         # 'ttr_sale',
-        # 'ttr_stock',
-        # 'ttr_product',
+        'ttr_stock',
+        'ttr_product',
     ],
     'installable': True,
 }
