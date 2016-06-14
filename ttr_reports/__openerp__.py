@@ -9,9 +9,11 @@
     'author': 'FlxCore,Therp BV',
     'depends': [
         'report',
+        'delivery',
     ],
     'data': [
         'views/res_company.xml',
+        'reports/delivery_report.xml',
         'reports/account_report.xml',
         'reports/sale_report.xml',
         'reports/request_quotation_report.xml',

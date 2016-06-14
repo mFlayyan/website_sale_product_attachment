@@ -6,7 +6,7 @@
             id="delivery.report_shipping"
             model="stock.picking"
             name="sale.shipping"
-            rml="ttr_delivery/report/shipping.rml"
+            rml="ttr_reports/report/shipping.rml"
             string="Delivery order"
             multi="False" />
     </data>
