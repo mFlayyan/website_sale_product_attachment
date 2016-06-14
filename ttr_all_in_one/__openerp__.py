@@ -7,9 +7,8 @@
     'category': 'Specific Industry Applications',
     'depends': [
         'ttr_reports',
-        # 'technotrading_custom',
-        # 'ttr_account',
-        # 'ttr_delivery',
+        'ttr_account',
+        'ttr_delivery',
         # 'ttr_purchase',
         # 'ttr_sale',
         'ttr_stock',
