@@ -9,6 +9,7 @@
             string="Invoices"
             attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"
             attachment_use="False"
+            report_type="pdf"
             multi="False"/>
     </data>
 </openerp>
