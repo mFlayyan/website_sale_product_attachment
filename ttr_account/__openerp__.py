@@ -1,19 +1,14 @@
 {
-    'name': 'ttr_account',
-    'description': '''Technotrading Account Customizations''',
-    'application': True,
-    'version': '6.0.r002',
-    'author': 'Therp',
-    'category': 'ttr modules',
-    'website': 'http://technotrading.nl',
-    'email': 'info@technotrading.nl',
+    'name': 'Technotrading account customizations',
+    'version': '9.0.1.0.0',
+    'author': 'Therp BV',
+    'category': 'Accounting & Finance',
     'depends': [
         'base',
         'account',
     ],
-    'update_xml': [
-        'view/account_invoice_view.xml',
-        'report/account_report.xml',
-        ],
-    'installable': False,
+    'data': [
+        'views/account_invoice.xml',
+        'reports/account_report.xml',
+    ],
 }

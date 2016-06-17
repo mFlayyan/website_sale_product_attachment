@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+        <report
+            auto="False"
+            id="account.account_invoices"
+            model="account.invoice"
+            name="account.invoice"
+            rml="ttr_account/reports/account_print_invoice.rml"
+            string="Invoices"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/',''))"
+            attachment_use="False"
+            report_type="pdf"
+            multi="False"/>
+    </data>
+</openerp>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="ttr_invoice_tree_x1" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="client_order_ref" />
+                </field>
+            </field>
+        </record>
+        <record id="ttr_view_account_invoice_filter_x1" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="client_order_ref" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
