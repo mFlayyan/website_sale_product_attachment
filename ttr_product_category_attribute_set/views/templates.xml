@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="ttr_product_category_attribute_set assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/ttr_product_category_attribute_set/static/src/js/ttr_product_category_attribute_set.js"></script>
+                <link rel="stylesheet" href="/ttr_product_category_attribute_set/static/src/css/ttr_product_category_attribute_set.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>
