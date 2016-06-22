@@ -100,7 +100,7 @@ for attribute_set in attribute_sets:
                         int(attribute['attribute_id']), 
                         storeView=storeView
                     )
-                    #implementing size=-1 for integer indexes
+                    # implementing size=-1 for integer indexes
                     has_integer_index = isinstance(
                         attribute_options[0]['value'],int
                     )
@@ -108,7 +108,7 @@ for attribute_set in attribute_sets:
                             (x['value'], x['label']) for x in attribute_options
                             ]
                     model_string = (
-                        "%s = fields.%s(string='%s', selection=%s") % (
+                        "%s = fields.%s(string='%s', ttr_mag_attribute=True, selection=%s") % (
                             'ttr_' + attribute['code'],  
                             magento_to_odoo_type_mapping[attribute['type']],
                             attribute['code'], attribute_selection 

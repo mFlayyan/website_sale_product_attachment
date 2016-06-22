@@ -12,6 +12,7 @@
         'product',
     ],
     "data": [
+        "data/data.xml",
         'views/templates.xml',
         'security/ir.model.access.csv',
     ],
