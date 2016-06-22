@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-         
 from magento import MagentoAPI
-import json
-import xmlrpclib
 
 def search_in_file(filename, string_to_search):
     try:
@@ -24,14 +22,14 @@ def append_to_file(filename, string_to_append):
     file_obj.write("\n")
     file_obj.close()
 
-
 magento = MagentoAPI(
            'www.airtools-online.nl', '80',
-           'USR', 'PWD'
+           'TechnoTrading', '8mNnQeZ73eYK'
         )
 """
 The CREATION OF THE FIELDS SHOULD BE HARDCODED
-This code is now movesd to a script that will generate fields and XML data 
+This code is now movesd to a script that will 
+generate fields and XML data 
 for the new fields in odoo pre migration
 """
 DefinitionFileName = 'models.py'
@@ -39,12 +37,9 @@ XMLDataFileName = 'data.xml'
 
 attribute_sets = magento.catalog_product_attribute_set.list()
 for attribute_set in attribute_sets:
-    # create a odoo product.category for this set
-    # get attributes of this set, attributes that are not in a set are useless
     attributes = magento.catalog_product_attribute.list(
         [attribute_set['set_id']]
     )
-    counter = 0
     # get store
     storeView = magento.catalog_product_attribute.currentStore()
     # get magento attribute  types for mapping with odoo
@@ -71,27 +66,23 @@ for attribute_set in attribute_sets:
     excluded_types = ['price', 'multiselect', 'media_image']
     for attribute in attributes:
         if attribute['type'] not in excluded_types:
-            counter += 1 
-            """
-            create attribute if does not exist
-            identify tested in script by verifying dictionary values
-            all writes will be definitley tested on first quick migration
-            """
             field_mapping = []
             attribute_search = 'ttr_' + attribute['code']
             attribute_in_odoo = search_in_file(
                     DefinitionFileName, attribute_search)
 
             """
-            otherwise migrated attribute is the list of magento attribute fields 
-            that are ported in odoo in some other manner, by using standard
-            modules or third party modules.
-            We create a dictionary of attribute names that should not have a ttr_
-            field name created, followed by a comment of how and why are
-            migrated.
+            otherwise migrated attribute is the list of 
+            magento attribute fields 
+            that are ported in odoo in some other manner, 
+            by using standardmodules or third party modules.
+            We create a dictionary of attribute names that 
+            should not have a ttr_field name created, 
+            followed by a comment of how and why are migrated.
 
-            therefore we will not create the field definition even if it isn't
-            in the file, it will just inject the explanation as a comment, a sort
+            therefore we will not create the field definition 
+            even if it isn't in the file, it will just 
+            inject the explanation as a comment, a sort
             of automatic documentation.
             """
         
@@ -127,7 +118,8 @@ for attribute_set in attribute_sets:
                             (x['value'], x['label']) for x in attribute_options
                             ]
                     model_string = (
-                        "%s = fields.%s(string='%s', ttr_mag_attribute=True, selection=%s") % (
+                        "%s = fields.%s(string='%s', "
+                        "ttr_mag_attribute=True, selection=%s") % (
                             'ttr_' + attribute['code'],  
                             magento_to_odoo_type_mapping[attribute['type']],
                             attribute['code'], attribute_selection 
@@ -146,19 +138,23 @@ for attribute_set in attribute_sets:
                 {'ttr_' + attribute['code']: attribute['attribute_id']}
             )
 
-
     view_search = "cat_attribute_set_%s" % (attribute_set['name'])
     view_in_odoo = search_in_file(XMLDataFileName, view_search)
     if not view_in_odoo:
         product_field_ids_data = str([
-            "(4,ref('ttr_product_category_attribute_set.product_product_ttr_%s')" % x['code'] for x in attributes
+            "(4,ref('ttr_product_category_attribute_set."
+            "product_product_ttr_%s')" % x['code'] for x in [
+                y for y in attributes if (
+                    y['code'] not in otherwise_migrated_attributes
+                    )
+                ]
             ]).replace("\"", "")
 
-        xml_text = "<record id=\"cat_attribute_set_%s\" \
-        model=\"product.category\"> \
-        \n <field name=\"name\">%s</field> \
-        \n <field name=\"product_field_ids\" eval=\"%s\"<field> \
-        \n </record>" % (
+        xml_text = "<record id=\"cat_attribute_set_%s\" "
+        "model=\"product.category\"> "
+        "\n <field name=\"name\">%s</field>"
+        "\n <field name=\"product_field_ids\" eval=\"%s\"<field>"
+        "\n </record>" % (
             attribute_set['name'], attribute_set['name'], 
             product_field_ids_data)
         append_to_file(XMLDataFileName, xml_text)
