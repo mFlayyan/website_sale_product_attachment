@@ -65,16 +65,13 @@ def fetch_magentoXMLRPC(self):
 
 #get attribute sets
 attribute_sets = magento.catalog_product_attribute_set.list()
-counter_set = 1
 for attribute_set in attribute_sets:
-    counter_set += 1
     # create a odoo product.category for this set
 
     # get attributes of this set, attributes that are not in a set are useless
     attributes = magento.catalog_product_attribute.list(
         [attribute_set['set_id']]
     )
-    counter = 0
     #get store
     storeView = magento.catalog_product_attribute.currentStore()
     #get magento attribute  types for mapping with odoo
@@ -134,61 +131,6 @@ for attribute_set in attribute_sets:
                 int(attribute['attribute_id']), 
                 storeView=storeView
                 )
-        
-            # extend product product with this new attribute and cr
-            for attribute_option in attribute_options:
-                print("SUCCESS ------------------- on:" + str(attribute))
-                " if the field is of type option use select add and make the 
-                full selection with value =  magento"
-                pass
-        except:
-            # this particular attribute has no option
-            print('---Attr ' + str(counter) + '/' + str(len(attributes)) +
-                  'of set' + str(counter_set) + '/' +
-                  str(str(len(attribute_sets))))
-            print('failed fetch options attribute:' + str(attribute))
-            print('of set:' + str(attribute_set))
-            pass    
-        
-        
-        """
-        At this point product.product is extended with all 
-        extra fields as values
-        """
-
-        #Attribute Sets and create odoo categories.
-        
-
-            """
-            Fetch the mappings between odoo product and magento product from 
-            connector table
-            """
-            """
-            fetch the mappings between attribute sets in magento and odoo
-            """
-            #assign that category to the odoo productse
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
 
 @openupgrade.migrate()
 def migrate(cr, version):

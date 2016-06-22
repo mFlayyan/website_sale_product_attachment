@@ -7,7 +7,7 @@ from openerp import fields, models
 class ir_model_field(models.Model):
     _inherit = 'ir.model.field'
 
-    attribute_for_webshop = fields.Boolean(
-        string="attribute_for_webshop",
+    ttr_mag_attribute = fields.Boolean(
+        string="Technotrading Magento Attribute",
         default=False
     )

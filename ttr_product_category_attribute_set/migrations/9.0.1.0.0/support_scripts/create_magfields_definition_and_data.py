@@ -38,23 +38,21 @@ DefinitionFileName = 'models.py'
 XMLDataFileName = 'data.xml'
 
 attribute_sets = magento.catalog_product_attribute_set.list()
-counter_set = 1
 for attribute_set in attribute_sets:
-    counter_set += 1
     # create a odoo product.category for this set
     # get attributes of this set, attributes that are not in a set are useless
     attributes = magento.catalog_product_attribute.list(
         [attribute_set['set_id']]
     )
     counter = 0
-    #get store
+    # get store
     storeView = magento.catalog_product_attribute.currentStore()
-    #get magento attribute  types for mapping with odoo
+    # get magento attribute  types for mapping with odoo
     attribute_types = magento.catalog_product_attribute.types()
-    #DEBUG verify all types
+    # DEBUG verify all types
     print(attribute_types)
     
-    #FIELD TYPE MAPPING  {magento_type : odoo_type}
+    # FIELD TYPE MAPPING  {magento_type : odoo_type}
 
     magento_to_odoo_type_mapping = { 
             'text': 'Char', 
@@ -72,7 +70,7 @@ for attribute_set in attribute_sets:
     """
     excluded_types = ['price', 'multiselect', 'media_image']
     for attribute in attributes:
-        if  attribute['type'] not in excluded_types:
+        if attribute['type'] not in excluded_types:
             counter += 1 
             """
             create attribute if does not exist
@@ -80,10 +78,31 @@ for attribute_set in attribute_sets:
             all writes will be definitley tested on first quick migration
             """
             field_mapping = []
-            attribute_search= 'ttr_' + attribute['code']
+            attribute_search = 'ttr_' + attribute['code']
             attribute_in_odoo = search_in_file(
                     DefinitionFileName, attribute_search)
-            if not attribute_in_odoo:
+
+            """
+            otherwise migrated attribute is the list of magento attribute fields 
+            that are ported in odoo in some other manner, by using standard
+            modules or third party modules.
+            We create a dictionary of attribute names that should not have a ttr_
+            field name created, followed by a comment of how and why are
+            migrated.
+
+            therefore we will not create the field definition even if it isn't
+            in the file, it will just inject the explanation as a comment, a sort
+            of automatic documentation.
+            """
+        
+            otherwise_migrated_attributes = {
+                'magento_attribute_code': 'brief expl. of how and where',
+                'magento_attribute_code2': 'brief expl. of how and where',
+            }
+            
+
+            if ((not attribute_in_odoo) and 
+                    (attribute['code'] not in otherwise_migrated_attributes)):
                 """
                 TODO There are fields with no type , investigate
                 now will be generated aas Unknown in mapping dict
@@ -102,7 +121,7 @@ for attribute_set in attribute_sets:
                     )
                     # implementing size=-1 for integer indexes
                     has_integer_index = isinstance(
-                        attribute_options[0]['value'],int
+                        attribute_options[0]['value'], int
                     )
                     attribute_selection = [
                             (x['value'], x['label']) for x in attribute_options
@@ -116,10 +135,18 @@ for attribute_set in attribute_sets:
                     if has_integer_index:
                         model_string += ", size=-1"
                 append_to_file(DefinitionFileName, model_string +")")
+
+            if attribute['code'] in otherwise_migrated_attributes:
+                model_string = "\"\"\"\n" + otherwise_migrated_attributes[
+                        attribute['code']] + "\n\"\"\""
+                append_to_file(DefinitionFileName, model_string)
             # mapping between new attribute fields and magento fields
+            # maybe not needed if code is unique
             field_mapping.append(
                 {'ttr_' + attribute['code']: attribute['attribute_id']}
             )
+
+
     view_search = "cat_attribute_set_%s" % (attribute_set['name'])
     view_in_odoo = search_in_file(XMLDataFileName, view_search)
     if not view_in_odoo:
