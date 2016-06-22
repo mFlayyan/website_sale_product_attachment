@@ -149,12 +149,11 @@ for attribute_set in attribute_sets:
                     )
                 ]
             ]).replace("\"", "")
-
-        xml_text = "<record id=\"cat_attribute_set_%s\" "
+        xml_text = ("<record id=\"cat_attribute_set_%s\" "
         "model=\"product.category\"> "
         "\n <field name=\"name\">%s</field>"
         "\n <field name=\"product_field_ids\" eval=\"%s\"<field>"
-        "\n </record>" % (
+        "\n </record>") % (
             attribute_set['name'], attribute_set['name'], 
             product_field_ids_data)
         append_to_file(XMLDataFileName, xml_text)
