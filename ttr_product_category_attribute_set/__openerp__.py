@@ -12,9 +12,7 @@
         'product',
     ],
     "data": [
-        "data/data.xml",
-        'views/templates.xml',
-        'security/ir.model.access.csv',
+       "data/data.xml",
     ],
     "auto_install": False,
     "installable": True,

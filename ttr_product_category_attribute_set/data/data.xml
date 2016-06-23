@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <!-- insert here automatically generated records for new categories 
-             corresponding to magento attribute sets -->
-        
-    
+
+        <record id="cat_attribute_set_Air Driven Gas Freeing Fan" model="product.category"> 
+            <field name="name">Air Driven Gas Freeing Fan</field>
+            <field name="product_field_ids" eval="[(4,ref('ttr_product_category_attribute_set.product_product_ttr_price_view'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_price_type'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_price'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_recurring_profile'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_required_options'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_shipment_type'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_samples_title'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_safety_light_weight'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_paint_spray_aansluiting'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_paint_sprayer_width'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_news_to_date'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_news_from_date'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_name'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_old_id'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_options_container'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_paint_sprayer_luchtverbruik'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_paint_sprayer_height'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_page_layout'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_short_description'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_sku'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_unitor_number'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_tier_price'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_thumbnail_label'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_url_key'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_url_path'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_weight_type'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_weight'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_visibility'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_tax_class_id'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_small_image_label'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_sku_type'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_special_from_date'), (4,ref('ttr_product_category_attribute_set.product_product_ttr_special_price')]"
+            </field>
+     </record>
+
     </data>
 </openerp>

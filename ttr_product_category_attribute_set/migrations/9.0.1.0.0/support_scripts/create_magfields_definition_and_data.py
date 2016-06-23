@@ -100,7 +100,8 @@ for attribute_set in attribute_sets:
                 """
                 if attribute['type'] != 'select':
                     model_string = (
-                        "%s = fields.%s(string='%s'") % (
+                        "%s = fields.%s(string='%s', ttr_mag_attribute=True"
+                            ) % (
                             'ttr_' + attribute['code'],  
                             magento_to_odoo_type_mapping[attribute['type']],
                             attribute['code'] 
@@ -119,13 +120,15 @@ for attribute_set in attribute_sets:
                             ]
                     model_string = (
                         "%s = fields.%s(string='%s', "
-                        "ttr_mag_attribute=True, selection=%s") % (
+                        "ttr_mag_attribute=True,\n                            "
+                        "selection=%s") % (
                             'ttr_' + attribute['code'],  
                             magento_to_odoo_type_mapping[attribute['type']],
-                            attribute['code'], attribute_selection 
+                            attribute['code'], str(attribute_selection).replace(
+                                "'),", "'),\n                            ")
                         )
                     if has_integer_index:
-                        model_string += ", size=-1"
+                        model_string += ", \n                            size=-1"
                 append_to_file(DefinitionFileName, model_string +")")
 
             if attribute['code'] in otherwise_migrated_attributes:
@@ -143,19 +146,25 @@ for attribute_set in attribute_sets:
     if not view_in_odoo:
         product_field_ids_data = str([
             "(4,ref('ttr_product_category_attribute_set."
-            "product_product_ttr_%s')" % x['code'] for x in [
-                y for y in attributes if (
-                    y['code'] not in otherwise_migrated_attributes
-                    )
-                ]
+            "product_product_ttr_%s')" % x['code'] for x in attributes 
             ]).replace("\"", "")
+        # Will delete manually
+        """
+        "(4,ref('ttr_product_category_attribute_set."
+        "product_product_ttr_%s')" % x['code'] for x in [
+               y for y in attributes if (
+                   y['code'] not in otherwise_migrated_attributes
+                   )
+               ]
+         ]).replace("\"", "")
+         """
         xml_text = ("<record id=\"cat_attribute_set_%s\" "
-        "model=\"product.category\"> "
-        "\n <field name=\"name\">%s</field>"
-        "\n <field name=\"product_field_ids\" eval=\"%s\"<field>"
-        "\n </record>") % (
-            attribute_set['name'], attribute_set['name'], 
-            product_field_ids_data)
+                    "model=\"product.category\"> "
+                    "\n <field name=\"name\">%s</field>"
+                    "\n <field name=\"product_field_ids\" eval=\"%s\"</field>"
+                    "\n </record>") % (
+                attribute_set['name'], attribute_set['name'], 
+                product_field_ids_data)
         append_to_file(XMLDataFileName, xml_text)
 
 
