@@ -168,9 +168,10 @@ for attribute_set in attribute_sets:
                     "\n </record>") % (
                 attribute_set['name'], attribute_set['name'], 
                 product_field_ids_data)
-        init_hook_text = ("{\n \'name\': '%s',"
-                                "\n 'product_field_ids': %s \n},") % (
-                 attribute_set['name'], product_field_ids_data_for_dict)
+        init_hook_text = ("'%s':\n    {\n        \'name\': '%s',"
+                          "\n        'product_field_ids': %s \n    },") % (
+                               attribute_set['name'], attribute_set['name'], 
+                               product_field_ids_data_for_dict)
         append_to_file(XMLDataFileName, init_hook_text)
 
 
