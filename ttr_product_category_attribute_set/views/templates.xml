@@ -7,5 +7,17 @@
                 <link rel="stylesheet" href="/ttr_product_category_attribute_set/static/src/css/ttr_product_category_attribute_set.css"/>
             </xpath>
         </template>
+
+        <record id ="product_show_ttr_video" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="Magento Product Attributes" id="mpa">
+                        here magento derived fields
+                    </page>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>

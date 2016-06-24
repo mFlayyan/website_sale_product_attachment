@@ -4,10 +4,30 @@
 from openerp import api, fields, models
 
 
-class product_product(models.Model):
+class ProductProduct(models.Model):
     _inherit = 'product.product'
     _name = 'product.product'
 
+    #NOTE activate "manage product variants" in config before testing this code
+    #TODO activate it in post-install hook?
+
+    @api.model
+    def fields_view_get(
+            self, view_id, view_type='form', toolbar=False, submenu=False):
+        res = super(ProductProduct, self).fields_view_get(
+                view_id=view_id, view_type=view_type, toolbar=toolbar, 
+                submenu=submenu)
+        view_fields=res.get('fields', {})
+        import pudb
+        pudb.set_trace()
+        if view_id == self.env.ref("product.product_normal_form_view").id:
+            category = self.categ_id
+            for mag_field in category.product_field_ids:
+                res['fields'][magfield['name']] = magfield.name
+        
+    
+    
+ 
     """
     automatic generation
     missing magento types:

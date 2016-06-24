@@ -10,7 +10,7 @@ class product_category(models.Model):
     product_field_ids = fields.Many2many(
             comodel_name='ir.model.fields', string='Attributes for webshop', 
         help='These attributes are for the webshop',
-        domain=lambda self: [('attribute_for_webshop', '=', True)]
+        domain=lambda self: [('tt_mag_attribute', '=', True)]
     )
     
     
