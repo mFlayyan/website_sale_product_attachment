@@ -6,6 +6,7 @@ from openerp import api, fields, models
 
 class product_product(models.Model):
     _inherit = 'product.product'
+    _name = 'product.product'
 
     """
     automatic generation

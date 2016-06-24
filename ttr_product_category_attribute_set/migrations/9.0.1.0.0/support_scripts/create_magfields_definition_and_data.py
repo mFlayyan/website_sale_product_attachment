@@ -146,8 +146,11 @@ for attribute_set in attribute_sets:
     if not view_in_odoo:
         product_field_ids_data = str([
             "(4,ref('ttr_product_category_attribute_set."
-            "product_product_ttr_%s')" % x['code'] for x in attributes 
+            "product_product_ttr_%s'))" % x['code'] for x in attributes 
             ]).replace("\"", "")
+        product_field_ids_data_for_dict = str([
+            "[4,ttr_%s]" % x['code'] for x in attributes 
+            ]).replace("\'", "")
         # Will delete manually
         """
         "(4,ref('ttr_product_category_attribute_set."
@@ -165,7 +168,10 @@ for attribute_set in attribute_sets:
                     "\n </record>") % (
                 attribute_set['name'], attribute_set['name'], 
                 product_field_ids_data)
-        append_to_file(XMLDataFileName, xml_text)
+        init_hook_text = ("{\n \'name\': %s,"
+                                "\n 'product_field_ids': %s \n},") % (
+                 attribute_set['name'], product_field_ids_data_for_dict)
+        append_to_file(XMLDataFileName, init_hook_text)
 
 
 
