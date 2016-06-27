@@ -17,32 +17,40 @@ class ProductProduct(models.Model):
         res = super(ProductProduct, self).fields_view_get(
                 view_id=view_id, view_type=view_type, toolbar=toolbar, 
                 submenu=submenu)
-        import pudb
-        pudb.set_trace()
         if ((view_type == 'form') and ('notebook' in res['arch'])):
             category = self.env.context.get('active_id', [])
-            if category:
-                for mag_field in category.product_field_ids:
-                    """
-                    inject in notebook the fields it would be nice to inject
-                    inly the ones in category.product_field_ids, but
-                    to do that i would have to put the active id in the context.
-                    Passing everything so we can then filter them with attrs in view.
-                    
-                    """
+            all_product_fields = self.env['ir.model.fields'].search([(
+               'model', '=', 'product.product')]
+            )
+            import pudb
+            pudb.set_trace()
+            for mag_field in all_product_fields:
+                """
+                inject in notebook the fields it would be nice to inject
+                inly the ones in category.product_field_ids, but
+                to do that i would have to put the active id in the context.
+                Passing everything so we can then filter them with attrs in view.
+                
+                """
+                if mag_field.name[:3] == 'ttr':
                     #search for our tab
                     id_search_string = 'id="mpa">'
                     index = res['arch'].find(id_search_string)
+                    #insert fields Here
                     insert_position = int(index) + len(id_search_string)
-                    all_fields = 
+                    """
+                    new_field_attr = (
                     "<field name=\"" + mag_field.name + "\" , attrs=\"{'invisible' :"
-                    "[("+ mag_field.id + ", 'not in', " + category.product_fields_ids + ")]"
+                    "[(" + str(mag_field.id) + 
+                    ", 'not in', active_id.product_fields_ids)]}\"/>"
+                    )
+                    """
+                    new_field_attr = "<field name=\"" + mag_field.name + "\" />"
                     if index > -1:
                         res['arch'] = (
-                            res['arch'][:insert_position] + all_fields +
+                            res['arch'][:insert_position] + '\n' + new_field_attr +
                             res['arch'][insert_position:]
                             )
-                    res['fields'][mag_field['name']] = mag_field.name
         return res
     
  
@@ -64,7 +72,7 @@ class ProductProduct(models.Model):
     #ttr_shipment_type = fields.unknown(string='shipment_type', ttr_mag_attribute=True)
     #ttr_samples_title = fields.unknown(string='samples_title', ttr_mag_attribute=True)
     ttr_safety_light_weight = fields.Selection(string='safety_light_weight', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2157', '0.023 kg'),
                                  ('2138', '0.085 kg'),
                                  ('2101', '0.10 kg'),
@@ -153,7 +161,7 @@ class ProductProduct(models.Model):
                                  ('505', '90 g'),
                                  ('1299', '95.34 kg')])
     ttr_paint_spray_aansluiting = fields.Selection(string='paint_spray_aansluiting', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1335', '1\"'),
                                  ('1336', '1.25\"'),
                                  ('1334', '1.50\"'),
@@ -164,7 +172,7 @@ class ProductProduct(models.Model):
                                  ('1251', '3/4\"'),
                                  ('988', '3/8\"')])
     ttr_paint_sprayer_width = fields.Selection(string='paint_sprayer_width', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('813', '100 mm'),
                                  ('799', '103 mm'),
                                  ('796', '19 mm'),
@@ -192,7 +200,7 @@ class ProductProduct(models.Model):
                                 selection=[('container1', 'Kolom productgegevens'),
                                  ('container2', 'Blok na info-kolom')])
     ttr_paint_sprayer_luchtverbruik = fields.Selection(string='paint_sprayer_luchtverbruik', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('990', '0.8 L/stroke'),
                                  ('830', '113 L/min'),
                                  ('744', '126 L/min'),
@@ -239,7 +247,7 @@ class ProductProduct(models.Model):
                                  ('931', '906  L/min'),
                                  ('1196', '962 L/min')])
     ttr_paint_sprayer_height = fields.Selection(string='paint_sprayer_height', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1188', '105 mm'),
                                  ('1190', '113 mm'),
                                  ('1126', '165 mm'),
@@ -333,7 +341,7 @@ class ProductProduct(models.Model):
     ttr_image_label = fields.Char(string='image_label', ttr_mag_attribute=True)
     ttr_impa1 = fields.Char(string='impa1', ttr_mag_attribute=True)
     ttr_merk_type = fields.Selection(string='merk_type', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2174', 'AEG'),
                                  ('1205', 'AFEC'),
                                  ('1866', 'Black Bear'),
@@ -411,7 +419,7 @@ class ProductProduct(models.Model):
                                  (0, 'Nee')], 
                                 size=-1)
     ttr_paint_sprayer_normale_werkdruk = fields.Selection(string='paint_sprayer_normale_werkdruk', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1583', '10 bar'),
                                  ('1566', '100 bar'),
                                  ('1575', '15 bar'),
@@ -426,7 +434,7 @@ class ProductProduct(models.Model):
                                  ('1970', '6.3 bar'),
                                  ('1569', '75 bar')])
     ttr_paint_sprayer_lengte = fields.Selection(string='paint_sprayer_lengte', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1959', '1,5 m'),
                                  ('960', '10 m'),
                                  ('1011', '100 m'),
@@ -513,7 +521,7 @@ class ProductProduct(models.Model):
                                  ('1958', 'n/a'),
                                  ('1039', '2.5 m')])
     ttr_air_inlet = fields.Selection(string='air_inlet', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1135', '1"'),
                                  ('641', '1/2"'),
                                  ('642', '1/4"'),
@@ -521,7 +529,7 @@ class ProductProduct(models.Model):
                                  ('640', u'3/8\u201d'),
                                  ('1136', '5/8"')])
     ttr_verkoopeenheid = fields.Selection(string='verkoopeenheid', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1791', 'box = 100 pcs'),
                                  ('1792', 'box = 50 pcs'),
                                  ('416', 'one piece'),
@@ -537,7 +545,7 @@ class ProductProduct(models.Model):
                                  ('1795', 'set = 4 pcs'),
                                  ('1794', 'set = 5 pcs')])
     ttr_diameter = fields.Selection(string='diameter', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('963', '10 mm'),
                                  ('951', '110 -135 mm'),
                                  ('1515', '115-125 mm'),
@@ -608,7 +616,7 @@ class ProductProduct(models.Model):
                                  ('566', '250 mm'),
                                  ('567', '300 mm')])
     ttr_max_working_pressure = fields.Selection(string='max_working_pressure', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1582', '10 bar'),
                                  ('1020', '100 bar'),
                                  ('1238', '1000 bar'),
@@ -626,19 +634,19 @@ class ProductProduct(models.Model):
                                  ('1201', '700 bar'),
                                  ('1421', '825 bar')])
     ttr_nom_hose_end = fields.Selection(string='nom_hose_end', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1470', '12 mm'),
                                  ('1471', '19 mm'),
                                  ('1468', '6 mm'),
                                  ('1469', '8 mm')])
     ttr_connection_thread = fields.Selection(string='connection_thread', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1467', '1/4\"')])
     ttr_material_air_hose_coupling = fields.Selection(string='material_air_hose_coupling', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1466', 'Brass')])
     ttr_paint_sprayer_gewicht = fields.Selection(string='paint_sprayer_gewicht', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('790', '0.09 kg'),
                                  ('788', '0.095 kg'),
                                  ('792', '0.1 kg'),
@@ -777,7 +785,7 @@ class ProductProduct(models.Model):
                                  ('973', '9.8 kg'),
                                  ('1997', '96 kg')])
     ttr_thread = fields.Selection(string='thread', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('577', '16 mm (5/8\")'),
                                  ('926', '19 (1/4\")'),
                                  ('584', '22.2 mm (7/8\")'),
@@ -797,7 +805,7 @@ class ProductProduct(models.Model):
                                  ('2149', 'Thread M10'),
                                  ('2151', 'Thread M14')])
     ttr_capacity_tank = fields.Selection(string='capacity_tank', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1425', '10 L'),
                                  ('882', '100 L'),
                                  ('916', '130 cm3'),
@@ -810,10 +818,10 @@ class ProductProduct(models.Model):
                                  ('1424', '6 L'),
                                  ('881', '80 L')])
     ttr_regulating_range = fields.Selection(string='regulating_range', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('917', '0.05-0.85 MPa')])
     ttr_flow_rate = fields.Selection(string='flow_rate', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1775', '10.16 L/min'),
                                  ('1393', '11.7 L/min'),
                                  ('1780', '13.75 L/min'),
@@ -841,11 +849,11 @@ class ProductProduct(models.Model):
                                  ('1776', '8.3 L/min'),
                                  ('1331', '985 L/min')])
     ttr_type_air_motor_kit = fields.Selection(string='type_air_motor_kit', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1530', '852-489'),
                                  ('1529', '852/958-852')])
     ttr_safety_lights_certification = fields.Selection(string='safety_lights_certification', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('465', 'BAS00ATEX2176, IECEx TSA 05.0017X'),
                                  ('467', 'BAS00ATEX2203'),
                                  ('468', 'BAS02ATEX2220X, IECEx TSA 05.0017X'),
@@ -862,7 +870,7 @@ class ProductProduct(models.Model):
                                  ('487', 'IBExU03ATEX1018X'),
                                  ('2142', 'n.a.')])
     ttr_safety_lights_area_of_classification = fields.Selection(string='safety_lights_area_of_classification', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('458', 'Zone 0, 1 & 2'),
                                  ('459', 'Zone 1 & 2'),
                                  ('460', 'Zones 0, 1 & 2'),
@@ -871,7 +879,7 @@ class ProductProduct(models.Model):
                                  ('463', 'Zones 21 & 22'),
                                  ('464', 'Zones 21 and 22')])
     ttr_saferty_lights_lightbulb = fields.Selection(string='saferty_lights_lightbulb', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('429', '1 x 1Watt LED White (Luxeon)'),
                                  ('430', '1 x white high powered LED'),
                                  ('431', '1x5mm LEDWhite (Nichia)'),
@@ -894,7 +902,7 @@ class ProductProduct(models.Model):
                                  ('441', 'Vacuum filament bulb'),
                                  ('442', 'Xenon filled filament bulb')])
     ttr_safety_lights_light_output = fields.Selection(string='safety_lights_light_output', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('455', '1.4 lm'),
                                  ('443', '1.4 lm'),
                                  ('2132', '100 lumens'),
@@ -923,7 +931,7 @@ class ProductProduct(models.Model):
                                  ('867', 'up to 185 lm'),
                                  ('454', 'up to 50 lm')])
     ttr_safety_lights_power_source = fields.Selection(string='safety_lights_power_source', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1237', '100 - 230 V'),
                                  ('969', '110 V'),
                                  ('2158', '2 x 3 V Lithium cells'),
@@ -955,7 +963,7 @@ class ProductProduct(models.Model):
                                  ('534', 'Rechargeable battery, sealed lead acid'),
                                  ('535', 'Rechargeable battery, sealed lead acid, 4 V')])
     ttr_safety_lights_temperature_class = fields.Selection(string='safety_lights_temperature_class', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('488', 'T3'),
                                  ('489', 'T3/T4'),
                                  ('490', 'T4'),
@@ -963,7 +971,7 @@ class ProductProduct(models.Model):
                                  ('492', 'T5'),
                                  ('493', 'T6')])
     ttr_noise_level = fields.Selection(string='noise_level', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1991', '72 dB'),
                                  ('1990', '74 dB'),
                                  ('1281', '75-80 dB'),
@@ -978,11 +986,11 @@ class ProductProduct(models.Model):
                                  ('704', '92.7 dB'),
                                  ('1988', '97 dB')])
     ttr_operating_air_pressure = fields.Selection(string='operating_air_pressure', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1283', '3-6 bar'),
                                  ('1284', '3-6.5 bar')])
     ttr_paint_sprayers_pressure_ratio = fields.Selection(string='paint_sprayers_pressure_ratio', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1295', '10:1'),
                                  ('1297', '16:1'),
                                  ('1289', '22:1'),
@@ -1001,7 +1009,7 @@ class ProductProduct(models.Model):
                                  ('2166', '70:1'),
                                  ('1291', '73:1')])
     ttr_max_discharge_pressure = fields.Selection(string='max_discharge_pressure', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1254', '100 bar'),
                                  ('1266', '143 bar'),
                                  ('1260', '150 bar'),
@@ -1018,7 +1026,7 @@ class ProductProduct(models.Model):
                                  ('1267', '475 bar'),
                                  ('1256', '65 bar')])
     ttr_max_delivery = fields.Selection(string='max_delivery', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1276', '10.8 L/Min'),
                                  ('1269', '11.7 L/Min'),
                                  ('1277', '11.8 L/Min'),
@@ -1033,21 +1041,21 @@ class ProductProduct(models.Model):
                                  ('1280', '32 L/Min'),
                                  ('1275', '4 L/Min')])
     ttr_lstroke_air_motor = fields.Selection(string='lstroke_air_motor', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1252', '120 mm'),
                                  ('725', '3700 SPM')])
     ttr_diameter_paint_spray_hose = fields.Selection(string='diameter_paint_spray_hose', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1698', '1/2&amp;amp;quot;'),
                                  ('1696', '1/4&amp;amp;quot;'),
                                  ('1697', '3/8&amp;amp;quot;')])
     ttr_airless_paint_spray_tip_angle = fields.Selection(string='airless_paint_spray_tip_angle', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1626', '40 deg'),
                                  ('1624', '50 deg'),
                                  ('1625', '60 deg')])
     ttr_airless_paint_spray_tipdiam = fields.Selection(string='airless_paint_spray_tipdiam', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1630', '0.013&amp;amp;quot;'),
                                  ('1635', '0.015&amp;amp;quot;'),
                                  ('1629', '0.017&amp;amp;quot;'),
@@ -1058,7 +1066,7 @@ class ProductProduct(models.Model):
                                  ('1632', '0.027&amp;amp;quot;'),
                                  ('1631', '0.029')])
     ttr_paint_sprayer_toerental = fields.Selection(string='paint_sprayer_toerental', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('597', '0-3000 omw p/m'),
                                  ('860', '1000 rpm'),
                                  ('869', '10000 rpm'),
@@ -1114,19 +1122,19 @@ class ProductProduct(models.Model):
                                  ('1163', '9000 bpm'),
                                  ('618', '9500 rpm')])
     ttr_paint_sprayer_boorkop_diameter = fields.Selection(string='paint_sprayer_boorkop_diameter', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('426', '13 mm')])
     ttr_paint_sprayer_luchtslang = fields.Selection(string='paint_sprayer_luchtslang', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('422', '3/8&amp;amp;quot;')])
     ttr_model_accessoiries = fields.Selection(string='model_accessoiries', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1526', 'CNP-13'),
                                  ('1527', 'CNP-2'),
                                  ('1525', 'CNP-2H'),
                                  ('1528', 'HSP-3')])
     ttr_size = fields.Selection(string='size', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1029', '1'),
                                  ('1027', '1-1/2'),
                                  ('1028', '1-1/4'),
@@ -1140,11 +1148,11 @@ class ProductProduct(models.Model):
                                  ('1064', '3/8'),
                                  ('1023', '4')])
     ttr_safety_lights_recharge_time = fields.Selection(string='safety_lights_recharge_time', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('512', '3.0 hrs (90% in 1.5 hrs)'),
                                  ('674', '8-10 hrs')])
     ttr_type_blade_jig_saw = fields.Selection(string='type_blade_jig_saw', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2220', 'Blender'),
                                  ('2221', 'Coffee Machine'),
                                  ('2219', 'Kitchen Machine'),
@@ -1157,7 +1165,7 @@ class ProductProduct(models.Model):
                                  ('2218', 'Toaster'),
                                  ('2222', 'Water Cooker')])
     ttr_teeth = fields.Selection(string='teeth', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2071', '10'),
                                  ('2072', '12'),
                                  ('2061', '14'),
@@ -1168,7 +1176,7 @@ class ProductProduct(models.Model):
                                  ('2073', '8'),
                                  ('2060', '9')])
     ttr_length = fields.Selection(string='length', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2036', '100 mm'),
                                  ('1455', '38 mm'),
                                  ('1456', '50 mm'),
@@ -1180,18 +1188,18 @@ class ProductProduct(models.Model):
                                  ('1454', '74 mm'),
                                  ('1458', '76 mm')])
     ttr_nut_splitter_matching = fields.Selection(string='nut_splitter_matching', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1729', 'HHQ-24'),
                                  ('1731', 'HHQ-24B'),
                                  ('1732', 'HHQ-27'),
                                  ('1730', 'HHQ-3241')])
     ttr_packed_dimensions = fields.Selection(string='packed_dimensions', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1378', '500 x 500 x 600 mm')])
     ttr_total_gross_weight = fields.Selection(string='total_gross_weight', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_dimensions = fields.Selection(string='dimensions', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1995', '127 x 49 x 66 cm'),
                                  ('1994', '158 x 53 x 99 cm'),
                                  ('1993', '212 x 74 x 137 cm'),
@@ -1202,7 +1210,7 @@ class ProductProduct(models.Model):
                                  ('2016', '42.8 x 40.3 x 54.3 cm'),
                                  ('1992', '57 x 25,5 x 58 cm')])
     ttr_grit = fields.Selection(string='grit', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2110', '100'),
                                  ('2117', '1000'),
                                  ('2124', '120'),
@@ -1230,12 +1238,12 @@ class ProductProduct(models.Model):
                                  ('2106', '80'),
                                  ('2118', '800')])
     ttr_lifting_height = fields.Selection(string='lifting_height', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1856', '1.5 m'),
                                  ('1857', '2.5 m'),
                                  ('1437', '3 m')])
     ttr_lifting_capacity = fields.Selection(string='lifting_capacity', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1854', '0.25 ton'),
                                  ('1855', '0.5 ton'),
                                  ('1852', '0.75 ton'),
@@ -1265,13 +1273,13 @@ class ProductProduct(models.Model):
                                  ('1509', '8 ton'),
                                  ('1498', '850 kg')])
     ttr_shank = fields.Selection(string='shank', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('816', 'Hexagonal'),
                                  ('815', 'Round')])
     ttr_material_wire = fields.Selection(string='material_wire', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_max_speed = fields.Selection(string='max_speed', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('575', '11000 rpm'),
                                  ('581', '1200 rpm'),
                                  ('576', '12000 rpm'),
@@ -1285,24 +1293,24 @@ class ProductProduct(models.Model):
                                  ('547', '8500 rpm'),
                                  ('1220', '9000 rpm')])
     ttr_voltage = fields.Selection(string='voltage', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1699', '110'),
                                  ('1617', '220'),
                                  ('1700', '440')])
     ttr_air_consumption = fields.Selection(string='air_consumption', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1927', '250-380 l/min'),
                                  ('1615', '60l/min')])
     ttr_kw = fields.Selection(string='kw', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1616', '0,375')])
     ttr_safety_lights_input_voltage = fields.Selection(string='safety_lights_input_voltage', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('589', '110 V'),
                                  ('590', '230 V'),
                                  ('588', '440 V')])
     ttr_power = fields.Selection(string='power', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1366', '0.55 kW'),
                                  ('1364', '0.75 kW'),
                                  ('1554', '1100 W'),
@@ -1322,19 +1330,19 @@ class ProductProduct(models.Model):
                                  ('592', '850 W'),
                                  ('2023', '9 kW')])
     ttr_spindle = fields.Selection(string='spindle', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1195', '3/8\"'),
                                  ('1169', '5/8\"'),
                                  ('601', 'M10'),
                                  ('600', 'M14')])
     ttr_power_electric_bench_grinder = fields.Selection(string='power_electric_bench_grinder', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1538', '110 V'),
                                  ('1539', '220 V'),
                                  ('1540', '400 V'),
                                  ('1559', '440 V')])
     ttr_safety_lights_ip = fields.Selection(string='safety_lights_ip', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('506', '54'),
                                  ('507', '66'),
                                  ('509', '66'),
@@ -1347,13 +1355,13 @@ class ProductProduct(models.Model):
     ttr_cutting_depth = fields.Selection(string='cutting_depth', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_working_width = fields.Selection(string='working_width', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1359', '195 mm'),
                                  ('1370', '252 mm'),
                                  ('1355', '280 mm'),
                                  ('1354', '300 mm')])
     ttr_chuck = fields.Selection(string='chuck', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('834', '10 mm'),
                                  ('859', '16 mm'),
                                  ('1445', '3 mm'),
@@ -1361,7 +1369,7 @@ class ProductProduct(models.Model):
                                  ('541', '6 mm'),
                                  ('603', '13 mm')])
     ttr_number_needles = fields.Selection(string='number_needles', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1156', '12 needles'),
                                  ('1155', '14 needles'),
                                  ('1152', '19 needles'),
@@ -1372,7 +1380,7 @@ class ProductProduct(models.Model):
                                  ('1162', '35 needles'),
                                  ('1159', '66 needles')])
     ttr_diameter_needles = fields.Selection(string='diameter_needles', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1146', '2 mm'),
                                  ('685', '3 mm'),
                                  ('1145', '4 mm')])
@@ -1385,7 +1393,7 @@ class ProductProduct(models.Model):
     ttr_planing_width = fields.Selection(string='planing_width', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_pad_size_lxb = fields.Selection(string='pad_size_lxb', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('876', '10 x 330 mm'),
                                  ('840', '100 x 110 mm'),
                                  ('875', '20 x 520 mm'),
@@ -1393,7 +1401,7 @@ class ProductProduct(models.Model):
                                  ('872', '55 x 103 mm'),
                                  ('841', '75 x 82 mm')])
     ttr_pump_cap = fields.Selection(string='pump_cap', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1715', '14 cbm/min'),
                                  ('1714', '18 cbm/min'),
                                  ('1722', '19 m3/h'),
@@ -1407,7 +1415,7 @@ class ProductProduct(models.Model):
                                  ('1721', '72 cbm/h'),
                                  ('1719', '78 cbm/h')])
     ttr_lift_cap = fields.Selection(string='lift_cap', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1708', '11m'),
                                  ('1717', '13m'),
                                  ('1703', '15m'),
@@ -1419,15 +1427,15 @@ class ProductProduct(models.Model):
                                  ('1707', '36m'),
                                  ('1716', '40m')])
     ttr_thread_extension_hose = fields.Selection(string='thread_extension_hose', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1534', '1/8')])
     ttr_length_extension_hose = fields.Selection(string='length_extension_hose', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1537', '340 mm'),
                                  ('1535', '360 mm'),
                                  ('1536', '370 mm')])
     ttr_tickness_grinding_wheel = fields.Selection(string='tickness_grinding_wheel', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1485', '1'),
                                  ('2068', '10 mm'),
                                  ('1486', '2,5'),
@@ -1436,7 +1444,7 @@ class ProductProduct(models.Model):
                                  ('2070', '30 mm'),
                                  ('1488', '6')])
     ttr_shape = fields.Selection(string='shape', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1440', 'Arched-shape'),
                                  ('1443', 'Ball-shape'),
                                  ('2065', 'Cone-shape'),
@@ -1451,17 +1459,17 @@ class ProductProduct(models.Model):
                                  ('1441', 'Tree-shape'),
                                  ('2075', 'Triangle')])
     ttr_body_nozzle = fields.Selection(string='body_nozzle', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1465', '2&\"'),
                                  ('2037', '235 mm'),
                                  ('2038', '270 mm')])
     ttr_material_nozzle = fields.Selection(string='material_nozzle', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1464', 'Aluminium'),
                                  ('1463', 'Brass'),
                                  ('2039', 'Steel')])
     ttr_light_duration = fields.Selection(string='light_duration', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('513', '15 hours'),
                                  ('514', '30 hours'),
                                  ('515', '50 hours'),
@@ -1485,7 +1493,7 @@ class ProductProduct(models.Model):
                                  ('1181', 'Up to 72 hours (7.5 hours at full brightness)'),
                                  ('2095', 'Up to 8 hours')])
     ttr_air_discharge_connection = fields.Selection(string='air_discharge_connection', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1316', '0.375\"'),
                                  ('1137', '1\"'),
                                  ('1314', '1.25\"'),
@@ -1499,17 +1507,17 @@ class ProductProduct(models.Model):
                                  ('1141', '3/8\"'),
                                  ('1139', '5/8\"')])
     ttr_geared_trolley = fields.Selection(string='geared_trolley', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1798', '1 ton'),
                                  ('1802', '10 ton'),
                                  ('1799', '2 ton'),
                                  ('1800', '3 ton'),
                                  ('1801', '5 ton')])
     ttr_type_grease_adaptor = fields.Selection(string='type_grease_adaptor', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1531', '1/8\"')])
     ttr_type_grease_bucket_pump = fields.Selection(string='type_grease_bucket_pump', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1533', 'HPG-50'),
                                  ('1532', 'TPG-30A')])
     ttr_grease_oil_pressure = fields.Selection(string='grease_oil_pressure', ttr_mag_attribute=True,
@@ -1517,7 +1525,7 @@ class ProductProduct(models.Model):
     ttr_applicable_for = fields.Selection(string='applicable_for', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_oil_capacity = fields.Selection(string='oil_capacity', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1187', '141 cc'),
                                  ('1121', '150 cc'),
                                  ('1123', '217 cc'),
@@ -1530,36 +1538,36 @@ class ProductProduct(models.Model):
                                  ('1124', '72 cc'),
                                  ('1222', '953 cc')])
     ttr_wire_length = fields.Selection(string='wire_length', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1851', '6 m')])
     ttr_wire_diameter = fields.Selection(string='wire_diameter', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1045', '3 mm'),
                                  ('1044', '4 mm'),
                                  ('1043', '5 mm'),
                                  ('1042', '6 mm')])
     ttr_head_lamp_atex = fields.Selection(string='head_lamp_atex', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1937', 'No'),
                                  ('1936', 'Yes')])
     ttr_head_lamp_battery_type = fields.Selection(string='head_lamp_battery_type', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1938', '2 AA/ LR06'),
                                  ('1939', '3 AAA/ LR03'),
                                  ('1940', 'Lithium-ion polymer 930 mAh')])
     ttr_head_lamp_protection = fields.Selection(string='head_lamp_protection', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1930', 'IP 67'),
                                  ('1929', 'IP 68'),
                                  ('1931', 'IP X4')])
     ttr_head_lamp_weight = fields.Selection(string='head_lamp_weight', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1933', '145 g'),
                                  ('1932', '160 g'),
                                  ('1934', '340 g'),
                                  ('1935', '80 g')])
     ttr_power_consumption = fields.Selection(string='power_consumption', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1412', '15 Kw'),
                                  ('1387', '2.2 Kw'),
                                  ('1411', '30 Kw'),
@@ -1567,19 +1575,19 @@ class ProductProduct(models.Model):
                                  ('1385', '5.5 Kw'),
                                  ('1396', '6.6 Kw')])
     ttr_vacuum_cleaner_hz = fields.Selection(string='vacuum_cleaner_hz', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1763', '50 Hz'),
                                  ('1764', '50/60 Hz'),
                                  ('1765', '60 Hz')])
     ttr_vacuum_cleaner_ph = fields.Selection(string='vacuum_cleaner_ph', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1748', '1'),
                                  ('1747', '3')])
     ttr_max_water_inlet_temperature = fields.Selection(string='max_water_inlet_temperature', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1383', u'60 \xb0C')])
     ttr_maximum_pressure = fields.Selection(string='maximum_pressure', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1986', '10 bar'),
                                  ('1572', '100 bar'),
                                  ('1390', '110 bar'),
@@ -1606,26 +1614,26 @@ class ProductProduct(models.Model):
                                  ('1987', '8 bar'),
                                  ('1398', '800 bar')])
     ttr_diameter_hose_clamp = fields.Selection(string='diameter_hose_clamp', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1519', '11-17'),
                                  ('1518', '13-20'),
                                  ('1520', '22-32'),
                                  ('1521', '32-44'),
                                  ('1522', '44-56')])
     ttr_material_hose_clamp = fields.Selection(string='material_hose_clamp', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1516', 'RVS'),
                                  ('1517', 'Steel')])
     ttr_min_deck_opening = fields.Selection(string='min_deck_opening', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1381', '255 mm')])
     ttr_output = fields.Selection(string='output', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1173', '10 ton'),
                                  ('1115', '20 ton'),
                                  ('1114', '50 ton')])
     ttr_spread = fields.Selection(string='spread', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1171', '100 - 350 mm'),
                                  ('1170', '200 - 500 mm'),
                                  ('1733', '250 mm'),
@@ -1633,7 +1641,7 @@ class ProductProduct(models.Model):
                                  ('1172', '50 - 250 mm'),
                                  ('1133', '500 mm')])
     ttr_stroke = fields.Selection(string='stroke', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1119', '100 mm'),
                                  ('1120', '150 mm'),
                                  ('1095', '20'),
@@ -1643,7 +1651,7 @@ class ProductProduct(models.Model):
                                  ('1105', '54'),
                                  ('1112', '60 mm')])
     ttr_tonnage = fields.Selection(string='tonnage', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1107', '10'),
                                  ('1602', '100'),
                                  ('1097', '11'),
@@ -1660,10 +1668,10 @@ class ProductProduct(models.Model):
                                  ('1503', '6'),
                                  ('1504', '8')])
     ttr_punch_range = fields.Selection(string='punch_range', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1096', '16 - 60')])
     ttr_wall_thickness = fields.Selection(string='wall_thickness', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1194', '1 mm'),
                                  ('1077', '1.5 mm - 3.5 mm'),
                                  ('1078', '2.75 mm - 4.5 mm'),
@@ -1671,7 +1679,7 @@ class ProductProduct(models.Model):
                                  ('1093', 'Stainless Steel: 1.6 mm / Iron Sheet: 3.2 mm'),
                                  ('1204', 'up to 1.5 mm')])
     ttr_pressure = fields.Selection(string='pressure', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1075', '16 bar'),
                                  ('1082', '20 bar'),
                                  ('1618', '3 bar'),
@@ -1679,19 +1687,19 @@ class ProductProduct(models.Model):
     ttr_current = fields.Selection(string='current', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_splitting_range = fields.Selection(string='splitting_range', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1103', 'M22 - M27'),
                                  ('1104', 'M8 - M24')])
     ttr_bending_formers = fields.Selection(string='bending_formers', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1080', '1/2\" , 3/4\" , 1\" , 11/4\" , 11/2\" , 2\" '),
                                  ('1081', '1/2\" , 3/4\" , 1\" , 11/4\" , 11/2\" , 2\" , 21/2\" , 3\"'),
                                  ('1079', '3/8\" , 1/2\" , 3/4\" , 1\" ')])
     ttr_testpump_bar = fields.Selection(string='testpump_bar', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1911', '0-60')])
     ttr_cutting_range = fields.Selection(string='cutting_range', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1110', '4 mm - 22 mm ')])
     ttr_recoil = fields.Selection(string='recoil', ttr_mag_attribute=True,
                                 selection=[('', '')])
@@ -1704,7 +1712,7 @@ class ProductProduct(models.Model):
     ttr_effective_reach = fields.Selection(string='effective_reach', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_air_hose = fields.Selection(string='air_hose', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('643', '1/2"'),
                                  ('845', '1/4"'),
                                  ('1047', '12 mm'),
@@ -1716,19 +1724,19 @@ class ProductProduct(models.Model):
                                  ('644', '3/8" '),
                                  ('904', '7/16"')])
     ttr_industr_lighting_weight = fields.Selection(string='industr_lighting_weight', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1908', '2,2 kg'),
                                  ('1909', '3,6 kg'),
                                  ('1907', '6,4 kg')])
     ttr_industr_lighting_protection = fields.Selection(string='industr_lighting_protection', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1910', 'IP 67')])
     ttr_industr_lighting_power_voltage = fields.Selection(string='industr_lighting_power_voltage', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1869', '150-265 V'),
                                  ('1870', '174-264 V')])
     ttr_industr_lighting_consumedpower = fields.Selection(string='industr_lighting_consumedpower', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1888', '110 W'),
                                  ('1881', '124 W'),
                                  ('1874', '140 W'),
@@ -1744,7 +1752,7 @@ class ProductProduct(models.Model):
                                  ('1887', '70 W'),
                                  ('1880', '82 W')])
     ttr_industr_lighting_luminous_flux = fields.Selection(string='industr_lighting_luminous_flux', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1892', '11200 lm'),
                                  ('1900', '11400 lm'),
                                  ('1891', '13500 lm'),
@@ -1760,23 +1768,23 @@ class ProductProduct(models.Model):
                                  ('1894', '5600 lm'),
                                  ('1893', '6800 lm')])
     ttr_industr_lighting_frequency = fields.Selection(string='industr_lighting_frequency', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1889', '45-65 Hz'),
                                  ('1890', '50-60 Hz')])
     ttr_pump_ratio_lubricator_kit = fields.Selection(string='pump_ratio_lubricator_kit', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1550', '55:1')])
     ttr_needle_amount = fields.Selection(string='needle_amount', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1695', '100'),
                                  ('1694', '50')])
     ttr_needle_diameter = fields.Selection(string='needle_diameter', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1688', '2 mm'),
                                  ('1689', '3 mm'),
                                  ('1690', '4 mm')])
     ttr_needle_lenght = fields.Selection(string='needle_lenght', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1692', '150 mm'),
                                  ('1691', '180 mm'),
                                  ('1693', '300 mm'),
@@ -1784,7 +1792,7 @@ class ProductProduct(models.Model):
     ttr_content = fields.Selection(string='content', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_type_batterij = fields.Selection(string='type_batterij', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1955', 'AA'),
                                  ('1954', 'AAA'),
                                  ('1952', 'C-cell'),
@@ -1792,11 +1800,11 @@ class ProductProduct(models.Model):
                                  ('1950', 'Micro'),
                                  ('1953', 'N-cell')])
     ttr_volt_battery = fields.Selection(string='volt_battery', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1956', '1,5'),
                                  ('1957', '9')])
     ttr_paint_spray_tip_filter = fields.Selection(string='paint_spray_tip_filter', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1677', '100'),
                                  ('1675', '200'),
                                  ('1687', '30'),
@@ -1804,7 +1812,7 @@ class ProductProduct(models.Model):
                                  ('1674', '60'),
                                  ('1673', '80')])
     ttr_paint_spray_spare_parts = fields.Selection(string='paint_spray_spare_parts', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1686', '115-524'),
                                  ('1680', '167-025'),
                                  ('1679', '167-026'),
@@ -1812,52 +1820,52 @@ class ProductProduct(models.Model):
                                  ('1685', '231-306'),
                                  ('1678', '244-067')])
     ttr_tip_nut_model = fields.Selection(string='tip_nut_model', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1684', '164T121'),
                                  ('1682', '164T132'),
                                  ('1683', '800-001')])
     ttr_stroke_saw_blade = fields.Selection(string='stroke_saw_blade', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1226', '45 mm'),
                                  ('726', '9 mm')])
     ttr_temperature_range = fields.Selection(string='temperature_range', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2003', u'-20 \xb0C - 80 \xb0C'),
                                  ('1352', u'0 \xb0C - 105 \xb0C'),
                                  ('1313', u'0 \xb0C - 79 \xb0C '),
                                  ('1312', u'0 \xb0C - 82 \xb0C')])
     ttr_discharge = fields.Selection(string='discharge', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1351', '0.5\"'),
                                  ('1350', '1.0\"'),
                                  ('1349', '1.5\"'),
                                  ('1348', '2.0\"'),
                                  ('1347', '3.0\"')])
     ttr_material_diaphragm = fields.Selection(string='material_diaphragm', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1340', 'Buna-n'),
                                  ('1341', 'Teflon')])
     ttr_material_pump_house = fields.Selection(string='material_pump_house', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1338', 'Aluminium'),
                                  ('1337', 'Polypropylene'),
                                  ('1339', 'Stainless Steel')])
     ttr_max_diameter_solids = fields.Selection(string='max_diameter_solids', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1323', '1.58 mm'),
                                  ('1324', '3.17 mm'),
                                  ('1325', '4.76 mm'),
                                  ('1326', '6.35 mm'),
                                  ('1322', '9.52 mm')])
     ttr_inlet = fields.Selection(string='inlet', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1343', '0.5\"'),
                                  ('1344', '1.0\"'),
                                  ('1345', '1.5\"'),
                                  ('1346', '2.0\"'),
                                  ('1342', '3.0\"')])
     ttr_square_drive = fields.Selection(string='square_drive', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('610', '1\"'),
                                  ('1979', '1-1/2\"'),
                                  ('608', '1/2\"'),
@@ -1865,7 +1873,7 @@ class ProductProduct(models.Model):
                                  ('609', '3/4\"'),
                                  ('826', '3/8\"')])
     ttr_bolt_size = fields.Selection(string='bolt_size', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('827', '10 mm'),
                                  ('616', '13 mm'),
                                  ('615', '16 mm'),
@@ -1877,7 +1885,7 @@ class ProductProduct(models.Model):
                                  ('1233', '41 mm'),
                                  ('887', '42 mm')])
     ttr_max_torque = fields.Selection(string='max_torque', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('632', '1085 N/m '),
                                  ('868', '1356 N/m  '),
                                  ('1978', '1500 N/m'),
@@ -1896,7 +1904,7 @@ class ProductProduct(models.Model):
                                  ('828', '68 N/m '),
                                  ('627', '949  N/m  ')])
     ttr_impact_wrench_bolt_capacity = fields.Selection(string='impact_wrench_bolt_capacity', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1968', '10 mm'),
                                  ('1967', '13 mm'),
                                  ('1966', '16 mm'),
@@ -1908,21 +1916,21 @@ class ProductProduct(models.Model):
                                  ('1961', '38 mm'),
                                  ('1960', '41 mm')])
     ttr_cartridge = fields.Selection(string='cartridge', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1144', '400 CC')])
     ttr_pistons = fields.Selection(string='pistons', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('694', '1'),
                                  ('695', '3')])
     ttr_model_portable_air_mover = fields.Selection(string='model_portable_air_mover', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2009', '1\"x1\"x1-1/2\"'),
                                  ('2008', '1-1/2\"x1-1/2\"x2-1/2\"'),
                                  ('2007', '1-1/4\"x1-1/4\"x2\"'),
                                  ('1546', '3-HP'),
                                  ('1547', '6-HP')])
     ttr_compressor_capacity = fields.Selection(string='compressor_capacity', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2002', '100 l'),
                                  ('2001', '200 l'),
                                  ('1999', '24 l'),
@@ -1930,29 +1938,29 @@ class ProductProduct(models.Model):
     ttr_airless_paint_spray_max_pressure = fields.Selection(string='airless_paint_spray_max_pressure', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_clothing_size = fields.Selection(string='clothing_size', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2032', '36-48 (42-44 in stock)'),
                                  ('2031', '8, 10, 11 (10 in stock)'),
                                  ('2033', 'Unifit'),
                                  ('2034', 'XS-3XL (M and XL in stock)')])
     ttr_type_pump_kit = fields.Selection(string='type_pump_kit', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1524', '852-498'),
                                  ('1523', '852-958/960')])
     ttr_mah = fields.Selection(string='mah', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1946', '1300'),
                                  ('1948', '170'),
                                  ('1947', '2200'),
                                  ('1945', '2400'),
                                  ('1949', '800')])
     ttr_safety_lights_max_temperature_surface = fields.Selection(string='safety_lights_max_temperature_surface', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('511', u'135\xb0C'),
                                  ('657', u'85\xb0C'),
                                  ('654', 'T4')])
     ttr_reverse_tip = fields.Selection(string='reverse_tip', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1656', '215'),
                                  ('1665', '411'),
                                  ('1664', '413'),
@@ -1973,14 +1981,14 @@ class ProductProduct(models.Model):
                                  ('1637', '525'),
                                  ('1636', '527')])
     ttr_reverse_tip_model = fields.Selection(string='reverse_tip_model', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1672', '246'),
                                  ('1671', '262'),
                                  ('1670', '286'),
                                  ('1669', 'LTX'),
                                  ('1668', 'XHD')])
     ttr_blade = fields.Selection(string='blade', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1449', '12,7 mm'),
                                  ('1452', '3 mm'),
                                  ('1446', '4 mm'),
@@ -1997,25 +2005,25 @@ class ProductProduct(models.Model):
     ttr_lamp_life = fields.Selection(string='lamp_life', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_optimum_work_pressure = fields.Selection(string='optimum_work_pressure', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1926', 'From 4 to 5,5 bar')])
     ttr_weight_sandblaster = fields.Selection(string='weight_sandblaster', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1923', '13.5 Kg'),
                                  ('1924', '31.5 Kg')])
     ttr_dimensions_sandblaster = fields.Selection(string='dimensions_sandblaster', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1928', '630 x 360 x 350 mm')])
     ttr_size_lxb = fields.Selection(string='size_lxb', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_material_plug = fields.Selection(string='material_plug', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('957', 'Rubber')])
     ttr_material_top = fields.Selection(string='material_top', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('956', 'Nylon')])
     ttr_socket_size = fields.Selection(string='socket_size', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1840', '10 mm'),
                                  ('1838', '11 mm'),
                                  ('1837', '12 mm'),
@@ -2055,7 +2063,7 @@ class ProductProduct(models.Model):
                                  ('1804', '80 mm'),
                                  ('1803', '85 mm')])
     ttr_thread_spray_tip = fields.Selection(string='thread_spray_tip', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1462', '7/8\"')])
     ttr_electrostatic_protection = fields.Selection(string='electrostatic_protection', ttr_mag_attribute=True,
                                 selection=[('', '')])
@@ -2066,16 +2074,16 @@ class ProductProduct(models.Model):
     ttr_overall_nozzle_length = fields.Selection(string='overall_nozzle_length', ttr_mag_attribute=True,
                                 selection=[('', '')])
     ttr_tank_lighting_power_source = fields.Selection(string='tank_lighting_power_source', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1596', '19-28V AC/DC, 85-264V AC/DC'),
                                  ('1595', '24/42/110/230V AC/DC'),
                                  ('1594', '24V AC/DC, 100-254V AC')])
     ttr_tip_guard_thread = fields.Selection(string='tip_guard_thread', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1605', '11/16\"'),
                                  ('1604', '7/8\"')])
     ttr_tip_guard_model = fields.Selection(string='tip_guard_model', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1607', '220-223'),
                                  ('1608', '220-251'),
                                  ('1609', '220-255'),
@@ -2086,14 +2094,14 @@ class ProductProduct(models.Model):
                                  ('1606', '800-004'),
                                  ('1614', 'XHD-001')])
     ttr_vacuum_cleaner_volt = fields.Selection(string='vacuum_cleaner_volt', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2217', '14.4 V'),
                                  ('2216', '18 V'),
                                  ('1762', '220-440 V'),
                                  ('1761', '230 V'),
                                  ('1760', '230-400 V')])
     ttr_vacuum_cleaner_liter = fields.Selection(string='vacuum_cleaner_liter', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2193', '0.35 L'),
                                  ('2195', '1.2 L'),
                                  ('2196', '1.375 L'),
@@ -2112,7 +2120,7 @@ class ProductProduct(models.Model):
                                  ('2190', '53 L'),
                                  ('1749', '67 L')])
     ttr_vacuum_cleaner_watt = fields.Selection(string='vacuum_cleaner_watt', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('2209', '1000 W'),
                                  ('2212', '1050 W'),
                                  ('2214', '1080 W'),
@@ -2134,30 +2142,30 @@ class ProductProduct(models.Model):
                                  ('2211', '940 W'),
                                  ('2215', '980 W')])
     ttr_supply_connection = fields.Selection(string='supply_connection', ttr_mag_attribute=True,
-                                selection=[('', ''),                                 ('1375', '1&\"')])
+                                selection=[                                 ('1375', '1&\"')])
     ttr_discharge_connection = fields.Selection(string='discharge_connection', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1379', '200\"')])
     ttr_tank_lighting_classification = fields.Selection(string='tank_lighting_classification', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1584', 'zone 1 &amp; 2')])
     ttr_tank_lighting_ip = fields.Selection(string='tank_lighting_ip', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1599', 'IP66/67'),
                                  ('1600', 'IP66/67/68'),
                                  ('1601', 'TBA')])
     ttr_tank_lighting_weight = fields.Selection(string='tank_lighting_weight', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1590', '3.5 kg'),
                                  ('1589', '4 kg'),
                                  ('1588', '9 kg')])
     ttr_tank_lighting_temperature = fields.Selection(string='tank_lighting_temperature', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1587', 'T3'),
                                  ('1586', 'T3/T4'),
                                  ('1585', 'T4')])
     ttr_tank_lighting_size = fields.Selection(string='tank_lighting_size', ttr_mag_attribute=True,
-                                selection=[('', ''),
+                                selection=[
                                  ('1592', u'128 \xd8 x 706'),
                                  ('1591', u'190 \xd8 x 580'),
                                  ('1593', '292 x 451 x 345 mm')])

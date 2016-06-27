@@ -4,3 +4,4 @@
 from . import product_category
 from . import ir_model_fields
 from . import product_product
+from . import res_users 
