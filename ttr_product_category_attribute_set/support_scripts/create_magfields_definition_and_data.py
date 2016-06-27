@@ -56,6 +56,9 @@ for attribute_set in attribute_sets:
             'boolean': 'Boolean', 
             'select': 'Selection',
             '': 'unknown',
+            'price': 'unknown',
+            'multiselect': 'unknown',
+            'media_image': 'unknown',
             }        
     """
     other unmapped  types, investigate
@@ -141,16 +144,18 @@ for attribute_set in attribute_sets:
                 {'ttr_' + attribute['code']: attribute['attribute_id']}
             )
 
-    view_search = "cat_attribute_set_%s" % (attribute_set['name'])
-    view_in_odoo = search_in_file(XMLDataFileName, view_search)
+    category_id_name = "cat_ttr_attribute_%s" % (
+            attribute_set['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&','_and_').lower()
+            )
+    view_in_odoo = search_in_file(XMLDataFileName, category_id_name)
     if not view_in_odoo:
         product_field_ids_data = str([
             "(4,ref('ttr_product_category_attribute_set."
-            "field_product_product_ttr_%s'))" % x['code'] for x in attributes 
+            "field_product_product_ttr_%s'))" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] != 'unknown'  
             ]).replace("\"", "")
         product_field_ids_data_for_dict = str([
-            "[4,'ttr_%s']" % x['code'] for x in attributes 
-            ]).replace("\"", "")
+            "[4,'ttr_%s']" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] != 'unknown'
+            ]).replace("\"", "")  
         # Will delete manually
         """
         "(4,ref('ttr_product_category_attribute_set."
@@ -161,12 +166,12 @@ for attribute_set in attribute_sets:
                ]
          ]).replace("\"", "")
          """
-        xml_text = ("<record id=\"cat_attribute_set_%s\" "
+        xml_text = ("<record id=\"%s\" "
                     "model=\"product.category\"> "
                     "\n             <field name=\"name\">%s</field>"
-                    "\n             <field name=\"product_field_ids\" eval=\"%s\"</field>"
+                    "\n             <field name=\"product_field_ids\" eval=\"%s\"/>"
                     "\n </record>") % (
-                attribute_set['name'], attribute_set['name'], 
+                category_id_name, attribute_set['name'], 
                 product_field_ids_data)
         init_hook_text = ("'%s':\n    {\n        \'name\': '%s',"
                           "\n        'product_field_ids': %s \n    },") % (
