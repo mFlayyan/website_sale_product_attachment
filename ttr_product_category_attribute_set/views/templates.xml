@@ -8,12 +8,13 @@
             </xpath>
         </template>
 
-        <record id ="product_show_ttr_video" model="ir.ui.view">
+        <record id ="product_show_ttr_fields" model="ir.ui.view">
+            <field name="name"> product.product.show.ttr.fields </field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook" position="inside">
-                    <page name="Magento Product Attributes" id="mpa">
+                <xpath expr="//page[@name='sales']" position="after">
+                    <page string="Magento Product Attributes" id="mpa">
                         here magento derived fields
                     </page>
                 </xpath>
