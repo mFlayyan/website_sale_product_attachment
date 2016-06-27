@@ -2,7 +2,7 @@
 from magento import MagentoAPI
 import xmlrpclib
 import erppeek
-
+import logging
 
 """
 THIS FILE IS ONLY TO TEST THE FUNCTIONALITIES,

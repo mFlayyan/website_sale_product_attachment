@@ -2,8 +2,8 @@
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from openerp import api, fields, models
-
-logger = logging.getLogger(__name__)
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class ProductProduct(models.Model):
@@ -20,12 +20,13 @@ class ProductProduct(models.Model):
                 view_id=view_id, view_type=view_type, toolbar=toolbar, 
                 submenu=submenu)
         view_fields=res.get('fields', {})
+        _logger.info('PASS VIEW: %s , name %s   NEEDED VIEW %s' % (
+                    view_id , self.env['ir.ui.view'].browse(view_id).name, 
+                    self.env.ref("product.product_normal_form_view").id) 
+                    )
         if (view_id and 
                 view_id == self.env.ref("product.product_normal_form_view").id
                     ): 
-            logger.info('PASS VIEW: %s ,name %s   NEEDED VIEW %s' , 
-                    view_id , self.env['ir.ui.view'].browse(view_id).name, 
-                    self.env.ref("product.product_normal_form_view").id)
             category = self.categ_id
             for mag_field in category.product_field_ids:
                 res['fields'][magfield['name']] = magfield.name
