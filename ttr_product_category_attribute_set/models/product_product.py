@@ -25,10 +25,12 @@ class ProductProduct(models.Model):
                 notebook = notebook[0]
             all_categories = self.env['product.category'].search([])
             for mag_category in all_categories:
-                page =  etree.Element(
+                import pudb
+                pudb.set_trace()
+                page = etree.Element(
                     'page', {'name': mag_category.name,
                              'string': mag_category.name,
-                             'attrs': "{'invisible' : \"[( 'categ_id' , '=', " + str(mag_category.id) + ")]\"}"
+                             'attrs': "{'invisible': [('category_id', '!=', " + str(mag_category.id or False) + ")]}"
                             }
                         )
                 notebook.append(page)
