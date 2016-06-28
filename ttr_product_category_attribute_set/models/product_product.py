@@ -31,13 +31,14 @@ class ProductProduct(models.Model):
                              'attrs': '{\'invisible\': [(\'categ_id\', \'=\', ' + str(mag_category.id) +')]}'
                             }
                         )
+                orm.setup_modifiers(page)
                 notebook.append(page)
                 group = etree.Element(
                     'group', {'string': mag_category.name,
                               'attrs': '{\'invisible\': [(\'categ_id\', \'=\', ' + str(mag_category.id) +')]}'
                             }
                         )
-
+                orm.setup_modifiers(group)
                 page.append(group)
                 for mag_field in mag_category.product_field_ids:
                     if mag_field.name[:3] == 'ttr':
