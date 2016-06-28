@@ -19,19 +19,28 @@ class ProductProduct(models.Model):
                 [('model', '=', 'product.product')]
             )
             eview = etree.fromstring(res['arch'])
-            summary = eview.xpath("//page[@id='mpa']/group")
-            if len(summary):
-                summary = summary[0]
-            for mag_field in all_product_fields:
-                if mag_field.name[:3] == 'ttr':
-                    summary.append(etree.Element(
-                        'field', {'name': mag_field.name,
-                                  'string': mag_field.name,
-                                  'nolabel': '0',
-                                  # can add attrs here
-                                  }
-                                )
-                            )   
+
+            notebook = eview.xpath("//notebook")
+            if len(notebook):
+                notebook = notebook[0]
+            all_categories = self.env['product.category'].search([])
+            for mag_category in all_categories:
+                page =  etree.Element(
+                    'page', {'name': mag_category.name,
+                             'string': mag_category.name,
+                             'attrs': "{'invisible' : \"[( 'categ_id' , '=', " + str(mag_category.id) + ")]\"}"
+                            }
+                        )
+                notebook.append(page)
+                for mag_field in mag_category.product_field_ids:
+                    if mag_field.name[:3] == 'ttr':
+                        page.append(etree.Element(
+                           'field', {'name': mag_field.name,
+                                     'string': mag_field.name,
+                                     'nolabel': '0',
+                                     }
+                                   )
+                               )   
             res['arch'] = etree.tostring(eview)
             # this method returns a tuple (arch, fields)
             res_fields = self.env['ir.ui.view'].postprocess_and_fields(
