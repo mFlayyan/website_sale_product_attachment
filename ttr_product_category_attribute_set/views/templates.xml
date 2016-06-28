@@ -14,7 +14,10 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='sales']" position="after">
-                    <page string="Magento Product Attributes" name="magento" id="mpa">
+                    <page string="Magento Product Attributes"  id="mpa">
+                        <separator string="Product Attributes derived from magento"/>
+                        <group>
+                        </group>
                     </page>
                 </xpath>
             </field>
