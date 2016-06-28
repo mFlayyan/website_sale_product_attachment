@@ -2,6 +2,7 @@
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from openerp import api, fields, models
+from openerp.osv import orm
 from lxml import etree
 
 class ProductProduct(models.Model):
@@ -25,18 +26,22 @@ class ProductProduct(models.Model):
                 notebook = notebook[0]
             all_categories = self.env['product.category'].search([])
             for mag_category in all_categories:
-                import pudb
-                pudb.set_trace()
                 page = etree.Element(
-                    'page', {'name': mag_category.name,
-                             'string': mag_category.name,
-                             'attrs': "{'invisible': [('category_id', '!=', " + str(mag_category.id or False) + ")]}"
+                    'page', {'string': mag_category.name,
+                             'attrs': '{\'invisible\': [(\'categ_id\', \'=\', ' + str(mag_category.id) +')]}'
                             }
                         )
                 notebook.append(page)
+                group = etree.Element(
+                    'group', {'string': mag_category.name,
+                              'attrs': '{\'invisible\': [(\'categ_id\', \'=\', ' + str(mag_category.id) +')]}'
+                            }
+                        )
+
+                page.append(group)
                 for mag_field in mag_category.product_field_ids:
                     if mag_field.name[:3] == 'ttr':
-                        page.append(etree.Element(
+                        group.append(etree.Element(
                            'field', {'name': mag_field.name,
                                      'string': mag_field.name,
                                      'nolabel': '0',
