@@ -10,8 +10,7 @@ class ProductProduct(models.Model):
     _name = 'product.product'
 
 
-    def get_mag_field_cat(self,magfield_id):
-        all_cat = self.env['product.category'].search([])
+    def get_mag_field_cat(self, magfield_id, all_cat):
         res=[]
         for cat in all_cat:
             if magfield_id in cat.product_field_ids.ids:
@@ -46,7 +45,7 @@ class ProductProduct(models.Model):
             orm.setup_modifiers(page)
             notebook.append(page)
             group = etree.Element(
-                'group', {'string': 'mag_category.name',
+                'group', {'string': 'mag_fieldgroups',
                         }
                     )
             orm.setup_modifiers(group)
@@ -57,7 +56,7 @@ class ProductProduct(models.Model):
                        'field', {'name': mag_field.name,
                                  'string': mag_field.name,
                                  'nolabel': '0',
-                                 'attrs': '{\'invisible\': [(\'categ_id\', \'in\', ' + str(self.get_mag_field_cat(mag_field.id)) +')]}'
+                                 'attrs': '{\'invisible\': [(\'categ_id\', \'not in\', ' + str(self.get_mag_field_cat(mag_field.id, all_categories)) +')]}'
                                  }
                                )
                            )   
