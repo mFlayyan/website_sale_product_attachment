@@ -16,39 +16,38 @@ class ProductProduct(models.Model):
                 view_id=view_id, view_type=view_type, toolbar=toolbar,
                 submenu=submenu)
         if ((view_type == 'form') and ('notebook' in res['arch'])):
-            all_product_fields = self.env['ir.model.fields'].search(
-                [('model', '=', 'product.product')]
-            )
             eview = etree.fromstring(res['arch'])
-
             notebook = eview.xpath("//notebook")
-            if len(notebook):
-                notebook = notebook[0]
+            if not notebook:
+                return res
+            notebook = notebook[0]
+            # so first, I implemented it in a way that the code moves fields
+            # to one page called shared if it sits in multiple categories
+            # but that's the case with all fields, so better have one page
+            shared_fields_page = etree.SubElement(
+                notebook, 'page', {'string': 'Shared'})
+            shared_fields_group = etree.SubElement(
+                shared_fields_page, 'group')
+            existing_fields = {}
+            field2category = {}
             all_categories = self.env['product.category'].search([])
             for mag_category in all_categories:
-                page = etree.Element(
-                    'page', {'string': mag_category.name,
-                             'attrs': '{\'invisible\': [(\'categ_id\', \'=\', ' + str(mag_category.id) +')]}'
-                            }
-                        )
-                orm.setup_modifiers(page)
-                notebook.append(page)
-                group = etree.Element(
-                    'group', {'string': mag_category.name,
-                              'attrs': '{\'invisible\': [(\'categ_id\', \'=\', ' + str(mag_category.id) +')]}'
-                            }
-                        )
-                orm.setup_modifiers(group)
-                page.append(group)
                 for mag_field in mag_category.product_field_ids:
-                    if mag_field.name[:3] == 'ttr':
-                        group.append(etree.Element(
-                           'field', {'name': mag_field.name,
-                                     'string': mag_field.name,
-                                     'nolabel': '0',
-                                     }
-                                   )
-                               )   
+                    if mag_field.name in existing_fields:
+                        field2category[mag_field.name].append(
+                            mag_category.id)
+                        continue
+                    existing_fields[mag_field.name] = etree.SubElement(
+                        shared_fields_group, 'field', {'name': mag_field.name})
+                    field2category[mag_field.name] = [
+                        mag_category.id]
+            for field in existing_fields.values():
+                field.attrib['attrs'] =\
+                    '{"invisible": [("categ_id", "not in", [%s])]}' % (
+                        ','.join(map(str, field2category[field.get('name')])),
+                    )
+                orm.setup_modifiers(field)
+
             res['arch'] = etree.tostring(eview)
             # this method returns a tuple (arch, fields)
             res_fields = self.env['ir.ui.view'].postprocess_and_fields(
