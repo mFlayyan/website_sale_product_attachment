@@ -10,13 +10,12 @@ class ProductProduct(models.Model):
     _name = 'product.product'
 
 
-    def get_mag_field_cat(self, magfield_id, all_cat):
-        res=[]
+    def get_field_categories(self, magfield_id, all_cat):
+        res = []
         for cat in all_cat:
             if magfield_id in cat.product_field_ids.ids:
-               res.append(cat.id)
+                res.append(cat.id)
         return res
-
 
     @api.model
     def fields_view_get(
@@ -36,32 +35,42 @@ class ProductProduct(models.Model):
             """
             Cannot scan all 202 categories and create the nodes
             bad perfoermance hit inserting 1 page and then filtering 
-            the fields. ALso faster to test.
+            the fields. Also faster to test.
             """
             page = etree.Element(
-                    'page', {'string': 'magento derived fields',
-                            }
-                        )
+                'page', {'string': 'magento derived fields'}
+                )
             orm.setup_modifiers(page)
             notebook.append(page)
             group = etree.Element(
-                'group', {'string': 'mag_fieldgroups',
-                        }
-                    )
+                'group', {'string': 'mag_fieldgroups'}
+                )
             orm.setup_modifiers(group)
             page.append(group)
             for mag_field in all_product_fields:
+                """
+                ir.models.fields has been extended with a boolean attribute
+                when these values will be set on true we will filter by 
+                the ttr_mag_attribute = TRUE to signify that the field is a 
+                imported magento attribute.
+                in the meantime we will filter by name, because all
+                fields that come from magento start with "ttr"
+                """
                 if mag_field.name[:3] == 'ttr':
-                    group.append(etree.Element(
+                    field_element = etree.Element(
                        'field', {'name': mag_field.name,
                                  'string': mag_field.name,
                                  'nolabel': '0',
-                                 'attrs': '{\'invisible\': [(\'categ_id\', \'not in\', ' + str(self.get_mag_field_cat(mag_field.id, all_categories)) +')]}'
+                                 'attrs': '{\'invisible\': [(\'categ_id\','
+                                 '\'not in\', ' + str(
+                                     self.get_field_categories(
+                                         mag_field.id, all_categories)) + ')]}'
                                  }
-                               )
-                           )   
+                               )   
+                    orm.setup_modifiers(field_element)
+                    group.append(field_element)
             res['arch'] = etree.tostring(eview)
-            # this method returns a tuple (arch, fields)
+            # postprocess returns a tuple (arch, fields)
             res_fields = self.env['ir.ui.view'].postprocess_and_fields(
                 model='product.product', node=eview, view_id=view_id)
             for key, value in res_fields[1].iteritems():
