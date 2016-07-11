@@ -2,100 +2,15 @@ ttr_price_view = fields.Selection(string='price_view', ttr_mag_attribute=True,
                             selection=[(1, 'As Low as'),
                              (0, 'Prijsrange')], 
                             size=-1)
-ttr_price_type = fields.unknown(string='price_type', ttr_mag_attribute=True)
-ttr_recurring_profile = fields.Char(string='recurring_profile', ttr_mag_attribute=True)
-ttr_required_options = fields.Char(string='required_options', ttr_mag_attribute=True)
-ttr_shipment_type = fields.unknown(string='shipment_type', ttr_mag_attribute=True)
-ttr_samples_title = fields.unknown(string='samples_title', ttr_mag_attribute=True)
-ttr_safety_light_weight = fields.Selection(string='safety_light_weight', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2157', '0.023 kg'),
-                             ('2138', '0.085 kg'),
-                             ('2101', '0.10 kg'),
-                             ('2100', '0.13 kg'),
-                             ('2139', '0.145 kg'),
-                             ('2136', '0.160 kg'),
-                             ('1382', '0.180 kg'),
-                             ('2099', '0.20 kg'),
-                             ('2137', '0.300 kg'),
-                             ('1180', '0.350 kg'),
-                             ('494', '0.375 kg'),
-                             ('847', '0.45 kg'),
-                             ('903', '0.5 kg'),
-                             ('934', '0.52 kg '),
-                             ('850', '0.6 kg'),
-                             ('1208', '0.71 kg'),
-                             ('673', '0.75 kg'),
-                             ('937', '0.84 kg'),
-                             ('1168', '1 kg'),
-                             ('938', '1.08 kg'),
-                             ('721', '1.1 kg'),
-                             ('936', '1.19 kg'),
-                             ('495', '1.2 kg'),
-                             ('947', '1.3 kg'),
-                             ('948', '1.3 kg'),
-                             ('496', '1.45 kg'),
-                             ('497', '1.5 kg'),
-                             ('498', '1.75 kg'),
-                             ('897', '1.82 kg'),
-                             ('944', '1.9 kg'),
-                             ('2170', '11 kg'),
-                             ('1306', '11.34 kg'),
-                             ('668', '12.2 kg'),
-                             ('672', '12.5 kg'),
-                             ('1308', '14.07 kg'),
-                             ('1376', '15 kg'),
-                             ('2169', '15.2 kg'),
-                             ('499', '150 g'),
-                             ('1245', '17 kg'),
-                             ('1303', '18.61 kg'),
-                             ('1410', '180 kg'),
-                             ('1307', '19.07 kg'),
-                             ('500', '190 g'),
-                             ('1409', '195 kg'),
-                             ('595', '2.1 kg'),
-                             ('501', '2.1 kg (excluding cable)'),
-                             ('594', '2.2 kg'),
-                             ('698', '2.4 kg'),
-                             ('699', '2.5 kg'),
-                             ('899', '2.8 kg'),
-                             ('1305', '20.4 kg'),
-                             ('985', '21 kg'),
-                             ('941', '21.5 kg'),
-                             ('502', '215 g'),
-                             ('2168', '23.5 kg'),
-                             ('1240', '24 kg'),
-                             ('503', '25 g'),
-                             ('1304', '25.87 kg'),
-                             ('2167', '28.8 kg'),
-                             ('900', '3.18 kg'),
-                             ('596', '3.4 kg'),
-                             ('908', '3.9 kg'),
-                             ('986', '30 kg'),
-                             ('1302', '31.78 kg'),
-                             ('1239', '32 kg'),
-                             ('1300', '34.01 kg'),
-                             ('656', '340 g'),
-                             ('655', '375 g'),
-                             ('866', '4 kg'),
-                             ('1309', '4.54 kg'),
-                             ('1408', '425 kg'),
-                             ('1246', '47 kg kg'),
-                             ('1407', '475 kg'),
-                             ('1406', '490 kg'),
-                             ('748', '5.2 kg'),
-                             ('933', '5.8 kg'),
-                             ('1301', '52.21 kg'),
-                             ('742', '6.5 kg'),
-                             ('2171', '6.7 kg'),
-                             ('1311', '6.8 kg'),
-                             ('504', '60g'),
-                             ('667', '7.9 kg'),
-                             ('1310', '8.17 kg'),
-                             ('671', '8.2 kg'),
-                             ('2172', '9.5 kg'),
-                             ('505', '90 g'),
-                             ('1299', '95.34 kg')])
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
 ttr_paint_spray_aansluiting = fields.Selection(string='paint_spray_aansluiting', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1335', '1&quot;'),
@@ -128,10 +43,13 @@ ttr_paint_sprayer_width = fields.Selection(string='paint_sprayer_width', ttr_mag
                              ('795', '62 mm'),
                              ('1244', '660 mm'),
                              ('1243', '770 mm')])
-ttr_news_to_date = fields.Date(string='news_to_date', ttr_mag_attribute=True)
-ttr_news_from_date = fields.Date(string='news_from_date', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
 ttr_name = fields.Char(string='name', ttr_mag_attribute=True)
-ttr_old_id = fields.unknown(string='old_id', ttr_mag_attribute=True)
 ttr_options_container = fields.Selection(string='options_container', ttr_mag_attribute=True,
                             selection=[('container1', 'Kolom productgegevens'),
                              ('container2', 'Blok na info-kolom')])
@@ -211,34 +129,39 @@ ttr_page_layout = fields.Selection(string='page_layout', ttr_mag_attribute=True,
                              ('two_columns_right', '2 columns with right bar'),
                              ('three_columns', '3 columns'),
                              ('homepage', 'homepage')])
-ttr_short_description = fields.Text(string='short_description', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  short_description  
+"""
 ttr_sku = fields.Char(string='sku', ttr_mag_attribute=True)
-ttr_unitor_number = fields.Char(string='unitor_number', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  unitor_number  
+"""
 ttr_tier_price = fields.Char(string='tier_price', ttr_mag_attribute=True)
-ttr_thumbnail_label = fields.Char(string='thumbnail_label', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  thumbnail_label  
+"""
 ttr_url_key = fields.Char(string='url_key', ttr_mag_attribute=True)
-ttr_url_path = fields.unknown(string='url_path', ttr_mag_attribute=True)
-ttr_weight_type = fields.unknown(string='weight_type', ttr_mag_attribute=True)
-ttr_visibility = fields.Selection(string='visibility', ttr_mag_attribute=True,
-                            selection=[('', '-- Selecteer a.u.b. --'),
-                             (1, 'Not Visible Individually'),
-                             (2, 'Catalogus'),
-                             (3, 'Zoeken'),
-                             (4, 'Catalogus, zoeken')])
+ttr_weight = fields.Char(string='weight', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_tax_class_id = fields.Selection(string='tax_class_id', ttr_mag_attribute=True,
                             selection=[('0', 'Geen'),
                              ('2', 'Taxable Goods'),
                              ('7', 'BTW Hoog'),
                              ('8', 'BTW Laag'),
                              ('9', 'Producten met 21% BTW')])
-ttr_small_image_label = fields.Char(string='small_image_label', ttr_mag_attribute=True)
-ttr_sku_type = fields.unknown(string='sku_type', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  small_image_label  
+"""
 ttr_special_from_date = fields.Date(string='special_from_date', ttr_mag_attribute=True)
-ttr_status = fields.Selection(string='status', ttr_mag_attribute=True,
-                            selection=[('', '-- Selecteer a.u.b. --'),
-                             (1, 'Ingeschakeld'),
-                             (2, 'Uitgeschakeld')])
-ttr_statistics_number = fields.Char(string='statistics_number', ttr_mag_attribute=True)
+ttr_special_price = fields.undecided_price(string='special_price', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
 ttr_special_to_date = fields.Date(string='special_to_date', ttr_mag_attribute=True)
 ttr_msrp_enabled = fields.Selection(string='msrp_enabled', ttr_mag_attribute=True,
                             selection=[(1, 'Ja'),
@@ -257,7 +180,9 @@ ttr_enable_googlecheckout = fields.Selection(string='enable_googlecheckout', ttr
                             selection=[(1, 'Ja'),
                              (0, 'Nee')], 
                             size=-1)
-ttr_has_options = fields.Char(string='has_options', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_gift_message_available = fields.Selection(string='gift_message_available', ttr_mag_attribute=True,
                             selection=[(1, 'Ja'),
                              (0, 'Nee')], 
@@ -273,6 +198,7 @@ ttr_country_of_manufacture = fields.Selection(string='country_of_manufacture', t
                              ('LU', 'Luxemburg'),
                              ('NL', 'Nederland'),
                              ('GB', 'Verenigd Koninkrijk')])
+ttr_cost = fields.undecided_price(string='cost', ttr_mag_attribute=True)
 ttr_allowed_to_quotemode = fields.Boolean(string='allowed_to_quotemode', ttr_mag_attribute=True)
 ttr_image_label = fields.Char(string='image_label', ttr_mag_attribute=True)
 ttr_impa1 = fields.Char(string='impa1', ttr_mag_attribute=True)
@@ -335,25 +261,35 @@ ttr_merk_type = fields.Selection(string='merk_type', ttr_mag_attribute=True,
                              ('371', 'Wolf Safety'),
                              ('414', 'YAMADA'),
                              ('415', 'YOKOTA')])
-ttr_links_title = fields.unknown(string='links_title', ttr_mag_attribute=True)
 ttr_meta_description = fields.Text(string='meta_description', ttr_mag_attribute=True)
 ttr_meta_keyword = fields.Text(string='meta_keyword', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  minimal_price  
+"""
 ttr_meta_title = fields.Char(string='meta_title', ttr_mag_attribute=True)
-ttr_links_purchased_separately = fields.unknown(string='links_purchased_separately', ttr_mag_attribute=True)
-ttr_links_exist = fields.unknown(string='links_exist', ttr_mag_attribute=True)
 ttr_impa4 = fields.Char(string='impa4', ttr_mag_attribute=True)
 ttr_impa3 = fields.Char(string='impa3', ttr_mag_attribute=True)
 ttr_impa2 = fields.Char(string='impa2', ttr_mag_attribute=True)
-ttr_impa5 = fields.Char(string='impa5', ttr_mag_attribute=True)
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_issa = fields.Char(string='issa', ttr_mag_attribute=True)
-ttr_is_recurring = fields.Selection(string='is_recurring', ttr_mag_attribute=True,
-                            selection=[(1, 'Ja'),
-                             (0, 'Nee')], 
-                            size=-1)
+"""
+ NOTE: remove field  is_recurring  
+"""
 ttr_is_imported = fields.Selection(string='is_imported', ttr_mag_attribute=True,
                             selection=[(1, 'Ja'),
                              (0, 'Nee')], 
                             size=-1)
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
 ttr_paint_sprayer_normale_werkdruk = fields.Selection(string='paint_sprayer_normale_werkdruk', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1583', '10 bar'),
@@ -400,8 +336,8 @@ ttr_paint_sprayer_lengte = fields.Selection(string='paint_sprayer_lengte', ttr_m
                              ('1207', '186 mm'),
                              ('819', '191 mm'),
                              ('805', '199 mm'),
-                             ('1211', '2 m'),
                              ('1040', '2 m'),
+                             ('1211', '2 m'),
                              ('604', '20 cm'),
                              ('1015', '20 m'),
                              ('803', '200 mm'),
@@ -456,14 +392,63 @@ ttr_paint_sprayer_lengte = fields.Selection(string='paint_sprayer_lengte', ttr_m
                              ('2059', '97 mm'),
                              ('1958', 'n/a'),
                              ('1039', '2.5 m')])
-ttr_air_inlet = fields.Selection(string='air_inlet', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1135', '1"'),
-                             ('641', '1/2"'),
-                             ('642', '1/4"'),
-                             ('943', '3/4"'),
-                             ('640', u'3/8\u201d'),
-                             ('1136', '5/8"')])
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
 ttr_verkoopeenheid = fields.Selection(string='verkoopeenheid', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1791', 'box = 100 pcs'),
@@ -480,246 +465,126 @@ ttr_verkoopeenheid = fields.Selection(string='verkoopeenheid', ttr_mag_attribute
                              ('1796', 'set = 2 pcs'),
                              ('1795', 'set = 4 pcs'),
                              ('1794', 'set = 5 pcs')])
-ttr_diameter = fields.Selection(string='diameter', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('963', '10 mm'),
-                             ('951', '110 -135 mm'),
-                             ('1515', '115-125 mm'),
-                             ('964', '13 mm'),
-                             ('950', '135-155 mm'),
-                             ('1553', '150 mm'),
-                             ('1543', '150x15 mm'),
-                             ('1545', '150x20 mm'),
-                             ('1551', '16 mm '),
-                             ('949', '165-200 mm'),
-                             ('1041', '19 mm'),
-                             ('1552', '200 mm'),
-                             ('1544', '2000 mm'),
-                             ('1541', '200x25 mm'),
-                             ('1542', '205 mm'),
-                             ('907', '230 mm'),
-                             ('675', '305 mm'),
-                             ('1941', '32 mm'),
-                             ('955', '40-65 mm'),
-                             ('975', '400 mm'),
-                             ('977', '400 mm'),
-                             ('974', '400 mm'),
-                             ('1213', '405 mm'),
-                             ('954', '50-75 mm'),
-                             ('981', '500 mm'),
-                             ('962', '6 mm'),
-                             ('982', '600 mm'),
-                             ('953', '65-85 mm'),
-                             ('1221', '70 mm'),
-                             ('1021', '8 mm '),
-                             ('952', '85-110 mm'),
-                             ('1419', '9 mm'),
-                             ('958', '90-115 mm'),
-                             ('1231', 'not apllicable'),
-                             ('1005', '12.5 mm'),
-                             ('1004', '25 mm '),
-                             ('1002', '38 mm '),
-                             ('1008', '6 mm '),
-                             ('1003', '50 mm '),
-                             ('1009', '9 mm '),
-                             ('1006', '22 mm '),
-                             ('540', '12 mm'),
-                             ('539', '17 mm'),
-                             ('582', '20 mm'),
-                             ('538', '22 mm'),
-                             ('580', '23 mm'),
-                             ('537', '25 mm'),
-                             ('579', '29 mm'),
-                             ('536', '30 mm'),
-                             ('562', '38 mm'),
-                             ('557', '40 mm'),
-                             ('561', '50 mm'),
-                             ('556', '60 mm'),
-                             ('560', '63 mm'),
-                             ('563', '65 mm'),
-                             ('559', '75 mm'),
-                             ('555', '80 mm'),
-                             ('572', '85 mm'),
-                             ('564', '90 mm'),
-                             ('558', '100 mm'),
-                             ('571', '115 mm'),
-                             ('554', '125 mm'),
-                             ('570', '150 mm'),
-                             ('569', '175 mm'),
-                             ('568', '178 mm'),
-                             ('602', '180 mm'),
-                             ('565', '200 mm'),
-                             ('566', '250 mm'),
-                             ('567', '300 mm')])
-ttr_max_working_pressure = fields.Selection(string='max_working_pressure', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1582', '10 bar'),
-                             ('1020', '100 bar'),
-                             ('1238', '1000 bar'),
-                             ('1420', '1100 bar'),
-                             ('1022', '12 bar'),
-                             ('1019', '200 bar'),
-                             ('1016', '250 bar'),
-                             ('1418', '275 bar'),
-                             ('1727', '300 bar'),
-                             ('2035', '3000 bar'),
-                             ('1018', '350 bar'),
-                             ('1017', '400 bar'),
-                             ('1422', '500 bar'),
-                             ('1925', '6 bar'),
-                             ('1201', '700 bar'),
-                             ('1421', '825 bar')])
-ttr_nom_hose_end = fields.Selection(string='nom_hose_end', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1470', '12 mm'),
-                             ('1471', '19 mm'),
-                             ('1468', '6 mm'),
-                             ('1469', '8 mm')])
-ttr_connection_thread = fields.Selection(string='connection_thread', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1467', '1/4&quot;')])
-ttr_material_air_hose_coupling = fields.Selection(string='material_air_hose_coupling', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1466', 'Brass')])
-ttr_paint_sprayer_gewicht = fields.Selection(string='paint_sprayer_gewicht', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('790', '0.09 kg'),
-                             ('788', '0.095 kg'),
-                             ('792', '0.1 kg'),
-                             ('781', '0.110 kg'),
-                             ('778', '0.115 kg'),
-                             ('786', '0.130 kg'),
-                             ('783', '0.135 kg'),
-                             ('784', '0.140 kg'),
-                             ('785', '0.145 kg'),
-                             ('782', '0.150 kg'),
-                             ('787', '0.155 kg'),
-                             ('779', '0.160 kg'),
-                             ('780', '0.165 kg'),
-                             ('777', '0.185 kg'),
-                             ('776', '0.190 kg'),
-                             ('759', '0.215 kg'),
-                             ('766', '0.255 kg'),
-                             ('760', '0.265 kg'),
-                             ('761', '0.285 kg'),
-                             ('789', '0.315 kg'),
-                             ('769', '0.355 kg'),
-                             ('770', '0.370 kg'),
-                             ('774', '0.385 kg'),
-                             ('762', '0.415 kg'),
-                             ('843', '0.5 kg'),
-                             ('923', '0.52 kg'),
-                             ('771', '0.545 kg'),
-                             ('918', '0.55 kg'),
-                             ('1229', '0.550 kg'),
-                             ('763', '0.560 kg'),
-                             ('775', '0.570 kg'),
-                             ('772', '0.595 kg'),
-                             ('880', '0.6 kg'),
-                             ('1199', '0.7 kg'),
-                             ('839', '0.7 kg'),
-                             ('773', '0.710 kg'),
-                             ('873', '0.75 kg'),
-                             ('764', '0.765 kg'),
-                             ('855', '0.8 kg'),
-                             ('920', '0.84 kg'),
-                             ('768', '0.910 kg'),
-                             ('765', '0.940 kg'),
-                             ('767', '0.945 kg'),
-                             ('836', '1 kg'),
-                             ('924', '1.08 kg'),
-                             ('723', '1.1 kg'),
-                             ('919', '1.19 kg'),
-                             ('831', '1.2 kg'),
-                             ('652', '1.3 Kg'),
-                             ('714', '1.4 kg'),
-                             ('690', '1.6 kg'),
-                             ('421', '1.7 kg'),
-                             ('884', '1.8 kg'),
-                             ('896', '1.82 kg'),
-                             ('1117', '11 kg'),
-                             ('646', '11.0 Kg'),
-                             ('1084', '117 kg'),
-                             ('1087', '12 kg'),
-                             ('1973', '12.2 kg'),
-                             ('1972', '12.5 kg'),
-                             ('1361', '120 kg'),
-                             ('1054', '120 Kg '),
-                             ('1214', '13 kg'),
-                             ('1108', '13.5 kg'),
-                             ('1090', '14 kg'),
-                             ('1218', '14.5 kg'),
-                             ('2011', '15.4 kg'),
-                             ('1083', '165 kg'),
-                             ('1073', '17 kg'),
-                             ('1099', '17.5 kg'),
-                             ('1129', '18 kg'),
-                             ('1971', '18.1 kg'),
-                             ('1417', '180 kg'),
-                             ('1132', '19 kg'),
-                             ('1416', '195 kg'),
-                             ('649', '2,5 Kg'),
-                             ('688', '2.0 kg'),
-                             ('687', '2.1 kg'),
-                             ('922', '2.14 kg'),
-                             ('653', '2.2 kg'),
-                             ('651', '2.4 Kg'),
-                             ('825', '2.5 kg'),
-                             ('689', '2.6 kg'),
-                             ('1158', '2.7 kg'),
-                             ('895', '2.95 kg'),
-                             ('1996', '235 kg'),
-                             ('1219', '25 kg'),
-                             ('715', '3.5 kg'),
-                             ('2015', '3.6 kg'),
-                             ('705', '3.7 kg'),
-                             ('707', '3.8 kg'),
-                             ('921', '3.82 kg'),
-                             ('972', '36 kg'),
-                             ('735', '4 kg'),
-                             ('1100', '4,5 kg'),
-                             ('650', '4,6 Kg'),
-                             ('648', '4,9 Kg'),
-                             ('736', '4.7 kg'),
-                             ('1368', '40 kg'),
-                             ('1415', '425 kg'),
-                             ('1116', '45 kg'),
-                             ('1384', '46 kg'),
-                             ('1050', '47 Kg'),
-                             ('1414', '475 kg'),
-                             ('1353', '48 kg'),
-                             ('1413', '490 kg'),
-                             ('1184', '5 kg'),
-                             ('647', '5,64 Kg'),
-                             ('751', '5.2 kg'),
-                             ('2014', '5.4 kg'),
-                             ('1426', '5.5 kg'),
-                             ('756', '5.73 kg'),
-                             ('749', '5.9 kg'),
-                             ('1051', '50 Kg'),
-                             ('1193', '53 kg'),
-                             ('1074', '56 kg'),
-                             ('733', '6 kg'),
-                             ('2013', '6.1 kg'),
-                             ('750', '6.3 kg'),
-                             ('861', '6.34 kg'),
-                             ('1998', '64 kg'),
-                             ('1360', '68 kg'),
-                             ('1373', '68 kg'),
-                             ('1203', '7 kg'),
-                             ('1183', '7.5 kg'),
-                             ('1052', '70 Kg'),
-                             ('1053', '75 Kg'),
-                             ('1202', '8 kg'),
-                             ('645', '8,25 Kg'),
-                             ('1974', '8.3 kg'),
-                             ('2012', '8.75 kg'),
-                             ('889', '8.95 kg'),
-                             ('1055', '80 Kg'),
-                             ('1091', '9 kg'),
-                             ('886', '9.6 kg'),
-                             ('973', '9.8 kg'),
-                             ('1997', '96 kg')])
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  nom_hose_end  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  connection_thread  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  material_air_hose_coupling  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_thread = fields.Selection(string='thread', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('577', '16 mm (5/8&quot;)'),
@@ -740,6 +605,15 @@ ttr_thread = fields.Selection(string='thread', ttr_mag_attribute=True,
                              ('2150', 'Thread 5/8&amp;quot; (16 mm)'),
                              ('2149', 'Thread M10'),
                              ('2151', 'Thread M14')])
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
 ttr_capacity_tank = fields.Selection(string='capacity_tank', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1425', '10 L'),
@@ -753,9 +627,57 @@ ttr_capacity_tank = fields.Selection(string='capacity_tank', ttr_mag_attribute=T
                              ('1622', '5 L'),
                              ('1424', '6 L'),
                              ('881', '80 L')])
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_regulating_range = fields.Selection(string='regulating_range', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('917', '0.05-0.85 MPa')])
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
 ttr_flow_rate = fields.Selection(string='flow_rate', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1775', '10.16 L/min'),
@@ -784,10 +706,210 @@ ttr_flow_rate = fields.Selection(string='flow_rate', ttr_mag_attribute=True,
                              ('1777', '7.3 L/min'),
                              ('1776', '8.3 L/min'),
                              ('1331', '985 L/min')])
-ttr_type_air_motor_kit = fields.Selection(string='type_air_motor_kit', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1530', '852-489'),
-                             ('1529', '852/958-852')])
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_air_motor_kit  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_safety_lights_certification = fields.Selection(string='safety_lights_certification', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('465', 'BAS00ATEX2176, IECEx TSA 05.0017X'),
@@ -837,6 +959,9 @@ ttr_saferty_lights_lightbulb = fields.Selection(string='saferty_lights_lightbulb
                              ('663', 'Tungsten Halogen filled filament '),
                              ('441', 'Vacuum filament bulb'),
                              ('442', 'Xenon filled filament bulb')])
+"""
+ NOTE: remove field  required_options  
+"""
 ttr_safety_lights_light_output = fields.Selection(string='safety_lights_light_output', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('455', '1.4 lm'),
@@ -866,38 +991,12 @@ ttr_safety_lights_light_output = fields.Selection(string='safety_lights_light_ou
                              ('1178', 'up to 145 lm'),
                              ('867', 'up to 185 lm'),
                              ('454', 'up to 50 lm')])
-ttr_safety_lights_power_source = fields.Selection(string='safety_lights_power_source', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1237', '100 - 230 V'),
-                             ('969', '110 V'),
-                             ('2158', '2 x 3 V Lithium cells'),
-                             ('2089', '2 x AA Battery'),
-                             ('2090', '2 x D Battery'),
-                             ('970', '220 V'),
-                             ('1782', '220-440 V'),
-                             ('523', '230 V'),
-                             ('1781', '230-400 V'),
-                             ('2088', '3 x AAA Battery'),
-                             ('2091', '4 x D Battery'),
-                             ('1980', '400/440 V'),
-                             ('976', '440 V'),
-                             ('1395', 'Air motor'),
-                             ('524', 'Alkaline AAA cells, 3 x 1.5 V'),
-                             ('664', 'Compressed air driven turbo-alternator'),
-                             ('525', 'LR20/R20 primary cells'),
-                             ('1179', 'LR6 primary cells to IEC60086, Alkaline AA cells'),
-                             ('526', 'primaire cells, 2 x 1.5 V'),
-                             ('527', 'Primairy cell, 2 x 1.5 V'),
-                             ('528', 'Primairy cell, 3 x 1.5 V'),
-                             ('529', 'Primary cells: 2 x 1.5V'),
-                             ('530', 'Primary cells: 3 x 1.5V'),
-                             ('531', 'Primary cells: 4 x 1.5V'),
-                             ('1175', 'R20 primary cells to IEC60086'),
-                             ('532', 'Rechargeable battery, Lithium-Ion'),
-                             ('533', 'Rechargeable battery, Lithium-Ion, 7.4 V'),
-                             ('864', 'Rechargeable battery, nickel cadmium'),
-                             ('534', 'Rechargeable battery, sealed lead acid'),
-                             ('535', 'Rechargeable battery, sealed lead acid, 4 V')])
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
 ttr_safety_lights_temperature_class = fields.Selection(string='safety_lights_temperature_class', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('488', 'T3'),
@@ -906,6 +1005,57 @@ ttr_safety_lights_temperature_class = fields.Selection(string='safety_lights_tem
                              ('491', 'T4, up to 95 deg C'),
                              ('492', 'T5'),
                              ('493', 'T6')])
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
 ttr_noise_level = fields.Selection(string='noise_level', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1991', '72 dB'),
@@ -921,10 +1071,15 @@ ttr_noise_level = fields.Selection(string='noise_level', ttr_mag_attribute=True,
                              ('1282', '90-95 dB'),
                              ('704', '92.7 dB'),
                              ('1988', '97 dB')])
-ttr_operating_air_pressure = fields.Selection(string='operating_air_pressure', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1283', '3-6 bar'),
-                             ('1284', '3-6.5 bar')])
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  operating_air_pressure  
+"""
 ttr_paint_sprayers_pressure_ratio = fields.Selection(string='paint_sprayers_pressure_ratio', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1295', '10:1'),
@@ -944,63 +1099,159 @@ ttr_paint_sprayers_pressure_ratio = fields.Selection(string='paint_sprayers_pres
                              ('1285', '68:1'),
                              ('2166', '70:1'),
                              ('1291', '73:1')])
-ttr_max_discharge_pressure = fields.Selection(string='max_discharge_pressure', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1254', '100 bar'),
-                             ('1266', '143 bar'),
-                             ('1260', '150 bar'),
-                             ('1257', '156 bar'),
-                             ('1261', '195 bar'),
-                             ('1255', '26 bar'),
-                             ('1265', '290 bar'),
-                             ('1253', '32 bar'),
-                             ('1259', '325 bar'),
-                             ('1264', '365 bar'),
-                             ('1258', '390 bar'),
-                             ('1263', '410 bar'),
-                             ('1262', '442 bar'),
-                             ('1267', '475 bar'),
-                             ('1256', '65 bar')])
-ttr_max_delivery = fields.Selection(string='max_delivery', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1276', '10.8 L/Min'),
-                             ('1269', '11.7 L/Min'),
-                             ('1277', '11.8 L/Min'),
-                             ('1273', '12 L/Min'),
-                             ('1270', '12.7 L/Min'),
-                             ('1278', '13 L/Min'),
-                             ('1271', '14 L/Min'),
-                             ('1279', '15 L/Min'),
-                             ('1272', '16.3 L/Min'),
-                             ('1274', '2 L/Min'),
-                             ('1268', '30 L/Min'),
-                             ('1280', '32 L/Min'),
-                             ('1275', '4 L/Min')])
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  max_discharge_pressure  
+"""
+"""
+ NOTE: remove field  max_delivery  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
 ttr_lstroke_air_motor = fields.Selection(string='lstroke_air_motor', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1252', '120 mm'),
                              ('725', '3700 SPM')])
-ttr_diameter_paint_spray_hose = fields.Selection(string='diameter_paint_spray_hose', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1698', '1/2&amp;amp;quot;'),
-                             ('1696', '1/4&amp;amp;quot;'),
-                             ('1697', '3/8&amp;amp;quot;')])
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter_paint_spray_hose  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
 ttr_airless_paint_spray_tip_angle = fields.Selection(string='airless_paint_spray_tip_angle', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1626', '40 deg'),
                              ('1624', '50 deg'),
                              ('1625', '60 deg')])
-ttr_airless_paint_spray_tipdiam = fields.Selection(string='airless_paint_spray_tipdiam', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1630', '0.013&amp;amp;quot;'),
-                             ('1635', '0.015&amp;amp;quot;'),
-                             ('1629', '0.017&amp;amp;quot;'),
-                             ('1627', '0.019&amp;amp;quot;'),
-                             ('1628', '0.021&amp;amp;quot;'),
-                             ('1634', '0.023&amp;amp;quot;'),
-                             ('1633', '0.025&amp;amp;quot;'),
-                             ('1632', '0.027&amp;amp;quot;'),
-                             ('1631', '0.029')])
+"""
+ NOTE: remove field  airless_paint_spray_tipdiam  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_paint_sprayer_toerental = fields.Selection(string='paint_sprayer_toerental', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('597', '0-3000 omw p/m'),
@@ -1057,18 +1308,174 @@ ttr_paint_sprayer_toerental = fields.Selection(string='paint_sprayer_toerental',
                              ('1230', '8500 rpm'),
                              ('1163', '9000 bpm'),
                              ('618', '9500 rpm')])
-ttr_paint_sprayer_boorkop_diameter = fields.Selection(string='paint_sprayer_boorkop_diameter', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('426', '13 mm')])
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  paint_sprayer_boorkop_diameter  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
 ttr_paint_sprayer_luchtslang = fields.Selection(string='paint_sprayer_luchtslang', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('422', '3/8&amp;amp;quot;')])
-ttr_model_accessoiries = fields.Selection(string='model_accessoiries', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1526', 'CNP-13'),
-                             ('1527', 'CNP-2'),
-                             ('1525', 'CNP-2H'),
-                             ('1528', 'HSP-3')])
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  model_accessoiries  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
 ttr_size = fields.Selection(string='size', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1029', '1'),
@@ -1083,23 +1490,224 @@ ttr_size = fields.Selection(string='size', ttr_mag_attribute=True,
                              ('995', '3/4'),
                              ('1064', '3/8'),
                              ('1023', '4')])
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+ttr_type = fields.Selection(string='type', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('991', 'A'),
+                             ('992', 'B'),
+                             ('999', 'C'),
+                             ('2154', 'Cut-off wheel'),
+                             ('1001', 'D'),
+                             ('998', 'Dust Cap'),
+                             ('1000', 'Dust Plug'),
+                             ('997', 'E'),
+                             ('993', 'F'),
+                             ('2152', 'Flap disc'),
+                             ('2179', 'Front-loading'),
+                             ('2176', 'Frontloader'),
+                             ('2153', 'Grinding wheel'),
+                             ('1579', 'HP'),
+                             ('1561', 'HS'),
+                             ('1564', 'P'),
+                             ('1056', 'PF'),
+                             ('1060', 'PH'),
+                             ('1058', 'PM'),
+                             ('1565', 'S'),
+                             ('1057', 'SF'),
+                             ('1061', 'SH'),
+                             ('1059', 'SM')])
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+ttr_material = fields.Selection(string='material', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('996', 'Aluminium Alloy'),
+                             ('1430', 'Berilium'),
+                             ('542', 'Brass'),
+                             ('2156', 'Brass nickel plated'),
+                             ('1560', 'Chrome plated steel'),
+                             ('1623', 'Nylon'),
+                             ('2004', 'Plastic'),
+                             ('2047', 'Plastic'),
+                             ('2048', 'Plastic, Thin Steel, Aluminium, Hardboard'),
+                             ('978', 'PVC'),
+                             ('980', 'PVC coated Polyester'),
+                             ('979', 'PVC covered with Canvas'),
+                             ('543', 'Stainless Steel'),
+                             ('544', 'Steel'),
+                             ('2045', 'Wood'),
+                             ('2046', 'Wood, Plastic, Hard Rubber')])
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
 ttr_safety_lights_recharge_time = fields.Selection(string='safety_lights_recharge_time', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('512', '3.0 hrs (90% in 1.5 hrs)'),
                              ('674', '8-10 hrs')])
-ttr_type_blade_jig_saw = fields.Selection(string='type_blade_jig_saw', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2220', 'Blender'),
-                             ('2221', 'Coffee Machine'),
-                             ('2219', 'Kitchen Machine'),
-                             ('2044', 'No 1'),
-                             ('1549', 'No 2'),
-                             ('2043', 'No 3'),
-                             ('2042', 'No 4'),
-                             ('2041', 'No 5'),
-                             ('2040', 'No 6'),
-                             ('2218', 'Toaster'),
-                             ('2222', 'Water Cooker')])
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_blade_jig_saw  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
 ttr_teeth = fields.Selection(string='teeth', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2071', '10'),
@@ -1111,40 +1719,219 @@ ttr_teeth = fields.Selection(string='teeth', ttr_mag_attribute=True,
                              ('2074', '6'),
                              ('2073', '8'),
                              ('2060', '9')])
-ttr_length = fields.Selection(string='length', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2036', '100 mm'),
-                             ('1455', '38 mm'),
-                             ('1456', '50 mm'),
-                             ('1453', '52 mm'),
-                             ('1460', '55 mm'),
-                             ('1461', '56 mm'),
-                             ('1457', '63 mm'),
-                             ('1459', '69 mm'),
-                             ('1454', '74 mm'),
-                             ('1458', '76 mm')])
-ttr_nut_splitter_matching = fields.Selection(string='nut_splitter_matching', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1729', 'HHQ-24'),
-                             ('1731', 'HHQ-24B'),
-                             ('1732', 'HHQ-27'),
-                             ('1730', 'HHQ-3241')])
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  length  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  nut_splitter_matching  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
 ttr_packed_dimensions = fields.Selection(string='packed_dimensions', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1378', '500 x 500 x 600 mm')])
-ttr_total_gross_weight = fields.Selection(string='total_gross_weight', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_dimensions = fields.Selection(string='dimensions', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1995', '127 x 49 x 66 cm'),
-                             ('1994', '158 x 53 x 99 cm'),
-                             ('1993', '212 x 74 x 137 cm'),
-                             ('2020', '24 x 26.5 x 34 cm'),
-                             ('2019', '30 x 32 x 41 cm'),
-                             ('2018', '30 x 37 x 41 cm'),
-                             ('2017', '35 x 34 x 47 cm'),
-                             ('2016', '42.8 x 40.3 x 54.3 cm'),
-                             ('1992', '57 x 25,5 x 58 cm')])
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  total_gross_weight  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  dimensions  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
 ttr_grit = fields.Selection(string='grit', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2110', '100'),
@@ -1173,6 +1960,105 @@ ttr_grit = fields.Selection(string='grit', ttr_mag_attribute=True,
                              ('2119', '600'),
                              ('2106', '80'),
                              ('2118', '800')])
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
 ttr_lifting_height = fields.Selection(string='lifting_height', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1856', '1.5 m'),
@@ -1208,43 +2094,383 @@ ttr_lifting_capacity = fields.Selection(string='lifting_capacity', ttr_mag_attri
                              ('1031', '75 kg'),
                              ('1509', '8 ton'),
                              ('1498', '850 kg')])
-ttr_shank = fields.Selection(string='shank', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('816', 'Hexagonal'),
-                             ('815', 'Round')])
-ttr_material_wire = fields.Selection(string='material_wire', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_max_speed = fields.Selection(string='max_speed', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('575', '11000 rpm'),
-                             ('581', '1200 rpm'),
-                             ('576', '12000 rpm'),
-                             ('546', '12500 rpm'),
-                             ('829', '150 rpm'),
-                             ('545', '20000 rpm'),
-                             ('549', '4500 rpm'),
-                             ('587', '6000 rpm'),
-                             ('548', '6500 rpm'),
-                             ('586', '8000 rpm'),
-                             ('547', '8500 rpm'),
-                             ('1220', '9000 rpm')])
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  shank  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  material_wire  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_speed  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_speed  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_speed  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_voltage = fields.Selection(string='voltage', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1699', '110'),
                              ('1617', '220'),
                              ('1700', '440')])
-ttr_air_consumption = fields.Selection(string='air_consumption', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1927', '250-380 l/min'),
-                             ('1615', '60l/min')])
-ttr_kw = fields.Selection(string='kw', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1616', '0,375')])
-ttr_safety_lights_input_voltage = fields.Selection(string='safety_lights_input_voltage', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('589', '110 V'),
-                             ('590', '230 V'),
-                             ('588', '440 V')])
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  air_consumption  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  kw  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_input_voltage  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
 ttr_power = fields.Selection(string='power', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1366', '0.55 kW'),
@@ -1265,18 +2491,153 @@ ttr_power = fields.Selection(string='power', ttr_mag_attribute=True,
                              ('591', '710 W'),
                              ('592', '850 W'),
                              ('2023', '9 kW')])
-ttr_spindle = fields.Selection(string='spindle', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1195', '3/8&quot;'),
-                             ('1169', '5/8&quot;'),
-                             ('601', 'M10'),
-                             ('600', 'M14')])
-ttr_power_electric_bench_grinder = fields.Selection(string='power_electric_bench_grinder', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1538', '110 V'),
-                             ('1539', '220 V'),
-                             ('1540', '400 V'),
-                             ('1559', '440 V')])
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  spindle  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  power_electric_bench_grinder  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
 ttr_safety_lights_ip = fields.Selection(string='safety_lights_ip', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('506', '54'),
@@ -1286,16 +2647,210 @@ ttr_safety_lights_ip = fields.Selection(string='safety_lights_ip', ttr_mag_attri
                              ('510', '67'),
                              ('2140', 'X4'),
                              ('2141', 'X8')])
-ttr_saw_blade_diameter = fields.Selection(string='saw_blade_diameter', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_cutting_depth = fields.Selection(string='cutting_depth', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_working_width = fields.Selection(string='working_width', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1359', '195 mm'),
-                             ('1370', '252 mm'),
-                             ('1355', '280 mm'),
-                             ('1354', '300 mm')])
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  saw_blade_diameter  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  cutting_depth  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  working_width  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_chuck = fields.Selection(string='chuck', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('834', '10 mm'),
@@ -1304,6 +2859,135 @@ ttr_chuck = fields.Selection(string='chuck', ttr_mag_attribute=True,
                              ('853', '6.5 mm'),
                              ('541', '6 mm'),
                              ('603', '13 mm')])
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_input_voltage  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  cutting_depth  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
 ttr_number_needles = fields.Selection(string='number_needles', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1156', '12 needles'),
@@ -1315,19 +2999,248 @@ ttr_number_needles = fields.Selection(string='number_needles', ttr_mag_attribute
                              ('1153', '29 needles'),
                              ('1162', '35 needles'),
                              ('1159', '66 needles')])
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
 ttr_diameter_needles = fields.Selection(string='diameter_needles', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1146', '2 mm'),
                              ('685', '3 mm'),
                              ('1145', '4 mm')])
-ttr_cutting_cap_aluminium = fields.Selection(string='cutting_cap_aluminium', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_cutting_cap_mild_steel = fields.Selection(string='cutting_cap_mild_steel', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_cutting_cap_stainless_steel = fields.Selection(string='cutting_cap_stainless_steel', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_planing_width = fields.Selection(string='planing_width', ttr_mag_attribute=True,
-                            selection=[('', '')])
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  cutting_cap_aluminium  
+"""
+"""
+ NOTE: remove field  cutting_cap_mild_steel  
+"""
+"""
+ NOTE: remove field  cutting_cap_stainless_steel  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  planing_width  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
 ttr_pad_size_lxb = fields.Selection(string='pad_size_lxb', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('876', '10 x 330 mm'),
@@ -1336,6 +3249,105 @@ ttr_pad_size_lxb = fields.Selection(string='pad_size_lxb', ttr_mag_attribute=Tru
                              ('874', '30 x 540 mm'),
                              ('872', '55 x 103 mm'),
                              ('841', '75 x 82 mm')])
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  cutting_cap_aluminium  
+"""
+"""
+ NOTE: remove field  cutting_cap_mild_steel  
+"""
+"""
+ NOTE: remove field  cutting_cap_stainless_steel  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
 ttr_pump_cap = fields.Selection(string='pump_cap', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1715', '14 cbm/min'),
@@ -1350,142 +3362,1225 @@ ttr_pump_cap = fields.Selection(string='pump_cap', ttr_mag_attribute=True,
                              ('1709', '66 cbm/min'),
                              ('1721', '72 cbm/h'),
                              ('1719', '78 cbm/h')])
-ttr_lift_cap = fields.Selection(string='lift_cap', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1708', '11m'),
-                             ('1717', '13m'),
-                             ('1703', '15m'),
-                             ('1706', '20m'),
-                             ('1704', '22m'),
-                             ('1705', '28m'),
-                             ('1702', '30m'),
-                             ('1701', '32m'),
-                             ('1707', '36m'),
-                             ('1716', '40m')])
-ttr_thread_extension_hose = fields.Selection(string='thread_extension_hose', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1534', '1/8')])
-ttr_length_extension_hose = fields.Selection(string='length_extension_hose', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1537', '340 mm'),
-                             ('1535', '360 mm'),
-                             ('1536', '370 mm')])
-ttr_tickness_grinding_wheel = fields.Selection(string='tickness_grinding_wheel', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1485', '1'),
-                             ('2068', '10 mm'),
-                             ('1486', '2,5'),
-                             ('2069', '20 mm'),
-                             ('1487', '3'),
-                             ('2070', '30 mm'),
-                             ('1488', '6')])
-ttr_shape = fields.Selection(string='shape', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1440', 'Arched-shape'),
-                             ('1443', 'Ball-shape'),
-                             ('2065', 'Cone-shape'),
-                             ('1444', 'Cylindrical'),
-                             ('2067', 'Drop-shape'),
-                             ('1439', 'Flame-shape'),
-                             ('2076', 'Flat'),
-                             ('2077', 'Halfround'),
-                             ('2078', 'Round'),
-                             ('2079', 'Rubber Pad Assembly'),
-                             ('2066', 'Trapezium-shape'),
-                             ('1441', 'Tree-shape'),
-                             ('2075', 'Triangle')])
-ttr_body_nozzle = fields.Selection(string='body_nozzle', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1465', '2&amp;quot;'),
-                             ('2037', '235 mm'),
-                             ('2038', '270 mm')])
-ttr_material_nozzle = fields.Selection(string='material_nozzle', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1464', 'Aluminium'),
-                             ('1463', 'Brass'),
-                             ('2039', 'Steel')])
-ttr_light_duration = fields.Selection(string='light_duration', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('513', '15 hours'),
-                             ('514', '30 hours'),
-                             ('515', '50 hours'),
-                             ('516', 'Up to 10 hours'),
-                             ('517', 'up to 10 hrs'),
-                             ('2010', 'Up to 12 hours'),
-                             ('2129', 'Up to 13 hours'),
-                             ('2126', 'Up to 17 hours'),
-                             ('2130', 'Up to 180 hours'),
-                             ('518', 'up to 2 hrs'),
-                             ('519', 'up to 2.3 hrs'),
-                             ('520', 'Up to 240 hours (30 hours at full brightness)'),
-                             ('522', 'Up to 25 hours (4 hours at full brightness)'),
-                             ('2127', 'Up to 27 hours'),
-                             ('2096', 'Up to 3 hours'),
-                             ('521', 'Up to 3.5/6.5 hours'),
-                             ('2128', 'Up to 39 hours'),
-                             ('2098', 'Up to 40 hours'),
-                             ('2097', 'Up to 6 hours'),
-                             ('2131', 'Up to 65 hours'),
-                             ('1181', 'Up to 72 hours (7.5 hours at full brightness)'),
-                             ('2095', 'Up to 8 hours')])
-ttr_air_discharge_connection = fields.Selection(string='air_discharge_connection', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1316', '0.375&quot;'),
-                             ('1137', '1&quot;'),
-                             ('1314', '1.25&quot;'),
-                             ('1315', '1.50&quot;'),
-                             ('1140', '1/2&quot;'),
-                             ('1142', '1/4&quot;'),
-                             ('1143', '1/8&quot;'),
-                             ('1317', '2&quot;'),
-                             ('1318', '3&quot;'),
-                             ('1138', '3/4&quot;'),
-                             ('1141', '3/8&quot;'),
-                             ('1139', '5/8&quot;')])
-ttr_geared_trolley = fields.Selection(string='geared_trolley', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1798', '1 ton'),
-                             ('1802', '10 ton'),
-                             ('1799', '2 ton'),
-                             ('1800', '3 ton'),
-                             ('1801', '5 ton')])
-ttr_type_grease_adaptor = fields.Selection(string='type_grease_adaptor', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1531', '1/8&quot;')])
-ttr_type_grease_bucket_pump = fields.Selection(string='type_grease_bucket_pump', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1533', 'HPG-50'),
-                             ('1532', 'TPG-30A')])
-ttr_grease_oil_pressure = fields.Selection(string='grease_oil_pressure', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_applicable_for = fields.Selection(string='applicable_for', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_oil_capacity = fields.Selection(string='oil_capacity', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1187', '141 cc'),
-                             ('1121', '150 cc'),
-                             ('1123', '217 cc'),
-                             ('1088', '2700 cc'),
-                             ('1122', '282 cc'),
-                             ('1186', '318 cc'),
-                             ('1427', '350 cc'),
-                             ('1223', '418 cc'),
-                             ('1089', '700 cc'),
-                             ('1124', '72 cc'),
-                             ('1222', '953 cc')])
-ttr_wire_length = fields.Selection(string='wire_length', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1851', '6 m')])
-ttr_wire_diameter = fields.Selection(string='wire_diameter', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1045', '3 mm'),
-                             ('1044', '4 mm'),
-                             ('1043', '5 mm'),
-                             ('1042', '6 mm')])
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  lift_cap  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  thread_extension_hose  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  length_extension_hose  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tickness_grinding_wheel  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  shape  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  body_nozzle  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  material_nozzle  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_discharge_connection  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  geared_trolley  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_grease_adaptor  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_grease_bucket_pump  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  connection  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  grease_oil_pressure  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  tickness_grinding_wheel  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  applicable_for  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  oil_capacity  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  wire_length  
+"""
+"""
+ NOTE: remove field  wire_diameter  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
 ttr_head_lamp_atex = fields.Selection(string='head_lamp_atex', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1937', 'No'),
                              ('1936', 'Yes')])
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_head_lamp_battery_type = fields.Selection(string='head_lamp_battery_type', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1938', '2 AA/ LR06'),
@@ -1496,116 +4591,707 @@ ttr_head_lamp_protection = fields.Selection(string='head_lamp_protection', ttr_m
                              ('1930', 'IP 67'),
                              ('1929', 'IP 68'),
                              ('1931', 'IP X4')])
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_head_lamp_weight = fields.Selection(string='head_lamp_weight', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1933', '145 g'),
                              ('1932', '160 g'),
                              ('1934', '340 g'),
                              ('1935', '80 g')])
-ttr_power_consumption = fields.Selection(string='power_consumption', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1412', '15 Kw'),
-                             ('1387', '2.2 Kw'),
-                             ('1411', '30 Kw'),
-                             ('1386', '4.4 Kw'),
-                             ('1385', '5.5 Kw'),
-                             ('1396', '6.6 Kw')])
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  dimensions  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  power_consumption  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
 ttr_vacuum_cleaner_hz = fields.Selection(string='vacuum_cleaner_hz', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1763', '50 Hz'),
                              ('1764', '50/60 Hz'),
                              ('1765', '60 Hz')])
-ttr_vacuum_cleaner_ph = fields.Selection(string='vacuum_cleaner_ph', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1748', '1'),
-                             ('1747', '3')])
+"""
+ NOTE: remove field  vacuum_cleaner_ph  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_max_water_inlet_temperature = fields.Selection(string='max_water_inlet_temperature', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1383', u'60 \xb0C')])
-ttr_maximum_pressure = fields.Selection(string='maximum_pressure', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1986', '10 bar'),
-                             ('1572', '100 bar'),
-                             ('1390', '110 bar'),
-                             ('1397', '1100 bar'),
-                             ('1985', '12 bar'),
-                             ('1772', '130 bar'),
-                             ('1770', '140 bar'),
-                             ('1581', '15 bar'),
-                             ('1771', '150 bar'),
-                             ('1389', '170 bar'),
-                             ('1773', '190 bar'),
-                             ('1580', '20 bar'),
-                             ('1388', '200 bar'),
-                             ('1774', '205 bar'),
-                             ('1577', '24 bar'),
-                             ('1401', '250 bar'),
-                             ('1578', '30 bar'),
-                             ('1563', '309 bar'),
-                             ('1400', '350 bar'),
-                             ('1573', '45 bar'),
-                             ('1399', '500 bar'),
-                             ('1571', '65 bar'),
-                             ('1574', '75 bar'),
-                             ('1987', '8 bar'),
-                             ('1398', '800 bar')])
-ttr_diameter_hose_clamp = fields.Selection(string='diameter_hose_clamp', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1519', '11-17'),
-                             ('1518', '13-20'),
-                             ('1520', '22-32'),
-                             ('1521', '32-44'),
-                             ('1522', '44-56')])
-ttr_material_hose_clamp = fields.Selection(string='material_hose_clamp', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1516', 'RVS'),
-                             ('1517', 'Steel')])
-ttr_min_deck_opening = fields.Selection(string='min_deck_opening', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1381', '255 mm')])
-ttr_output = fields.Selection(string='output', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1173', '10 ton'),
-                             ('1115', '20 ton'),
-                             ('1114', '50 ton')])
-ttr_spread = fields.Selection(string='spread', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1171', '100 - 350 mm'),
-                             ('1170', '200 - 500 mm'),
-                             ('1733', '250 mm'),
-                             ('1134', '350 mm'),
-                             ('1172', '50 - 250 mm'),
-                             ('1133', '500 mm')])
-ttr_stroke = fields.Selection(string='stroke', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1119', '100 mm'),
-                             ('1120', '150 mm'),
-                             ('1095', '20'),
-                             ('1094', '22'),
-                             ('1106', '38'),
-                             ('1113', '50 mm'),
-                             ('1105', '54'),
-                             ('1112', '60 mm')])
-ttr_tonnage = fields.Selection(string='tonnage', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1107', '10'),
-                             ('1602', '100'),
-                             ('1097', '11'),
-                             ('1505', '12'),
-                             ('1102', '14'),
-                             ('1506', '15'),
-                             ('1111', '16'),
-                             ('1501', '2'),
-                             ('1101', '20'),
-                             ('1225', '30'),
-                             ('1502', '4'),
-                             ('1098', '5'),
-                             ('1118', '50'),
-                             ('1503', '6'),
-                             ('1504', '8')])
-ttr_punch_range = fields.Selection(string='punch_range', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1096', '16 - 60')])
+"""
+ NOTE: remove field  maximum_pressure  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter_hose_clamp  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  material_hose_clamp  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  connection  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  min_deck_opening  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  dimensions  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  material_wire  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  kw  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  output  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  spread  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  stroke  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tonnage  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  stroke  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  punch_range  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_wall_thickness = fields.Selection(string='wall_thickness', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1194', '1 mm'),
@@ -1614,56 +5300,539 @@ ttr_wall_thickness = fields.Selection(string='wall_thickness', ttr_mag_attribute
                              ('1086', '2.75 mm - 5 mm'),
                              ('1093', 'Stainless Steel: 1.6 mm / Iron Sheet: 3.2 mm'),
                              ('1204', 'up to 1.5 mm')])
-ttr_pressure = fields.Selection(string='pressure', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1075', '16 bar'),
-                             ('1082', '20 bar'),
-                             ('1618', '3 bar'),
-                             ('1076', '6 bar')])
-ttr_current = fields.Selection(string='current', ttr_mag_attribute=True,
-                            selection=[('', '')])
+"""
+ NOTE: remove field  tonnage  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  stroke  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  oil_capacity  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tonnage  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  stroke  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  pressure  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  current  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tonnage  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
 ttr_splitting_range = fields.Selection(string='splitting_range', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1103', 'M22 - M27'),
                              ('1104', 'M8 - M24')])
-ttr_bending_formers = fields.Selection(string='bending_formers', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1080', '1/2&quot; , 3/4&quot; , 1&quot; , 11/4&quot; , 11/2&quot; , 2&quot; '),
-                             ('1081', '1/2&quot; , 3/4&quot; , 1&quot; , 11/4&quot; , 11/2&quot; , 2&quot; , 21/2&quot; , 3&quot;'),
-                             ('1079', '3/8&quot; , 1/2&quot; , 3/4&quot; , 1&quot; ')])
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  pressure  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  bending_formers  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
 ttr_testpump_bar = fields.Selection(string='testpump_bar', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1911', '0-60')])
-ttr_cutting_range = fields.Selection(string='cutting_range', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1110', '4 mm - 22 mm ')])
-ttr_recoil = fields.Selection(string='recoil', ttr_mag_attribute=True,
-                            selection=[('', '')])
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tonnage  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  cutting_range  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  recoil  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_water_consumptie = fields.Selection(string='water_consumptie', ttr_mag_attribute=True,
                             selection=[('', '')])
-ttr_water_hose = fields.Selection(string='water_hose', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_water_pressure = fields.Selection(string='water_pressure', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_effective_reach = fields.Selection(string='effective_reach', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_air_hose = fields.Selection(string='air_hose', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('643', '1/2"'),
-                             ('845', '1/4"'),
-                             ('1047', '12 mm'),
-                             ('1049', '15 mm'),
-                             ('1048', '19 mm'),
-                             ('984', '2"'),
-                             ('1046', '25 mm'),
-                             ('930', '3/4"'),
-                             ('644', '3/8" '),
-                             ('904', '7/16"')])
+"""
+ NOTE: remove field  water_hose  
+"""
+"""
+ NOTE: remove field  water_pressure  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  effective_reach  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_industr_lighting_weight = fields.Selection(string='industr_lighting_weight', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1908', '2,2 kg'),
                              ('1909', '3,6 kg'),
                              ('1907', '6,4 kg')])
+"""
+ NOTE: remove field  is_recurring  
+"""
 ttr_industr_lighting_protection = fields.Selection(string='industr_lighting_protection', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1910', 'IP 67')])
@@ -1671,6 +5840,9 @@ ttr_industr_lighting_power_voltage = fields.Selection(string='industr_lighting_p
                             selection=[('', ''),
                              ('1869', '150-265 V'),
                              ('1870', '174-264 V')])
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_industr_lighting_consumedpower = fields.Selection(string='industr_lighting_consumedpower', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1888', '110 W'),
@@ -1707,26 +5879,603 @@ ttr_industr_lighting_frequency = fields.Selection(string='industr_lighting_frequ
                             selection=[('', ''),
                              ('1889', '45-65 Hz'),
                              ('1890', '50-60 Hz')])
-ttr_pump_ratio_lubricator_kit = fields.Selection(string='pump_ratio_lubricator_kit', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1550', '55:1')])
-ttr_needle_amount = fields.Selection(string='needle_amount', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1695', '100'),
-                             ('1694', '50')])
-ttr_needle_diameter = fields.Selection(string='needle_diameter', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1688', '2 mm'),
-                             ('1689', '3 mm'),
-                             ('1690', '4 mm')])
-ttr_needle_lenght = fields.Selection(string='needle_lenght', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1692', '150 mm'),
-                             ('1691', '180 mm'),
-                             ('1693', '300 mm'),
-                             ('1858', '500 mm')])
-ttr_content = fields.Selection(string='content', ttr_mag_attribute=True,
-                            selection=[('', '')])
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  connection  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_blade_jig_saw  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  length  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  pump_ratio_lubricator_kit  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  shape  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  tickness_grinding_wheel  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  wire_length  
+"""
+"""
+ NOTE: remove field  wire_diameter  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  needle_amount  
+"""
+"""
+ NOTE: remove field  needle_diameter  
+"""
+"""
+ NOTE: remove field  needle_lenght  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  needle_diameter  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  content  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
 ttr_type_batterij = fields.Selection(string='type_batterij', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1955', 'AA'),
@@ -1735,18 +6484,346 @@ ttr_type_batterij = fields.Selection(string='type_batterij', ttr_mag_attribute=T
                              ('1951', 'D-cell'),
                              ('1950', 'Micro'),
                              ('1953', 'N-cell')])
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_volt_battery = fields.Selection(string='volt_battery', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1956', '1,5'),
                              ('1957', '9')])
-ttr_paint_spray_tip_filter = fields.Selection(string='paint_spray_tip_filter', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1677', '100'),
-                             ('1675', '200'),
-                             ('1687', '30'),
-                             ('1676', '40'),
-                             ('1674', '60'),
-                             ('1673', '80')])
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  grease_oil_pressure  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  grease_oil_pressure  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_spray_tip_filter  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
 ttr_paint_spray_spare_parts = fields.Selection(string='paint_spray_spare_parts', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1686', '115-524'),
@@ -1755,21 +6832,685 @@ ttr_paint_spray_spare_parts = fields.Selection(string='paint_spray_spare_parts',
                              ('1681', '231-305/301-305'),
                              ('1685', '231-306'),
                              ('1678', '244-067')])
-ttr_tip_nut_model = fields.Selection(string='tip_nut_model', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1684', '164T121'),
-                             ('1682', '164T132'),
-                             ('1683', '800-001')])
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tip_nut_model  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  applicable_for  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  geared_trolley  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  working_width  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
 ttr_stroke_saw_blade = fields.Selection(string='stroke_saw_blade', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1226', '45 mm'),
                              ('726', '9 mm')])
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  working_width  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  spindle  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_temperature_range = fields.Selection(string='temperature_range', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2003', u'-20 \xb0C - 80 \xb0C'),
                              ('1352', u'0 \xb0C - 105 \xb0C'),
                              ('1313', u'0 \xb0C - 79 \xb0C '),
                              ('1312', u'0 \xb0C - 82 \xb0C')])
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
 ttr_discharge = fields.Selection(string='discharge', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1351', '0.5&quot;'),
@@ -1777,6 +7518,12 @@ ttr_discharge = fields.Selection(string='discharge', ttr_mag_attribute=True,
                              ('1349', '1.5&quot;'),
                              ('1348', '2.0&quot;'),
                              ('1347', '3.0&quot;')])
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_material_diaphragm = fields.Selection(string='material_diaphragm', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1340', 'Buna-n'),
@@ -1793,21 +7540,276 @@ ttr_max_diameter_solids = fields.Selection(string='max_diameter_solids', ttr_mag
                              ('1325', '4.76 mm'),
                              ('1326', '6.35 mm'),
                              ('1322', '9.52 mm')])
-ttr_inlet = fields.Selection(string='inlet', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1343', '0.5&quot;'),
-                             ('1344', '1.0&quot;'),
-                             ('1345', '1.5&quot;'),
-                             ('1346', '2.0&quot;'),
-                             ('1342', '3.0&quot;')])
-ttr_square_drive = fields.Selection(string='square_drive', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('610', '1&quot;'),
-                             ('1979', '1-1/2&quot;'),
-                             ('608', '1/2&quot;'),
-                             ('1232', '1/4&quot;'),
-                             ('609', '3/4&quot;'),
-                             ('826', '3/8&quot;')])
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  inlet  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  square_drive  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
 ttr_bolt_size = fields.Selection(string='bolt_size', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('827', '10 mm'),
@@ -1820,6 +7822,12 @@ ttr_bolt_size = fields.Selection(string='bolt_size', ttr_mag_attribute=True,
                              ('611', '38 mm'),
                              ('1233', '41 mm'),
                              ('887', '42 mm')])
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_max_torque = fields.Selection(string='max_torque', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('632', '1085 N/m '),
@@ -1839,6 +7847,9 @@ ttr_max_torque = fields.Selection(string='max_torque', ttr_mag_attribute=True,
                              ('821', '678 N/m '),
                              ('828', '68 N/m '),
                              ('627', '949  N/m  ')])
+"""
+ NOTE: remove field  is_recurring  
+"""
 ttr_impact_wrench_bolt_capacity = fields.Selection(string='impact_wrench_bolt_capacity', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1968', '10 mm'),
@@ -1851,38 +7862,1251 @@ ttr_impact_wrench_bolt_capacity = fields.Selection(string='impact_wrench_bolt_ca
                              ('1962', '32 mm'),
                              ('1961', '38 mm'),
                              ('1960', '41 mm')])
-ttr_cartridge = fields.Selection(string='cartridge', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1144', '400 CC')])
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  cartridge  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  content  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  stroke  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  min_deck_opening  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  square_drive  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_pistons = fields.Selection(string='pistons', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('694', '1'),
                              ('695', '3')])
-ttr_model_portable_air_mover = fields.Selection(string='model_portable_air_mover', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2009', '1&quot;x1&quot;x1-1/2&quot;'),
-                             ('2008', '1-1/2&quot;x1-1/2&quot;x2-1/2&quot;'),
-                             ('2007', '1-1/4&quot;x1-1/4&quot;x2&quot;'),
-                             ('1546', '3-HP'),
-                             ('1547', '6-HP')])
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  working_width  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  air_inlet  
+"""
+"""
+ NOTE: remove field  air_hose  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  model_portable_air_mover  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  dimensions  
+"""
 ttr_compressor_capacity = fields.Selection(string='compressor_capacity', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2002', '100 l'),
                              ('2001', '200 l'),
                              ('1999', '24 l'),
                              ('2000', '500 l')])
+"""
+ NOTE: remove field  capacity  
+"""
 ttr_airless_paint_spray_max_pressure = fields.Selection(string='airless_paint_spray_max_pressure', ttr_mag_attribute=True,
                             selection=[('', '')])
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  maximum_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  stroke  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  working_width  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
 ttr_clothing_size = fields.Selection(string='clothing_size', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2032', '36-48 (42-44 in stock)'),
                              ('2031', '8, 10, 11 (10 in stock)'),
                              ('2033', 'Unifit'),
                              ('2034', 'XS-3XL (M and XL in stock)')])
-ttr_type_pump_kit = fields.Selection(string='type_pump_kit', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1524', '852-498'),
-                             ('1523', '852-958/960')])
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_pump_kit  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  maximum_pressure  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  maximum_pressure  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
 ttr_mah = fields.Selection(string='mah', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1946', '1300'),
@@ -1890,11 +9114,120 @@ ttr_mah = fields.Selection(string='mah', ttr_mag_attribute=True,
                              ('1947', '2200'),
                              ('1945', '2400'),
                              ('1949', '800')])
-ttr_safety_lights_max_temperature_surface = fields.Selection(string='safety_lights_max_temperature_surface', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('511', u'135\xb0C'),
-                             ('657', u'85\xb0C'),
-                             ('654', 'T4')])
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  safety_lights_max_temperature_surface  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
 ttr_reverse_tip = fields.Selection(string='reverse_tip', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1656', '215'),
@@ -1916,48 +9249,890 @@ ttr_reverse_tip = fields.Selection(string='reverse_tip', ttr_mag_attribute=True,
                              ('1655', '523'),
                              ('1637', '525'),
                              ('1636', '527')])
-ttr_reverse_tip_model = fields.Selection(string='reverse_tip_model', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1672', '246'),
-                             ('1671', '262'),
-                             ('1670', '286'),
-                             ('1669', 'LTX'),
-                             ('1668', 'XHD')])
-ttr_blade = fields.Selection(string='blade', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1449', '12,7 mm'),
-                             ('1452', '3 mm'),
-                             ('1446', '4 mm'),
-                             ('1447', '5 mm'),
-                             ('1450', '6 mm'),
-                             ('1451', '8 mm'),
-                             ('1448', '9,5 mm')])
-ttr_water_inlet = fields.Selection(string='water_inlet', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_water_outlet = fields.Selection(string='water_outlet', ttr_mag_attribute=True,
-                            selection=[('', '')])
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  reverse_tip_model  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  saw_blade_diameter  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  cutting_depth  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  shape  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  blade  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  length  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  water_inlet  
+"""
+"""
+ NOTE: remove field  water_outlet  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_lights_max_temperature_surface  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
 ttr_standard = fields.Selection(string='standard', ttr_mag_attribute=True,
                             selection=[('', '')])
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
 ttr_lamp_life = fields.Selection(string='lamp_life', ttr_mag_attribute=True,
                             selection=[('', '')])
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
 ttr_optimum_work_pressure = fields.Selection(string='optimum_work_pressure', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1926', 'From 4 to 5,5 bar')])
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_weight_sandblaster = fields.Selection(string='weight_sandblaster', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1923', '13.5 Kg'),
                              ('1924', '31.5 Kg')])
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
 ttr_dimensions_sandblaster = fields.Selection(string='dimensions_sandblaster', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1928', '630 x 360 x 350 mm')])
-ttr_size_lxb = fields.Selection(string='size_lxb', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_material_plug = fields.Selection(string='material_plug', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('957', 'Rubber')])
-ttr_material_top = fields.Selection(string='material_top', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('956', 'Nylon')])
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  air_consumption  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  size_lxb  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  material_plug  
+"""
+"""
+ NOTE: remove field  material_top  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  max_speed  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  pressure  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
 ttr_socket_size = fields.Selection(string='socket_size', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1840', '10 mm'),
@@ -1998,111 +10173,1467 @@ ttr_socket_size = fields.Selection(string='socket_size', ttr_mag_attribute=True,
                              ('1805', '75 mm'),
                              ('1804', '80 mm'),
                              ('1803', '85 mm')])
-ttr_thread_spray_tip = fields.Selection(string='thread_spray_tip', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1462', '7/8&quot;')])
-ttr_electrostatic_protection = fields.Selection(string='electrostatic_protection', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_color = fields.Selection(string='color', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_bursting_pressure = fields.Selection(string='bursting_pressure', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_overall_nozzle_length = fields.Selection(string='overall_nozzle_length', ttr_mag_attribute=True,
-                            selection=[('', '')])
-ttr_tank_lighting_power_source = fields.Selection(string='tank_lighting_power_source', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1596', '19-28V AC/DC, 85-264V AC/DC'),
-                             ('1595', '24/42/110/230V AC/DC'),
-                             ('1594', '24V AC/DC, 100-254V AC')])
-ttr_tip_guard_thread = fields.Selection(string='tip_guard_thread', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1605', '11/16&quot;'),
-                             ('1604', '7/8&quot;')])
-ttr_tip_guard_model = fields.Selection(string='tip_guard_model', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1607', '220-223'),
-                             ('1608', '220-251'),
-                             ('1609', '220-255'),
-                             ('1612', '243-161'),
-                             ('1610', '243-263'),
-                             ('1613', '246-215'),
-                             ('1611', '800-003'),
-                             ('1606', '800-004'),
-                             ('1614', 'XHD-001')])
-ttr_vacuum_cleaner_volt = fields.Selection(string='vacuum_cleaner_volt', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2217', '14.4 V'),
-                             ('2216', '18 V'),
-                             ('1762', '220-440 V'),
-                             ('1761', '230 V'),
-                             ('1760', '230-400 V')])
-ttr_vacuum_cleaner_liter = fields.Selection(string='vacuum_cleaner_liter', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2193', '0.35 L'),
-                             ('2195', '1.2 L'),
-                             ('2196', '1.375 L'),
-                             ('2197', '1.4 L'),
-                             ('2200', '1.5 L'),
-                             ('2198', '1.6 L'),
-                             ('2210', '1.7 L'),
-                             ('1750', '10 L'),
-                             ('2177', '120 L'),
-                             ('2191', '130 L'),
-                             ('2194', '2 L'),
-                             ('2199', '2.9/4.8 L'),
-                             ('1751', '30 L'),
-                             ('1753', '37 L'),
-                             ('1752', '47 L'),
-                             ('2190', '53 L'),
-                             ('1749', '67 L')])
-ttr_vacuum_cleaner_watt = fields.Selection(string='vacuum_cleaner_watt', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('2209', '1000 W'),
-                             ('2212', '1050 W'),
-                             ('2214', '1080 W'),
-                             ('2201', '1100 W'),
-                             ('1766', '1200 W'),
-                             ('1768', '1400 W'),
-                             ('1767', '1500 W'),
-                             ('2203', '2200 W'),
-                             ('2204', '2300 W'),
-                             ('2206', '2350 W'),
-                             ('2207', '2400 W'),
-                             ('2180', '2600 W'),
-                             ('1769', '2x1400 W'),
-                             ('2202', '3000 W'),
-                             ('2205', '450 W'),
-                             ('2181', '600 W'),
-                             ('2213', '700 W'),
-                             ('2208', '900 W'),
-                             ('2211', '940 W'),
-                             ('2215', '980 W')])
-ttr_supply_connection = fields.Selection(string='supply_connection', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1375', '1&amp;quot;')])
-ttr_discharge_connection = fields.Selection(string='discharge_connection', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1379', '200&quot;')])
-ttr_tank_lighting_classification = fields.Selection(string='tank_lighting_classification', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1584', 'zone 1 &amp; 2')])
-ttr_tank_lighting_ip = fields.Selection(string='tank_lighting_ip', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1599', 'IP66/67'),
-                             ('1600', 'IP66/67/68'),
-                             ('1601', 'TBA')])
-ttr_tank_lighting_weight = fields.Selection(string='tank_lighting_weight', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1590', '3.5 kg'),
-                             ('1589', '4 kg'),
-                             ('1588', '9 kg')])
-ttr_tank_lighting_temperature = fields.Selection(string='tank_lighting_temperature', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1587', 'T3'),
-                             ('1586', 'T3/T4'),
-                             ('1585', 'T4')])
-ttr_tank_lighting_size = fields.Selection(string='tank_lighting_size', ttr_mag_attribute=True,
-                            selection=[('', ''),
-                             ('1592', u'128 \xd8 x 706'),
-                             ('1591', u'190 \xd8 x 580'),
-                             ('1593', '292 x 451 x 345 mm')])
+"""
+ NOTE: remove field  square_drive  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thread_spray_tip  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_spray_tip_filter  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  capacity  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  electrostatic_protection  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  color  
+"""
+"""
+ NOTE: remove field  bursting_pressure  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  max_working_pressure  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  overall_nozzle_length  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  total_gross_weight  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  dimensions  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  min_deck_opening  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  tank_lighting_power_source  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  tip_guard_thread  
+"""
+"""
+ NOTE: remove field  tip_guard_model  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  power_consumption  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  dimensions  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  connection  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  vacuum_cleaner_volt  
+"""
+"""
+ NOTE: remove field  vacuum_cleaner_liter  
+"""
+"""
+ NOTE: remove field  vacuum_cleaner_watt  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  type_blade_jig_saw  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  paint_sprayer_gewicht  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  vacuum_cleaner_volt  
+"""
+"""
+ NOTE: remove field  vacuum_cleaner_liter  
+"""
+"""
+ NOTE: remove field  vacuum_cleaner_watt  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  branche  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  total_gross_weight  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  supply_connection  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  discharge_connection  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  min_deck_opening  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  diameter  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  max_speed  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  tank_lighting_classification  
+"""
+"""
+ NOTE: remove field  tank_lighting_  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  tank_lighting_ip  
+"""
+"""
+ NOTE: remove field  tank_lighting_power_source  
+"""
+"""
+ NOTE: remove field  tank_lighting_weight  
+"""
+"""
+ NOTE: remove field  tank_lighting_temperature  
+"""
+"""
+ NOTE: remove field  tank_lighting_size  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""
+"""
+ NOTE: remove field  safety_lights_power_source  
+"""
+"""
+ NOTE: remove field  safety_light_weight  
+"""
+"""
+ NOTE: remove field  required_options  
+"""
+"""
+ NOTE: remove field  recurring_profile  
+"""
+"""
+ NOTE: remove field  news_to_date  
+"""
+"""
+ NOTE: remove field  news_from_date  
+"""
+"""
+ NOTE: remove field  short_description  
+"""
+"""
+ NOTE: remove field  unitor_number  
+"""
+"""
+ NOTE: remove field  thumbnail_label  
+"""
+"""
+ NOTE: remove field  visibility  
+"""
+"""
+ NOTE: remove field  status  
+"""
+"""
+ NOTE: remove field  small_image_label  
+"""
+"""
+ NOTE: remove field  statistics_number  
+"""
+"""
+ NOTE: remove field  has_options  
+"""
+"""
+ NOTE: remove field  minimal_price  
+"""
+"""
+ NOTE: remove field  impa5  
+"""
+"""
+ NOTE: remove field  light_duration  
+"""
+"""
+ NOTE: remove field  is_recurring  
+"""

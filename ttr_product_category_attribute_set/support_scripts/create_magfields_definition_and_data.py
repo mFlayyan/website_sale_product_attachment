@@ -56,9 +56,9 @@ for attribute_set in attribute_sets:
             'boolean': 'Boolean', 
             'select': 'Selection',
             '': 'unknown',
-            'price': 'unknown',
-            'multiselect': 'unknown',
-            'media_image': 'unknown',
+            'price': 'undecided_price',
+            'multiselect': 'undecided_multiselect',
+            'media_image': 'undecided_media_image',
             }        
     """
     other unmapped  types, investigate
@@ -66,9 +66,14 @@ for attribute_set in attribute_sets:
         multiselect     many2many? a kind of array?
         media_image ..needed?
     """
-    excluded_types = ['price', 'multiselect', 'media_image']
+    excluded_types = [
+        'unknown', 
+        'undecided_price', 
+        'undecided_multiselect', 
+        'undecided_image'
+    ]
     for attribute in attributes:
-        if attribute['type'] not in excluded_types:
+        if attribute['type']:
             field_mapping = []
             attribute_search = 'ttr_' + attribute['code']
             attribute_in_odoo = search_in_file(
@@ -97,21 +102,21 @@ for attribute_set in attribute_sets:
                     'old_id': 'remove',
                     'color': 'remove',
                     'news_from_date': 'remove',
-                    'news_to_date':'remove',
-                    'status':'remove',
+                    'news_to_date': 'remove',
+                    'status': 'remove',
                     'url_path': 'remove',
                     'url_path': 'remove',                              
                     'minimal_price': 'remove',                         
-                    'is_recurring':'remove',                          
+                    'is_recurring': 'remove',                          
                     'recurring_profile': 'remove',                    
                     'visibility': 'remove', 
                     'required_options': 'remove', 
-                    'has_options',
-                    'small_image_label',
-                    'thumbnail_label',
-                    'price_type',                           
-                    'sku_type',                             
-                    'weight_type',
+                    'has_options': 'remove',
+                    'small_image_label': 'remove',
+                    'thumbnail_label': 'remove',
+                    'price_type': 'remove',                           
+                    'sku_type': 'remove',                             
+                    'weight_type': 'remove',
                     'links_title': 'remove',
                     'links_exist': 'remove',
                     'branche': 'remove',
@@ -285,11 +290,17 @@ for attribute_set in attribute_sets:
                         )
                     if has_integer_index:
                         model_string += ", \n                            size=-1"
+                if attribute['type'] in excluded_types:
+                    model_string = "\n\"\"\" \n NOTE undecided/excluded type: will have to run gen script to refresh XML again if you decide to use these \n" +
+                    model_string + "\n\"\"\"" 
                 append_to_file(DefinitionFileName, model_string +")")
 
             if attribute['code'] in otherwise_migrated_attributes:
-                model_string = "\"\"\"\n" + otherwise_migrated_attributes[
-                        attribute['code']] + "\n\"\"\""
+                model_string = (
+                        "\"\"\"\n NOTE: %s field  %s  \n\"\"\"") % (
+                        otherwise_migrated_attributes[attribute['code']], 
+                        attribute['code']
+                        )
                 append_to_file(DefinitionFileName, model_string)
             # mapping between new attribute fields and magento fields
             # maybe not needed if code is unique
@@ -307,7 +318,7 @@ for attribute_set in attribute_sets:
             "field_product_product_ttr_%s'))" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] != 'unknown'  
             ]).replace("\"", "")
         product_field_ids_data_for_dict = str([
-            "[4,'ttr_%s']" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] != 'unknown'
+            "[4,'ttr_%s']" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] not in excluded_types
             ]).replace("\"", "")  
         # Will delete manually
         """
