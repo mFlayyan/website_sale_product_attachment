@@ -291,9 +291,13 @@ for attribute_set in attribute_sets:
                     if has_integer_index:
                         model_string += ", \n                            size=-1"
                 if attribute['type'] in excluded_types:
-                    model_string = "\n\"\"\" \n NOTE undecided/excluded type: will have to run gen script to refresh XML again if you decide to use these \n" +
-                    model_string + "\n\"\"\"" 
-                append_to_file(DefinitionFileName, model_string +")")
+                    model_string = ("\n\"\"\"\n NOTE: undecided/excluded type:" 
+                           "will have to run gen script to refresh XML" 
+                           " again if you decide to use these \n\"\"\"" 
+                           ) % model_string
+                    append_to_file(DefinitionFileName, model_string)
+                else:
+                    append_to_file(DefinitionFileName, model_string +")")
 
             if attribute['code'] in otherwise_migrated_attributes:
                 model_string = (
@@ -315,7 +319,7 @@ for attribute_set in attribute_sets:
     if not view_in_odoo:
         product_field_ids_data = str([
             "(4,ref('ttr_product_category_attribute_set."
-            "field_product_product_ttr_%s'))" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] != 'unknown'  
+            "field_product_product_ttr_%s'))" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] not in excluded_types   
             ]).replace("\"", "")
         product_field_ids_data_for_dict = str([
             "[4,'ttr_%s']" % x['code'] for x in attributes if magento_to_odoo_type_mapping[x['type']] not in excluded_types
