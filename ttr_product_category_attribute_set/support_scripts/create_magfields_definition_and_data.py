@@ -352,8 +352,8 @@ for attribute_set in attribute_sets:
     for attribute in attributes:
         if attribute['type']:
             field_mapping = []
-            attribute_search ='ttr_' + attribute['code']
-            attribute_in_odoo = search_in_file(
+            attribute_search = 'ttr_' + attribute['code']
+            attribute_in_file = search_in_file(
                     DefinitionFileName, attribute_search)
 
             """
@@ -371,23 +371,24 @@ for attribute_set in attribute_sets:
             of automatic documentation.
             """
             if attribute['code'] not in attr_rel:
-                if not attribute_in_odoo:
+                if not attribute_in_file:
                     model_string = ("# field %s not found in dictionary,"
-                            "has the client created new fields since"
-                            "he mapping?") % (
+                        "has the client created new fields since"
+                        "he mapping?") % (
                                 'ttr_' + attribute['code']
                             )
                     append_to_file(DefinitionFileName, model_string)
             else:
-                if ((not attribute_in_odoo) and 
-                    attr_rel[attribute['code']][2] =='KEEP' ):
+                if ((not attribute_in_file) and 
+                    attr_rel[attribute['code']][2] == 'KEEP'):
                     """
                     TODO There are fields with no type , investigate
                     now will be generated aas Unknown in mapping dict
                     """
-                    if attribute['type'] !='select':
+                    if attribute['type'] != 'select':
                         model_string = (
-                            "%s = fields.%s(string='%s', ttr_mag_attribute=True"
+                            "%s = fields.%s(string='%s',"
+                            " ttr_mag_attribute=True"
                                 ) % (
                                'ttr_' + attribute['code'],  
                                 magento_to_odoo_type_mapping[attribute['type']],
