@@ -9,7 +9,7 @@
     "category": "",
     "summary": "",
     "depends": [ 
-        'product',
+        'sale',
     ],
     "data": [
         'data/data.xml',

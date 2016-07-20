@@ -1,11 +1,34 @@
 # -*- encoding: utf-8 -*-         
 from magento import MagentoAPI
 
-def search_in_file(filename, string_to_search):
+
+DefinitionFileName = 'models.py'
+XMLDataFileName = 'data.xml'
+ExcludedFileName = 'excluded.py'
+prefix = "ttr_"
+
+
+
+def search_in_file_XML(filename, str_to_search):
     try:
         file_obj = open(filename, 'r')
         for line in file_obj:
-            if string_to_search in line:
+            if str_to_search in line:
+                file_obj.close()
+                return True
+    except:
+        return False
+    file_obj.close()
+    return False
+
+def search_in_file(filename, string_to_tosearch, prefix=''):
+    str1 = prefix + string_to_tosearch + " = "
+    str2 = prefix + string_to_tosearch + " ("
+    str3 = prefix + string_to_tosearch + " not found"
+    try:
+        file_obj = open(filename, 'r')
+        for line in file_obj:
+            if str1 in line or str2 in line or str3 in line:
                 file_obj.close()
                 return True
     except:
@@ -33,19 +56,17 @@ generate fields and XML data
 for the new fields in odoo pre migration
 """
 
-DefinitionFileName ='models.py'
-XMLDataFileName ='data.xml'
 
 magento_to_odoo_type_mapping = { 
-       'text':'Char', 
-       'textarea':'Text', 
-       'date':'Date', 
-       'boolean':'Boolean', 
-       'select':'Selection',
-       '':'unknown',
-       'price':'undecided_price',
-       'multiselect':'undecided_multiselect',
-       'media_image':'undecided_media_image',
+       'text': 'Char', 
+       'textarea': 'Text', 
+       'date': 'Date', 
+       'boolean': 'Boolean', 
+       'select': 'Selection',
+       '': 'unknown',
+       'price': 'undecided_price',
+       'multiselect': 'undecided_multiselect',
+       'media_image': 'undecided_media_image',
         }        
 
 """
@@ -62,7 +83,6 @@ excluded_types = [
    'media_image'
 ]
 
-prefix = "ttr_"
 
 
 """
@@ -89,11 +109,11 @@ attr_rel = {
    'special_to_date': [67, 'Special Price To Date', 'migrated through pricelists'],
    'cost': [68, 'Cost', 'to odoo field'],
    'weight': [69, 'Weight', 'KEEP'],
-   'manufacturer': [70, 'Manufacturer', 'KEEP'],
+   'manufacturer': [70, 'Manufacturer', 'migrate through product_manufacturer'],
    'meta_title': [71, 'Meta Title', 'KEEP'],
    'meta_keyword': [72, 'Meta Keywords', 'KEEP'],
    'meta_description': [73, 'Meta Description', 'KEEP'],
-   'image': [74, 'Base Image', 'KEEP'],
+   'image': [74, 'Base Image', 'to odoo field'],
    'small_image': [75, 'Small Image', 'DELETE'],
    'thumbnail': [76, 'Thumbnail', 'DELETE'],
    'media_gallery': [77, 'Media Gallery', 'KEEP'],
@@ -122,8 +142,8 @@ attr_rel = {
    'image_label': [100, 'Image Label', 'KEEP'],
    'small_image_label': [101, 'Small Image Label', 'DELETE'],
    'thumbnail_label': [102, 'Thumbnail Label', 'DELETE'],
-   'created_at': [103, '', 'KEEP'],
-   'updated_at': [104, '', 'KEEP'],
+   'created_at': [103, '', 'to odoo field'],
+   'updated_at': [104, '', 'to odoo field'],
    'enable_googlecheckout': [109, 'Is Product Available for Purchase with Google Checkout', 'KEEP'],
    'gift_message_available': [110, 'Allow Gift Message', 'KEEP'],
    'price_type': [111, '', 'DELETE'],
@@ -220,8 +240,8 @@ attr_rel = {
    'cutting_cap_mild_steel': [208, 'Cutting cap mild steel', 'DELETE'],
    'cutting_cap_aluminium': [209, 'Cutting cap aluminium', 'DELETE'],
    'cutting_cap_stainless_steel': [210, 'Cutting cap stainless steel', 'DELETE'],
-   'planing_width': [211, 'Planing Width', 'DELETE '],
-   'working_width': [212, 'Working Width', 'DELETE '],
+   'planing_width': [211, 'Planing Width', 'DELETE'],
+   'working_width': [212, 'Working Width', 'DELETE'],
    'pad_size_lxb': [213, 'Pad Size L x B', 'KEEP'],
    'thread': [214, 'Thread', 'KEEP'],
    'tip_size': [215, 'Tip Size', '236'],
@@ -353,25 +373,20 @@ excluded_attrs = []
 attribute_sets = magento.catalog_product_attribute_set.list()
 
 for attribute_set in attribute_sets:
+
     attributes = magento.catalog_product_attribute.list(
         [attribute_set['set_id']]
     )
     attribute_n=0
     for attribute in attributes:
+
         if attribute['type']:
             field_mapping = []
-            attribute_search = prefix + attribute['code'] + " = "
-            attribute_search_2 = prefix + attribute['code'] + " ("
-            attribute_search_3 = prefix + attribute['code'] + " not found"
-            attribute_in_file = (search_in_file(
-                    DefinitionFileName, attribute_search) or 
-                        search_in_file(DefinitionFileName, 
-                            attribute_search_2
-                        ) or search_in_file(
-                            DefinitionFileName, attribute_search_3
-                        )
-                    )
-
+            attribute_in_file = search_in_file(
+                    DefinitionFileName, 
+                    attribute['code'], 
+                    prefix)
+                    
             """
             we will not create the field definition 
             even if it isn't in the file, it will just 
@@ -386,7 +401,7 @@ for attribute_set in attribute_sets:
                         " the mapping?") % (
                                 prefix + attribute['code'],
                             )
-                    append_to_file(DefinitionFileName, model_string)
+                    append_to_file(ExcludedFileName, model_string)
                 #even if already in file it is an excluded type
                 excluded_attrs.append(attribute['code'])
             else:
@@ -435,7 +450,7 @@ for attribute_set in attribute_sets:
                                    "Will have to run gen script to refresh XML" 
                                    "again if you decide to use these \n\"\"\"" 
                                    ) % model_string
-                            append_to_file(DefinitionFileName, model_string)
+                            append_to_file(ExcludedFileName, model_string)
                             excluded_attrs.append(attribute['code'])
                         else:
                             append_to_file(DefinitionFileName, model_string +")")
@@ -447,7 +462,7 @@ for attribute_set in attribute_sets:
                                 attribute['code'],
                                 attr_rel[attribute['code']][1],
                                 )
-                        append_to_file(DefinitionFileName, model_string)
+                        append_to_file(ExcludedFileName, model_string)
                         excluded_attrs.append(attribute['code'])
                     if (attr_rel[attribute['code']][2] !='DELETE' and 
                             attr_rel[attribute['code']][2] !='KEEP'): 
@@ -478,7 +493,7 @@ for attribute_set in attribute_sets:
                                         attr_rel[attribute['code']][1],
                                         policy
                                     )
-                        append_to_file(DefinitionFileName, model_string)
+                        append_to_file(ExcludedFileName, model_string)
                         excluded_attrs.append(attribute['code'])
                     # mapping between new attribute fields and magento fields
                     # maybe not needed if code is unique
@@ -491,7 +506,8 @@ for attribute_set in attribute_sets:
     # clean up unused attributes that are in the dict but where not fetched
     for key in attr_rel:
         attribute_in_file = search_in_file(
-                DefinitionFileName, prefix+key)
+                DefinitionFileName, key, prefix) or search_in_file(
+                        ExcludedFileName, key, prefix)
         if not attribute_in_file:
             excluded_attrs.append(key)
 
@@ -506,7 +522,7 @@ for attribute_set in attribute_sets:
             prefix,
             attribute_set['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower()
             )
-    view_in_odoo = search_in_file(XMLDataFileName, category_id_name)
+    view_in_odoo = search_in_file_XML(XMLDataFileName, category_id_name)
     if not view_in_odoo:
         product_field_ids_data = str([
             "(4,ref('ttr_product_category_attribute_set."
