@@ -360,12 +360,20 @@ for attribute_set in attribute_sets:
     for attribute in attributes:
         if attribute['type']:
             field_mapping = []
-            attribute_search = prefix + attribute['code']
-            attribute_in_file = search_in_file(
-                    DefinitionFileName, attribute_search)
+            attribute_search = prefix + attribute['code'] + " = "
+            attribute_search_2 = prefix + attribute['code'] + " ("
+            attribute_search_3 = prefix + attribute['code'] + " not found"
+            attribute_in_file = (search_in_file(
+                    DefinitionFileName, attribute_search) or 
+                        search_in_file(DefinitionFileName, 
+                            attribute_search_2
+                        ) or search_in_file(
+                            DefinitionFileName, attribute_search_3
+                        )
+                    )
 
             """
-             we will not create the field definition 
+            we will not create the field definition 
             even if it isn't in the file, it will just 
             inject the explanation as a comment, a sort
             of automatic documentation.
@@ -373,7 +381,7 @@ for attribute_set in attribute_sets:
             if attribute['code'] not in attr_rel:
                 if not attribute_in_file:
                     attribute_n +=1
-                    model_string = ("# field %s   not found in dictionary,"
+                    model_string = ("# field %s not found in dictionary,"
                         "has the client created new fields since"
                         " the mapping?") % (
                                 prefix + attribute['code'],
@@ -462,9 +470,9 @@ for attribute_set in attribute_sets:
                         else:
                             policy =  attr_rel[attribute['code']][2]
                             model_string = (
-                                    "# MGR NOTE: the data from field ttr_%s" 
-                                    "(%s) should migrated with specified "
-                                    "policy: %s "
+                                    "# MGR NOTE: the data from field" 
+                                    " ttr_%s (%s) should be migrated with" 
+                                    " specified policy: %s "
                                     ) % (
                                         attribute['code'], 
                                         attr_rel[attribute['code']][1],

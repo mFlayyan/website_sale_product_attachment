@@ -2,19 +2,20 @@ ttr_price_view = fields.Selection(string='Price View', ttr_mag_attribute=True,
                             selection=[(1, 'As Low as'),
                              (0, 'Prijsrange')], 
                             size=-1)
+# MGR NOTE: the data from field ttr_price (Price) should be migrated with specified policy: to odoo field 
 # NOTE: DELETE field ttr_recurring_profile (Recurring Payment Profile)
 # NOTE: DELETE field ttr_required_options ()
 # MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
-# field ttr_paint_spray_aansluiting   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_paint_sprayer_width   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_spray_aansluiting not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_sprayer_width not found in dictionary,has the client created new fields since the mapping?
 # NOTE: DELETE field ttr_news_to_date (Set Product as New to Date)
 # NOTE: DELETE field ttr_news_from_date (Set Product as New from Date)
 ttr_name = fields.Char(string='Name', ttr_mag_attribute=True)
 ttr_options_container = fields.Selection(string='Display Product Options In', ttr_mag_attribute=True,
                             selection=[('container1', 'Kolom productgegevens'),
                              ('container2', 'Blok na info-kolom')])
-# field ttr_paint_sprayer_luchtverbruik   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_paint_sprayer_height   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_sprayer_luchtverbruik not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_sprayer_height not found in dictionary,has the client created new fields since the mapping?
 ttr_page_layout = fields.Selection(string='Page Layout', ttr_mag_attribute=True,
                             selection=[('', 'Geen layout-updates'),
                              ('empty', 'Leeg'),
@@ -37,11 +38,11 @@ ttr_tax_class_id = fields.Selection(string='Tax Class', ttr_mag_attribute=True,
                              ('8', 'BTW Laag'),
                              ('9', 'Producten met 21% BTW')])
 # NOTE: DELETE field ttr_small_image_label (Small Image Label)
-# MGR NOTE: the data from field ttr_special_from_date(Special Price From Date) should migrated with specified policy: migrated through pricelists 
-# MGR NOTE: the data from field ttr_special_price(Special Price) should migrated with specified policy: migrated through pricelists 
+# MGR NOTE: the data from field ttr_special_from_date (Special Price From Date) should be migrated with specified policy: migrated through pricelists 
+# MGR NOTE: the data from field ttr_special_price (Special Price) should be migrated with specified policy: migrated through pricelists 
 # NOTE: DELETE field ttr_status (Status)
 # NOTE: DELETE field ttr_statistics_number (Statistics Number)
-# MGR NOTE: the data from field ttr_special_to_date(Special Price To Date) should migrated with specified policy: migrated through pricelists 
+# MGR NOTE: the data from field ttr_special_to_date (Special Price To Date) should be migrated with specified policy: migrated through pricelists 
 ttr_msrp_enabled = fields.Selection(string='Apply MAP', ttr_mag_attribute=True,
                             selection=[(1, 'Ja'),
                              (0, 'Nee'),
@@ -65,6 +66,11 @@ ttr_gift_message_available = fields.Selection(string='Allow Gift Message', ttr_m
                              (0, 'Nee')], 
                             size=-1)
 ttr_custom_design_from = fields.Date(string='Active From', ttr_mag_attribute=True)
+ttr_custom_design = fields.Selection(string='Custom Design', ttr_mag_attribute=True,
+                            selection=[('', '-- Selecteer a.u.b. --'),
+                             ([{'value': 'base/default', 'label': 'default'}], 'base'),
+                             ([{'value': 'technotrading/technotrading', 'label': 'technotrading'}, {'value': 'technotrading/default', 'label': 'default'}], 'technotrading'),
+                             ([{'value': 'default/hellopress', 'label': 'hellopress'}, {'value': 'default/default', 'label': 'default'}, {'value': 'default/modern', 'label': 'modern'}, {'value': 'default/blank', 'label': 'blank'}, {'value': 'default/iphone', 'label': 'iphone'}, {'value': 'default/_technotrading', 'label': '_technotrading'}, {'value': 'default/_technotrading.bk', 'label': '_technotrading.bk'}, {'value': 'default/nosales', 'label': 'nosales'}], 'default')])
 ttr_created_at = fields.Char(string='', ttr_mag_attribute=True)
 ttr_updated_at = fields.Char(string='', ttr_mag_attribute=True)
 ttr_country_of_manufacture = fields.Selection(string='Country of Manufacture', ttr_mag_attribute=True,
@@ -75,7 +81,7 @@ ttr_country_of_manufacture = fields.Selection(string='Country of Manufacture', t
                              ('LU', 'Luxemburg'),
                              ('NL', 'Nederland'),
                              ('GB', 'Verenigd Koninkrijk')])
-# MGR NOTE: the data from field ttr_cost(Cost) should migrated with specified policy: to odoo field 
+# MGR NOTE: the data from field ttr_cost (Cost) should be migrated with specified policy: to odoo field 
 ttr_allowed_to_quotemode = fields.Boolean(string='Allowed to Quote Mode', ttr_mag_attribute=True)
 ttr_image_label = fields.Char(string='Image Label', ttr_mag_attribute=True)
 ttr_impa1 = fields.Char(string='Impa1', ttr_mag_attribute=True)
@@ -140,11 +146,17 @@ ttr_merk_type = fields.Selection(string='Merk / Type', ttr_mag_attribute=True,
                              ('415', 'YOKOTA')])
 ttr_meta_description = fields.Text(string='Meta Description', ttr_mag_attribute=True)
 ttr_meta_keyword = fields.Text(string='Meta Keywords', ttr_mag_attribute=True)
+
+"""
+ NOTE: undecided/excluded type:
+ ttr_msrp = fields.undecided_price(string='Manufacturers Suggested Retail Price', ttr_mag_attribute=True 
+Will have to run gen script to refresh XMLagain if you decide to use these 
+"""
 # NOTE: DELETE field ttr_minimal_price (Minimal Price)
 ttr_meta_title = fields.Char(string='Meta Title', ttr_mag_attribute=True)
-# field ttr_impa4   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_impa3   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_impa2   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_impa4 not found in dictionary,has the client created new fields since the mapping?
+# field ttr_impa3 not found in dictionary,has the client created new fields since the mapping?
+# field ttr_impa2 not found in dictionary,has the client created new fields since the mapping?
 # NOTE: DELETE field ttr_impa5 (impa5)
 ttr_issa = fields.Char(string='ISSA code', ttr_mag_attribute=True)
 # NOTE: DELETE field ttr_is_recurring (Enable Recurring Profile)
@@ -152,8 +164,8 @@ ttr_is_imported = fields.Selection(string='In feed', ttr_mag_attribute=True,
                             selection=[(1, 'Ja'),
                              (0, 'Nee')], 
                             size=-1)
-# field ttr_paint_sprayer_normale_werkdruk   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_paint_sprayer_lengte   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_sprayer_normale_werkdruk not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_sprayer_lengte not found in dictionary,has the client created new fields since the mapping?
 # MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
 ttr_verkoopeenheid = fields.Selection(string='Sales unit', ttr_mag_attribute=True,
                             selection=[('', ''),
@@ -171,7 +183,7 @@ ttr_verkoopeenheid = fields.Selection(string='Sales unit', ttr_mag_attribute=Tru
                              ('1796', 'set = 2 pcs'),
                              ('1795', 'set = 4 pcs'),
                              ('1794', 'set = 5 pcs')])
-# MGR NOTE: the data from field ttr_diameter(Diameter) should migrated with specified policy: 140 
+# MGR NOTE: the data from field ttr_diameter (Diameter) should be migrated with specified policy: 140 
 # NOTE: DELETE field ttr_branche (Branche)
 # MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
 # NOTE: DELETE field ttr_nom_hose_end (Nom Hose end)
@@ -200,6 +212,7 @@ ttr_thread = fields.Selection(string='Thread', ttr_mag_attribute=True,
                              ('2151', 'Thread M14')])
 # MGR NOTE: the data from field ttr_capacity_tank  (Capacity tank) should be moved to field ttr_capacity (Capacity) at migration time
 # MGR NOTE: the data from field ttr_regulating_range  (Regulating Range) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_flow_rate = fields.Selection(string='Flow Rate', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1775', '10.16 L/min'),
@@ -228,11 +241,18 @@ ttr_flow_rate = fields.Selection(string='Flow Rate', ttr_mag_attribute=True,
                              ('1777', '7.3 L/min'),
                              ('1776', '8.3 L/min'),
                              ('1331', '985 L/min')])
+# MGR NOTE: the data from field ttr_regulating_range  (Regulating Range) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_capacity_tank  (Capacity tank) should be moved to field ttr_capacity (Capacity) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_capacity_tank  (Capacity tank) should be moved to field ttr_capacity (Capacity) at migration time
+# MGR NOTE: the data from field ttr_regulating_range  (Regulating Range) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_type_air_motor_kit  (Type) should be moved to field ttr_type (Type) at migration time
-# field ttr_safety_lights_certification   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_safety_lights_area_of_classification   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_saferty_lights_lightbulb   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_safety_lights_light_output   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_safety_lights_certification not found in dictionary,has the client created new fields since the mapping?
+# field ttr_safety_lights_area_of_classification not found in dictionary,has the client created new fields since the mapping?
+# field ttr_saferty_lights_lightbulb not found in dictionary,has the client created new fields since the mapping?
+# field ttr_safety_lights_light_output not found in dictionary,has the client created new fields since the mapping?
 ttr_safety_lights_power_source = fields.Selection(string='Power Source', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1237', '100 - 230 V'),
@@ -265,7 +285,9 @@ ttr_safety_lights_power_source = fields.Selection(string='Power Source', ttr_mag
                              ('864', 'Rechargeable battery, nickel cadmium'),
                              ('534', 'Rechargeable battery, sealed lead acid'),
                              ('535', 'Rechargeable battery, sealed lead acid, 4 V')])
-# field ttr_safety_lights_temperature_class   not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# field ttr_safety_lights_temperature_class not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_noise_level = fields.Selection(string='Noise Level', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1991', '72 dB'),
@@ -282,20 +304,23 @@ ttr_noise_level = fields.Selection(string='Noise Level', ttr_mag_attribute=True,
                              ('704', '92.7 dB'),
                              ('1988', '97 dB')])
 # MGR NOTE: the data from field ttr_operating_air_pressure  (Operating Air Pressure) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
-# field ttr_paint_sprayers_pressure_ratio   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_paint_sprayers_pressure_ratio not found in dictionary,has the client created new fields since the mapping?
 # MGR NOTE: the data from field ttr_max_discharge_pressure  (Max discharge pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
 # MGR NOTE: the data from field ttr_max_delivery  (Max Delivery) should be moved to field ttr_flow_rate (Flow Rate) at migration time
 # NOTE: DELETE field ttr_lstroke_air_motor (Stroke Cylinder)
-# MGR NOTE: the data from field ttr_diameter_paint_spray_hose(Diameter) should migrated with specified policy: 140 
+# MGR NOTE: the data from field ttr_diameter_paint_spray_hose (Diameter) should be migrated with specified policy: 140 
 ttr_airless_paint_spray_tip_angle = fields.Selection(string='Spray angel', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1626', '40 deg'),
                              ('1624', '50 deg'),
                              ('1625', '60 deg')])
-# MGR NOTE: the data from field ttr_airless_paint_spray_tipdiam(Tipdiameter) should migrated with specified policy: 140 
-# field ttr_paint_sprayer_toerental   not found in dictionary,has the client created new fields since the mapping?
-# MGR NOTE: the data from field ttr_paint_sprayer_boorkop_diameter(Boorkop diameter) should migrated with specified policy: 140 
-# field ttr_paint_sprayer_luchtslang   not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_airless_paint_spray_tipdiam (Tipdiameter) should be migrated with specified policy: 140 
+# field ttr_paint_sprayer_toerental not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_boorkop_diameter (Boorkop diameter) should be migrated with specified policy: 140 
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# field ttr_paint_sprayer_luchtslang not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
 # MGR NOTE: the data from field ttr_model_accessoiries  (Model) should be moved to field ttr_type (Type) at migration time
 ttr_size = fields.Selection(string='Size', ttr_mag_attribute=True,
                             selection=[('', ''),
@@ -311,7 +336,8 @@ ttr_size = fields.Selection(string='Size', ttr_mag_attribute=True,
                              ('995', '3/4'),
                              ('1064', '3/8'),
                              ('1023', '4')])
-# field ttr_safety_lights_recharge_time   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_safety_lights_recharge_time not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_type_blade_jig_saw  (Type) should be moved to field ttr_type (Type) at migration time
 ttr_teeth = fields.Selection(string='Teeth', ttr_mag_attribute=True,
                             selection=[('', ''),
@@ -326,6 +352,7 @@ ttr_teeth = fields.Selection(string='Teeth', ttr_mag_attribute=True,
                              ('2060', '9')])
 # MGR NOTE: the data from field ttr_length  (Length) should be moved to field ttr_lengte (Lengte) at migration time
 # NOTE: DELETE field ttr_nut_splitter_matching (Matching with:)
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_packed_dimensions = fields.Selection(string='packed_dimensions LxWxH', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1378', '500 x 500 x 600 mm')])
@@ -341,6 +368,7 @@ ttr_dimensions = fields.Selection(string='Dimensions LxWxH', ttr_mag_attribute=T
                              ('2017', '35 x 34 x 47 cm'),
                              ('2016', '42.8 x 40.3 x 54.3 cm'),
                              ('1992', '57 x 25,5 x 58 cm')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_grit = fields.Selection(string='Grit', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2110', '100'),
@@ -376,7 +404,12 @@ ttr_lifting_height = fields.Selection(string='Lifting Height', ttr_mag_attribute
                              ('1437', '3 m')])
 # MGR NOTE: the data from field ttr_lifting_capacity  (Lifting Capacity) should be moved to field ttr_capacity (Capacity) at migration time
 # MGR NOTE: the data from field ttr_shank  (Shank) should be moved to field ttr_chuck (Chuck) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_material_wire  (Material Wire) should be moved to field ttr_material (Material) at migration time
+# MGR NOTE: the data from field ttr_lifting_capacity  (Lifting Capacity) should be moved to field ttr_capacity (Capacity) at migration time
+# MGR NOTE: the data from field ttr_max_speed  (Max Speed) should be moved to field ttr_toerental (Speed) at migration time
+# MGR NOTE: the data from field ttr_max_speed  (Max Speed) should be moved to field ttr_toerental (Speed) at migration time
 # MGR NOTE: the data from field ttr_max_speed  (Max Speed) should be moved to field ttr_toerental (Speed) at migration time
 ttr_voltage = fields.Selection(string='Voltage', ttr_mag_attribute=True,
                             selection=[('', ''),
@@ -386,12 +419,22 @@ ttr_voltage = fields.Selection(string='Voltage', ttr_mag_attribute=True,
 # MGR NOTE: the data from field ttr_air_consumption  (Air consumption) should be moved to field ttr_luchtverbruik (Air Consumption) at migration time
 # MGR NOTE: the data from field ttr_kw  (kW) should be moved to field ttr_power (Power) at migration time
 # MGR NOTE: the data from field ttr_safety_lights_input_voltage  (Voltage) should be moved to field ttr_voltage (Voltage) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_spindle  (Spindle) should be moved to field ttr_chuck (Chuck) at migration time
 # MGR NOTE: the data from field ttr_power_electric_bench_grinder  (Voltage) should be moved to field ttr_voltage (Voltage) at migration time
-# field ttr_safety_lights_ip   not found in dictionary,has the client created new fields since the mapping?
-# MGR NOTE: the data from field ttr_saw_blade_diameter(Saw Blade Diameter) should migrated with specified policy: 140 
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# field ttr_safety_lights_ip not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_lifting_capacity  (Lifting Capacity) should be moved to field ttr_capacity (Capacity) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_saw_blade_diameter (Saw Blade Diameter) should be migrated with specified policy: 140 
 # NOTE: DELETE field ttr_cutting_depth (Cutting Depth)
-# MGR NOTE: the data from field ttr_working_width(Working Width) should migrated with specified policy: DELETE  
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_working_width (Working Width) should be migrated with specified policy: DELETE  
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_lights_input_voltage  (Voltage) should be moved to field ttr_voltage (Voltage) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_number_needles = fields.Selection(string='Number of needles', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1156', '12 needles'),
@@ -403,15 +446,20 @@ ttr_number_needles = fields.Selection(string='Number of needles', ttr_mag_attrib
                              ('1153', '29 needles'),
                              ('1162', '35 needles'),
                              ('1159', '66 needles')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_diameter_needles = fields.Selection(string='Diameter Needles', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1146', '2 mm'),
                              ('685', '3 mm'),
                              ('1145', '4 mm')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # NOTE: DELETE field ttr_cutting_cap_aluminium (Cutting cap aluminium)
 # NOTE: DELETE field ttr_cutting_cap_mild_steel (Cutting cap mild steel)
 # NOTE: DELETE field ttr_cutting_cap_stainless_steel (Cutting cap stainless steel)
-# MGR NOTE: the data from field ttr_planing_width(Planing Width) should migrated with specified policy: DELETE  
+# MGR NOTE: the data from field ttr_planing_width (Planing Width) should be migrated with specified policy: DELETE  
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_pad_size_lxb = fields.Selection(string='Pad Size L x B', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('876', '10 x 330 mm'),
@@ -420,6 +468,7 @@ ttr_pad_size_lxb = fields.Selection(string='Pad Size L x B', ttr_mag_attribute=T
                              ('874', '30 x 540 mm'),
                              ('872', '55 x 103 mm'),
                              ('841', '75 x 82 mm')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_pump_cap = fields.Selection(string='Pump cap', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1715', '14 cbm/min'),
@@ -435,27 +484,51 @@ ttr_pump_cap = fields.Selection(string='Pump cap', ttr_mag_attribute=True,
                              ('1721', '72 cbm/h'),
                              ('1719', '78 cbm/h')])
 # MGR NOTE: the data from field ttr_lift_cap  (Lift cap) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_thread_extension_hose  (Thread) should be moved to field ttr_thread (Thread) at migration time
 # MGR NOTE: the data from field ttr_length_extension_hose  (Length) should be moved to field ttr_lengte (Lengte) at migration time
 # MGR NOTE: the data from field ttr_tickness_grinding_wheel  (Thickness) should be moved to field ttr_width (Width) at migration time
 # MGR NOTE: the data from field ttr_shape  (Shape) should be moved to field ttr_type (Type) at migration time
 # MGR NOTE: the data from field ttr_body_nozzle  (Body) should be moved to field ttr_lengte (Lengte) at migration time
 # MGR NOTE: the data from field ttr_material_nozzle  (Material) should be moved to field ttr_material (Material) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_light_duration  (Light Duration) should be moved to field ttr_light_duration (Light Duration) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
 # MGR NOTE: the data from field ttr_air_discharge_connection  (Air discharge connection) should be moved to field ttr_discharge (Discharge) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
 # NOTE: DELETE field ttr_geared_trolley (Capacity)
 # MGR NOTE: the data from field ttr_type_grease_adaptor  (Type) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_type_grease_bucket_pump  (Type) should be moved to field ttr_type (Type) at migration time
+ttr_connection = fields.Selection(string='Connection', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('2162', '1/2 inch'),
+                             ('2160', '1/4 inch'),
+                             ('1724', '2 inch'),
+                             ('1723', '3 inch'),
+                             ('2161', '3/8 inch')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_capacity_tank  (Capacity tank) should be moved to field ttr_capacity (Capacity) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_capacity_tank  (Capacity tank) should be moved to field ttr_capacity (Capacity) at migration time
 # MGR NOTE: the data from field ttr_grease_oil_pressure  (Grease/Oil Pressure) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
+# MGR NOTE: the data from field ttr_tickness_grinding_wheel  (Thickness) should be moved to field ttr_width (Width) at migration time
 # NOTE: DELETE field ttr_applicable_for (applicable_for)
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_oil_capacity  (Oil Capacity) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
 # MGR NOTE: the data from field ttr_wire_length  (Wire Length) should be moved to field ttr_lengte (Lengte) at migration time
-# MGR NOTE: the data from field ttr_wire_diameter(Wire Diameter) should migrated with specified policy: 140 
-# field ttr_head_lamp_atex   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_head_lamp_battery_type   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_head_lamp_protection   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_head_lamp_weight   not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_wire_diameter (Wire Diameter) should be migrated with specified policy: 140 
+# field ttr_head_lamp_atex not found in dictionary,has the client created new fields since the mapping?
+# field ttr_head_lamp_battery_type not found in dictionary,has the client created new fields since the mapping?
+# field ttr_head_lamp_protection not found in dictionary,has the client created new fields since the mapping?
+# field ttr_head_lamp_weight not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_power_consumption  (Power Consumption) should be moved to field ttr_power (Power) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_vacuum_cleaner_hz = fields.Selection(string='Hz', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1763', '50 Hz'),
@@ -464,9 +537,15 @@ ttr_vacuum_cleaner_hz = fields.Selection(string='Hz', ttr_mag_attribute=True,
 # MGR NOTE: the data from field ttr_vacuum_cleaner_ph  (Ph) should be moved to field ttr_power (Power) at migration time
 # NOTE: DELETE field ttr_max_water_inlet_temperature (Max water inlet temp)
 # MGR NOTE: the data from field ttr_maximum_pressure  (Max pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
-# MGR NOTE: the data from field ttr_diameter_hose_clamp(Diameter) should migrated with specified policy: 140 
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_diameter_hose_clamp (Diameter) should be migrated with specified policy: 140 
 # MGR NOTE: the data from field ttr_material_hose_clamp  (Material) should be moved to field ttr_material (Material) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # NOTE: DELETE field ttr_min_deck_opening (Minimal Deck Opening)
+# MGR NOTE: the data from field ttr_material_wire  (Material Wire) should be moved to field ttr_material (Material) at migration time
+# MGR NOTE: the data from field ttr_kw  (kW) should be moved to field ttr_power (Power) at migration time
 # MGR NOTE: the data from field ttr_output  (Output) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
 # NOTE: DELETE field ttr_spread (Spread)
 ttr_stroke = fields.Selection(string='Stroke', ttr_mag_attribute=True,
@@ -479,8 +558,10 @@ ttr_stroke = fields.Selection(string='Stroke', ttr_mag_attribute=True,
                              ('1113', '50 mm'),
                              ('1105', '54'),
                              ('1112', '60 mm')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # MGR NOTE: the data from field ttr_tonnage  (Tonnage) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
 # NOTE: DELETE field ttr_punch_range (Punch Range)
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_wall_thickness = fields.Selection(string='Wall Thickness', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1194', '1 mm'),
@@ -489,35 +570,60 @@ ttr_wall_thickness = fields.Selection(string='Wall Thickness', ttr_mag_attribute
                              ('1086', '2.75 mm - 5 mm'),
                              ('1093', 'Stainless Steel: 1.6 mm / Iron Sheet: 3.2 mm'),
                              ('1204', 'up to 1.5 mm')])
+# MGR NOTE: the data from field ttr_tonnage  (Tonnage) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
+# MGR NOTE: the data from field ttr_oil_capacity  (Oil Capacity) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_tonnage  (Tonnage) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
 # MGR NOTE: the data from field ttr_pressure  (Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
 # NOTE: DELETE field ttr_current (Current)
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_tonnage  (Tonnage) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
 ttr_splitting_range = fields.Selection(string='Splitting Range', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1103', 'M22 - M27'),
                              ('1104', 'M8 - M24')])
+# MGR NOTE: the data from field ttr_pressure  (Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # NOTE: DELETE field ttr_bending_formers (Bending Formers)
-# field ttr_testpump_bar   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_testpump_bar not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_tonnage  (Tonnage) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
 # MGR NOTE: the data from field ttr_cutting_range  (Cutting Range) should be moved to field ttr_capacity (Capacity) at migration time
 # NOTE: DELETE field ttr_recoil (Recoil)
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_water_consumptie = fields.Selection(string='Water Consumption', ttr_mag_attribute=True,
                             selection=[('', '')])
-# MGR NOTE: the data from field ttr_water_hose(Water Hose Diameter) should migrated with specified policy: 140 
-# MGR NOTE: the data from field ttr_water_pressure(Water Pressure) should migrated with specified policy: Copy data  TO 137 
+# MGR NOTE: the data from field ttr_water_hose (Water Hose Diameter) should be migrated with specified policy: 140 
+# MGR NOTE: the data from field ttr_water_pressure (Water Pressure) should be migrated with specified policy: Copy data  TO 137 
 # NOTE: DELETE field ttr_effective_reach (Effective Reach)
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
 # NOTE: DELETE field ttr_air_hose (Airhose)
-# field ttr_industr_lighting_weight   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_industr_lighting_protection   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_industr_lighting_power_voltage   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_industr_lighting_consumedpower   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_industr_lighting_luminous_flux   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_industr_lighting_frequency   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_industr_lighting_weight not found in dictionary,has the client created new fields since the mapping?
+# field ttr_industr_lighting_protection not found in dictionary,has the client created new fields since the mapping?
+# field ttr_industr_lighting_power_voltage not found in dictionary,has the client created new fields since the mapping?
+# field ttr_industr_lighting_consumedpower not found in dictionary,has the client created new fields since the mapping?
+# field ttr_industr_lighting_luminous_flux not found in dictionary,has the client created new fields since the mapping?
+# field ttr_industr_lighting_frequency not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_type_blade_jig_saw  (Type) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_length  (Length) should be moved to field ttr_lengte (Lengte) at migration time
 # MGR NOTE: the data from field ttr_pump_ratio_lubricator_kit  (Pump ratio) should be moved to field ttr_pressure_ratio (Pre: [ssure Ratio) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_shape  (Shape) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_tickness_grinding_wheel  (Thickness) should be moved to field ttr_width (Width) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_wire_length  (Wire Length) should be moved to field ttr_lengte (Lengte) at migration time
 # MGR NOTE: the data from field ttr_needle_amount  (Amount) should be moved to field ttr_number_needles (Number of needles) at migration time
 # MGR NOTE: the data from field ttr_needle_diameter  (Diameter) should be moved to field ttr_diameter_needles (Diameter Needles) at migration time
 # NOTE: DELETE field ttr_needle_lenght (Length)
+# MGR NOTE: the data from field ttr_needle_diameter  (Diameter) should be moved to field ttr_diameter_needles (Diameter Needles) at migration time
 # NOTE: DELETE field ttr_content (Content)
-# field ttr_type_batterij   not found in dictionary,has the client created new fields since the mapping?
-# field ttr_volt_battery   not found in dictionary,has the client created new fields since the mapping?
+# field ttr_type_batterij not found in dictionary,has the client created new fields since the mapping?
+# field ttr_volt_battery not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_grease_oil_pressure  (Grease/Oil Pressure) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_grease_oil_pressure  (Grease/Oil Pressure) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
 # NOTE: DELETE field ttr_paint_spray_tip_filter (MESH)
 ttr_paint_spray_spare_parts = fields.Selection(string='Part no', ttr_mag_attribute=True,
                             selection=[('', ''),
@@ -528,13 +634,27 @@ ttr_paint_spray_spare_parts = fields.Selection(string='Part no', ttr_mag_attribu
                              ('1685', '231-306'),
                              ('1678', '244-067')])
 # MGR NOTE: the data from field ttr_tip_nut_model  (Model) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
 # NOTE: DELETE field ttr_stroke_saw_blade (Stroke Blade)
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_spindle  (Spindle) should be moved to field ttr_chuck (Chuck) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
 ttr_temperature_range = fields.Selection(string='Temperature Range', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('2003', u'-20 \xb0C - 80 \xb0C'),
                              ('1352', u'0 \xb0C - 105 \xb0C'),
                              ('1313', u'0 \xb0C - 79 \xb0C '),
                              ('1312', u'0 \xb0C - 82 \xb0C')])
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
 ttr_material_diaphragm = fields.Selection(string='Material Diaphragm', ttr_mag_attribute=True,
                             selection=[('', ''),
                              ('1340', 'Buna-n'),
@@ -548,3 +668,211 @@ ttr_max_diameter_solids = fields.Selection(string='Max Diameter Solids', ttr_mag
                              ('1326', '6.35 mm'),
                              ('1322', '9.52 mm')])
 # MGR NOTE: the data from field ttr_inlet  (Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_square_drive  (Square Drive) should be moved to field ttr_chuck (Chuck) at migration time
+ttr_bolt_size = fields.Selection(string='Max Bolt Size', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('827', '10 mm'),
+                             ('616', '13 mm'),
+                             ('615', '16 mm'),
+                             ('617', '22 mm'),
+                             ('614', '25 mm'),
+                             ('613', '27 mm'),
+                             ('612', '32 mm'),
+                             ('611', '38 mm'),
+                             ('1233', '41 mm'),
+                             ('887', '42 mm')])
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+ttr_max_torque = fields.Selection(string='Maximum Torque', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('632', '1085 N/m '),
+                             ('868', '1356 N/m  '),
+                             ('1978', '1500 N/m'),
+                             ('625', '1627 N/m  '),
+                             ('885', '1898 N/m '),
+                             ('888', '2170 N/m '),
+                             ('626', '2241  N/m '),
+                             ('628', '271 N/m '),
+                             ('629', '298 N/m '),
+                             ('1977', '3038 N/m'),
+                             ('1976', '3185 N/m'),
+                             ('630', '434 N/m  '),
+                             ('1975', '5297 N/m'),
+                             ('631', '542 N/m '),
+                             ('821', '678 N/m '),
+                             ('828', '68 N/m '),
+                             ('627', '949  N/m  ')])
+# field ttr_impact_wrench_bolt_capacity not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_cartridge  (Cartridge) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_square_drive  (Square Drive) should be moved to field ttr_chuck (Chuck) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+ttr_pistons = fields.Selection(string='Pistons', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('694', '1'),
+                             ('695', '3')])
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_model_portable_air_mover  (Model) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# field ttr_compressor_capacity not found in dictionary,has the client created new fields since the mapping?
+# field ttr_airless_paint_spray_max_pressure not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_maximum_pressure  (Max pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# field ttr_clothing_size not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_type_pump_kit  (Type) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_maximum_pressure  (Max pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_maximum_pressure  (Max pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# field ttr_mah not found in dictionary,has the client created new fields since the mapping?
+# NOTE: DELETE field ttr_safety_lights_max_temperature_surface (Max Temperature Surface)
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+ttr_reverse_tip = fields.Selection(string='Nr.', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('1656', '215'),
+                             ('1665', '411'),
+                             ('1664', '413'),
+                             ('1663', '415'),
+                             ('1662', '417'),
+                             ('1661', '419'),
+                             ('1660', '421'),
+                             ('1659', '423'),
+                             ('1658', '425'),
+                             ('1657', '427'),
+                             ('1666', '511'),
+                             ('1667', '513'),
+                             ('1643', '515'),
+                             ('1652', '517'),
+                             ('1640', '519'),
+                             ('1639', '521'),
+                             ('1655', '523'),
+                             ('1637', '525'),
+                             ('1636', '527')])
+# MGR NOTE: the data from field ttr_reverse_tip_model  (Model) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_shape  (Shape) should be moved to field ttr_type (Type) at migration time
+# NOTE: DELETE field ttr_blade (Blade)
+# MGR NOTE: the data from field ttr_length  (Length) should be moved to field ttr_lengte (Lengte) at migration time
+# NOTE: DELETE field ttr_water_inlet (Water Inlet)
+# NOTE: DELETE field ttr_water_outlet (Water Outlet)
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+ttr_standard = fields.Selection(string='Standard', ttr_mag_attribute=True,
+                            selection=[('', '')])
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# field ttr_optimum_work_pressure not found in dictionary,has the client created new fields since the mapping?
+# field ttr_weight_sandblaster not found in dictionary,has the client created new fields since the mapping?
+# field ttr_dimensions_sandblaster not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_air_consumption  (Air consumption) should be moved to field ttr_luchtverbruik (Air Consumption) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# NOTE: DELETE field ttr_size_lxb (Size L x W)
+# MGR NOTE: the data from field ttr_material_plug  (Materiaal) should be moved to field ttr_material (Material) at migration time
+# NOTE: DELETE field ttr_material_top (Material Top)
+# MGR NOTE: the data from field ttr_max_speed  (Max Speed) should be moved to field ttr_toerental (Speed) at migration time
+# MGR NOTE: the data from field ttr_pressure  (Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+ttr_socket_size = fields.Selection(string='Socket Size', ttr_mag_attribute=True,
+                            selection=[('', ''),
+                             ('1840', '10 mm'),
+                             ('1838', '11 mm'),
+                             ('1837', '12 mm'),
+                             ('1836', '13 mm'),
+                             ('1835', '14 mm'),
+                             ('1834', '15 mm'),
+                             ('1833', '16 mm'),
+                             ('1832', '17 mm'),
+                             ('1831', '18 mm'),
+                             ('1830', '19 mm'),
+                             ('1829', '21 mm'),
+                             ('1828', '22 mm'),
+                             ('1827', '23 mm'),
+                             ('1826', '24 mm'),
+                             ('1825', '25 mm'),
+                             ('1824', '26 mm'),
+                             ('1823', '27 mm'),
+                             ('1822', '28 mm'),
+                             ('1821', '29 mm'),
+                             ('1820', '30 mm'),
+                             ('1819', '32 mm'),
+                             ('1839', '33 mm'),
+                             ('1818', '34 mm'),
+                             ('1817', '35 mm'),
+                             ('1816', '36 mm'),
+                             ('1815', '38 mm'),
+                             ('1814', '41 mm'),
+                             ('1813', '46 mm'),
+                             ('1812', '50 mm'),
+                             ('1811', '54 mm'),
+                             ('1810', '55 mm'),
+                             ('1809', '58 mm'),
+                             ('1808', '60 mm'),
+                             ('1807', '65 mm'),
+                             ('1806', '70 mm'),
+                             ('1805', '75 mm'),
+                             ('1804', '80 mm'),
+                             ('1803', '85 mm')])
+# MGR NOTE: the data from field ttr_square_drive  (Square Drive) should be moved to field ttr_chuck (Chuck) at migration time
+# MGR NOTE: the data from field ttr_thread_spray_tip  (Thread) should be moved to field ttr_thread (Thread) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# NOTE: DELETE field ttr_electrostatic_protection (Electrostatic Protection)
+# NOTE: DELETE field ttr_color (Color)
+# MGR NOTE: the data from field ttr_bursting_pressure  (Bursting Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_max_working_pressure  (Maximum Working Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
+# MGR NOTE: the data from field ttr_overall_nozzle_length  (Overall Nozzle Length) should be moved to field ttr_lengte (Lengte) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_total_gross_weight  (Total Gross Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_power_source  (Power Source) should be moved to field ttr_voltage (Voltage) at migration time
+# field ttr_test not found in dictionary,has the client created new fields since the mapping?
+# MGR NOTE: the data from field ttr_tip_guard_thread  (Thread) should be moved to field ttr_thread (Thread) at migration time
+# MGR NOTE: the data from field ttr_tip_guard_model  (Model) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_power_consumption  (Power Consumption) should be moved to field ttr_power (Power) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_vacuum_cleaner_volt  (Volt) should be moved to field ttr_voltage (Voltage) at migration time
+# MGR NOTE: the data from field ttr_vacuum_cleaner_liter  (Liter) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
+# MGR NOTE: the data from field ttr_vacuum_cleaner_watt  (Watt) should be moved to field ttr_power (Power) at migration time
+# MGR NOTE: the data from field ttr_type_blade_jig_saw  (Type) should be moved to field ttr_type (Type) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_vacuum_cleaner_volt  (Volt) should be moved to field ttr_voltage (Voltage) at migration time
+# MGR NOTE: the data from field ttr_vacuum_cleaner_liter  (Liter) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
+# MGR NOTE: the data from field ttr_vacuum_cleaner_watt  (Watt) should be moved to field ttr_power (Power) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_total_gross_weight  (Total Gross Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_supply_connection  (Supply Connection) should be moved to field ttr_aansluiting (Air inlet) at migration time
+# MGR NOTE: the data from field ttr_discharge_connection  (Discharge Connection) should be moved to field ttr_discharge (Discharge) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_max_speed  (Max Speed) should be moved to field ttr_toerental (Speed) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_classification  (Classification) should be moved to field ttr_area_of_classification (Area of Classification) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_  (Light output) should be moved to field ttr_light_output (Light Output) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_ip  (IP) should be moved to field ttr_ip (IP) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_power_source  (Power Source) should be moved to field ttr_voltage (Voltage) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_temperature  (Temperature Class) should be moved to field ttr_temperature_class (Temperature Class) at migration time
+# MGR NOTE: the data from field ttr_tank_lighting_size  (Size) should be moved to field ttr_size (Size) at migration time
+# MGR NOTE: the data from field ttr_safety_light_weight  (Weight) should be moved to field ttr_weight (Weight) at migration time
