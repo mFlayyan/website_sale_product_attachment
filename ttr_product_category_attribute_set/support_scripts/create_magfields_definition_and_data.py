@@ -388,7 +388,7 @@ attr_rel = {
     'paint_sprayer_toerental': [379, 'paint_sprayer_toerental', '135'],
     'paint_sprayer_width': [380, 'paint_sprayer_width', '130'],
     'paint_sprayers_pressure_ratio': [381, 'paint_sprayers_pressure_ratio', '125'],
-    'safety_lights_lightbulb': [382, 'safety_lights_lightbulb', '141'],
+    'saferty_lights_lightbulb': [382, 'saferty_lights_lightbulb', '141'],
     'safety_lights_area_of_classification': [383, 'safety_lights_area_of_classification', '144'],
     'safety_lights_certification': [384, 'safety_lights_certification', '145'],
     'safety_lights_ip': [385, 'safety_lights_ip', '148'],
