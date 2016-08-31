@@ -70,6 +70,7 @@ class ProductProduct(models.Model):
     some attributes had '' are commented out
     """
 
+
     ttr_price_view = fields.Selection(string='Price View', ttr_mag_attribute=True,
                                 selection=[(1, 'As Low as'),
                                  (0, 'Prijsrange')], 
@@ -89,7 +90,6 @@ class ProductProduct(models.Model):
     ttr_sku = fields.Char(string='Technotrading number', ttr_mag_attribute=True)
     ttr_tier_price = fields.Char(string='Tier Price', ttr_mag_attribute=True)
     ttr_url_key = fields.Char(string='URL Key', ttr_mag_attribute=True)
-    ttr_weight = fields.Char(string='Weight', ttr_mag_attribute=True)
     ttr_tax_class_id = fields.Selection(string='Tax Class', ttr_mag_attribute=True,
                                 selection=[('0', 'Geen'),
                                  ('2', 'Taxable Goods'),
@@ -364,8 +364,8 @@ class ProductProduct(models.Model):
                                  ('2156', 'Brass nickel plated'),
                                  ('1560', 'Chrome plated steel'),
                                  ('1623', 'Nylon'),
-                                 ('2004', 'Plastic'),
                                  ('2047', 'Plastic'),
+                                 ('2004', 'Plastic'),
                                  ('2048', 'Plastic, Thin Steel, Aluminium, Hardboard'),
                                  ('978', 'PVC'),
                                  ('980', 'PVC coated Polyester'),
@@ -388,17 +388,6 @@ class ProductProduct(models.Model):
     ttr_packed_dimensions = fields.Selection(string='packed_dimensions LxWxH', ttr_mag_attribute=True,
                                 selection=[('', ''),
                                  ('1378', '500 x 500 x 600 mm')])
-    ttr_dimensions = fields.Selection(string='Dimensions LxWxH', ttr_mag_attribute=True,
-                                selection=[('', ''),
-                                 ('1995', '127 x 49 x 66 cm'),
-                                 ('1994', '158 x 53 x 99 cm'),
-                                 ('1993', '212 x 74 x 137 cm'),
-                                 ('2020', '24 x 26.5 x 34 cm'),
-                                 ('2019', '30 x 32 x 41 cm'),
-                                 ('2018', '30 x 37 x 41 cm'),
-                                 ('2017', '35 x 34 x 47 cm'),
-                                 ('2016', '42.8 x 40.3 x 54.3 cm'),
-                                 ('1992', '57 x 25,5 x 58 cm')])
     ttr_grit = fields.Selection(string='Grit', ttr_mag_attribute=True,
                                 selection=[('', ''),
                                  ('2110', '100'),
@@ -678,12 +667,11 @@ class ProductProduct(models.Model):
                                  ('1803', '85 mm')])
 
 
+
     """
      NOTE: undecided/excluded type:
      ttr_msrp = fields.undecided_price(string='Manufacturers Suggested Retail Price', ttr_mag_attribute=True 
-     Will have to run gen script to refresh XMLagain if you decide to use these 
     """
-
     # MGR NOTE: the data from field ttr_air_consumption  (Air consumption) should be moved to field ttr_luchtverbruik (Air Consumption) at migration time
     # MGR NOTE: the data from field ttr_air_discharge_connection  (Air discharge connection) should be moved to field ttr_discharge (Discharge) at migration time
     # MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
@@ -701,6 +689,7 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_diameter (Diameter) should be migrated with specified policy: 140 
     # MGR NOTE: the data from field ttr_diameter_hose_clamp (Diameter) should be migrated with specified policy: 140 
     # MGR NOTE: the data from field ttr_diameter_paint_spray_hose (Diameter) should be migrated with specified policy: 140 
+    # MGR NOTE: the data from field ttr_dimensions (Dimensions LxWxH) should be migrated with specified policy: migrate using https://github.com/OCA/product-attribute.git 
     # MGR NOTE: the data from field ttr_dimensions_sandblaster  (dimensions_sandblaster) should be moved to field ttr_dimensions (Dimensions LxWxH) at migration time
     # MGR NOTE: the data from field ttr_discharge_connection  (Discharge Connection) should be moved to field ttr_discharge (Discharge) at migration time
     # MGR NOTE: the data from field ttr_grease_oil_pressure  (Grease/Oil Pressure) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
@@ -758,7 +747,7 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_power_consumption  (Power Consumption) should be moved to field ttr_power (Power) at migration time
     # MGR NOTE: the data from field ttr_power_electric_bench_grinder  (Voltage) should be moved to field ttr_voltage (Voltage) at migration time
     # MGR NOTE: the data from field ttr_pressure  (Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
-    # MGR NOTE: the data from field ttr_price (Price) should be migrated with specified policy: to odoo field 
+    # MGR NOTE: the data from field ttr_price (Price) should be migrated with specified policy: to odoo field price 
     # MGR NOTE: the data from field ttr_pump_ratio_lubricator_kit  (Pump ratio) should be moved to field ttr_pressure_ratio (Pressure Ratio) at migration time
     # MGR NOTE: the data from field ttr_regulating_range  (Regulating Range) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
     # MGR NOTE: the data from field ttr_reverse_tip_model  (Model) should be moved to field ttr_type (Type) at migration time
@@ -810,6 +799,7 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_volt_battery  (volt_battery) should be moved to field ttr_voltage (Voltage) at migration time
     # MGR NOTE: the data from field ttr_water_hose (Water Hose Diameter) should be migrated with specified policy: 140 
     # MGR NOTE: the data from field ttr_water_pressure (Water Pressure) should be migrated with specified policy: Copy data  TO 137 
+    # MGR NOTE: the data from field ttr_weight (Weight) should be migrated with specified policy: to_odoo_field weight 
     # MGR NOTE: the data from field ttr_weight_sandblaster  (weight_sandblaster) should be moved to field ttr_weight (Weight) at migration time
     # MGR NOTE: the data from field ttr_wire_diameter (Wire Diameter) should be migrated with specified policy: 140 
     # MGR NOTE: the data from field ttr_wire_length  (Wire Length) should be moved to field ttr_lengte (Length) at migration time
