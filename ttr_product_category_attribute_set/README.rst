@@ -2,9 +2,9 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-==================================
-ttr_product_category_attribute_set
-==================================
+================================================
+Technotrading attribute sets on Product Category 
+================================================
 
-This module was written to extend the functionality of ... to support ...
-and allow you to ...
+    Extends Product category to have attribute sets for
+    emulating the old magento attribute groups.

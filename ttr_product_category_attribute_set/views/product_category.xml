@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <record id="product_category_form_ext" model="ir.ui.view">
+            <field name="name">product_category.form.extend</field>
+            <field name="model">product.category</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="type" 
+                    position="after" >
+                    <field name="product_field_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_category_tree_ext" model="ir.ui.view">
+            <field name="name">product_categories.tree_ext </field>
+                <field name="model">product.category</field>
+                <field name="type">tree</field>
+                <field eval="18" name="priority"/>
+                <field name="arch" type="xml">
+                    <field name="name"/>
+                    <field name="product_field_ids"/>
+                </field>
+         </record>
+
+
+    </data>
+</openerp>

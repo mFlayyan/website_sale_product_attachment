@@ -15,7 +15,8 @@ emulating the old magento attribute groups.
         'sale',
     ],
     "data": [
-        'data/data.xml',
+        'data/data.xml'
+        'views/product_category.xml',
         ],
     "auto_install": False,
     "installable": True,

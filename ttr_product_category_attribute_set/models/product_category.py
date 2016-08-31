@@ -7,9 +7,12 @@ class product_category(models.Model):
     _inherit = 'product.category'
 
     product_field_ids = fields.Many2many(
-            comodel_name='ir.model.fields', string='Attributes for webshop', 
+        comodel_name='ir.model.fields', string='Attributes for webshop', 
         help='These attributes are for the webshop',
-        domain=lambda self: [('ttr_mag_attribute', '=', True)]
+        domain=lambda self: [
+            ('ttr_mag_attribute', '=', True), 
+            ('model', '=', 'product.product')
+        ]
     )
     
     

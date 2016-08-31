@@ -15,7 +15,7 @@ class ProductProduct(models.Model):
         res = super(ProductProduct, self).fields_view_get(
                 view_id=view_id, view_type=view_type, toolbar=toolbar,
                 submenu=submenu)
-        if ((view_type == 'form') and ('notebook' in res['arch'])):
+        if (view_type == 'form') and ('notebook' in res['arch']):
             eview = etree.fromstring(res['arch'])
             notebook = eview.xpath("//notebook")
             if not notebook:
