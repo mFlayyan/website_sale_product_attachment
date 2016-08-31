@@ -6,10 +6,11 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="product.product_category_form_view"/>
             <field name="arch" type="xml">
-            	<field name="type" 
-                    position="after" >
-                    <field name="product_field_ids" widget="many2many_tags"/>
-                </field>
+                <xpath expr="//group[last()]" position="after">
+                    <group>
+                        <field name="product_field_ids" widget="many2many"  options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                    </group>
+                </xpath>
             </field>
         </record>
 
@@ -20,7 +21,7 @@
                 <field eval="18" name="priority"/>
                 <field name="arch" type="xml">
                     <field name="name"/>
-                    <field name="product_field_ids"/>
+                    <field name="product_field_ids" />
                 </field>
          </record>
 
