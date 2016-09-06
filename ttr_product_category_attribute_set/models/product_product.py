@@ -7,7 +7,6 @@ from lxml import etree
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
-    _name = 'product.product'
 
     @api.model
     def fields_view_get(
@@ -33,7 +32,7 @@ class ProductProduct(models.Model):
             all_categories = self.env['product.category'].search([])
             """
             Cannot scan all 202 categories and create the nodes
-            bad perfoermance hit inserting 1 page and then filtering 
+            bad perfoermance hit inserting 1 page and then filtering
             the fields. Also faster to test.
             """
             for mag_category in all_categories:
@@ -62,6 +61,63 @@ class ProductProduct(models.Model):
         return res
 
 
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    @api.model
+    def fields_view_get(
+            self, view_id, view_type='form', toolbar=False, submenu=False):
+        res = super(ProductProduct, self).fields_view_get(
+                view_id=view_id, view_type=view_type, toolbar=toolbar,
+                submenu=submenu)
+        if (view_type == 'form') and ('notebook' in res['arch']):
+            eview = etree.fromstring(res['arch'])
+            notebook = eview.xpath("//notebook")
+            if not notebook:
+                return res
+            notebook = notebook[0]
+            # so first, I implemented it in a way that the code moves fields
+            # to one page called shared if it sits in multiple categories
+            # but that's the case with all fields, so better have one page
+            shared_fields_page = etree.SubElement(
+                notebook, 'page', {'string': 'Category Attributes'})
+            shared_fields_group = etree.SubElement(
+                shared_fields_page, 'group')
+            existing_fields = {}
+            field2category = {}
+            all_categories = self.env['product.category'].search([])
+            """
+            Cannot scan all 202 categories and create the nodes
+            bad perfoermance hit inserting 1 page and then filtering
+            the fields. Also faster to test.
+            """
+            for mag_category in all_categories:
+                for mag_field in mag_category.product_field_ids:
+                    if mag_field.name in existing_fields:
+                        field2category[mag_field.name].append(
+                            mag_category.id)
+                        continue
+                    existing_fields[mag_field.name] = etree.SubElement(
+                        shared_fields_group, 'field', {'name': mag_field.name})
+                    field2category[mag_field.name] = [
+                        mag_category.id]
+            for field in existing_fields.values():
+                field.attrib['attrs'] =\
+                    '{"invisible": [("categ_id", "not in", [%s])]}' % (
+                        ','.join(map(str, field2category[field.get('name')])),
+                    )
+                orm.setup_modifiers(field)
+            res['arch'] = etree.tostring(eview)
+            # postprocess returns a tuple (arch, fields)
+            res_fields = self.env['ir.ui.view'].postprocess_and_fields(
+                model='product.template', node=eview, view_id=view_id)
+            for key, value in res_fields[1].iteritems():
+                if str(key)[:3] == 'ttr':
+                    res['fields'][key] = value
+        return res
+
+
     """
     automatic generation
     missing magento types:
@@ -71,14 +127,18 @@ class ProductProduct(models.Model):
     """
 
 
-    ttr_price_view = fields.Selection(string='Price View', ttr_mag_attribute=True,
-                                selection=[(1, 'As Low as'),
-                                 (0, 'Prijsrange')], 
-                                size=-1)
+    ttr_price_view = fields.Selection(
+        string='Price View', 
+        ttr_mag_attribute=True,
+        selection=[(1, 'As Low as'),
+                   (0, 'Prijsrange')],
+        size=-1)
     ttr_name = fields.Char(string='Name', ttr_mag_attribute=True)
-    ttr_options_container = fields.Selection(string='Display Product Options In', ttr_mag_attribute=True,
-                                selection=[('container1', 'Kolom productgegevens'),
-                                 ('container2', 'Blok na info-kolom')])
+    ttr_options_container = fields.Selection(
+        string='Display Product Options In', 
+        ttr_mag_attribute=True,
+        selection=[('container1', 'Kolom productgegevens'),
+                   ('container2', 'Blok na info-kolom')])
     ttr_page_layout = fields.Selection(string='Page Layout', ttr_mag_attribute=True,
                                 selection=[('', 'Geen layout-updates'),
                                  ('empty', 'Leeg'),
@@ -99,7 +159,7 @@ class ProductProduct(models.Model):
     ttr_msrp_enabled = fields.Selection(string='Apply MAP', ttr_mag_attribute=True,
                                 selection=[(1, 'Ja'),
                                  (0, 'Nee'),
-                                 (2, 'Gebruik config')], 
+                                 (2, 'Gebruik config')],
                                 size=-1)
     ttr_msrp_display_actual_price_type = fields.Selection(string='Display Actual Price', ttr_mag_attribute=True,
                                 selection=[('2', 'In Cart'),
@@ -111,11 +171,11 @@ class ProductProduct(models.Model):
     ttr_custom_design_to = fields.Date(string='Active To', ttr_mag_attribute=True)
     ttr_enable_googlecheckout = fields.Selection(string='Is Product Available for Purchase with Google Checkout', ttr_mag_attribute=True,
                                 selection=[(1, 'Ja'),
-                                 (0, 'Nee')], 
+                                 (0, 'Nee')],
                                 size=-1)
     ttr_gift_message_available = fields.Selection(string='Allow Gift Message', ttr_mag_attribute=True,
                                 selection=[(1, 'Ja'),
-                                 (0, 'Nee')], 
+                                 (0, 'Nee')],
                                 size=-1)
     ttr_custom_design_from = fields.Date(string='Active From', ttr_mag_attribute=True)
     ttr_custom_design = fields.Selection(string='Custom Design', ttr_mag_attribute=True,
@@ -199,7 +259,7 @@ class ProductProduct(models.Model):
     ttr_issa = fields.Char(string='ISSA code', ttr_mag_attribute=True)
     ttr_is_imported = fields.Selection(string='In feed', ttr_mag_attribute=True,
                                 selection=[(1, 'Ja'),
-                                 (0, 'Nee')], 
+                                 (0, 'Nee')],
                                 size=-1)
     ttr_verkoopeenheid = fields.Selection(string='Sales unit', ttr_mag_attribute=True,
                                 selection=[('', ''),
@@ -670,26 +730,26 @@ class ProductProduct(models.Model):
 
     """
      NOTE: undecided/excluded type:
-     ttr_msrp = fields.undecided_price(string='Manufacturers Suggested Retail Price', ttr_mag_attribute=True 
+     ttr_msrp = fields.undecided_price(string='Manufacturers Suggested Retail Price', ttr_mag_attribute=True
     """
     # MGR NOTE: the data from field ttr_air_consumption  (Air consumption) should be moved to field ttr_luchtverbruik (Air Consumption) at migration time
     # MGR NOTE: the data from field ttr_air_discharge_connection  (Air discharge connection) should be moved to field ttr_discharge (Discharge) at migration time
     # MGR NOTE: the data from field ttr_air_inlet  (Air Inlet) should be moved to field ttr_aansluiting (Air inlet) at migration time
     # MGR NOTE: the data from field ttr_airless_paint_spray_max_pressure  (airless_paint_spray_max_pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
-    # MGR NOTE: the data from field ttr_airless_paint_spray_tipdiam (Tipdiameter) should be migrated with specified policy: 140 
+    # MGR NOTE: the data from field ttr_airless_paint_spray_tipdiam (Tipdiameter) should be migrated with specified policy: 140
     # MGR NOTE: the data from field ttr_body_nozzle  (Body) should be moved to field ttr_lengte (Length) at migration time
     # MGR NOTE: the data from field ttr_bursting_pressure  (Bursting Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
     # MGR NOTE: the data from field ttr_capacity_tank  (Capacity tank) should be moved to field ttr_capacity (Capacity) at migration time
     # MGR NOTE: the data from field ttr_cartridge  (Cartridge) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
     # MGR NOTE: the data from field ttr_clothing_size  (clothing_size) should be moved to field ttr_size (Size) at migration time
     # MGR NOTE: the data from field ttr_compressor_capacity  (compressor_capacity) should be moved to field ttr_capacity (Capacity) at migration time
-    # MGR NOTE: the data from field ttr_cost (Cost) should be migrated with specified policy: to odoo field 
-    # MGR NOTE: the data from field ttr_created_at () should be migrated with specified policy: to odoo field 
+    # MGR NOTE: the data from field ttr_cost (Cost) should be migrated with specified policy: to odoo field
+    # MGR NOTE: the data from field ttr_created_at () should be migrated with specified policy: to odoo field
     # MGR NOTE: the data from field ttr_cutting_range  (Cutting Range) should be moved to field ttr_capacity (Capacity) at migration time
-    # MGR NOTE: the data from field ttr_diameter (Diameter) should be migrated with specified policy: 140 
-    # MGR NOTE: the data from field ttr_diameter_hose_clamp (Diameter) should be migrated with specified policy: 140 
-    # MGR NOTE: the data from field ttr_diameter_paint_spray_hose (Diameter) should be migrated with specified policy: 140 
-    # MGR NOTE: the data from field ttr_dimensions (Dimensions LxWxH) should be migrated with specified policy: migrate using https://github.com/OCA/product-attribute.git 
+    # MGR NOTE: the data from field ttr_diameter (Diameter) should be migrated with specified policy: 140
+    # MGR NOTE: the data from field ttr_diameter_hose_clamp (Diameter) should be migrated with specified policy: 140
+    # MGR NOTE: the data from field ttr_diameter_paint_spray_hose (Diameter) should be migrated with specified policy: 140
+    # MGR NOTE: the data from field ttr_dimensions (Dimensions LxWxH) should be migrated with specified policy: migrate using https://github.com/OCA/product-attribute.git
     # MGR NOTE: the data from field ttr_dimensions_sandblaster  (dimensions_sandblaster) should be moved to field ttr_dimensions (Dimensions LxWxH) at migration time
     # MGR NOTE: the data from field ttr_discharge_connection  (Discharge Connection) should be moved to field ttr_discharge (Discharge) at migration time
     # MGR NOTE: the data from field ttr_grease_oil_pressure  (Grease/Oil Pressure) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
@@ -734,11 +794,11 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_output  (Output) should be moved to field ttr_lifting_capacity (Lifting Capacity) at migration time
     # MGR NOTE: the data from field ttr_overall_nozzle_length  (Overall Nozzle Length) should be moved to field ttr_lengte (Length) at migration time
     # MGR NOTE: the data from field ttr_paint_spray_aansluiting  (paint_spray_aansluiting) should be moved to field ttr_connection (Connection) at migration time
-    # MGR NOTE: the data from field ttr_paint_sprayer_boorkop_diameter (Boorkop diameter) should be migrated with specified policy: 140 
+    # MGR NOTE: the data from field ttr_paint_sprayer_boorkop_diameter (Boorkop diameter) should be migrated with specified policy: 140
     # MGR NOTE: the data from field ttr_paint_sprayer_gewicht  (Weight) should be moved to field ttr_weight (Weight) at migration time
     # MGR NOTE: the data from field ttr_paint_sprayer_height  (paint_sprayer_height) should be moved to field ttr_height (Height) at migration time
     # MGR NOTE: the data from field ttr_paint_sprayer_lengte  (paint_sprayer_lengte) should be moved to field ttr_lengte (Length) at migration time
-    # MGR NOTE: the data from field ttr_paint_sprayer_luchtslang (paint_sprayer_luchtslang) should be migrated with specified policy: 140 
+    # MGR NOTE: the data from field ttr_paint_sprayer_luchtslang (paint_sprayer_luchtslang) should be migrated with specified policy: 140
     # MGR NOTE: the data from field ttr_paint_sprayer_luchtverbruik  (paint_sprayer_luchtverbruik) should be moved to field ttr_luchtverbruik (Air Consumption) at migration time
     # MGR NOTE: the data from field ttr_paint_sprayer_normale_werkdruk  (paint_sprayer_normale_werkdruk) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
     # MGR NOTE: the data from field ttr_paint_sprayer_toerental  (paint_sprayer_toerental) should be moved to field ttr_toerental (Speed) at migration time
@@ -747,7 +807,7 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_power_consumption  (Power Consumption) should be moved to field ttr_power (Power) at migration time
     # MGR NOTE: the data from field ttr_power_electric_bench_grinder  (Voltage) should be moved to field ttr_voltage (Voltage) at migration time
     # MGR NOTE: the data from field ttr_pressure  (Pressure) should be moved to field ttr_max_pressure (Max Pressure) at migration time
-    # MGR NOTE: the data from field ttr_price (Price) should be migrated with specified policy: to odoo field price 
+    # MGR NOTE: the data from field ttr_price (Price) should be migrated with specified policy: to odoo field price
     # MGR NOTE: the data from field ttr_pump_ratio_lubricator_kit  (Pump ratio) should be moved to field ttr_pressure_ratio (Pressure Ratio) at migration time
     # MGR NOTE: the data from field ttr_regulating_range  (Regulating Range) should be moved to field ttr_normale_werkdruk (Working pressure) at migration time
     # MGR NOTE: the data from field ttr_reverse_tip_model  (Model) should be moved to field ttr_type (Type) at migration time
@@ -760,12 +820,12 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_safety_lights_light_output  (safety_lights_light_output) should be moved to field ttr_light_output (Light Output) at migration time
     # MGR NOTE: the data from field ttr_safety_lights_recharge_time  (safety_lights_recharge_time) should be moved to field ttr_recharge_time (Recharge Time) at migration time
     # MGR NOTE: the data from field ttr_safety_lights_temperature_class  (safety_lights_temperature_class) should be moved to field ttr_temperature_class (Temperature Class) at migration time
-    # MGR NOTE: the data from field ttr_saw_blade_diameter (Saw Blade Diameter) should be migrated with specified policy: 140 
+    # MGR NOTE: the data from field ttr_saw_blade_diameter (Saw Blade Diameter) should be migrated with specified policy: 140
     # MGR NOTE: the data from field ttr_shank  (Shank) should be moved to field ttr_chuck (Chuck) at migration time
     # MGR NOTE: the data from field ttr_shape  (Shape) should be moved to field ttr_type (Type) at migration time
-    # MGR NOTE: the data from field ttr_special_from_date (Special Price From Date) should be migrated with specified policy: migrated through pricelists 
-    # MGR NOTE: the data from field ttr_special_price (Special Price) should be migrated with specified policy: migrated through pricelists 
-    # MGR NOTE: the data from field ttr_special_to_date (Special Price To Date) should be migrated with specified policy: migrated through pricelists 
+    # MGR NOTE: the data from field ttr_special_from_date (Special Price From Date) should be migrated with specified policy: migrated through pricelists
+    # MGR NOTE: the data from field ttr_special_price (Special Price) should be migrated with specified policy: migrated through pricelists
+    # MGR NOTE: the data from field ttr_special_to_date (Special Price To Date) should be migrated with specified policy: migrated through pricelists
     # MGR NOTE: the data from field ttr_spindle  (Spindle) should be moved to field ttr_chuck (Chuck) at migration time
     # MGR NOTE: the data from field ttr_square_drive  (Square Drive) should be moved to field ttr_chuck (Chuck) at migration time
     # MGR NOTE: the data from field ttr_supply_connection  (Supply Connection) should be moved to field ttr_aansluiting (Air inlet) at migration time
@@ -791,17 +851,17 @@ class ProductProduct(models.Model):
     # MGR NOTE: the data from field ttr_type_grease_adaptor  (Type) should be moved to field ttr_type (Type) at migration time
     # MGR NOTE: the data from field ttr_type_grease_bucket_pump  (Type) should be moved to field ttr_type (Type) at migration time
     # MGR NOTE: the data from field ttr_type_pump_kit  (Type) should be moved to field ttr_type (Type) at migration time
-    # MGR NOTE: the data from field ttr_updated_at () should be migrated with specified policy: to odoo field 
+    # MGR NOTE: the data from field ttr_updated_at () should be migrated with specified policy: to odoo field
     # MGR NOTE: the data from field ttr_vacuum_cleaner_liter  (Liter) should be moved to field ttr_capacity_tank (Capacity tank) at migration time
     # MGR NOTE: the data from field ttr_vacuum_cleaner_ph  (Ph) should be moved to field ttr_power (Power) at migration time
     # MGR NOTE: the data from field ttr_vacuum_cleaner_volt  (Volt) should be moved to field ttr_voltage (Voltage) at migration time
     # MGR NOTE: the data from field ttr_vacuum_cleaner_watt  (Watt) should be moved to field ttr_power (Power) at migration time
     # MGR NOTE: the data from field ttr_volt_battery  (volt_battery) should be moved to field ttr_voltage (Voltage) at migration time
-    # MGR NOTE: the data from field ttr_water_hose (Water Hose Diameter) should be migrated with specified policy: 140 
-    # MGR NOTE: the data from field ttr_water_pressure (Water Pressure) should be migrated with specified policy: Copy data  TO 137 
-    # MGR NOTE: the data from field ttr_weight (Weight) should be migrated with specified policy: to_odoo_field weight 
+    # MGR NOTE: the data from field ttr_water_hose (Water Hose Diameter) should be migrated with specified policy: 140
+    # MGR NOTE: the data from field ttr_water_pressure (Water Pressure) should be migrated with specified policy: Copy data  TO 137
+    # MGR NOTE: the data from field ttr_weight (Weight) should be migrated with specified policy: to_odoo_field weight
     # MGR NOTE: the data from field ttr_weight_sandblaster  (weight_sandblaster) should be moved to field ttr_weight (Weight) at migration time
-    # MGR NOTE: the data from field ttr_wire_diameter (Wire Diameter) should be migrated with specified policy: 140 
+    # MGR NOTE: the data from field ttr_wire_diameter (Wire Diameter) should be migrated with specified policy: 140
     # MGR NOTE: the data from field ttr_wire_length  (Wire Length) should be moved to field ttr_lengte (Length) at migration time
     # NOTE: DELETE field ttr_air_hose (Airhose)
     # NOTE: DELETE field ttr_applicable_for (applicable_for)
