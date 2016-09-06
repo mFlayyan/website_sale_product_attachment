@@ -567,7 +567,7 @@ for attribute_set in attribute_sets:
     if not view_in_odoo:
         product_field_ids_data = str([
             "(4,ref('ttr_product_category_attribute_set."
-            "field_product_product_ttr_%s'))" % x['code'] for x in attributes if x['code'] not in excluded_attrs]
+            "field_product_template_ttr_%s'))" % x['code'] for x in attributes if x['code'] not in excluded_attrs]
             ).replace("\"", "")
         xml_text = ("<record id=\"%s\" "
                     "model=\"product.category\"> "
