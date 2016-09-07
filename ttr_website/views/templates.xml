@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="website.homepage" name="Homepage" page="True" website_id="website.default_website" key="website.homepage">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                I'm the landing page for ttr
+                </div>
+            </t>
+        </template>
+        <template id="home_website_alt0" name="Homepage (alt0)" page="True" website_id="website_alt0" key="website.homepage">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                I'm the landing page for ttr.alt
+                </div>
+            </t>
+        </template>
+        <template id="home_website_alt1" name="Homepage (alt1)" page="True" website_id="website_alt1" key="website.homepage">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                I'm the landing page for ttr.alt.alt
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>
