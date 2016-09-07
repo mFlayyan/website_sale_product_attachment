@@ -12,8 +12,9 @@ class ProductProduct(models.Model):
     def fields_view_get(
             self, view_id, view_type='form', toolbar=False, submenu=False):
         res = super(ProductProduct, self).fields_view_get(
-                view_id=view_id, view_type=view_type, toolbar=toolbar,
-                submenu=submenu)
+            view_id=view_id, view_type=view_type, toolbar=toolbar,
+            submenu=submenu
+        )
         if (view_type == 'form') and ('notebook' in res['arch']):
             eview = etree.fromstring(res['arch'])
             notebook = eview.xpath("//notebook")
@@ -69,8 +70,9 @@ class ProductTemplate(models.Model):
     def fields_view_get(
             self, view_id, view_type='form', toolbar=False, submenu=False):
         res = super(ProductTemplate, self).fields_view_get(
-                view_id=view_id, view_type=view_type, toolbar=toolbar,
-                submenu=submenu)
+            view_id=view_id, view_type=view_type, toolbar=toolbar, 
+            submenu=submenu
+        )
         if (view_type == 'form') and ('notebook' in res['arch']):
             eview = etree.fromstring(res['arch'])
             notebook = eview.xpath("//notebook")
@@ -81,9 +83,11 @@ class ProductTemplate(models.Model):
             # to one page called shared if it sits in multiple categories
             # but that's the case with all fields, so better have one page
             shared_fields_page = etree.SubElement(
-                notebook, 'page', {'string': 'Category Attributes'})
+                notebook, 'page', {'string': 'Category Attributes'}
+            )
             shared_fields_group = etree.SubElement(
-                shared_fields_page, 'group')
+                shared_fields_page, 'group'
+            )
             existing_fields = {}
             field2category = {}
             all_categories = self.env['product.category'].search([])
