@@ -8,7 +8,7 @@
     'depends': [
         'ttr_reports',
         'ttr_account',
-        'ttr_delivery',
+        # 'ttr_delivery',
         # 'ttr_purchase',
         # 'ttr_sale',
         'ttr_stock',
