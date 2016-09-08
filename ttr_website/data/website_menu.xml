@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="website.main_menu" model="website.menu">
+            <field name="website_id" ref="website.default_website" />
+        </record>
+        <record id="main_menu_alt0" model="website.menu">
+            <field name="name">Top Menu</field>
+            <field name="website_id" ref="website_alt0"/>
+        </record>
+        <record id="menu_homepage_alt0" model="website.menu">
+            <field name="name">Home</field>
+            <field name="url">/page/homepage</field>
+            <field name="parent_id" ref="main_menu_alt0"/>
+            <field name="sequence" type="int">10</field>
+            <field name="website_id" ref="website_alt0"/>
+        </record>
+        <record id="menu_contactus_alt0" model="website.menu">
+            <field name="name">Contact us</field>
+            <field name="url">/page/contactus</field>
+            <field name="parent_id" ref="main_menu_alt0"/>
+            <field name="sequence" type="int">60</field>
+            <field name="website_id" ref="website_alt0"/>
+        </record>
+        <record id="main_menu_alt1" model="website.menu">
+            <field name="name">Top Menu</field>
+            <field name="website_id" ref="website_alt1"/>
+        </record>
+        <record id="menu_homepage_alt1" model="website.menu">
+            <field name="name">Home</field>
+            <field name="url">/page/homepage</field>
+            <field name="parent_id" ref="main_menu_alt1"/>
+            <field name="sequence" type="int">10</field>
+            <field name="website_id" ref="website_alt1"/>
+        </record>
+        <record id="menu_contactus_alt1" model="website.menu">
+            <field name="name">Contact us</field>
+            <field name="url">/page/contactus</field>
+            <field name="parent_id" ref="main_menu_alt1"/>
+            <field name="sequence" type="int">60</field>
+            <field name="website_id" ref="website_alt1"/>
+        </record>
+    </data>
+</openerp>
