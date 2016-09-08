@@ -1,11 +1,7 @@
 # -*- encoding: utf-8 -*-         
-from magento import MagentoAPI
 
 
-DefinitionFileName = 'models.py'
-XMLDataFileName = 'data.xml'
-ExcludedFileName = 'excluded.py'
-prefix = "ttr_"
+
 
 
 
@@ -45,10 +41,6 @@ def append_to_file(filename, string_to_append):
     file_obj.write("\n")
     file_obj.close()
 
-magento = MagentoAPI(
-          'www.airtools-online.nl', '80',
-          'TechnoTrading', '8mNnQeZ73eYK'
-        )
 """
 The CREATION OF THE FIELDS SHOULD BE HARDCODED
 This code is now movesd to a script that will 
@@ -409,176 +401,188 @@ references
 """
 excluded_attrs = []
 
+if __name__ == "__main__":
 
+    from magento import MagentoAPI
 
-attribute_sets = magento.catalog_product_attribute_set.list()
+    DefinitionFileName = 'models.py'
+    XMLDataFileName = 'data.xml'
+    ExcludedFileName = 'excluded.py'
+    prefix = "ttr_"
+   
+    magento = MagentoAPI(
+              'www.airtools-online.nl', '80',
+              'TechnoTrading', '8mNnQeZ73eYK'
+            )
 
-for attribute_set in attribute_sets:
+    attribute_sets = magento.catalog_product_attribute_set.list()
 
-    attributes = magento.catalog_product_attribute.list(
-        [attribute_set['set_id']]
-    )
-    attribute_n=0
-    for attribute in attributes:
+    for attribute_set in attribute_sets:
 
-        if attribute['type']:
-            field_mapping = []
-            attribute_in_file = search_in_file(
-                    DefinitionFileName, 
-                    attribute['code'], 
-                    prefix)
-                    
-            """
-            we will not create the field definition 
-            even if it isn't in the file, it will just 
-            inject the explanation as a comment, a sort
-            of automatic documentation.
-            """
-            if attribute['code'] not in attr_rel:
-                if not attribute_in_file:
-                    attribute_n +=1
-                    model_string = ("# field %s not found in dictionary,"
-                        "has the client created new fields since"
-                        " the mapping?") % (
-                                prefix + attribute['code'],
-                            )
-                    append_to_file(ExcludedFileName, model_string)
-                #even if already in file it is an excluded type
-                excluded_attrs.append(attribute['code'])
-            else:
-                if not attribute_in_file:
-                    attribute_n += 1
-                    if attr_rel[attribute['code']][2] == 'KEEP':
-                        """
-                        TODO There are fields with no type , investigate
-                        now will be generated aas Unknown in mapping dict
-                        """
-                        if attribute['type'] != 'select':
-                            model_string = (
-                                "%s = fields.%s(string='%s',"
-                                " ttr_mag_attribute=True"
-                                    ) % (
-                                   prefix + attribute['code'],  
-                                    magento_to_odoo_type_mapping[attribute['type']],
-                                    attr_rel[attribute['code']][1]
+        attributes = magento.catalog_product_attribute.list(
+            [attribute_set['set_id']]
+        )
+        attribute_n=0
+        for attribute in attributes:
+
+            if attribute['type']:
+                field_mapping = []
+                attribute_in_file = search_in_file(
+                        DefinitionFileName, 
+                        attribute['code'], 
+                        prefix)
+                        
+                """
+                we will not create the field definition 
+                even if it isn't in the file, it will just 
+                inject the explanation as a comment, a sort
+                of automatic documentation.
+                """
+                if attribute['code'] not in attr_rel:
+                    if not attribute_in_file:
+                        attribute_n +=1
+                        model_string = ("# field %s not found in dictionary,"
+                            "has the client created new fields since"
+                            " the mapping?") % (
+                                    prefix + attribute['code'],
                                 )
-                        else:
-                            attribute_options = magento.catalog_product_attribute.options(
-                                int(attribute['attribute_id']), 
-                            )
-                            # implementing size=-1 for integer indexes
-                            has_integer_index = isinstance(
-                                attribute_options[0]['value'], int
-                            )
-                            attribute_selection = [
-                                    (x['value'], x['label']) for x in attribute_options
-                                    ]
+                        append_to_file(ExcludedFileName, model_string)
+                    #even if already in file it is an excluded type
+                    excluded_attrs.append(attribute['code'])
+                else:
+                    if not attribute_in_file:
+                        attribute_n += 1
+                        if attr_rel[attribute['code']][2] == 'KEEP':
+                            """
+                            TODO There are fields with no type , investigate
+                            now will be generated aas Unknown in mapping dict
+                            """
+                            if attribute['type'] != 'select':
+                                model_string = (
+                                    "%s = fields.%s(string='%s',"
+                                    " ttr_mag_attribute=True"
+                                        ) % (
+                                       prefix + attribute['code'],  
+                                        magento_to_odoo_type_mapping[attribute['type']],
+                                        attr_rel[attribute['code']][1]
+                                    )
+                            else:
+                                attribute_options = magento.catalog_product_attribute.options(
+                                    int(attribute['attribute_id']), 
+                                )
+                                # implementing size=-1 for integer indexes
+                                has_integer_index = isinstance(
+                                    attribute_options[0]['value'], int
+                                )
+                                attribute_selection = [
+                                        (x['value'], x['label']) for x in attribute_options
+                                        ]
+                                model_string = (
+                                    "%s = fields.%s(string='%s', "
+                                    "ttr_mag_attribute=True,\n                            "
+                                    "selection=%s") % (
+                                       prefix + attribute['code'],  
+                                        magento_to_odoo_type_mapping[attribute['type']],
+                                        attr_rel[attribute['code']][1],
+                                        str(attribute_selection).replace(
+                                            "'),", "'),\n                            ")
+                                    )
+                                if has_integer_index:
+                                    model_string += ", \n                            size=-1"
+                            if attribute['type'] in excluded_types:
+                                model_string = ("\n\"\"\"\n NOTE: undecided/excluded type:"
+                                       "\n %s \n"
+                                       "Will have to run gen script to refresh XML" 
+                                       "again if you decide to use these \n\"\"\"" 
+                                       ) % model_string
+                                append_to_file(ExcludedFileName, model_string)
+                                excluded_attrs.append(attribute['code'])
+                            else:
+                                append_to_file(DefinitionFileName, model_string +")")
+
+                        if attr_rel[attribute['code']][2] =='DELETE':  
                             model_string = (
-                                "%s = fields.%s(string='%s', "
-                                "ttr_mag_attribute=True,\n                            "
-                                "selection=%s") % (
-                                   prefix + attribute['code'],  
-                                    magento_to_odoo_type_mapping[attribute['type']],
+                                    "# NOTE: %s field ttr_%s (%s)") % (
+                                    attr_rel[attribute['code']][2],
+                                    attribute['code'],
                                     attr_rel[attribute['code']][1],
-                                    str(attribute_selection).replace(
-                                        "'),", "'),\n                            ")
-                                )
-                            if has_integer_index:
-                                model_string += ", \n                            size=-1"
-                        if attribute['type'] in excluded_types:
-                            model_string = ("\n\"\"\"\n NOTE: undecided/excluded type:"
-                                   "\n %s \n"
-                                   "Will have to run gen script to refresh XML" 
-                                   "again if you decide to use these \n\"\"\"" 
-                                   ) % model_string
+                                    )
                             append_to_file(ExcludedFileName, model_string)
                             excluded_attrs.append(attribute['code'])
-                        else:
-                            append_to_file(DefinitionFileName, model_string +")")
+                        if (attr_rel[attribute['code']][2] !='DELETE' and 
+                                attr_rel[attribute['code']][2] !='KEEP'): 
+                            target_field=''
+                            for key in attr_rel:
+                                if str(attr_rel[key][0]) == attr_rel[attribute['code']][2]:
+                                    target_field = key
+                                    break
+                            if len(target_field)>0:
+                                model_string = (
+                                        "# MGR NOTE: the data from field ttr_%s  (%s)"
+                                        " should be moved to field ttr_%s (%s) at migration time"
+                                        ) % (
+                                            attribute['code'], 
+                                            attr_rel[attribute['code']][1],
+                                            target_field,
+                                            attr_rel[target_field][1]
+                                        )
+                            #(it's not an id number, just a migration note)
+                            else:
+                                policy =  attr_rel[attribute['code']][2]
+                                model_string = (
+                                        "# MGR NOTE: the data from field" 
+                                        " ttr_%s (%s) should be migrated with" 
+                                        " specified policy: %s "
+                                        ) % (
+                                            attribute['code'], 
+                                            attr_rel[attribute['code']][1],
+                                            policy
+                                        )
+                            append_to_file(ExcludedFileName, model_string)
+                            excluded_attrs.append(attribute['code'])
+                        # mapping between new attribute fields and magento fields
+                        # maybe not needed if code is unique
+                        if attribute['code'] not in excluded_attrs:
+                            field_mapping.append(
+                                {attribute['code']: attribute['attribute_id']}
+                            )
 
-                    if attr_rel[attribute['code']][2] =='DELETE':  
-                        model_string = (
-                                "# NOTE: %s field ttr_%s (%s)") % (
-                                attr_rel[attribute['code']][2],
-                                attribute['code'],
-                                attr_rel[attribute['code']][1],
-                                )
-                        append_to_file(ExcludedFileName, model_string)
-                        excluded_attrs.append(attribute['code'])
-                    if (attr_rel[attribute['code']][2] !='DELETE' and 
-                            attr_rel[attribute['code']][2] !='KEEP'): 
-                        target_field=''
-                        for key in attr_rel:
-                            if str(attr_rel[key][0]) == attr_rel[attribute['code']][2]:
-                                target_field = key
-                                break
-                        if len(target_field)>0:
-                            model_string = (
-                                    "# MGR NOTE: the data from field ttr_%s  (%s)"
-                                    " should be moved to field ttr_%s (%s) at migration time"
-                                    ) % (
-                                        attribute['code'], 
-                                        attr_rel[attribute['code']][1],
-                                        target_field,
-                                        attr_rel[target_field][1]
-                                    )
-                        #(it's not an id number, just a migration note)
-                        else:
-                            policy =  attr_rel[attribute['code']][2]
-                            model_string = (
-                                    "# MGR NOTE: the data from field" 
-                                    " ttr_%s (%s) should be migrated with" 
-                                    " specified policy: %s "
-                                    ) % (
-                                        attribute['code'], 
-                                        attr_rel[attribute['code']][1],
-                                        policy
-                                    )
-                        append_to_file(ExcludedFileName, model_string)
-                        excluded_attrs.append(attribute['code'])
-                    # mapping between new attribute fields and magento fields
-                    # maybe not needed if code is unique
-                    if attribute['code'] not in excluded_attrs:
-                        field_mapping.append(
-                            {attribute['code']: attribute['attribute_id']}
-                        )
-
-    
-    # clean up unused attributes that are in the dict but where not fetched
-    for key in attr_rel:
-        attribute_in_file = search_in_file(
-                DefinitionFileName, key, prefix) or search_in_file(
-                        ExcludedFileName, key, prefix)
-        if not attribute_in_file:
-            excluded_attrs.append(key)
+        
+        # clean up unused attributes that are in the dict but where not fetched
+        for key in attr_rel:
+            attribute_in_file = search_in_file(
+                    DefinitionFileName, key, prefix) or search_in_file(
+                            ExcludedFileName, key, prefix)
+            if not attribute_in_file:
+                excluded_attrs.append(key)
 
 
-    print("new attributes in this set: " + str(attribute_n))
-    print("total attributes in the dict" + str(len(attr_rel)))
-    print("excluded attributes in this set" + str(len([x for x in attributes if x['code'] not in excluded_attrs])))
+        print("new attributes in this set: " + str(attribute_n))
+        print("total attributes in the dict" + str(len(attr_rel)))
+        print("excluded attributes in this set" + str(len([x for x in attributes if x['code'] not in excluded_attrs])))
 
 
-    # XML gen
-    category_id_name = "cat_%sattribute_%s" % (
-            prefix,
-            attribute_set['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower()
-            )
-    view_in_odoo = search_in_file_XML(XMLDataFileName, category_id_name)
-    if not view_in_odoo:
-        product_field_ids_data = str([
-            "(4,ref('ttr_product_category_attribute_set."
-            "field_product_template_ttr_%s'))" % x['code'] for x in attributes if x['code'] not in excluded_attrs]
-            ).replace("\"", "")
-        xml_text = ("<record id=\"%s\" "
-                    "model=\"product.category\"> "
-                    "\n             <field name=\"name\">%s</field>"
-                    "\n             <field name=\"product_field_ids\" eval=\"%s\"/>"
-                    "\n </record>") % (
-                category_id_name, attribute_set['name'].replace(
-                    " ", "_").replace("/","_").replace(
-                        "-","_").replace('&', '_and_').lower(), 
-                product_field_ids_data)
-        append_to_file(XMLDataFileName, xml_text)
+        # XML gen
+        category_id_name = "cat_%sattribute_%s" % (
+                prefix,
+                attribute_set['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower()
+                )
+        view_in_odoo = search_in_file_XML(XMLDataFileName, category_id_name)
+        if not view_in_odoo:
+            product_field_ids_data = str([
+                "(4,ref('ttr_product_category_attribute_set."
+                "field_product_template_ttr_%s'))" % x['code'] for x in attributes if x['code'] not in excluded_attrs]
+                ).replace("\"", "")
+            xml_text = ("<record id=\"%s\" "
+                        "model=\"product.category\"> "
+                        "\n             <field name=\"name\">%s</field>"
+                        "\n             <field name=\"product_field_ids\" eval=\"%s\"/>"
+                        "\n </record>") % (
+                    category_id_name, attribute_set['name'].replace(
+                        " ", "_").replace("/","_").replace(
+                            "-","_").replace('&', '_and_').lower(), 
+                    product_field_ids_data)
+            append_to_file(XMLDataFileName, xml_text)
 
 
 

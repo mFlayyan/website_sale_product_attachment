@@ -18,6 +18,7 @@ emulating the old magento attribute groups.
         'data/data.xml',
         'views/product_category.xml',
         ],
+    "post_init_hook": "post_init_hook", 
     "auto_install": False,
     "installable": True,
     "application": False,
