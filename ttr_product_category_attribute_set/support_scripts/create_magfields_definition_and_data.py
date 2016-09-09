@@ -401,30 +401,35 @@ references
 """
 excluded_attrs = []
 
-if __name__ == "__main__":
+def connect_tt():
 
     from magento import MagentoAPI
+    magento = MagentoAPI(
+              'www.airtools-online.nl', '80',
+              'TechnoTrading', '8mNnQeZ73eYK'
+            )
+    return magento
+
+
+
+if __name__ == "__main__":
+
 
     DefinitionFileName = 'models.py'
     XMLDataFileName = 'data.xml'
     ExcludedFileName = 'excluded.py'
     prefix = "ttr_"
    
-    magento = MagentoAPI(
-              'www.airtools-online.nl', '80',
-              'TechnoTrading', '8mNnQeZ73eYK'
-            )
+    magento = connect_tt()
 
     attribute_sets = magento.catalog_product_attribute_set.list()
 
     for attribute_set in attribute_sets:
-
         attributes = magento.catalog_product_attribute.list(
             [attribute_set['set_id']]
         )
         attribute_n=0
         for attribute in attributes:
-
             if attribute['type']:
                 field_mapping = []
                 attribute_in_file = search_in_file(
