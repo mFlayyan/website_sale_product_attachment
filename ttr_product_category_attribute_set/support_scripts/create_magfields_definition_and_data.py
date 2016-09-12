@@ -401,6 +401,12 @@ references
 """
 excluded_attrs = []
 
+DefinitionFileName = 'models.py'
+XMLDataFileName = 'data.xml'
+ExcludedFileName = 'excluded.py'
+prefix = "ttr_"
+
+
 def connect_tt():
 
     from magento import MagentoAPI
@@ -415,10 +421,6 @@ def connect_tt():
 if __name__ == "__main__":
 
 
-    DefinitionFileName = 'models.py'
-    XMLDataFileName = 'data.xml'
-    ExcludedFileName = 'excluded.py'
-    prefix = "ttr_"
    
     magento = connect_tt()
 
