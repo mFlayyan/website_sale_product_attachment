@@ -1,10 +1,5 @@
 # -*- encoding: utf-8 -*-         
 
-
-
-
-
-
 def search_in_file_XML(filename, str_to_search):
     try:
         file_obj = open(filename, 'r')
@@ -412,7 +407,7 @@ def connect_tt():
     from magento import MagentoAPI
     magento = MagentoAPI(
               'www.airtools-online.nl', '80',
-              'TechnoTrading', '8mNnQeZ73eYK'
+              'INSERT USER HERE', 'INSERT PASSWORD HERE'
             )
     return magento
 

@@ -91,6 +91,8 @@ def post_init_hook(cr, registry):
             #scan all attributes, and then use migration policy fetched from
             #import script ( so we have complete consistency)
             for attribute in prd_attributes:
+                import pudb
+                pudb.set_trace()
                 if attribute['code'] in prd_info.keys():
                     if attr_rel[attribute['code']][2] == 'KEEP':
                         try:
