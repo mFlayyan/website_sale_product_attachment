@@ -70,7 +70,7 @@ def post_init_hook(cr, registry):
                 ).catalog_product_attribute.list(prd_info['set']
             )
 
-            _logger.info(
+            _logger.debug(
                'DATA_IMPORT_LOG: Starting data import for product %s , id %s',
                 product_rec.name,
                 product_rec.id
