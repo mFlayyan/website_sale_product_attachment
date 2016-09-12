@@ -33,48 +33,57 @@ def post_init_hook(cr, registry):
     product_list_complete = support_script.connect_tt().catalog_product.list()
     attr_rel = support_script.attr_rel
     prd_sets = support_script.connect_tt().catalog_product_attribute_set.list()
-    totallen = len(all_products)
-    currentlen= 0 
+    tot_product_len = len(all_products)
+    cur_product_len= 0 
     for product in all_products:
         product_rec = registry['product.template'].browse(
             cr, SUPERUSER_ID, product
         )
-        currentlen += 1
+        cur_product_len += 1
         #get the SKU from magento
         if product_sku_association[product]:
             """
             fetching the magento_sku does not map correctly using product name.
             """
-            for element in product_list_complete:
-                if element['name'] == product_sku_association[product]:
-                    try:
-                        prd_info = support_script.connect_tt(
-                            ).catalog_product.info(
-                                element['product_id']
+            tot_element_len = len(product_list_complete)
+            cur_element_len = 0
+            element = (a for a in product_list_complete if a['name'] == product_sku_association[product])
+            cur_element_len += 1
+            try:
+                prd_info = support_script.connect_tt(
+                    ).catalog_product.info(
+                        element['product_id']
+                )
+                prd_attributes = support_script.connect_tt(
+                    ).catalog_product_attribute.list(prd_info['set']
+                )
+                #assign the set find it through a generator expression
+                category = (item for item in prd_sets if item['set_id'] == prd_info['set']).next()
+                category_odoo = registry['ir.model.data'].get_object_reference(
+                    cr, SUPERUSER_ID, 'ttr_product_category_attribute_set',
+                    'cat_ttr_attribute_' + category['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower())[1]
+                product_rec.write({'categ_id': category_odoo })
+                for attribute in prd_attributes:
+                    if attribute['code'] in prd_info.keys() and attr_rel[attribute['code']][2] == 'KEEP':
+                        product_rec.write(
+                            {
+                            'ttr_' + str(attribute['code']) : 
+                                prd_info[attribute['code']]
+                            }
                         )
-                        prd_attributes = support_script.connect_tt(
-                            ).catalog_product_attribute.list(prd_info['set']
-                        )
-                        #assign the set find it through a generator expression
-                        category = (item for item in prd_sets if item['set_id'] == prd_info['set']).next()
-                        _logger.info('successfull attribute fetch and category %s  find', category)
-                        category_odoo = registry['ir.model.data'].get_object_reference(
-                            cr, SUPERUSER_ID, 'ttr_product_category_attribute_set',
-                            'cat_ttr_attribute_' + category['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower())[1]
-                        product_rec.write({'categ_id': category_odoo })
-                        for attribute in prd_attributes:
-                            if attribute['code'] in prd_info.keys() and attr_rel[attribute['code']][2] == 'KEEP':
-                                product_rec.write(
-                                    {
-                                    'ttr_' + str(attribute['code']) : 
-                                        prd_info[attribute['code']]
-                                    }
-                                )
-                        _logger.info('ALL successfull done')
-                    except:
-                        continue
-                    _logger.info('done %s/%s',totallen,currentlen)
+                _logger.info(
+                    'All good for element  %s  in product %s', 
+                    str(element), str(product)
+                )
+            except:
+                _logger.info(
+                    'Something failed  for element  %s  in product %s', 
+                    str(element), str(product) 
+                )
 
+            _logger.info(
+                'done product:%s --- %s/%s', str(product), cur_product_len, tot_product_len
+            )
 
         #find it's category and get it done
         #assign values to it's category.
