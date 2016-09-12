@@ -91,17 +91,27 @@ def post_init_hook(cr, registry):
             #scan all attributes, and then use migration policy fetched from
             #import script ( so we have complete consistency)
             for attribute in prd_attributes:
-                import pudb
-                pudb.set_trace()
                 if attribute['code'] in prd_info.keys():
-                    if attr_rel[attribute['code']][2] == 'KEEP':
+                    if attr_rel[attribute['code']][2] == 'DELETE':
+                        pass
+                    elif attr_rel[attribute['code']][2] == 'KEEP':
                         try:
-                            product_rec.write(
-                                {
-                                 prefix + str(attribute['code']): 
-                                 prd_info[attribute['code']]
-                                }
-                            )
+                            """
+                            all hasattr statements should be unecessary.
+                            They are with fresh data.
+                            But I am adding them to add solidity to the hook in case 
+                            the generated data has became old.
+                            Generating Models.py and Data.xml is a long process.
+                            we will be able to test more quickly by skipping 
+                            the fields that aren't there.
+                            """
+                            if hasattr(product_rec, prefix + str(attribute['code'])):
+                                product_rec.write(
+                                    {
+                                     prefix + str(attribute['code']): 
+                                     prd_info[attribute['code']]
+                                    }
+                                )
                         except:
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute %s write failed for product %s',
@@ -117,12 +127,13 @@ def post_init_hook(cr, registry):
                                     attr_rel[a][0] == int(
                                         attr_rel[attribute['code']][2])
                                 ][0]
-                            product_rec.write(
-                                {
-                                prefix + field_to_copy_to : 
-                                    prd_info[attribute['code']]
-                                }
-                            )
+                            if hasattr(product_rec, prefix + field_to_copy_to):
+                                product_rec.write(
+                                    {
+                                    prefix + field_to_copy_to : 
+                                        prd_info[attribute['code']]
+                                    }
+                                )
                         except:
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute from %s COPY to %s failed for product %s',
@@ -139,7 +150,7 @@ def post_init_hook(cr, registry):
                             attr_rel[attribute['code']][2],
                             )
 
-        if not mag_product:
+        else:
             _logger.debug("DATA_IMPORT_LOG: product %s NOT FOUND ON WEBSITE", str(product))
 
         _logger.debug(
