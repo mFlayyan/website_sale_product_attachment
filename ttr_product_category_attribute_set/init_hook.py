@@ -104,28 +104,32 @@ def post_init_hook(cr, registry):
                             process. We will be able to test more quickly 
                             by skipping  the fields that aren't there.
                             """
-                            if hasattr(product_rec, prefix + str(attribute['code'])):
-                                """ checking the attribute type"""
-
-                                odoo_type = magento_to_odoo_type_mapping[attribute['type']]
-                                if odoo_type == 'Boolean':
-                                    data_to_write == bool(prd_info[attribute['code']])
-                                elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
-                                    _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
-                                    continue
-                                elif odoo_type in ['Date']:
-                                    _logger.debug('FOR NOW SKIPPING DATES , test puropses')
-                                    continue
-                                elif odoo_type in ['Selection']:
-                                    _logger.debug('FOR NOW SKIPPING SELECTION , test puropses')
-                                    continue
-                                else:
-                                    data_to_write = prd_info[attribute['code']]
-                                product_rec.write(
-                                    {
-                                     prefix + str(attribute['code']): data_to_write
-                                    }
-                                )
+                            odoo_type = magento_to_odoo_type_mapping[attribute['type']]
+                            if odoo_type == 'Boolean':
+                                data_to_write == bool(prd_info[attribute['code']])
+                            elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
+                                _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
+                                continue
+                            elif odoo_type in ['Date']:
+                                _logger.debug('FOR NOW SKIPPING DATES , test puropses')
+                                continue
+                            elif odoo_type in ['Selection']:
+                                """ 
+                                the Selection field would fail for integers.
+                                integer indexed selection fields where individuated by size-1
+                                but I could not access that attribute. checking type of first selection
+                                """
+                                if type(
+                                        product_rec._fields[prefix+field_to_copy_to[0]].selection[1][1
+                                            ]) == 'int':
+                                    data_to_write = int(prd_info[attribute['code']])
+                            else:
+                                data_to_write = prd_info[attribute['code']]
+                            product_rec.write(
+                                {
+                                 prefix + str(attribute['code']): data_to_write
+                                }
+                            )
                         except e:
                             _logger.exception('exception - logging %s',e)
                             _logger.debug(
@@ -143,34 +147,41 @@ def post_init_hook(cr, registry):
                                         attr_rel[attribute['code']][2])
                                 ]
                             if not field_to_copy_to:
-                                _logger.debug('IMPORTANT: not found with id %s , the field %s should be copied there', attr_rel[attribute['code']][2], attribute['code']) 
-                            if hasattr(product_rec, prefix + field_to_copy_to):
-                                odoo_type = magento_to_odoo_type_mapping[attribute['type']]
+                                _logger.debug('IMPORTANT: not found with id %s , the field %s should be copied there', attr_rel[attribute['code']][2], attribute['code'])
+                                continue
+                            odoo_type = magento_to_odoo_type_mapping[attribute['type']]
 
-                                if odoo_type == 'Boolean':
-                                    data_to_write == bool(prd_info[attribute['code']])
-                                elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
-                                    _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
-                                    continue
-                                elif odoo_type in ['Date']:
-                                    _logger.debug('FOR NOW SKIPPING DATES , test puropses')
-                                    continue
-                                elif odoo_type in ['Selection']:
-                                    _logger.debug('FOR NOW SKIPPING SELECTION , test puropses')
-                                    continue
-                                else:
-                                    data_to_write = prd_info[attribute['code']]
-                                product_rec.write(
-                                    {
-                                     prefix + field_to_copy_to : data_to_write
-                                    }
-                                )
+                            if odoo_type == 'Boolean':
+                                data_to_write == bool(prd_info[attribute['code']])
+                            elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
+                                _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
+                                continue
+                            elif odoo_type in ['Date']:
+                                _logger.debug('FOR NOW SKIPPING DATES , test puropses')
+                                continue
+                            elif odoo_type in ['Selection']:
+                                """ 
+                                the Selection field would fail for integers.
+                                integer indexed selection fields where individuated by size-1
+                                but I could not access that attribute. checking type of first selection
+                                """
+                                if type(
+                                        product_rec._fields[prefix+field_to_copy_to[0]].selection[1][1
+                                            ]) == 'int':
+                                    data_to_write = int(data_to_write)
+                            else:
+                                data_to_write = prd_info[attribute['code']]
+                            product_rec.write(
+                                {
+                                 prefix + field_to_copy_to[0] : data_to_write
+                                }
+                            )
                         except e:
                             _logger.exception('exception - logging %s',e)
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute from %s COPY to %s failed for product %s',
                                 prefix + str(attribute['code']), 
-                                prefix + str(field_to_copy_to),
+                                prefix + str(field_to_copy_to[0]),
                                 str(product_rec['name']) + ' id:'+ str(
                                     product_rec['id']
                                 )

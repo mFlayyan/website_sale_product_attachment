@@ -407,7 +407,7 @@ def connect_tt():
     from magento import MagentoAPI
     magento = MagentoAPI(
               'www.airtools-online.nl', '80',
-              'INSERT USER HERE', 'INSERT PASSWORD HERE'
+              'TechnoTrading', '8mNnQeZ73eYK'
             )
     return magento
 
