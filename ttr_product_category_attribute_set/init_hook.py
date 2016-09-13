@@ -93,63 +93,25 @@ def post_init_hook(cr, registry):
                 if attribute['code'] in prd_info.keys() and  attribute['code'] in  product_rec._fields:
                     if attr_rel[attribute['code']][2] == 'DELETE':
                         pass
-                    elif attr_rel[attribute['code']][2] == 'KEEP':
-                        try:
-                            """
-                            all hasattr statements should be unecessary.
-                            If the module has freah data.
-                            But I am adding them to add solidity to the hook
-                            in case the generated data has became old.
-                            Generating Models.py and Data.xml is a long 
-                            process. We will be able to test more quickly 
-                            by skipping  the fields that aren't there.
-                            """
-                            odoo_type = magento_to_odoo_type_mapping[attribute['type']]
-                            if odoo_type == 'Boolean':
-                                data_to_write == bool(prd_info[attribute['code']])
-                            elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
-                                _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
-                                continue
-                            elif odoo_type in ['Selection']:
-                                if product == 866:
-                                    import pudb
-                                    pudb.set_trace()
-                                """ 
-                                the Selection field would fail for integers.
-                                integer indexed selection fields where individuated by size-1
-                                but I could not access that attribute. checking type of first selection
-                                """
-
-                                if type(
-                                        product_rec._fields[attribute['code']].selection[1][1
-                                            ]) == 'int':
-                                    data_to_write = int(prd_info[attribute['code']])
-                            else:
-                                data_to_write = prd_info[attribute['code']]
-                            product_rec.write(
-                                {
-                                 prefix + str(attribute['code']): data_to_write
-                                }
-                            )
-                        except e:
-                            _logger.exception('exception - logging %s',e)
-                            _logger.debug(
-                                'DATA_IMPORT_LOG: attribute %s write failed for product %s',
-                                prefix + str(attribute['code']), 
-                                str(product_rec['name']) + ' id:'+ str(product_rec['id'])
-                            )
-                    elif attr_rel[attribute['code']][2].isdigit():
-                        try: 
+                    elif attr_rel[attribute['code']][2] == 'KEEP' or attr_rel[attribute['code']][2].isdigit():
+                        try:      
                             # note is this the best way to search inside 
                             # a dict?
-                            field_to_copy_to = \
-                                [a for a in attr_rel.keys() if 
-                                    attr_rel[a][0] == int(
-                                        attr_rel[attribute['code']][2])
-                                ]
-                            if not field_to_copy_to:
-                                _logger.debug('IMPORTANT: not found with id %s , the field %s should be copied there', attr_rel[attribute['code']][2], attribute['code'])
-                                continue
+                            if attr_rel[attribute['code']][2].isdigit():
+                                field_to_copy_to = \
+                                    [a for a in attr_rel.keys() if 
+                                        attr_rel[a][0] == int(
+                                            attr_rel[attribute['code']][2])
+                                    ]
+                                if not field_to_copy_to:
+                                    _logger.debug('IMPORTANT: not found with id %s , the field %s should be copied there', attr_rel[attribute['code']][2], attribute['code'])
+                                    continue
+
+                            else:
+                                field_to_copy_to = [prefix + str(
+                                    attribute['code'])]
+                                
+
                             odoo_type = magento_to_odoo_type_mapping[attribute['type']]
 
                             if odoo_type == 'Boolean':
@@ -160,19 +122,24 @@ def post_init_hook(cr, registry):
                             elif odoo_type in ['Selection']:
                                 """managing case of lambda functions in select"""
                                 """this is cool"""
-                                if callable(product_rec._fields[attriute['code']].selection):
-                                    product_rec._fields[attribute['code']].selection(product_rec)
+                                if callable(product_rec._fields[attribute['code']].selection):
+                                   odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
+                                   """we also have to maage the case the selection is a function
+                                   and eval it on out current """
+                                elif type(product_rec._fields[attriute['code']].selection) == 'str': 
+                                   odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
+                                else:              
+                                   odoo_selection =  product_rec._fields[prefix+field_to_copy_to[0]].selection[1]
                                 """ 
-                                the Selection field would fail for integers.
+                                the Selection field would fail for integer indexes.
                                 integer indexed selection fields where individuated by size-1
                                 but I could not access that attribute. checking type of first selection
                                 """
-                                if type(
-                                        product_rec._fields[prefix+field_to_copy_to[0]].selection[1][1
-                                            ]) == 'int':
+                                if type([odoo_selection][1]) == 'int':
                                     data_to_write = int(data_to_write)
                             else:
                                 data_to_write = prd_info[attribute['code']]
+
                             product_rec.write(
                                 {
                                  prefix + field_to_copy_to[0] : data_to_write
