@@ -114,7 +114,10 @@ def post_init_hook(cr, registry):
                                     _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
                                     continue
                                 elif odoo_type in ['Date']:
-                                    _logger_debug('FOR NOW SKIPPING DATES , test puropses')
+                                    _logger.debug('FOR NOW SKIPPING DATES , test puropses')
+                                    continue
+                                elif odoo_type in ['Selection']:
+                                    _logger.debug('FOR NOW SKIPPING SELECTION , test puropses')
                                     continue
                                 else:
                                     data_to_write = prd_info[attribute['code']]
@@ -138,16 +141,22 @@ def post_init_hook(cr, registry):
                                 [a for a in attr_rel.keys() if 
                                     attr_rel[a][0] == int(
                                         attr_rel[attribute['code']][2])
-                                ][0]
+                                ]
+                            if not field_to_copy_to:
+                                _logger.debug('IMPORTANT: not found with id %s , the field %s should be copied there', attr_rel[attribute['code']][2], attribute['code']) 
                             if hasattr(product_rec, prefix + field_to_copy_to):
                                 odoo_type = magento_to_odoo_type_mapping[attribute['type']]
+
                                 if odoo_type == 'Boolean':
                                     data_to_write == bool(prd_info[attribute['code']])
                                 elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
-                                    _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type))) 
+                                    _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
                                     continue
                                 elif odoo_type in ['Date']:
-                                    _logger_debug('FOR NOW SKIPPING DATES')
+                                    _logger.debug('FOR NOW SKIPPING DATES , test puropses')
+                                    continue
+                                elif odoo_type in ['Selection']:
+                                    _logger.debug('FOR NOW SKIPPING SELECTION , test puropses')
                                     continue
                                 else:
                                     data_to_write = prd_info[attribute['code']]
