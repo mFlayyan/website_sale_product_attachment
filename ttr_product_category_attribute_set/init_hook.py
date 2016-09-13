@@ -30,7 +30,7 @@ def post_init_hook(cr, registry):
     """
     #constants
     prefix = support_script.prefix
-
+    magento_to_odoo_type_mapping = support_script.magento_to_odoo_type_mapping
     # had done it by id, magento_sku but the ids resulting where wrong.
     #probably the data of this db comes from another store.
 
@@ -104,17 +104,27 @@ def post_init_hook(cr, registry):
                             process. We will be able to test more quickly 
                             by skipping  the fields that aren't there.
                             """
-                            if str(attribute['code']) == 'gift_message_available' and product_rec['id'] == 924:
-                                import pudb
-                                pudb.set_trace()
                             if hasattr(product_rec, prefix + str(attribute['code'])):
+                                """ checking the attribute type"""
+
+                                odoo_type = magento_to_odoo_type_mapping[attribute['type']]
+                                if odoo_type == 'Boolean':
+                                    data_to_write == bool(prd_info[attribute['code']])
+                                elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
+                                    _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
+                                    continue
+                                elif odoo_type == in ['Date']:
+                                    _logger_debug('FOR NOW SKIPPING DATES , test puropses')
+                                    continue
+                                else:
+                                    data_to_write = prd_info[attribute['code']]
                                 product_rec.write(
                                     {
-                                     prefix + str(attribute['code']): 
-                                     prd_info[attribute['code']]
+                                     prefix + str(attribute['code']): data_to_write
                                     }
                                 )
-                        except:
+                        except e:
+                            _logger.exception('exception - logging %s',e)
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute %s write failed for product %s',
                                 prefix + str(attribute['code']), 
@@ -130,13 +140,24 @@ def post_init_hook(cr, registry):
                                         attr_rel[attribute['code']][2])
                                 ][0]
                             if hasattr(product_rec, prefix + field_to_copy_to):
+                                odoo_type = magento_to_odoo_type_mapping[attribute['type']]
+                                if odoo_type == 'Boolean':
+                                    data_to_write == bool(prd_info[attribute['code']])
+                                elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
+                                    _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type))) 
+                                    continue
+                                elif odoo_type == in ['Date']:
+                                    _logger_debug('FOR NOW SKIPPING DATES')
+                                    continue
+                                else:
+                                    data_to_write = prd_info[attribute['code']]
                                 product_rec.write(
                                     {
-                                    prefix + field_to_copy_to : 
-                                        prd_info[attribute['code']]
+                                     prefix + field_to_copy_to : data_to_write
                                     }
                                 )
-                        except:
+                        except e:
+                            _logger.exception('exception - logging %s',e)
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute from %s COPY to %s failed for product %s',
                                 prefix + str(attribute['code']), 
