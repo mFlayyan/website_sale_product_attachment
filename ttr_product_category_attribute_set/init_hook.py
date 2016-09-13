@@ -13,10 +13,10 @@ def post_init_hook(cr, registry):
     # replace subdir with absolute path on server, is currently set for my local position.
 
     scriptfile = misc.file_open(
-        'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py' 
+        'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py'
     )
     support_script = imp.load_module(
-        'create_magfields_definition_and_data', 
+        'create_magfields_definition_and_data',
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
     all_odoo_products = registry['product.template'].search(cr, SUPERUSER_ID, [])
@@ -36,11 +36,11 @@ def post_init_hook(cr, registry):
 
     """
     fetching the magento_sku does not map correctly using product name.
-    the migrated database has incopatible SKU'S with the SKUS i find in 
+    the migrated database has incopatible SKU'S with the SKUS i find in
     website.
     """
     cr.execute("select id, name from product_template")
-    product_name_association = dict(cr.fetchall())   
+    product_name_association = dict(cr.fetchall())
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt().catalog_product.list()
 
@@ -92,14 +92,16 @@ def post_init_hook(cr, registry):
             for attribute in prd_attributes:
                 if attribute['code'] in prd_info.keys() and  attribute['code'] in  product_rec._fields:
                     if attr_rel[attribute['code']][2] == 'DELETE':
-                        pass
+                        continue
+                    # manage fields transfer or keep fields
                     elif attr_rel[attribute['code']][2] == 'KEEP' or attr_rel[attribute['code']][2].isdigit():
-                        try:      
-                            # note is this the best way to search inside 
+                        #_logger.debug('ATTRIBUTE %s IS KEEP OR DIGIT(move) %s', attribute , attr_rel[attribute['code']][2])
+                        try:
+                            # note is this the best way to search inside
                             # a dict?
                             if attr_rel[attribute['code']][2].isdigit():
                                 field_to_copy_to = \
-                                    [a for a in attr_rel.keys() if 
+                                    [a for a in attr_rel.keys() if
                                         attr_rel[a][0] == int(
                                             attr_rel[attribute['code']][2])
                                     ]
@@ -110,13 +112,15 @@ def post_init_hook(cr, registry):
                             else:
                                 field_to_copy_to = [prefix + str(
                                     attribute['code'])]
-                                
+
 
                             odoo_type = magento_to_odoo_type_mapping[attribute['type']]
 
+                            data_to_write = prd_info[attribute['code']]
+
                             if odoo_type == 'Boolean':
-                                data_to_write == bool(prd_info[attribute['code']])
-                            elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
+                                data_to_write == bool(data_to_write)
+                            elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']:
                                 _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
                                 continue
                             elif odoo_type in ['Selection']:
@@ -124,49 +128,57 @@ def post_init_hook(cr, registry):
                                 """this is cool"""
                                 if callable(product_rec._fields[attribute['code']].selection):
                                    odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
+                                   _logger.debug("GOTTA CALLABLE SELECTION")
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
-                                elif type(product_rec._fields[attriute['code']].selection) == 'str': 
-                                   odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
-                                else:              
-                                   odoo_selection =  product_rec._fields[prefix+field_to_copy_to[0]].selection[1]
-                                """ 
+                                elif type(product_rec._fields[attriute['code']].selection) == 'str':
+                                    _logger.debug("GOTTA STR SELECTION")
+                                    odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
+                                else:
+                                    _logger.debug("GOTTA NORMAL SELECTION")
+                                    odoo_selection =  product_rec._fields[prefix+field_to_copy_to[0]].selection[1]
+                                """
                                 the Selection field would fail for integer indexes.
                                 integer indexed selection fields where individuated by size-1
                                 but I could not access that attribute. checking type of first selection
                                 """
-                                if type([odoo_selection][1]) == 'int':
+                                if type([odoo_selection][0]) == 'int':
+                                    _logger.debug('INTEGER SELECTION MANAGE %s -- %s', data_to_write,  field_to_copy_to[0])
                                     data_to_write = int(data_to_write)
-                            else:
-                                data_to_write = prd_info[attribute['code']]
 
                             product_rec.write(
                                 {
-                                 prefix + field_to_copy_to[0] : data_to_write
+                                 field_to_copy_to[0] : data_to_write
                                 }
                             )
+                            #_logger.debug('WRITTEN %s IN FIELD %s', data_to_write,  field_to_copy_to[0])
                         except e:
                             _logger.exception('exception - logging %s',e)
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute from %s COPY to %s failed for product %s',
-                                prefix + str(attribute['code']), 
+                                prefix + str(attribute['code']),
                                 prefix + str(field_to_copy_to[0]),
                                 str(product_rec['name']) + ' id:'+ str(
                                     product_rec['id']
                                 )
                             )
                     else:
+                        #managing specific transitions (weight and price)
+                        if prefix + str(attribute['code']) == 'ttr_price':
+                            continue
+                        """
                         _logger.debug(
                                 'DATA_IMPORT_LOG: attribute %s has a specific policy: \" %s \" -- TODO',
                             prefix + str(attribute['code']),
                             attr_rel[attribute['code']][2],
                             )
+                        """
                 if not attribute['code'] in  product_rec._fields:
                     continue
                     """
                     #THese are all the deleted attributes.
                     _logger.debug(
-                        'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s', 
+                        'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s',
                         attribute['code'],
                         product_rec.name,
                         product
@@ -174,14 +186,14 @@ def post_init_hook(cr, registry):
                     """
         else:
             _logger.debug(
-                "DATA_IMPORT_LOG: product %s not found on website", 
+                "DATA_IMPORT_LOG: product %s not found on website",
                 str(product)
             )
 
         _logger.debug(
-           'DATA_IMPORT_LOG: done product:%s --- %s/%s', 
-            str(product), 
-            cur_product_len, 
+           'DATA_IMPORT_LOG: done product:%s --- %s/%s',
+            str(product),
+            cur_product_len,
             len(all_odoo_products)
             )
 
