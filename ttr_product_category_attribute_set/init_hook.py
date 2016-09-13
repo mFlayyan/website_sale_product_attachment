@@ -90,7 +90,7 @@ def post_init_hook(cr, registry):
             #scan all attributes, and then use migration policy fetched from
             #import script ( so we have complete consistency)
             for attribute in prd_attributes:
-                if attribute['code'] in prd_info.keys():
+                if attribute['code'] in prd_info.keys() and  attribute['code'] in  product_rec._fields:
                     if attr_rel[attribute['code']][2] == 'DELETE':
                         pass
                     elif attr_rel[attribute['code']][2] == 'KEEP':
@@ -110,17 +110,18 @@ def post_init_hook(cr, registry):
                             elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
                                 _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
                                 continue
-                            elif odoo_type in ['Date']:
-                                _logger.debug('FOR NOW SKIPPING DATES , test puropses')
-                                continue
                             elif odoo_type in ['Selection']:
+                                if product == 866:
+                                    import pudb
+                                    pudb.set_trace()
                                 """ 
                                 the Selection field would fail for integers.
                                 integer indexed selection fields where individuated by size-1
                                 but I could not access that attribute. checking type of first selection
                                 """
+
                                 if type(
-                                        product_rec._fields[prefix+field_to_copy_to[0]].selection[1][1
+                                        product_rec._fields[attribute['code']].selection[1][1
                                             ]) == 'int':
                                     data_to_write = int(prd_info[attribute['code']])
                             else:
@@ -156,10 +157,11 @@ def post_init_hook(cr, registry):
                             elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
                                 _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
                                 continue
-                            elif odoo_type in ['Date']:
-                                _logger.debug('FOR NOW SKIPPING DATES , test puropses')
-                                continue
                             elif odoo_type in ['Selection']:
+                                """managing case of lambda functions in select"""
+                                """this is cool"""
+                                if callable(product_rec._fields[attriute['code']].selection):
+                                    product_rec._fields[attribute['code']].selection(product_rec)
                                 """ 
                                 the Selection field would fail for integers.
                                 integer indexed selection fields where individuated by size-1
@@ -188,22 +190,26 @@ def post_init_hook(cr, registry):
                             )
                     else:
                         _logger.debug(
-                                'DATA_IMPORT_LOG: attribute %s has a specific policy %s -- TODO',
+                                'DATA_IMPORT_LOG: attribute %s has a specific policy: \" %s \" -- TODO',
                             prefix + str(attribute['code']),
                             attr_rel[attribute['code']][2],
                             )
+                if not attribute['code'] in  product_rec._fields:
+                    continue
+                    """
+                    #THese are all the deleted attributes.
+                    _logger.debug(
+                        'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s', 
+                        attribute['code'],
+                        product_rec.name,
+                        product
+                    )
+                    """
         else:
-            if not hasattr(product_rec, 'name'):
-                _logger.debug(
-                    'DATA_IMPORT_LOG: odoo product failed. pr:%s id:%s', 
-                    product_rec,
-                    product
-                )
-            else:
-                _logger.debug(
-                    "DATA_IMPORT_LOG: product %s not found on website", 
-                    str(product)
-                )
+            _logger.debug(
+                "DATA_IMPORT_LOG: product %s not found on website", 
+                str(product)
+            )
 
         _logger.debug(
            'DATA_IMPORT_LOG: done product:%s --- %s/%s', 
