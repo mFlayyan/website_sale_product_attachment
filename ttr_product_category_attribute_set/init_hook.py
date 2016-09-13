@@ -113,7 +113,7 @@ def post_init_hook(cr, registry):
                                 elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
                                     _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type)))
                                     continue
-                                elif odoo_type == in ['Date']:
+                                elif odoo_type in ['Date']:
                                     _logger_debug('FOR NOW SKIPPING DATES , test puropses')
                                     continue
                                 else:
@@ -146,7 +146,7 @@ def post_init_hook(cr, registry):
                                 elif odoo_type in ['Unknown', 'undecided_price', 'undecided_multiselect', 'undecided_media_image']: 
                                     _logger.debug("Found an Unknown field: %s , type: %s",  prefix + str(attribute['code'], str(odoo_type))) 
                                     continue
-                                elif odoo_type == in ['Date']:
+                                elif odoo_type in ['Date']:
                                     _logger_debug('FOR NOW SKIPPING DATES')
                                     continue
                                 else:
