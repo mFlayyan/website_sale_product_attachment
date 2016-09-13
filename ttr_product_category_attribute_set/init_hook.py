@@ -69,10 +69,9 @@ def post_init_hook(cr, registry):
             prd_attributes = support_script.connect_tt(
                 ).catalog_product_attribute.list(prd_info['set']
             )
-
             _logger.debug(
                'DATA_IMPORT_LOG: Starting data import for product %s , id %s',
-                product_rec.name,
+                str(product_rec.name),
                 product_rec.id
             )
             #assign the set find it through a generator expression
@@ -98,13 +97,16 @@ def post_init_hook(cr, registry):
                         try:
                             """
                             all hasattr statements should be unecessary.
-                            They are with fresh data.
-                            But I am adding them to add solidity to the hook in case 
-                            the generated data has became old.
-                            Generating Models.py and Data.xml is a long process.
-                            we will be able to test more quickly by skipping 
-                            the fields that aren't there.
+                            If the module has freah data.
+                            But I am adding them to add solidity to the hook
+                            in case the generated data has became old.
+                            Generating Models.py and Data.xml is a long 
+                            process. We will be able to test more quickly 
+                            by skipping  the fields that aren't there.
                             """
+                            if str(attribute['code']) == 'gift_message_available' and product_rec['id'] == 924:
+                                import pudb
+                                pudb.set_trace()
                             if hasattr(product_rec, prefix + str(attribute['code'])):
                                 product_rec.write(
                                     {
@@ -149,9 +151,18 @@ def post_init_hook(cr, registry):
                             prefix + str(attribute['code']),
                             attr_rel[attribute['code']][2],
                             )
-
         else:
-            _logger.debug("DATA_IMPORT_LOG: product %s NOT FOUND ON WEBSITE", str(product))
+            if not hasattr(product_rec, 'name'):
+                _logger.debug(
+                    'DATA_IMPORT_LOG: odoo product failed. pr:%s id:%s', 
+                    product_rec,
+                    product
+                )
+            else:
+                _logger.debug(
+                    "DATA_IMPORT_LOG: product %s not found on website", 
+                    str(product)
+                )
 
         _logger.debug(
            'DATA_IMPORT_LOG: done product:%s --- %s/%s', 
