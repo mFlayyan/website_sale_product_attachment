@@ -5,6 +5,7 @@ from openerp import SUPERUSER_ID
 from openerp.tools import misc
 import imp
 import logging
+from inspect import isfunction
 
 _logger = logging.getLogger(__name__)
 
@@ -69,11 +70,13 @@ def post_init_hook(cr, registry):
             prd_attributes = support_script.connect_tt(
                 ).catalog_product_attribute.list(prd_info['set']
             )
+            """
             _logger.debug(
                'DATA_IMPORT_LOG: Starting data import for product %s , id %s',
-                str(product_rec.name),
+                str(product_rec.name).encode("utf-8"),
                 product_rec.id
             )
+            """
             #assign the set find it through a generator expression
             category = (
                 item for item in prd_sets if item['set_id'] == prd_info['set']
@@ -106,7 +109,9 @@ def post_init_hook(cr, registry):
                                             attr_rel[attribute['code']][2])
                                     ]
                                 if not field_to_copy_to:
+                                    """
                                     _logger.debug('IMPORTANT: not found with id %s , the field %s should be copied there', attr_rel[attribute['code']][2], attribute['code'])
+                                    """
                                     continue
 
                             else:
@@ -126,16 +131,16 @@ def post_init_hook(cr, registry):
                             elif odoo_type in ['Selection']:
                                 """managing case of lambda functions in select"""
                                 """this is cool"""
-                                if callable(product_rec._fields[attribute['code']].selection):
+                                if isfunction(product_rec._fields[attribute['code']].selection):
                                    odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
-                                   _logger.debug("GOTTA CALLABLE SELECTION")
+                                   _logger.debug("GOT CALLABLE SELECTION")
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
                                 elif type(product_rec._fields[attriute['code']].selection) == 'str':
-                                    _logger.debug("GOTTA STR SELECTION")
+                                    _logger.debug("GOT STR SELECTION")
                                     odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
                                 else:
-                                    _logger.debug("GOTTA NORMAL SELECTION")
+                                    _logger.debug("GOT NORMAL SELECTION")
                                     odoo_selection =  product_rec._fields[prefix+field_to_copy_to[0]].selection[1]
                                 """
                                 the Selection field would fail for integer indexes.
@@ -153,6 +158,7 @@ def post_init_hook(cr, registry):
                             )
                             #_logger.debug('WRITTEN %s IN FIELD %s', data_to_write,  field_to_copy_to[0])
                         except e:
+                            """
                             _logger.exception('exception - logging %s',e)
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute from %s COPY to %s failed for product %s',
@@ -162,6 +168,7 @@ def post_init_hook(cr, registry):
                                     product_rec['id']
                                 )
                             )
+                            """
                     else:
                         #managing specific transitions (weight and price)
                         if prefix + str(attribute['code']) == 'ttr_price':
@@ -185,16 +192,18 @@ def post_init_hook(cr, registry):
                     )
                     """
         else:
+            """
             _logger.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
                 str(product)
             )
-
+            """
+        """
         _logger.debug(
            'DATA_IMPORT_LOG: done product:%s --- %s/%s',
             str(product),
             cur_product_len,
             len(all_odoo_products)
             )
-
+        """
     _logger.debug('DATA_IMPORT_LOG: ALL DONE')
