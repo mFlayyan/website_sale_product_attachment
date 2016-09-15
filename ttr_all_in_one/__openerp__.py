@@ -13,6 +13,7 @@
         # 'ttr_sale',
         'ttr_stock',
         'ttr_product',
+        'ttr_product_category_attribute_set'        
     ],
     'installable': True,
 }
