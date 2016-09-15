@@ -10,7 +10,6 @@
     'depends': [
         'base',
         'sale',
-        'base_sale_multichannels',
     ],
     'update_xml': [
         'view/sale_view.xml',
