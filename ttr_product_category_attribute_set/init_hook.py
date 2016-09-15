@@ -12,8 +12,6 @@ _logger = logging.getLogger(__name__)
 
 
 def post_init_hook(cr, registry):
-    dbname = cr.dbname
-    user = cr._cnx.dsn.split("user=",1)[1]
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py'
     )
