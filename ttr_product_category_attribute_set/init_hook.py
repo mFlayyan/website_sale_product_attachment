@@ -9,6 +9,8 @@ from inspect import isfunction
 
 _logger = logging.getLogger(__name__)
 
+
+
 def post_init_hook(cr, registry):
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py'
@@ -127,12 +129,14 @@ def post_init_hook(cr, registry):
                                 continue
                             elif odoo_type in ['Selection']:
                                 """managing case of lambda functions in select"""
-                                if isfunction(product_rec._fields[attribute['code']].selection):
+                                test_lambda_func = lambda:0
+                                selection = product_rec._fields[attribute['code']].selection 
+                                if  isinstance(selection, type(test_lambda_func)) and selection.__name__ == test_lambda_func.__name__:
                                    odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
                                    _logger.debug("GOT CALLABLE SELECTION")
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
-                                elif type(product_rec._fields[attribute['code']]].selection) == 'str':
+                                elif type(selection) == 'str':
                                     _logger.debug("GOT STR SELECTION")
                                     odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
                                 else:
