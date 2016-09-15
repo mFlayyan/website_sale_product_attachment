@@ -53,6 +53,10 @@ def post_init_hook(cr, registry):
     prd_sets = support_script.connect_tt(
 	cr=cr).catalog_product_attribute_set.list()
     cur_product_len = 0
+    norm_selections = 0
+    callable_selections = 0
+    str_selections = 0
+    not_found = 0
     for product in all_odoo_products:
         cur_product_len += 1
         product_rec = registry['product.template'].browse(
@@ -134,18 +138,20 @@ def post_init_hook(cr, registry):
                             elif odoo_type in ['Selection']:
                                 """managing case of lambda functions in select"""
                                 test_lambda_func = lambda:0
-                                selection = product_rec._fields[attribute['code']].selection
+                                selection = product_rec._fields[field_to_copy_to[0]].selection
                                 if  isinstance(selection, type(test_lambda_func)) and selection.__name__ == test_lambda_func.__name__:
-                                   odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
-                                   _logger.debug("GOT CALLABLE SELECTION")
+                                   odoo_selection = product_rec._fields[field_to_copy_to[0]].selection(product_rec)
+                                   callable_selections += 1 
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
                                 elif type(selection) == 'str':
                                     _logger.debug("GOT STR SELECTION")
-                                    odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
+                                    odoo_selection = eval(product_rec._fields[field_to_copyto[0]].selection(product_rec))
+                                    str_selections += 1 
                                 else:
                                     _logger.debug("GOT NORMAL SELECTION")
-                                    odoo_selection =  product_rec._fields[prefix+field_to_copy_to[0]].selection[1]
+                                    odoo_selection =  product_rec._fields[field_to_copy_to[0]].selection[1]
+                                    norm_selections +=1
                                 """
                                 the Selection field would fail for integer indexes.
                                 integer indexed selection fields where individuated by size-1
@@ -162,7 +168,6 @@ def post_init_hook(cr, registry):
                             )
                             #_logger.debug('WRITTEN %s IN FIELD %s', data_to_write,  field_to_copy_to[0])
                         except e:
-                            """
                             _logger.exception('exception - logging %s',e)
                             _logger.debug(
                                 'DATA_IMPORT_LOG: attribute from %s COPY to %s failed for product %s',
@@ -172,7 +177,6 @@ def post_init_hook(cr, registry):
                                     product_rec['id']
                                 )
                             )
-                            """
                     else:
                         if prefix + str(attribute['code']) == 'ttr_price':
                             data_to_write = prd_info[attribute['code']]
@@ -199,7 +203,7 @@ def post_init_hook(cr, registry):
                 if not attribute['code'] in  product_rec._fields:
                     continue
                     """
-                    #THese are all the deleted attributes.
+                    # THese are all the deleted attributes.
                     _logger.debug(
                         'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s',
                         attribute['code'],
@@ -214,6 +218,7 @@ def post_init_hook(cr, registry):
                 str(product)
             )
             """
+            not_found += 1
         if cur_product_len % 100 == 0:
             _logger.debug(
                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
@@ -221,4 +226,8 @@ def post_init_hook(cr, registry):
                 cur_product_len,
                 len(all_odoo_products)
             )
-    _logger.debug('DATA_IMPORT_LOG: ALL DONE')
+    _logger.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
+                  'normal selection fields %s -- string selection fields %s --'
+                  'fields not found on website %s', 
+                  callable_selections, str_selections, norm_selections,
+                  not_found)
