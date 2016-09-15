@@ -12,6 +12,8 @@ _logger = logging.getLogger(__name__)
 
 
 def post_init_hook(cr, registry):
+    dbname = cr.dbname
+    user = cr._cnx.dsn.split("user=",1)[1]
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py'
     )
@@ -42,12 +44,14 @@ def post_init_hook(cr, registry):
     cr.execute("select id, name from product_template")
     product_name_association = dict(cr.fetchall())
     # Get all product on website, with sku , name and id
-    product_list_complete = support_script.connect_tt().catalog_product.list()
+    product_list_complete = support_script.connect_tt(
+	dbname, user).catalog_product.list()
 
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
     # Get all the attribute sets from website (already exist as odoo categories)
-    prd_sets = support_script.connect_tt().catalog_product_attribute_set.list()
+    prd_sets = support_script.connect_tt(
+	dbname, user).catalog_product_attribute_set.list()
     cur_product_len = 0
     for product in all_odoo_products:
         cur_product_len += 1
@@ -62,12 +66,12 @@ def post_init_hook(cr, registry):
                 ]
         if mag_product:
             prd_info = support_script.connect_tt(
-                ).catalog_product.info(
+               dbname, user).catalog_product.info(
                     mag_product[0]['product_id']
             )
             # get the attribute list of the products set
             prd_attributes = support_script.connect_tt(
-                ).catalog_product_attribute.list(prd_info['set']
+               dbname, user).catalog_product_attribute.list(prd_info['set']
             )
             """
             _logger.debug(
