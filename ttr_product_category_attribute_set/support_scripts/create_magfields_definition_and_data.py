@@ -403,47 +403,44 @@ prefix = "ttr_"
 
 import sys
 
-def connect_tt(dbname, user):
-
+def connect_tt(cr=None): 
     from magento import MagentoAPI
-    import psycopg2
     
     """ 
     if connecting from odoo pass db and user
     if called via command line fetch from command line.
     """
-    con = None
     try:
-	connectionstring = "dbname=%s user=%s" % (dbname, user)
-	con = psycopg2.connect(connectionstring)   
-	
-	cur = con.cursor()
 	sql = "SELECT location, apiusername, apipass FROM external_referential"
-        cur.execute(sql)
-	location, apiusername, apipass = cur.fetchall()[0]
+        cr.execute(sql)
+	location, apiusername, apipass = cr.fetchall()[0]
         import re
-        location = re.sub('http://','', location) 
-        location = location[:-1]
-    except psycopg2.DatabaseError, e:
-	if con:
-	    con.rollback()	
-	print 'Error %s' % e    
-	sys.exit(1)	
-    finally:
-	if con:
-	    con.close()
-    magento = MagentoAPI(
-	      location, '80',
-	      apiusername, apipass
-	    )
-    return magento
+        location = re.sub('http://','', location)[:-1] 
+        magento = MagentoAPI(
+                  location, '80',
+                  apiusername, apipass
+                )
+        return magento
+    except:
+        return
 
+
+def connect_tt_db_user(dbname, user):
+    import psycopg2
+    try:
+        con = None
+        connectionstring = "dbname=%s user=%s" % (dbname, user)
+	con = psycopg2.connect(connectionstring)   
+	cur = con.cursor()
+        return connect_tt(cr=cur)
+    except:
+        return
 
 
 if __name__ == "__main__":
     dbname = sys.argv[1]
     user = sys.argv[2]
-    magento = connect_tt(dbname, user)
+    magento = connect_tt_db_user(dbname, user)
 
     attribute_sets = magento.catalog_product_attribute_set.list()
 

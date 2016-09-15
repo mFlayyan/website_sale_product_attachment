@@ -45,13 +45,13 @@ def post_init_hook(cr, registry):
     product_name_association = dict(cr.fetchall())
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt(
-	dbname, user).catalog_product.list()
+	cr=cr).catalog_product.list()
 
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
     # Get all the attribute sets from website (already exist as odoo categories)
     prd_sets = support_script.connect_tt(
-	dbname, user).catalog_product_attribute_set.list()
+	cr=cr).catalog_product_attribute_set.list()
     cur_product_len = 0
     for product in all_odoo_products:
         cur_product_len += 1
@@ -66,12 +66,12 @@ def post_init_hook(cr, registry):
                 ]
         if mag_product:
             prd_info = support_script.connect_tt(
-               dbname, user).catalog_product.info(
+               cr=cr).catalog_product.info(
                     mag_product[0]['product_id']
             )
             # get the attribute list of the products set
             prd_attributes = support_script.connect_tt(
-               dbname, user).catalog_product_attribute.list(prd_info['set']
+               cr=cr).catalog_product_attribute.list(prd_info['set']
             )
             """
             _logger.debug(
