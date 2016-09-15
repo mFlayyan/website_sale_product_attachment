@@ -10,9 +10,6 @@ from inspect import isfunction
 _logger = logging.getLogger(__name__)
 
 def post_init_hook(cr, registry):
-
-    # replace subdir with absolute path on server, is currently set for my local position.
-
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py'
     )
@@ -20,7 +17,7 @@ def post_init_hook(cr, registry):
         'create_magfields_definition_and_data',
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
-    all_odoo_products = registry['product.template'].search(cr, SUPERUSER_ID, [])
+    all_odoo_products = registry['product.template'].search(cr, SUPERUSER_ID, [] )
 
     """
     fetch all products. at that point assign to the product the correct internal
@@ -130,13 +127,12 @@ def post_init_hook(cr, registry):
                                 continue
                             elif odoo_type in ['Selection']:
                                 """managing case of lambda functions in select"""
-                                """this is cool"""
                                 if isfunction(product_rec._fields[attribute['code']].selection):
                                    odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
                                    _logger.debug("GOT CALLABLE SELECTION")
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
-                                elif type(product_rec._fields[attriute['code']].selection) == 'str':
+                                elif type(product_rec._fields[attribute['code']]].selection) == 'str':
                                     _logger.debug("GOT STR SELECTION")
                                     odoo_selection = eval(product_rec._fields[attribute['code']].selection(product_rec))
                                 else:
@@ -170,16 +166,12 @@ def post_init_hook(cr, registry):
                             )
                             """
                     else:
-                        #managing specific transitions (weight and price)
-                        if prefix + str(attribute['code']) == 'ttr_price':
-                            continue
-                        """
+                        #managing specific transitions (weight and price are mostly the ones.)
                         _logger.debug(
                                 'DATA_IMPORT_LOG: attribute %s has a specific policy: \" %s \" -- TODO',
-                            prefix + str(attribute['code']),
+                                prefix + str(attribute['code']),
                             attr_rel[attribute['code']][2],
                             )
-                        """
                 if not attribute['code'] in  product_rec._fields:
                     continue
                     """
@@ -198,12 +190,11 @@ def post_init_hook(cr, registry):
                 str(product)
             )
             """
-        """
-        _logger.debug(
-           'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-            str(product),
-            cur_product_len,
-            len(all_odoo_products)
+        if cur_product_len % 100 == 0:
+            _logger.debug(
+               'DATA_IMPORT_LOG: done product:%s --- %s/%s',
+                str(product),
+                cur_product_len,
+                len(all_odoo_products)
             )
-        """
     _logger.debug('DATA_IMPORT_LOG: ALL DONE')
