@@ -130,7 +130,7 @@ def post_init_hook(cr, registry):
                             elif odoo_type in ['Selection']:
                                 """managing case of lambda functions in select"""
                                 test_lambda_func = lambda:0
-                                selection = product_rec._fields[attribute['code']].selection 
+                                selection = product_rec._fields[attribute['code']].selection
                                 if  isinstance(selection, type(test_lambda_func)) and selection.__name__ == test_lambda_func.__name__:
                                    odoo_selection = product_rec._fields[attribute['code']].selection(product_rec)
                                    _logger.debug("GOT CALLABLE SELECTION")
@@ -170,6 +170,22 @@ def post_init_hook(cr, registry):
                             )
                             """
                     else:
+                        if prefix + str(attribute['code']) == 'ttr_price':
+                            data_to_write = prd_info[attribute['code']]
+                            product_rec.write(
+                                {
+                                 'price' : data_to_write
+                                }
+                            )
+			    continue
+                        if prefix + str(attribute['code']) == 'ttr_weight':
+                            data_to_write = prd_info[attribute['code']]
+                            product_rec.write(
+                                {
+                                 'weight' : data_to_write
+                                }
+                            )
+			    continue
                         #managing specific transitions (weight and price are mostly the ones.)
                         _logger.debug(
                                 'DATA_IMPORT_LOG: attribute %s has a specific policy: \" %s \" -- TODO',
