@@ -143,11 +143,9 @@ def post_init_hook(cr, registry):
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
                                 elif type(selection) == 'str':
-                                    _logger.debug("GOT STR SELECTION")
                                     odoo_selection = eval(product_rec._fields[field_to_copyto[0]].selection(product_rec))
                                     str_selections += 1 
                                 else:
-                                    _logger.debug("GOT NORMAL SELECTION")
                                     odoo_selection =  product_rec._fields[field_to_copy_to[0]].selection[1]
                                     norm_selections +=1
                                 """
