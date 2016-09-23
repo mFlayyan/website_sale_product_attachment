@@ -11,19 +11,21 @@ _logger = logging.getLogger(__name__)
 
 
 
-def post_init_hook(cr, registry):
+def post_init_hook(cr, pool):
+    env = Environment(cr, SUPERUSER_ID, {})
     scriptfile = misc.file_open(
-        'ttr_product_category_attribute_set/support_scripts/create_magfields_definition_and_data.py'
+        'ttr_product_category_attribute_set/support_scripts/'
+        'create_magfields_definition_and_data.py'
     )
     support_script = imp.load_module(
         'create_magfields_definition_and_data',
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
-    all_odoo_products = registry['product.template'].search(cr, SUPERUSER_ID, [] )
+    all_odoo_products = env['product.template'].sudo().search([])
 
     """
-    fetch all products. at that point assign to the product the correct internal
-    category.
+    fetch all products. at that point assign to the product the correct 
+    internal category.
     every product will  have values for it's attibutes.
     how to connect a product with the magento product?
     i think they still have a SKU.
@@ -47,7 +49,7 @@ def post_init_hook(cr, registry):
 
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
-    # Get all the attribute sets from website (already exist as odoo categories)
+    # Get all the attribute sets from website(already exist as odoo categories)
     prd_sets = support_script.connect_tt(
 	cr=cr).catalog_product_attribute_set.list()
     cur_product_len = 0
@@ -55,11 +57,8 @@ def post_init_hook(cr, registry):
     callable_selections = 0
     str_selections = 0
     not_found = 0
-    for product in all_odoo_products:
+    for product_rec in all_odoo_products:
         cur_product_len += 1
-        product_rec = registry['product.template'].browse(
-            cr, SUPERUSER_ID, product
-        )
         # get the magento product confronting it by name
         mag_product = [
                 e for e in product_list_complete if e[
@@ -86,9 +85,13 @@ def post_init_hook(cr, registry):
             category = (
                 item for item in prd_sets if item['set_id'] == prd_info['set']
             ).next()
-            #get the category (Already existing)
-            category_odoo = registry['ir.model.data'].get_object_reference(
-                cr, SUPERUSER_ID, prefix + 'product_category_attribute_set',
+            """
+            get the category (Already existing)
+            (model, object id) using the same formatting stream used in 
+            creation of data.xml
+            """
+            category_odoo = env['ir.model.data'].get_object_reference(
+                prefix + 'product_category_attribute_set',
                 'cat_' + prefix + 'attribute_' + category['name'].replace(
                     " ", "_").replace("/","_").replace("-","_").replace(
                         '&', '_and_').lower()

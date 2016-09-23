@@ -58,7 +58,7 @@ class ProductProduct(models.Model):
 
     @api.model
     def fields_view_get(
-            self, view_id, view_type='form', toolbar=False, submenu=False):
+            self, view_id=None, view_type='form', toolbar=False, submenu=False):
         res_original = super(ProductProduct, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu
@@ -75,7 +75,7 @@ class ProductTemplate(models.Model):
 
     @api.model
     def fields_view_get(
-            self, view_id, view_type='form', toolbar=False, submenu=False):
+            self, view_id=None, view_type='form', toolbar=False, submenu=False):
         res_original = super(ProductTemplate, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar, 
             submenu=submenu

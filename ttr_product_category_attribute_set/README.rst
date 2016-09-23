@@ -6,5 +6,5 @@
 Technotrading attribute sets on Product Category 
 ================================================
 
-    Extends Product category to have attribute sets for
-    emulating the old magento attribute groups.
+Extends Product category to have attribute sets for
+emulating the old magento attribute groups.
