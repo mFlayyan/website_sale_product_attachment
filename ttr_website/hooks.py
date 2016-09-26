@@ -12,6 +12,9 @@ def post_init_hook(cr, pool):
 def create_public_categories(env):
     """Bootstrap website categories with internal categories"""
     private2public = {}
+    magento_category = env['product.public.category'].create({
+        'name': 'Magento',
+    })
     for private_category in env['product.category'].search(
         [], order='parent_left'
     ):
@@ -21,7 +24,8 @@ def create_public_categories(env):
             'parent_id':
             private2public[private_category.parent_id].id
             if private_category.parent_id
-            else None,
+            else (None if private_category.name.istitle() else
+                  magento_category.id),
         })
         private2public[private_category] = public_category
         env['product.template'].search([
