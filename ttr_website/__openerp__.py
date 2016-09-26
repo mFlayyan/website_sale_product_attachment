@@ -18,8 +18,8 @@
         'website_sale',
     ],
     "data": [
+        "data/website.xml",
         "data/website_menu.xml",
         "views/templates.xml",
-        "data/website.xml",
     ],
 }
