@@ -1,0 +1,13 @@
+<openerp>
+  <data>
+    <template id="product_attachments" inherit_id="website_sale.product">
+      <xpath expr="//div[@class='col-sm-4']" position="before">
+	  <field name="attachments">attachments</field>
+	</xpath>
+    </template>
+  </data>
+</openerp>
+
+
+
+
