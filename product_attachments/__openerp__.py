@@ -7,7 +7,7 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "",
-    "depends": ['website_sale'],
+    "depends": ['website_sale', 'document'],
     "data": [
         'views/templates.xml',
         'views/attachements_view.xml',
