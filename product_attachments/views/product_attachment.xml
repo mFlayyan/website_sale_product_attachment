@@ -6,8 +6,7 @@
             <field name="inherit_id" ref="product.product_template_only_form_view" />
             <field name="arch" type="xml">
 	      <xpath expr="//page[@string='Information']" position="inside">
-		<h2> bebe </h2>
-	<!--	<field name="attachments" widget="many2many_tags"/> -->
+		<field name="attachments" widget="many2many_binary"/>
                 </xpath>
             </field>
         </record>

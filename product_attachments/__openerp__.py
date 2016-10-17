@@ -11,6 +11,7 @@
     "data": [
         'views/templates.xml',
         'views/attachements_view.xml',
+        'views/product_attachment.xml'
     ],
     "auto_install": False,
     "installable": True,
