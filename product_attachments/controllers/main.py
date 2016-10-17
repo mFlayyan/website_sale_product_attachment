@@ -12,15 +12,9 @@ class WebsiteSale(main.website_sale):
         )
 
         env = request.env
-        cr = request.cr
-        uid = request.uid
-        context = request.context
-
-        category_obj = env['product.public.category']
         template_obj = env['product.template']
         product = result.qcontext['product']
         attachments = template_obj.browse(int(product)).attachments
-
         result.qcontext.update({
             'attachments': attachments,
             "keep": main.QueryURL(

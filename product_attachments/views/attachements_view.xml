@@ -2,7 +2,11 @@
   <data>
     <template id="product_attachments" inherit_id="website_sale.product">
       <xpath expr="//div[@class='col-sm-4']" position="before">
-	  <field name="attachments">attachments</field>
+	<t t-foreach="attachments" t-as="a">
+	  <a t-att-href="a.url">
+	    <t t-esc="a.name"/>
+	    </a>
+	</t>
 	</xpath>
     </template>
   </data>
