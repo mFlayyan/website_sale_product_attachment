@@ -6,10 +6,9 @@
     "version": "9.0.1.0.0",
     "author": "Therp BV",
     "license": "AGPL-3",
-    "category": "",
+    "category": "Website",
     "depends": ['website_sale', 'document'],
     "data": [
-        'views/templates.xml',
         'views/attachements_view.xml',
         'views/product_attachment.xml'
     ],

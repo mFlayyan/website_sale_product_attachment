@@ -1,4 +1,6 @@
 from openerp import fields, models
+
+
 class ProductAttachment(models.Model):
     _inherit = "product.template"
     attachments = fields.Many2many(
