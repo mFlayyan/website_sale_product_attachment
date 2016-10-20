@@ -11,6 +11,12 @@ class WebsiteSale(main.website_sale):
         )
 
         product = result.qcontext['product']
+        base_url = http.request.env[
+            'ir.config_parameter'].get_param('web.base.url')
+        for attachment in product.attachments:
+            attachment.url = base_url + \
+                "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % attachment.id
+
         result.qcontext.update({
             'attachments': product.attachments,
         })
