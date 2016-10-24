@@ -10,7 +10,8 @@
     "depends": ['website_sale', 'document'],
     "data": [
         'views/attachements_view.xml',
-        'views/product_attachment.xml'
+        'views/product_attachment.xml',
+        'security/ir.model.access.csv',
     ],
     "auto_install": False,
     "installable": True,
