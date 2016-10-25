@@ -1,4 +1,4 @@
-from openerp import fields, models
+from openerp import fields, models, api
 
 
 
@@ -9,3 +9,22 @@ class ProductAttachment(models.Model):
         string='Attachments',
     )
 
+    @api.model
+    def create(self, vals):
+        rec = super(ProductAttachment, self).create(vals)
+        base_url = self.env[
+            'ir.config_parameter'].get_param('web.base.url')
+        rec.attachments.write({'url' : base_url +\
+                   "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % rec.attachments.id})
+        return rec
+
+    @api.model
+    def write(self, vals, context=None):
+        import pdb
+        pdb.set_trace()
+        rec = super(ProductAttachment, self).write(vals, context=
+        base_url = self.env[
+            'ir.config_parameter'].get_param('web.base.url')
+        rec.attachments.write({'url' : base_url +\
+                   "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % rec.attachments.id})
+        return rec
