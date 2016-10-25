@@ -18,13 +18,12 @@ class ProductAttachment(models.Model):
                    "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % rec.attachments.id})
         return rec
 
-    @api.model
+    @api.multi
     def write(self, vals, context=None):
         import pdb
         pdb.set_trace()
-        rec = super(ProductAttachment, self).write(vals, context=
-        base_url = self.env[
-            'ir.config_parameter'].get_param('web.base.url')
+        rec = super(ProductAttachment, self).write(vals, context=context)
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         rec.attachments.write({'url' : base_url +\
                    "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % rec.attachments.id})
         return rec
