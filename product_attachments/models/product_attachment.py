@@ -21,8 +21,10 @@ class ProductAttachment(models.Model):
     @api.multi
     def write(self, vals, context=None):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        self.attachments.write({'url' : base_url +\
-                   "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % self.attachments.id})
         result = super(ProductAttachment, self).write(vals, context=context)
+
+        for attachment in self.attachments:
+            res = attachment.write({'url': base_url +\
+                                "/web/binary/saveas?model=ir.attachment&field=datas&filename_field=datas_fname&id=%s" % attachment.id})
 
         return result
