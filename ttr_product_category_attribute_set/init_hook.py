@@ -63,7 +63,7 @@ def post_init_hook(cr, pool):
         mag_product = [
                 e for e in product_list_complete if e[
                     'name'
-                    ] == product_name_association.get(product_rec.id)
+                    ] == product_name_association[product]
                 ]
         if mag_product:
             prd_info = support_script.connect_tt(
@@ -221,7 +221,7 @@ def post_init_hook(cr, pool):
         if cur_product_len % 100 == 0:
             _logger.debug(
                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-                str(product_rec),
+                str(product),
                 cur_product_len,
                 len(all_odoo_products)
             )
