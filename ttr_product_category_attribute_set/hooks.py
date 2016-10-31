@@ -22,8 +22,19 @@ def pre_init_hook(cr):
         'create_magfields_definition_and_data',
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
-    support_script.generate_and_copy(cr=cr)
-
+    support_script.generate(cr=cr)
+    import os
+    path = os.path.dirname(os.path.abspath(__file__))
+    #must move file not to leave generated file around (would be extended on next install)
+    from shutil import move
+    move(
+	support_script.genpath + support_script.XMLDataFileName, 
+	support_script.datapath + support_script.XMLDataFileName
+    )
+    move(
+	support_script.genpath + support_script.DefinitionFileName, 
+	support_script.modelpath + support_script.DefinitionFileName
+    )
 	
 """
 after module init copy data in the fields, using

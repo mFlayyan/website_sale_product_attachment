@@ -456,7 +456,7 @@ def connect_tt_db_user(dbname, user):
         return
 
 
-def generate_and_copy(cr=None, dbname=None, user=None):
+def generate(cr=None, dbname=None, user=None):
     if user and dbname:
         magento = connect_tt_db_user(dbname, user)
     elif cr:
@@ -632,12 +632,6 @@ def generate_and_copy(cr=None, dbname=None, user=None):
     append_to_file(XMLDataFilePathAndName, XMLDatatemplate_post)
     print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
     print('Copying views and models in module locations')
-    import os
-    path = os.path.dirname(os.path.abspath(__file__))
-    #must move file not to leave generated file around (would be extended on next install)
-    from shutil import move
-    move(genpath + XMLDataFileName, datapath + XMLDataFileName)
-    move(genpath + DefinitionFileName, modelpath + DefinitionFileName)
     return True
 
 
@@ -648,8 +642,10 @@ def generate_and_copy(cr=None, dbname=None, user=None):
 # when uninstalled it uninstalles the same fields.
 # if we launch this manually after installation we may have problems
 # i had a 2 hour puzzle to figure this out.
+#MANUAL SCRIPT DOES NOT COPY ANYMORE.  SAFER.
+
 
 if __name__ == "__main__":
     dbname = sys.argv[1]
     user = sys.argv[2]
-    generate_and_copy(dbname=dbname, user=user)
+    generate(dbname=dbname, user=user)
