@@ -630,9 +630,6 @@ def generate(cr=None, dbname=None, user=None):
 
     XMLDatatemplate_post = "    </data>\n</openerp>"
     append_to_file(XMLDataFilePathAndName, XMLDatatemplate_post)
-    print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
-    print('Copying views and models in module locations')
-    return True
 
 
 # you can call this via command line, but it is not 
