@@ -270,43 +270,38 @@ class WebsiteSale(main.website_sale):
                     choice_values = [relation, relation_field, comodel_info]
                 """
                 attributes_dict[attr] = choice_values
-        extra_domain_product_template, extra_domain_product_product,\
-            extra_domain_subtitle = \
-            self._get_domain_for_cat_specific_attributes(
-                env, website_product_filter_attributes, search, post
-            )
+            extra_domain_product_template, extra_domain_product_product, \
+                extra_domain_subtitle = self._get_domain_for_cat_specific_attributes(
+                    env, website_product_filter_attributes, search, post)
         # if there are products coming from normal filtering do something extra
-        if result.qcontext['products']:
-            # get the product.products that satisfy the product domain.
-            filtered_pp = env['product.product'].search(
-                extra_domain_product_product
-            ).read(['product_tmpl_id'])
-            associated_templates = []
-            # generate a list of ids of the template ids of found products 
-            for pp in filtered_pp:
-                associated_templates.append(pp['product_tmpl_id'][0])
-            # apply on product.template extra filters
-            # 1. had to belong to associated templates,
-            # 2. has to satisfy extra_domain_templates
-            # 3. has to be in the previously returned product_template subset.
-            filtered_prods = env['product.template'].search(
+            if result.qcontext['products']:
+                # get the product.products that satisfy the product domain.
+                filtered_pp = env['product.product'].search(
+                extra_domain_product_product).read(['product_tmpl_id'])
+                associated_templates = []
+                 # generate a list of ids of the template ids of found products 
+                for pp in filtered_pp:
+                    associated_templates.append(pp['product_tmpl_id'][0])
+                # apply on product.template extra filters
+                # 1. had to belong to associated templates,
+                # 2. has to satisfy extra_domain_templates
+                # 3. has to be in the previously returned product_template subset.
+                filtered_prods = env['product.template'].search(
                 [('id', 'in', associated_templates)] +
                 extra_domain_product_template + [(
                     'id', 'in', result.qcontext['products'].ids)]
-            )
-            if ppg:
-                try:
-                    ppg = int(ppg)
-                except ValueError:
+                )
+                if ppg:
+                    try:
+                        ppg = int(ppg)
+                    except ValueError:
+                        ppg = main.PPG
+                        post["ppg"] = ppg
+                else:
                     ppg = main.PPG
-                post["ppg"] = ppg
-            else:
-                ppg = main.PPG
-            result.qcontext.update({
-                'products': filtered_prods,
-                'bins': main.table_compute().process(
-                    filtered_prods, ppg),
-                'extra_domain_subtitle': extra_domain_subtitle,
-                'filters': attributes_dict or None,
-                   })
+                result.qcontext.update({
+                    'products': filtered_prods,
+                    'bins': main.table_compute().process(filtered_prods, ppg),
+                    'extra_domain_subtitle': extra_domain_subtitle,
+                    'filters': attributes_dict or None,})
         return result
