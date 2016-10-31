@@ -1,0 +1,9 @@
+<openerp>
+    <data>
+   <!-- dummy data file that will be replaced by pre init hook.
+      odoo9 still does not have a pre register hook to allow me to do my stuff 
+      before the module is loaded in registry -->
+
+
+</data>
+</openerp>
