@@ -410,7 +410,7 @@ definition_template = ("# -*- coding: utf-8 -*-"
                        "\nfrom openerp import fields, models"
                        "\n"
                        "\n"
-                       "class ProductTemplate(models.Model):\n"
+                       "class ProductTemplateImp(models.Model):\n"
                        "    _inherit = 'product.template'\n")
 append_to_file(DefinitionFilePathAndName, definition_template)
 XMLDataFileName = 'imported_categories.xml'
