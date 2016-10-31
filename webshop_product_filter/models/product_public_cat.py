@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from openerp import fields, models
+
+
+class ProductPublicCategory(models.Model):
+    _inherit = "product.public.category"
+
+    """
+    in order to avoid problems when filtering,
+    we can exclude on the model level all types of fields that
+    don't make sense in a search:
+
+    available field types:
+        reference , datetime ,  many2many , text
+        monetary, selection, float,  binary,   one2many
+        char,  html, many2one ,  date ,   boolean, integer
+
+    types that don't really make sense in a websearch:
+
+        reference, binary, html?
+
+    NOTE: maybe a whitelist is more secure  #TODO
+    ASSIGNMENT: why is a whitelist more secure?
+    """
+
+    excluded_field_types = \
+        ['reference', 'binary', 'html', 'many2many', 'one2many']
+
+    # NOTE everything must be on product_template because the 
+    # webshop shows only product templates.
+    # everything a product_product has a product_template does too.
+    # Our client will not use variants, so product.product should be fine
+    # but if they decided to use it?
+    # i am doing it all on product.template for now. Super-easy to change after
+
+    category_attributes = fields.Many2many(
+        comodel_name='ir.model.fields',
+        string='categories',
+        domain=lambda self: [
+            ('model', '=', 'product.template'),
+            ('ttype', 'not in', self.excluded_field_types),
+        ]
+    )
