@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-         
 
+
+
 def search_in_file_XML(filename, str_to_search):
     try:
         file_obj = open(filename, 'r')
@@ -394,11 +396,28 @@ here we will save all attributes that where deleted, moved,
 not found in dict so to keep them out of the XML 
 references
 """
+import os
+# remove /odoo from end of path and leave just parts as rootpath
+genpath = '%s/technotrading/ttr_product_category_attribute_set/support_scripts/' %  os.path.dirname(os.path.abspath(__file__))
+modelpath  = '%s/technotrading/ttr_product_category_attribute_set/models/' %  os.path.dirname(os.path.abspath(__file__))
+datapath  = '%s/technotrading/ttr_product_category_attribute_set/data/' %  os.path.dirname(os.path.abspath(__file__))
 excluded_attrs = []
-
-DefinitionFileName = 'models.py'
-XMLDataFileName = 'data.xml'
-ExcludedFileName = 'excluded.py'
+DefinitionFileName = 'product_template_imported_fields.py'
+DefinitionFilePathAndName = genpath + DefinitionFileName
+definition_template = ("# -*- coding: utf-8 -*-"
+                       "\n# © 2016 Therp BV <http://therp.nl>"
+                       "\n# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)."
+                       "\nfrom openerp import fields, models"
+                       "\n"
+                       "\n"
+                       "class ProductTemplate(models.Model):\n"
+                       "    _inherit = 'product.template'\n")
+append_to_file(DefinitionFilePathAndName, definition_template)
+XMLDataFileName = 'imported_categories.xml'
+XMLDataFilePathAndName = genpath + XMLDataFileName 
+XMLDatatemplate_pre = "<openerp>\n    <data>\n"
+append_to_file(XMLDataFilePathAndName, XMLDatatemplate_pre)
+ExcludedFileName = genpath + 'excluded.py'
 prefix = "ttr_"
 
 import sys
@@ -437,14 +456,19 @@ def connect_tt_db_user(dbname, user):
         return
 
 
-if __name__ == "__main__":
-    dbname = sys.argv[1]
-    user = sys.argv[2]
-    magento = connect_tt_db_user(dbname, user)
-
+def generate_and_copy(cr=None, dbname=None, user=None):
+    if user and dbname:
+        magento = connect_tt_db_user(dbname, user)
+    elif cr:
+        magento = connect_tt(cr)
+    else:
+        return False
     attribute_sets = magento.catalog_product_attribute_set.list()
-
+    print("==== Module ttr_product_category post_init_hook: Starting import attribute sets from magento ====")
+    set_n=0
+    set_all = len(attribute_sets)
     for attribute_set in attribute_sets:
+        set_n += 1
         attributes = magento.catalog_product_attribute.list(
             [attribute_set['set_id']]
         )
@@ -453,7 +477,7 @@ if __name__ == "__main__":
             if attribute['type']:
                 field_mapping = []
                 attribute_in_file = search_in_file(
-                        DefinitionFileName, 
+                        DefinitionFilePathAndName, 
                         attribute['code'], 
                         prefix)
                         
@@ -484,8 +508,8 @@ if __name__ == "__main__":
                             """
                             if attribute['type'] != 'select':
                                 model_string = (
-                                    "%s = fields.%s(string='%s',"
-                                    " ttr_mag_attribute=True"
+                                    "    %s = fields.%s(string='%s',"
+                                    "ttr_mag_attribute=True"
                                         ) % (
                                        prefix + attribute['code'],  
                                         magento_to_odoo_type_mapping[attribute['type']],
@@ -503,9 +527,9 @@ if __name__ == "__main__":
                                         (x['value'], x['label']) for x in attribute_options
                                         ]
                                 model_string = (
-                                    "%s = fields.%s(string='%s', "
+                                    "    %s = fields.%s(string='%s', "
                                     "ttr_mag_attribute=True,\n                            "
-                                    "selection=%s") % (
+                                    "    selection=%s") % (
                                        prefix + attribute['code'],  
                                         magento_to_odoo_type_mapping[attribute['type']],
                                         attr_rel[attribute['code']][1],
@@ -513,21 +537,21 @@ if __name__ == "__main__":
                                             "'),", "'),\n                            ")
                                     )
                                 if has_integer_index:
-                                    model_string += ", \n                            size=-1"
+                                    model_string += ", \n                                size=-1"
                             if attribute['type'] in excluded_types:
-                                model_string = ("\n\"\"\"\n NOTE: undecided/excluded type:"
-                                       "\n %s \n"
+                                model_string = ("    \n\"\"\"\n NOTE: undecided/excluded type:"
+                                       "\n     %s \n    "
                                        "Will have to run gen script to refresh XML" 
                                        "again if you decide to use these \n\"\"\"" 
                                        ) % model_string
                                 append_to_file(ExcludedFileName, model_string)
                                 excluded_attrs.append(attribute['code'])
                             else:
-                                append_to_file(DefinitionFileName, model_string +")")
+                                append_to_file(DefinitionFilePathAndName, model_string +")")
 
                         if attr_rel[attribute['code']][2] =='DELETE':  
                             model_string = (
-                                    "# NOTE: %s field ttr_%s (%s)") % (
+                                    "    # NOTE: %s field ttr_%s (%s)") % (
                                     attr_rel[attribute['code']][2],
                                     attribute['code'],
                                     attr_rel[attribute['code']][1],
@@ -543,8 +567,8 @@ if __name__ == "__main__":
                                     break
                             if len(target_field)>0:
                                 model_string = (
-                                        "# MGR NOTE: the data from field ttr_%s  (%s)"
-                                        " should be moved to field ttr_%s (%s) at migration time"
+                                        "    # MGR NOTE: the data from field ttr_%s  (%s)"
+                                        "should be moved to field ttr_%s (%s) at migration time"
                                         ) % (
                                             attribute['code'], 
                                             attr_rel[attribute['code']][1],
@@ -572,42 +596,60 @@ if __name__ == "__main__":
                                 {attribute['code']: attribute['attribute_id']}
                             )
 
-        
+       
         # clean up unused attributes that are in the dict but where not fetched
         for key in attr_rel:
             attribute_in_file = search_in_file(
-                    DefinitionFileName, key, prefix) or search_in_file(
+                    DefinitionFilePathAndName, key, prefix) or search_in_file(
                             ExcludedFileName, key, prefix)
             if not attribute_in_file:
                 excluded_attrs.append(key)
-
-
-        print("new attributes in this set: " + str(attribute_n))
-        print("total attributes in the dict" + str(len(attr_rel)))
-        print("excluded attributes in this set" + str(len([x for x in attributes if x['code'] not in excluded_attrs])))
-
-
+        print("SET %s/%s total attrs: %s , attrs for this set: %s , excluded: %s" % (
+	    str(set_n) , str(set_all), str(len(attr_rel)), str(attribute_n) , str(len([x for x in attributes if x['code'] not in excluded_attrs]))))
         # XML gen
         category_id_name = "cat_%sattribute_%s" % (
                 prefix,
                 attribute_set['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower()
                 )
-        view_in_odoo = search_in_file_XML(XMLDataFileName, category_id_name)
+        view_in_odoo = search_in_file_XML(XMLDataFilePathAndName, category_id_name)
         if not view_in_odoo:
             product_field_ids_data = str([
                 "(4,ref('ttr_product_category_attribute_set."
                 "field_product_template_ttr_%s'))" % x['code'] for x in attributes if x['code'] not in excluded_attrs]
                 ).replace("\"", "")
-            xml_text = ("<record id=\"%s\" "
+            xml_text = ("    <record id=\"%s\" "
                         "model=\"product.category\"> "
-                        "\n             <field name=\"name\">%s</field>"
-                        "\n             <field name=\"product_field_ids\" eval=\"%s\"/>"
-                        "\n </record>") % (
+                        "\n                 <field name=\"name\">%s</field>"
+                        "\n                 <field name=\"product_field_ids\" eval=\"%s\"/>"
+                        "\n     </record>") % (
                     category_id_name, attribute_set['name'].replace(
                         " ", "_").replace("/","_").replace(
                             "-","_").replace('&', '_and_').lower(), 
                     product_field_ids_data)
-            append_to_file(XMLDataFileName, xml_text)
+            append_to_file(XMLDataFilePathAndName, xml_text)
+
+    XMLDatatemplate_post = "    </data>\n</openerp>"
+    append_to_file(XMLDataFilePathAndName, XMLDatatemplate_post)
+    print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
+    print('Copying views and models in module locations')
+    import os
+    path = os.path.dirname(os.path.abspath(__file__))
+    #must move file not to leave generated file around (would be extended on next install)
+    from shutil import move
+    move(genpath + XMLDataFileName, datapath + XMLDataFileName)
+    move(genpath + DefinitionFileName, modelpath + DefinitionFileName)
+    return True
 
 
+# you can call this via command line, but it is not 
+# advised , it may give uninstall problems
+# ideally, this module creates it's views and fields when installed
+# fetching a snapshot from the magento website.
+# when uninstalled it uninstalles the same fields.
+# if we launch this manually after installation we may have problems
+# i had a 2 hour puzzle to figure this out.
 
+if __name__ == "__main__":
+    dbname = sys.argv[1]
+    user = sys.argv[2]
+    generate_and_copy(dbname=dbname, user=user)

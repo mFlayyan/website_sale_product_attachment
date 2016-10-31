@@ -15,10 +15,12 @@ emulating the old magento attribute groups.
         'sale',
     ],
     "data": [
-        'data/data.xml',
+        'data/imported_categories.xml',
         'views/product_category.xml',
         ],
-    "post_init_hook": "post_init_hook", 
+    #post LOAD works only on OCA
+    "post_init_hook": "post_init_hook",
+    "pre_init_hook": "pre_init_hook", 
     "auto_install": False,
     "installable": True,
     "application": False,

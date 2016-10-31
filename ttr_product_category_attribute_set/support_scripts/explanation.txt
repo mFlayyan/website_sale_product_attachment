@@ -4,3 +4,24 @@ in order to have a reference of the last generated data.
 In the create...py script add password and username of the website to create a 
 succesfull API connection.
 this script is also used and called by the post init hook.
+
+
+in the post init hook it is called to fetch the data migration policy, when called directly
+it is used to generate the data and model.
+
+
+MIGRATION PROCEDURE:
+1.before migration: 
+call the script as:  
+
+create_magfields_definition_and_data.py databasewithconnector databaseusername
+
+generate XML and PY copy in data.xml and product_product.py commit and push
+
+2,the migration will initialize models and data, and the postinit hook will copy the data in the fields.
+
+
+
+possible extension:
+
+a pre-init hook that a) generates XML and PY: copyies XML in /data and then updates product_product.py
