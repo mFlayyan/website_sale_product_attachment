@@ -21,7 +21,22 @@ generate XML and PY copy in data.xml and product_product.py commit and push
 2,the migration will initialize models and data, and the postinit hook will copy the data in the fields.
 
 
+***** VERY IMPORTANT *****
 
-possible extension:
+When uninstalling this module be very carefull that the model.py and data have the same definitions you had when it was installed.
+This is why the script should never be run alone.
 
-a pre-init hook that a) generates XML and PY: copyies XML in /data and then updates product_product.py
+currently the script creates new files:
+product_template_imported_fields.py
+imported_categories.xml
+
+
+these can be deleted and recreated without disturbing the rest of the module.
+
+there is not a uninstall hook that deletes them.
+
+in previous versions, the models where appended to product product and the views were in data.xml if you are reinstalling on  this older version, take that into account.
+uninstall that version and make a clean new install.
+
+
+
