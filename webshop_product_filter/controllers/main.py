@@ -146,6 +146,10 @@ class WebsiteSale(main.website_sale):
         if not result.qcontext['products'] or not category:
             return result
 
+	#TODO we may want some additional filters for the generic no category view?
+        # in that case we need to save them on the website , make a many2many on website
+        # and fetch those (if they exist)
+
         # Do not use the previous attribute_value or
         # product.attribute.value model. that is for standard attribute
         # variants. What we did in this module was to give product product
