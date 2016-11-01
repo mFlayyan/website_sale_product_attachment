@@ -23,6 +23,19 @@ def pre_init_hook(cr):
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
     support_script.generate_and_copy(cr=cr)
+    print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
+    print('Copying views and models in module locations')
+    import os
+    path = os.path.dirname(os.path.abspath(__file__))
+    #must move file not to leave generated file around (would be extended on next install)
+    from shutil import move
+    move(
+	support_script.genpath + support_script.XMLDataFileName, 
+	support_script.datapath + support_script.XMLDataFileName)
+    move(
+	support_script.genpath + support_script.DefinitionFileName, 
+	support_script.modelpath + support_script.DefinitionFileName)
+
 
 	
 """

@@ -630,16 +630,6 @@ def generate_and_copy(cr=None, dbname=None, user=None):
 
     XMLDatatemplate_post = "    </data>\n</openerp>"
     append_to_file(XMLDataFilePathAndName, XMLDatatemplate_post)
-    print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
-    print('Copying views and models in module locations')
-    import os
-    path = os.path.dirname(os.path.abspath(__file__))
-    #must move file not to leave generated file around (would be extended on next install)
-    from shutil import move
-    move(genpath + XMLDataFileName, datapath + XMLDataFileName)
-    move(genpath + DefinitionFileName, modelpath + DefinitionFileName)
-    return True
-
 
 # you can call this via command line, but it is not 
 # advised , it may give uninstall problems

@@ -20,7 +20,9 @@ emulating the old magento attribute groups.
         ],
     #post LOAD works only on OCA
     "post_init_hook": "post_init_hook",
-    "pre_init_hook": "pre_init_hook", 
+    # pre init hook has been disabled. the data will be generated once 
+    # through manual call of the script and then committed as is.
+    #"pre_init_hook": "pre_init_hook", 
     "auto_install": False,
     "installable": True,
     "application": False,
