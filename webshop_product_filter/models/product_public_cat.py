@@ -33,8 +33,8 @@ class ProductPublicCategory(models.Model):
         comodel_name='ir.model.fields',
         string='categories',
         domain=lambda self: [
-	    '&', ('|', ('model', '=', 'product.template'),
-	    ('model', '=', 'product.template')),
+	    '&', '|', ('model', '=', 'product.template'),
+	    ('model', '=', 'product.product'),
             ('ttype', 'not in', self.excluded_field_types)
         ]
     )
