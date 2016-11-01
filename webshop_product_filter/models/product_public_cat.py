@@ -28,18 +28,13 @@ class ProductPublicCategory(models.Model):
     excluded_field_types = \
         ['reference', 'binary', 'html', 'many2many', 'one2many']
 
-    # NOTE everything must be on product_template because the 
-    # webshop shows only product templates.
-    # everything a product_product has a product_template does too.
-    # Our client will not use variants, so product.product should be fine
-    # but if they decided to use it?
-    # i am doing it all on product.template for now. Super-easy to change after
-
+    # explitiley writng default 'and' in domain for readability
     category_attributes = fields.Many2many(
         comodel_name='ir.model.fields',
         string='categories',
         domain=lambda self: [
-            ('model', '=', 'product.template'),
-            ('ttype', 'not in', self.excluded_field_types),
+	    '&', ('|', ('model', '=', 'product.template'),
+	    ('model', '=', 'product.template')),
+            ('ttype', 'not in', self.excluded_field_types)
         ]
     )
