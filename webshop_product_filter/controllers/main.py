@@ -34,6 +34,7 @@ class WebsiteSale(main.website_sale):
         domain_subtitle = ""
         if category_specific_attributes:
             ir_model = env['ir.model.fields']
+	    product_product_model = env['product.product']
             for csa in category_specific_attributes:
                 # remove filter_prefix 
                 # it was added in the template to distinguish from
@@ -44,50 +45,32 @@ class WebsiteSale(main.website_sale):
                 # if it's not in template look in product.
                 # ASSIGNMENT: explain why don't we find fields like
                 # 'code' in model=product.template
-                current_model = 'product.template'
-                att = ir_model.search([
-                    ('model', '=', 'product.template'), 
-		    ('name', '=', csa[0])
-                    ]
-                )
-                # if it's not registered in template look for it in product
-                # and record our current model
-                if len(att) == 0:
-                    att = ir_model.search([
-                        ('model', '=', 'product.product'),
-                        ('name', '=', csa[0])
-                        ]
-                    )
-                    current_model = 'product.product'
+
+		# we will search through ORM on product.product so m
+		
+		# IMPORTANT NOTE AND EXPLANATION 1-11-2016 used to need a 2 phase 
+		# search because I was headstrung on working on ir_model_fields. 
+		# Obviously when doing that
+		# you need to search separately for PT stuff and PP stuff.
+		# just using the ORM  ON PRODUCT PRODUCT. 
+                 
                 # checking if it is a non stored field!
                 #e.g. default for function fields is non-stored
                 if att.ttype in ['char', 'text']:
-                    if current_model == 'product.product':
-                        domain_product_product += [(csa[0], 'ilike', csa[1])]
-                    else:
-                        domain_product_template += [(csa[0], 'ilike', csa[1])]
+                    domain_product_product += [(csa[0], 'ilike', csa[1])]
                     domain_subtitle = domain_subtitle + \
                         att.field_description + " contains " + \
                         str(csa[1]) + "      "
                 elif att.ttype in ['boolean']:
                     convert = {'on': True, 'off': False}
-                    if current_model == 'product.product':
-                        domain_product_product += [
-                                (csa[0], '=', convert[csa[1]])
-                                ]
-                    else:
-                        domain_product_template += [
-                                (csa[0], '=', convert[csa[1]])
-                                ]
+                    domain_product_product += [
+                            (csa[0], '=', convert[csa[1]])
+                            ]
                     domain_subtitle = \
                         domain_subtitle + att.field_description + " = " + \
                         str(convert[csa[1]]) + "      "
                 elif att.ttype in ['date', 'datetime']:
-
-                    if current_model == 'product.product':
-                        domain_product_product += [(csa[0], '>=', csa[1])]
-                    else:
-                        domain_product_template += [(csa[0], '>=', csa[1])]
+                    domain_product_product += [(csa[0], '>=', csa[1])]
                     domain_subtitle = \
                         domain_subtitle + att.field_description + \
                         " after or equal " + str(csa[1]) + "      "
@@ -110,11 +93,8 @@ class WebsiteSale(main.website_sale):
                                 allposts[policy_for_filter]]
                     # checking for policy disabled
                     if operator != '':
-                        if current_model == 'product.product':
-                            domain_product_product +=\
-                                [(csa[0], operator, csa[1])]
-                        else:
-                            domain_product_template += [(csa[0], operator, csa[1])]
+                        domain_product_product +=\
+                            [(csa[0], operator, csa[1])]
                         domain_subtitle = \
                             domain_subtitle + att.field_description + \
                             " " + operator + " " + str(csa[1]) + "      "
@@ -145,7 +125,7 @@ class WebsiteSale(main.website_sale):
         if domain_subtitle:
             domain_subtitle = "Currently active filters: " + \
                 domain_subtitle + "."
-        return domain_product_template, domain_product_product, domain_subtitle
+        return domain_product_product, domain_subtitle
 
     def sanitize_post(self, posts):
         posts_clean = []
@@ -166,6 +146,12 @@ class WebsiteSale(main.website_sale):
         result = super(WebsiteSale, self).shop(
             page=page, category=category, search=search, ppg=ppg, **post
         )
+	# optimization: if result is already NULL  return!!!!!, allows to remove an
+	# if below too.
+
+	if not result.qcontext['products']:
+	    return result
+	
         # Do not use the previous attribute_value or
         # product.attribute.value model. that is for standard attribute
         # variants. What we did in this module was to give product product
@@ -273,41 +259,39 @@ class WebsiteSale(main.website_sale):
                     choice_values = [relation, relation_field, comodel_info]
                 """
                 attributes_dict[attr] = choice_values
-            extra_domain_product_template, extra_domain_product_product, \
-                extra_domain_subtitle = self._get_domain_for_cat_specific_attributes(
-                    env, website_product_filter_attributes, search, post)
-        # if there are products coming from normal filtering do something extra
-            if result.qcontext['products']:
-                # get the product.products that satisfy the product domain.
-                filtered_pp = env['product.product'].search(
-                extra_domain_product_product).read(['product_tmpl_id'])
-                associated_templates = []
-                 # generate a list of ids of the template ids of found products 
-                for pp in filtered_pp:
-                    associated_templates.append(pp['product_tmpl_id'][0])
-                # apply on product.template extra filters
-                # 1. had to belong to associated templates,
-                # 2. has to satisfy extra_domain_templates
-                # 3. has to be in the previously returned product_template subset.
-                filtered_prods = env['product.template'].search(
-                [('id', 'in', associated_templates)] +
-                extra_domain_product_template + [(
-                    'id', 'in', result.qcontext['products'].ids)]
-                )
-                if ppg:
-                    try:
-                        ppg = int(ppg)
-                    except ValueError:
-                        ppg = main.PPG
-                        post["ppg"] = ppg
-                else:
+            extra_domain_product_product, extra_domain_subtitle = \
+		self._get_domain_for_cat_specific_attributes(
+                    env, website_product_filter_attributes, search, post
+		)
+            # get the product.products that satisfy the product domain.
+            filtered_pp = env['product.product'].search(
+            extra_domain_product_product).read(['product_tmpl_id'])
+            associated_templates = []
+            # generate a list of ids of the template ids of found products 
+            for pp in filtered_pp:
+                associated_templates.append(pp['product_tmpl_id'][0])
+            # apply on product.template extra filters
+            # 1. had to belong to associated templates,
+            # 2. has to be in the previously returned product_template subset.
+            filtered_prods = env['product.template'].search(
+		[('id', 'in', associated_templates)] +
+                extra_domain_product_template + 
+		[('id', 'in', result.qcontext['products'].ids)]
+	    )
+	    if ppg:
+	        try:
+		    ppg = int(ppg)
+                except ValueError:
                     ppg = main.PPG
-                result.qcontext.update({
-                    'products': filtered_prods,
-                    'bins': main.table_compute().process(filtered_prods, ppg),
-                    'extra_domain_subtitle': extra_domain_subtitle,
-                    'filters': attributes_dict or None,
-		    'filter_prefix': filter_prefix,
-                    'policy_prefix': policy_prefix,
-		})
+	            post["ppg"] = ppg
+	    else:
+	        ppg = main.PPG
+            result.qcontext.update({
+	        'products': filtered_prods,
+	        'bins': main.table_compute().process(filtered_prods, ppg),
+	        'extra_domain_subtitle': extra_domain_subtitle,
+	        'filters': attributes_dict or None,
+	        'filter_prefix': filter_prefix,
+	        'policy_prefix': policy_prefix,
+	    })
         return result
