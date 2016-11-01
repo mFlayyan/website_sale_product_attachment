@@ -171,127 +171,130 @@ class WebsiteSale(main.website_sale):
         website_product_filter_attributes = self.sanitize_post(
             website_product_filter_attributes
         )
-        if category:
-            category_specific_attributes = category.category_attributes
-            # case category has no attributes
-            if not category_specific_attributes:
-                return result
-            choice_values = []
-            for attr in category_specific_attributes:
-                """
-                ttype
-                -----------
-                reference , datetime ,  many2many , text
-                monetary, selection,  float,  one2many
-                char,  many2one ,  date ,   boolean, integer
-                we have filtered out html, binary on the field definition
-                domain level
-                you where adding an 'int', dont' confuse odoo types
-                with python types
-                """
-                if attr.ttype in [
-                        'float', 'integer', 'datetime', 'date', 'monetary']:
-                    # if the field is not a stored field , skip the DB sql
-                    # range and use ORM to calc range.
-                    if env['product.template'].fields_get(
-                            attr.name)[attr.name]['store'] is True:
-                        try:
-                            # using new format, (willbe mandatory in python 3)
-                            cr.execute(
-                                "select MIN({0}), MAX({0}) FROM"
-                                " product_template".format(attr.name)
-                                )
-                        except:
-                            # being this a DB call if the field
-                            # lives actually on  product_product
-                            cr.execute(
-                                "select MIN({0}), MAX({0}) FROM"
-                                " product_product".format(attr.name)
-                                )
+        if not category:
+	    return result
 
-                        # MARIAM You where executing a 
-                        # selection query and not fetching
-                        range_result = cr.fetchone()
-                        # managing the case of (none,none) there will never
-                        # be the (none, value) case because then  min=max
-                        if range_result[0] is None:
-                            choice_values = (0, 0)
-                        else:
-                            choice_values = (range_result[0], range_result[1])
-                    else:
-                        prds = env['product.template'].search([])
-                        choice_values = (
-                            prds.sorted(
-                                key=lambda x: eval('x.{0}'.format(attr.name))
-                            )[1].read([attr.name])[0][attr.name],
-                            prds.sorted(
-                                key=lambda x: eval('x.{0}'.format(attr.name))
-                            )[-1].read([attr.name])[0][attr.name]
-                        )
-                elif attr.ttype == 'selection':
-                    options = env[attr.model].fields_get(
-                            attr.name)[attr.name]['selection']
-                    # test_lambda_func = lambda:0
-                    # if isinstance(attr.selection, type(test_lambda_func)) and
-                    # attr.selection.__name__ == test_lambda_func.__name__:
-                    choice_values = options
-                elif attr.ttype in ['many2one']:
-                    relation = env[attr.model].fields_get(
-                        attr.name)[attr.name]['relation']
-                    # what happens if the m2o has it's own domain?
-                    possible_domain = env[attr.model].fields_get(
-                        attr.name)[attr.name]['domain']
-                    choice_values = env[str(relation)].search(
-                        possible_domain).read(['id', 'name'])
-                """
-                TODO x2many
+        category_specific_attributes = category.category_attributes
+        # case category has no attributes
+        if not category_specific_attributes:
+            return result
 
-                elif attr.ttype in ['one2many']:
-                    relation = env[attr.model].fields_get(
-                        attr.name)[attr.name]['relation']
-                    relation_field = env[attr.model].fields_get(
-                        attr.name)[attr.name]['relation_field']
-                    # fetch all non null records, get name for display
-                    # relation field id  for search on product_product
-                    comodel_info = env[relation].search(
-                            [(relation_field, '!=', 0)]).read(
-                                    [relation_field, 'display_name'])
-                    choice_values = [relation, relation_field, comodel_info]
-                """
-                attributes_dict[attr] = choice_values
-            extra_domain_product_product, extra_domain_subtitle = \
-		self._get_domain_for_cat_specific_attributes(
-                    env, website_product_filter_attributes, search, post
-		)
-            # get the product.products that satisfy the product domain.
-            filtered_pp = env['product.product'].search(
-            extra_domain_product_product).read(['product_tmpl_id'])
-            associated_templates = []
-            # generate a list of ids of the template ids of found products 
-            for pp in filtered_pp:
-                associated_templates.append(pp['product_tmpl_id'][0])
-            # apply on product.template extra filters
-            # 1. had to belong to associated templates,
-            # 2. has to be in the previously returned product_template subset.
-            filtered_prods = env['product.template'].search(
-		[('id', 'in', associated_templates)] +
-                extra_domain_product_template + 
-		[('id', 'in', result.qcontext['products'].ids)]
-	    )
-	    if ppg:
-	        try:
-		    ppg = int(ppg)
-                except ValueError:
-                    ppg = main.PPG
-	            post["ppg"] = ppg
+        choice_values = []
+        for attr in category_specific_attributes:
+            """
+            ttype
+            -----------
+	reference , datetime ,  many2many , text
+	monetary, selection,  float,  one2many
+	char,  many2one ,  date ,   boolean, integer
+	we have filtered out html, binary on the field definition
+	domain level
+	you where adding an 'int', dont' confuse odoo types
+	with python types
+	"""
+	if attr.ttype in [
+		'float', 'integer', 'datetime', 'date', 'monetary']:
+	    # if the field is not a stored field , skip the DB sql
+	    # range and use ORM to calc range.
+	    if env['product.template'].fields_get(
+		    attr.name)[attr.name]['store'] is True:
+		try:
+		    # using new format, (willbe mandatory in python 3)
+		    cr.execute(
+			"select MIN({0}), MAX({0}) FROM"
+			" product_template".format(attr.name)
+			)
+		except:
+		    # being this a DB call if the field
+		    # lives actually on  product_product
+		    cr.execute(
+			"select MIN({0}), MAX({0}) FROM"
+			" product_product".format(attr.name)
+			)
+
+		# MARIAM You where executing a 
+		# selection query and not fetching
+		range_result = cr.fetchone()
+		# managing the case of (none,none) there will never
+		# be the (none, value) case because then  min=max
+		if range_result[0] is None:
+		    choice_values = (0, 0)
+		else:
+		    choice_values = (range_result[0], range_result[1])
 	    else:
+		prds = env['product.template'].search([])
+		choice_values = (
+		    prds.sorted(
+			key=lambda x: eval('x.{0}'.format(attr.name))
+		    )[1].read([attr.name])[0][attr.name],
+		    prds.sorted(
+			key=lambda x: eval('x.{0}'.format(attr.name))
+		    )[-1].read([attr.name])[0][attr.name]
+		)
+	elif attr.ttype == 'selection':
+	    options = env[attr.model].fields_get(
+		    attr.name)[attr.name]['selection']
+	    # test_lambda_func = lambda:0
+	    # if isinstance(attr.selection, type(test_lambda_func)) and
+	    # attr.selection.__name__ == test_lambda_func.__name__:
+	    choice_values = options
+	elif attr.ttype in ['many2one']:
+	    relation = env[attr.model].fields_get(
+		attr.name)[attr.name]['relation']
+	    # what happens if the m2o has it's own domain?
+	    possible_domain = env[attr.model].fields_get(
+		attr.name)[attr.name]['domain']
+	    choice_values = env[str(relation)].search(
+		possible_domain).read(['id', 'name'])
+	"""
+	TODO x2many
+
+	elif attr.ttype in ['one2many']:
+	    relation = env[attr.model].fields_get(
+		attr.name)[attr.name]['relation']
+	    relation_field = env[attr.model].fields_get(
+		attr.name)[attr.name]['relation_field']
+	    # fetch all non null records, get name for display
+	    # relation field id  for search on product_product
+	    comodel_info = env[relation].search(
+		    [(relation_field, '!=', 0)]).read(
+			    [relation_field, 'display_name'])
+	    choice_values = [relation, relation_field, comodel_info]
+	"""
+	attributes_dict[attr] = choice_values
+	extra_domain_product_product, extra_domain_subtitle = \
+	    self._get_domain_for_cat_specific_attributes(
+		env, website_product_filter_attributes, search, post
+	    )
+	# get the product.products that satisfy the product domain.
+	filtered_pp = env['product.product'].search(
+	extra_domain_product_product).read(['product_tmpl_id'])
+        associated_templates = []
+        # generate a list of ids of the template ids of found products 
+        for pp in filtered_pp:
+            associated_templates.append(pp['product_tmpl_id'][0])
+	# apply on product.template extra filters
+	# 1. had to belong to associated templates,
+	# 2. has to be in the previously returned product_template subset.
+	filtered_prods = env['product.template'].search(
+	    [('id', 'in', associated_templates)] +
+	    extra_domain_product_template + 
+	    [('id', 'in', result.qcontext['products'].ids)]
+	)
+	if ppg:
+	    try:
+	        ppg = int(ppg)
+	    except ValueError:
 	        ppg = main.PPG
-            result.qcontext.update({
-	        'products': filtered_prods,
-	        'bins': main.table_compute().process(filtered_prods, ppg),
-	        'extra_domain_subtitle': extra_domain_subtitle,
-	        'filters': attributes_dict or None,
-	        'filter_prefix': filter_prefix,
-	        'policy_prefix': policy_prefix,
-	    })
+		post["ppg"] = ppg
+	else:
+	    ppg = main.PPG
+	result.qcontext.update({
+	    'products': filtered_prods,
+            'bins': main.table_compute().process(filtered_prods, ppg),
+	    'extra_domain_subtitle': extra_domain_subtitle,
+	    'filters': attributes_dict or None,
+	    'filter_prefix': filter_prefix,
+	    'policy_prefix': policy_prefix,
+        })
         return result
