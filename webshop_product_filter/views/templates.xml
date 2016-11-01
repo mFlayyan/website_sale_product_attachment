@@ -71,14 +71,29 @@
                                     />
                                 <span t-esc="filters[f][1]"/>
                             </div>
-                            <input
-                                t-if="f.ttype in ['date', 'datetime']"
-                                t-attf-id="#{filter_prefix}#{f.name}"
-                                class="search-query oe_search_box form-control"
-                                type="date"
-                                t-attf-name="#{filter_prefix}#{f.name}"
-                                placeholder="dd-mm-yyy  (after this date)"
-                                />
+
+                            <div 
+                                t-if="f.ttype in ['date','datetime']"
+                                >
+
+                                <select
+                                    t-attf-id="#{policy_prefix}#{f.name}"
+                                    t-attf-name="#{policy_prefix}#{f.name}"
+                                    >
+                                    <option value="disable" selected="selected">Disable option</option>
+                                    <option value="exact">Exact </option>
+                                    <option value="more">After</option>
+                                    <option value="less">Before</option>
+                                </select>
+				 <input
+					t-attf-id="#{filter_prefix}#{f.name}"
+					class="search-query oe_search_box form-control"
+					type="date"
+					t-attf-name="#{filter_prefix}#{f.name}"
+					placeholder="dd-mm-yyy  (after this date)"
+				/>
+			    </div>
+
                             <input
                                 t-if="f.ttype == 'boolean'"
                                 t-attf-id="#{filter_prefix}#{f.name}"

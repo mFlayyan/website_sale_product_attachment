@@ -69,14 +69,9 @@ class WebsiteSale(main.website_sale):
                     domain_subtitle = \
                         domain_subtitle + att.field_description + " = " + \
                         str(convert[csa[1]]) + "      "
-                elif att.ttype in ['date', 'datetime']:
-                    domain_product_product += [(csa[0], '>=', csa[1])]
-                    domain_subtitle = \
-                        domain_subtitle + att.field_description + \
-                        " after or equal " + str(csa[1]) + "      "
                 elif att.ttype in [
                     'selection',  'monetary', 'float',
-                        'integer', 'many2one']:
+                        'integer', 'many2one' , 'datetime' , 'date']:
                     policy_for_filter = \
                         policy_prefix + csa[0]
                     # setting default operator for fields without "policy"
