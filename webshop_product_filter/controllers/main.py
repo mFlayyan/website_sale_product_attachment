@@ -197,7 +197,7 @@ class WebsiteSale(main.website_sale):
 	    # if the field is not a stored field , skip the DB sql
 	    # range and use ORM to calc range.
 	    if env['product.template'].fields_get(
-		    attr.name)[attr.name]['store'] is True:
+		    attr.name)[attr.name]['store']:
 		try:
 		    # using new format, (willbe mandatory in python 3)
 		    cr.execute(
