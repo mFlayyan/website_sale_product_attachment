@@ -13,6 +13,11 @@ _logger = logging.getLogger(__name__)
 launch the script, recreate all fields and categs
 then copy generated XML and PY before module init
 """
+"""
+Has been excluded from manifest on purpose
+script will be launched manually
+"""
+
 def pre_init_hook(cr): 
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/'
@@ -22,7 +27,7 @@ def pre_init_hook(cr):
         'create_magfields_definition_and_data',
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
-    support_script.generate_and_copy(cr=cr)
+    support_script.generate(cr=cr)
     print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
     print('Copying views and models in module locations')
     import os

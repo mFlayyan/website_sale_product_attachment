@@ -398,25 +398,15 @@ references
 """
 import os
 # remove /odoo from end of path and leave just parts as rootpath
+
 genpath = '%s/technotrading/ttr_product_category_attribute_set/support_scripts/' %  os.path.dirname(os.path.abspath(__file__))
 modelpath  = '%s/technotrading/ttr_product_category_attribute_set/models/' %  os.path.dirname(os.path.abspath(__file__))
 datapath  = '%s/technotrading/ttr_product_category_attribute_set/data/' %  os.path.dirname(os.path.abspath(__file__))
 excluded_attrs = []
 DefinitionFileName = 'product_template_imported_fields.py'
 DefinitionFilePathAndName = genpath + DefinitionFileName
-definition_template = ("# -*- coding: utf-8 -*-"
-                       "\n# © 2016 Therp BV <http://therp.nl>"
-                       "\n# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)."
-                       "\nfrom openerp import fields, models"
-                       "\n"
-                       "\n"
-                       "class ProductTemplate(models.Model):\n"
-                       "    _inherit = 'product.template'\n")
-append_to_file(DefinitionFilePathAndName, definition_template)
 XMLDataFileName = 'imported_categories.xml'
 XMLDataFilePathAndName = genpath + XMLDataFileName 
-XMLDatatemplate_pre = "<openerp>\n    <data>\n"
-append_to_file(XMLDataFilePathAndName, XMLDatatemplate_pre)
 ExcludedFileName = genpath + 'excluded.py'
 prefix = "ttr_"
 
@@ -456,13 +446,32 @@ def connect_tt_db_user(dbname, user):
         return
 
 
-def generate_and_copy(cr=None, dbname=None, user=None):
-    if user and dbname:
+def generate(cr=None, dbname=None, user=None, manual=False):
+    if user and dbname and manual:
         magento = connect_tt_db_user(dbname, user)
     elif cr:
         magento = connect_tt(cr)
     else:
         return False
+    # don't look for module structure , put files in running dir iof manual
+    if manual:
+    	DefinitionFilePathAndName = DefinitionFileName
+        XMLDataFilePathAndName = XMLDataFileName
+	ExludedFileName = 'excluded.py'
+    # add file starts here so it works for manual and non manual
+
+    definition_template = ("# -*- coding: utf-8 -*-"
+                           "\n# © 2016 Therp BV <http://therp.nl>"
+		           "\n# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)."
+		           "\nfrom openerp import fields, models"
+		           "\n"
+		           "\n"
+		           "class ProductTemplate(models.Model):\n"
+		           "    _inherit = 'product.template'\n")
+    append_to_file(DefinitionFilePathAndName, definition_template)
+    XMLDatatemplate_pre = "<openerp>\n    <data>\n"
+    append_to_file(XMLDataFilePathAndName, XMLDatatemplate_pre)
+	
     attribute_sets = magento.catalog_product_attribute_set.list()
     print("==== Module ttr_product_category post_init_hook: Starting import attribute sets from magento ====")
     set_n=0
@@ -642,4 +651,4 @@ def generate_and_copy(cr=None, dbname=None, user=None):
 if __name__ == "__main__":
     dbname = sys.argv[1]
     user = sys.argv[2]
-    generate_and_copy(dbname=dbname, user=user)
+    generate(dbname=dbname, user=user, manual=True)
