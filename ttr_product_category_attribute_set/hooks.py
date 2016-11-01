@@ -13,6 +13,11 @@ _logger = logging.getLogger(__name__)
 launch the script, recreate all fields and categs
 then copy generated XML and PY before module init
 """
+"""
+Has been excluded from manifest on purpose
+script will be launched manually
+"""
+
 def pre_init_hook(cr): 
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/'
@@ -23,19 +28,20 @@ def pre_init_hook(cr):
         scriptfile  ,'', ('py', 'r', imp.PY_SOURCE)
     )
     support_script.generate(cr=cr)
+    print('Done importing %s attribute sets that will become categories' % len(attribute_sets))
+    print('Copying views and models in module locations')
     import os
     path = os.path.dirname(os.path.abspath(__file__))
     #must move file not to leave generated file around (would be extended on next install)
     from shutil import move
     move(
-	support_script.genpath + support_script.XMLDataFileName, 
-	support_script.datapath + support_script.XMLDataFileName
-    )
+        support_script.genpath + support_script.XMLDataFileName, 
+        support_script.datapath + support_script.XMLDataFileName)
     move(
-	support_script.genpath + support_script.DefinitionFileName, 
-	support_script.modelpath + support_script.DefinitionFileName
-    )
-	
+        support_script.genpath + support_script.DefinitionFileName, 
+        support_script.modelpath + support_script.DefinitionFileName)
+
+
 """
 after module init copy data in the fields, using
 the same migration policy set in the script called in
@@ -75,13 +81,13 @@ def post_init_hook(cr, pool):
     product_name_association = cr.dictfetchall()
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt(
-	cr=cr).catalog_product.list()
+        cr=cr).catalog_product.list()
 
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
     # Get all the attribute sets from website(already exist as odoo categories)
     prd_sets = support_script.connect_tt(
-	cr=cr).catalog_product_attribute_set.list()
+        cr=cr).catalog_product_attribute_set.list()
     cur_product_len = 0
     norm_selections = 0
     callable_selections = 0
@@ -214,7 +220,7 @@ def post_init_hook(cr, pool):
                                  'price' : data_to_write
                                 }
                             )
-			    continue
+                            continue
                         if prefix + str(attribute['code']) == 'ttr_weight':
                             data_to_write = prd_info[attribute['code']]
                             product_rec.write(
@@ -222,7 +228,7 @@ def post_init_hook(cr, pool):
                                  'weight' : data_to_write
                                 }
                             )
-			    continue
+                            continue
                         #managing specific transitions (weight and price are mostly the ones.)
                         _logger.debug(
                                 'DATA_IMPORT_LOG: attribute %s has a specific policy: \" %s \" -- TODO',
