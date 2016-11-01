@@ -46,7 +46,8 @@ class WebsiteSale(main.website_sale):
                 # 'code' in model=product.template
                 current_model = 'product.template'
                 att = ir_model.search([
-                    ('model', '=', 'product.template'), ('name', '=', csa[0])
+                    ('model', '=', 'product.template'), 
+		    ('name', '=', csa[0])
                     ]
                 )
                 # if it's not registered in template look for it in product
@@ -141,7 +142,7 @@ class WebsiteSale(main.website_sale):
         if search:
             domain_subtitle = \
                 domain_subtitle + " search in name for " + search
-        if not domain_subtitle == "":
+        if domain_subtitle:
             domain_subtitle = "Currently active filters: " + \
                 domain_subtitle + "."
         return domain_product_template, domain_product_product, domain_subtitle
@@ -167,7 +168,7 @@ class WebsiteSale(main.website_sale):
         )
         # Do not use the previous attribute_value or
         # product.attribute.value model. that is for standard attribute
-        # variants. What we did in this module wat to give product product
+        # variants. What we did in this module was to give product product
         # new attributes. we must add thoste to our querystring and interpret
         # them as a domain filter.
         website_product_filter_attributes = []
