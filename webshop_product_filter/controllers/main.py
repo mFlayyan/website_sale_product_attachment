@@ -1,6 +1,7 @@
 from openerp import http
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
+from openerp.tools.translate import _
 
 """
 NOTE:
@@ -59,7 +60,7 @@ class WebsiteSale(main.website_sale):
                 if att.ttype in ['char', 'text']:
                     domain_product_product += [(csa[0], 'ilike', csa[1])]
                     domain_subtitle = domain_subtitle + \
-                        att.field_description + " contains " + \
+                        att.field_description + _(" contains ") + \
                         str(csa[1]) + "      "
                 elif att.ttype in ['boolean']:
                     convert = {'on': True, 'off': False}
@@ -117,9 +118,9 @@ domain += [('id', 'in', domain_set)]
                 """
         if search:
             domain_subtitle = \
-                domain_subtitle + " search in name for " + search
+                domain_subtitle + _(" search in name for ") + search
         if domain_subtitle:
-            domain_subtitle = "Currently active filters: " + \
+            domain_subtitle = _("Currently active filters: ") + \
                 domain_subtitle + "."
         return domain_product_product, domain_subtitle
 
@@ -129,7 +130,7 @@ domain += [('id', 'in', domain_set)]
         # I call this only passing a list of module specific attribute
         # NOTE will not SANITIZE post entries not in our specific namespace!
         for post in posts:
-            if post[1] != '':
+            if post[1]:
                 posts_clean.append(post)
         return posts_clean
 
