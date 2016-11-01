@@ -8,6 +8,8 @@ do not redifine constants in the same model
 if not necessary, call them from the father class
 """
 
+filter_prefix='webshop_product_filter_'
+policy_prefix='policy_' + filter_prefix
 
 class WebsiteSale(main.website_sale):
 
@@ -33,10 +35,10 @@ class WebsiteSale(main.website_sale):
         if category_specific_attributes:
             ir_model = env['ir.model.fields']
             for csa in category_specific_attributes:
-                # remove prefix webshop_product_filter_
+                # remove filter_prefix 
                 # it was added in the template to distinguish from
                 # the normal odoo attributes
-                csa[0] = csa[0][23:]
+                csa[0] = csa[0][len(filter_prefix):]
                 # because we are working on the ir.fields table
                 # we cannot take advantage of odoo inheritance,
                 # if it's not in template look in product.
@@ -92,7 +94,7 @@ class WebsiteSale(main.website_sale):
                     'selection',  'monetary', 'float',
                         'integer', 'many2one']:
                     policy_for_filter = \
-                        'policy_webshop_product_filter_'+csa[0]
+                        policy_prefix + csa[0]
                     # setting default operator for fields without "policy"
                     operator = "="
                     # mapping policy options
@@ -173,12 +175,12 @@ class WebsiteSale(main.website_sale):
             """ using the ttr_extra prefix and then removing it
             to allow product variants and our new product fields to
             work together"""
-            if attr_name.startswith("webshop_product_filter_"):
+            if attr_name.startswith(filter_prefix):
                 website_product_filter_attributes.append(
                     [attr_name, post[attr_name]]
                 )
         # remove empty char searches from ONLY the
-        # webshop_product_filter posts
+        # filter_prefixed posts
         website_product_filter_attributes = self.sanitize_post(
             website_product_filter_attributes
         )
@@ -303,5 +305,8 @@ class WebsiteSale(main.website_sale):
                     'products': filtered_prods,
                     'bins': main.table_compute().process(filtered_prods, ppg),
                     'extra_domain_subtitle': extra_domain_subtitle,
-                    'filters': attributes_dict or None,})
+                    'filters': attributes_dict or None,
+		    'filter_prefix': filter_prefix,
+                    'policy_prefix': policy_prefix,
+		})
         return result
