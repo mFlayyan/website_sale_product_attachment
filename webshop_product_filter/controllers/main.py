@@ -192,7 +192,6 @@ class WebsiteSale(main.website_sale):
                 if env['product.template'].fields_get(
                         attr.name)[attr.name]['store']:
 
-                    import pudb;pudb.set_trace()
                     try:
                         # using new format, (willbe mandatory in python 3)
                         sql = ("select MIN({0}), MAX({0}) FROM product_template " 
