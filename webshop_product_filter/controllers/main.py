@@ -292,7 +292,6 @@ domain += [('id', 'in', domain_set)]
 	# 2. has to be in the previously returned product_template subset.
 	filtered_prods = env['product.template'].search(
 	    [('id', 'in', associated_templates)] +
-	    extra_domain_product_template + 
 	    [('id', 'in', result.qcontext['products'].ids)]
 	)
 	if ppg:
