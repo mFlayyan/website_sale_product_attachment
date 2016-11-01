@@ -457,7 +457,7 @@ def generate(cr=None, dbname=None, user=None, manual=False):
     if manual:
     	DefinitionFilePathAndName = DefinitionFileName
         XMLDataFilePathAndName = XMLDataFileName
-	ExludedFileName = 'excluded.py'
+	ExcludedFileName = 'excluded.py'
     # add file starts here so it works for manual and non manual
 
     definition_template = ("# -*- coding: utf-8 -*-"
@@ -596,7 +596,7 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                             attr_rel[attribute['code']][1],
                                             policy
                                         )
-                            append_to_file(ExcludedFileName, model_string)
+			    append_to_file(ExcludedFileName, model_string)
                             excluded_attrs.append(attribute['code'])
                         # mapping between new attribute fields and magento fields
                         # maybe not needed if code is unique
