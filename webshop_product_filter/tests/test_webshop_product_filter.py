@@ -36,4 +36,6 @@ class TestWebshopProductFilter(TransactionCase):
 
 
     def test_webshop_product_filter(self):
-        pass
+	#TEST IF MIN MAX IS CORRECT
+
+	#TEST IF A PRODUCT 

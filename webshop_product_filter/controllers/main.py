@@ -223,8 +223,16 @@ domain += [('id', 'in', domain_set)]
 		    choice_values = (range_result[0], range_result[1])
 	    else:
 		# removing because doesn't perform
-		pass
 		# so will also pop the option out of the view
+		
+                website_product_filter_attributes.remove(
+                    [attr.name, post[attr.name]]
+                )
+		del post[attr.name]
+
+		# TODO THIS MAY CAUSE user problems, he adds a attibute in 
+		# the backend and never sees it in the frontend 
+		# perhaps should filter on domain.
 	
                 """
 		prds = env['product.template'].search([])
