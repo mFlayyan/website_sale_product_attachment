@@ -143,7 +143,7 @@ class WebsiteSale(main.website_sale):
         # optimization: if result is already NULL  return!!!!!, allows to remove an
         # if below too.
 
-        if not result.qcontext['products']:
+        if not result.qcontext['products'] or not category:
             return result
 
         # Do not use the previous attribute_value or
@@ -165,8 +165,6 @@ class WebsiteSale(main.website_sale):
         website_product_filter_attributes = self.sanitize_post(
             website_product_filter_attributes
         )
-        if not category:
-            return result
 
         category_specific_attributes = category.category_attributes
         # case category has no attributes
@@ -291,10 +289,6 @@ class WebsiteSale(main.website_sale):
         # apply on product.template extra filters
         # 1. had to belong to associated templates,
         # 2. has to be in the previously returned product_template subset.
-        filtered_prods = env['product.template'].search(
-            [('id', 'in', associated_templates)] +
-            [('id', 'in', result.qcontext['products'].ids)]
-        )
         if ppg:
             try:
                 ppg = int(ppg)
@@ -303,12 +297,47 @@ class WebsiteSale(main.website_sale):
             post["ppg"] = ppg
         else:
             ppg = main.PPG
+        
+        # !!!! Important note: products in my result is just the first page of products not the entire list, 
+        # this is bad, i need the entire list.
+        # what happens if amongst the products on page 1 none correspond to my extra filter?
+        # i get an empty page, and maybe on page 2,3,4 was the product i needed.
+        # https://github.com/OCA/OCB/blob/9.0/addons/website_sale/controllers/main.py#L239
+        
+        """
+        this solution is a little "copy and pasty" ,  we are redoing twice a search.
+        It would allmost call for getting rid of super altoghether, but super still does other stuff (product style...)
+	and we don't want to brteak the chain of inheritance.
+        the structure of website_sale/shop doesn't allow me to do differently.
+        notice the cool injection of my domain in product_count
+        """
+        
+        product_obj =  env['product.template']
+        attrib_values = result.qcontext['attrib_values']
+	domain = self._get_search_domain(search, category, attrib_values) 
+        product_count = product_obj.search_count(
+            domain + [('id', 'in', associated_templates)]
+        )
+        # url is hardcoded in shop method. :-(
+        # todo if the module becomes more modular (with global constants) update this
+	url = '/shop'
+        pager = request.website.pager(
+            url=url, total=product_count, page=page, 
+            step=ppg, scope=7, url_args=post
+        )
+        products = product_obj.search(
+            domain + [('id', 'in', associated_templates)], 
+            limit=ppg, 
+            offset=pager['offset'], 
+            order=self._get_search_order(post)
+        )
         result.qcontext.update({
-            'products': filtered_prods,
-                'bins': main.table_compute().process(filtered_prods, ppg),
+            'products': products,
+            'bins': main.table_compute().process(products, ppg),
             'extra_domain_subtitle': extra_domain_subtitle,
             'filters': attributes_dict or None,
             'filter_prefix': filter_prefix,
             'policy_prefix': policy_prefix,
-            })
+            'pager': pager,}
+        )
         return result
