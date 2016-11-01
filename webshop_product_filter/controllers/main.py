@@ -191,32 +191,35 @@ class WebsiteSale(main.website_sale):
                 # range and use ORM to calc range.
                 if env['product.template'].fields_get(
                         attr.name)[attr.name]['store']:
+
+                    import pudb;pudb.set_trace()
                     try:
                         # using new format, (willbe mandatory in python 3)
                         sql = ("select MIN({0}), MAX({0}) FROM product_template " 
                                "where id in "
-                               "(select product_id from product_categ_rel " 
+                               "(select product_template_id from product_public_category_product_template_rel " 
                                "where categ_id = {1}) ").format(
-                                   attr.name, category
+                                   attr.name, category.id
                                )
                         cr.execute(sql)
                     except:
                         # being this a DB call if the field
                         # lives actually on  product_product
+			
                         sql = ("select MIN({0}), MAX({0}) FROM product_product " 
                                "where product_tmpl_id in "
-                               "(select product_id from product_categ_rel " 
+                               "(select product_template_id from product_public_category_product_template_rel " 
                                "where categ_id = {1}) ").format(
-                                    attr.name, category
+                                    attr.name, category.id
                                )
                         cr.execute(sql)
-                range_result = cr.fetchone()
-                # managing the case of (none,none) there will never
-                # be the (none, value) case because then  min=max
-                if range_result[0] is None:
-                    choice_values = (0, 0)
-                else:
-                    choice_values = (range_result[0], range_result[1])
+                    range_result = cr.fetchone()
+                    # managig the case of (none,none) there will never
+                    # be the (none, value) case because then  min=max
+                    if range_result[0] is None:
+                       choice_values = (0, 0)
+                    else:
+                       choice_values = (range_result[0], range_result[1])
                 else:
                     # removing because doesn't perform
                     # so will also pop the option out of the view
@@ -224,20 +227,20 @@ class WebsiteSale(main.website_sale):
                         [attr.name, post[attr.name]]
                     )
                     del post[attr.name]
-                # TODO THIS MAY CAUSE user problems, he adds a attibute in 
-                # the backend and never sees it in the frontend 
-                # perhaps should filter on domain.
-                """
-                prds = env['product.template'].search([])
-                choice_values = (
-                    prds.sorted(
-                    key=lambda x: eval('x.{0}'.format(attr.name))
-                    )[1].read([attr.name])[0][attr.name],
-                    prds.sorted(
-                    key=lambda x: eval('x.{0}'.format(attr.name))
-                    )[-1].read([attr.name])[0][attr.name]
-                )
-                """
+                    # TODO THIS MAY CAUSE user problems, he adds a attibute in 
+                    # the backend and never sees it in the frontend 
+                    # perhaps should filter on domain.
+                    """
+                    prds = env['product.template'].search([])
+                    choice_values = (
+                        prds.sorted(
+                        key=lambda x: eval('x.{0}'.format(attr.name))
+                        )[1].read([attr.name])[0][attr.name],
+                        prds.sorted(
+                        key=lambda x: eval('x.{0}'.format(attr.name))
+                        )[-1].read([attr.name])[0][attr.name]
+                    )
+                    """
             elif attr.ttype == 'selection':
                 options = env[attr.model].fields_get(
                     attr.name)[attr.name]['selection']
@@ -247,12 +250,18 @@ class WebsiteSale(main.website_sale):
                 choice_values = options
             elif attr.ttype in ['many2one']:
                 relation = env[attr.model].fields_get(
-                attr.name)[attr.name]['relation']
+                    attr.name)[attr.name]['relation']
                 # what happens if the m2o has it's own domain?
                 possible_domain = env[attr.model].fields_get(
-                attr.name)[attr.name]['domain']
-                choice_values = env[str(relation)].search(
-                possible_domain).read(['id', 'name'])
+                    attr.name)[attr.name]['domain']
+                try:
+                    choice_values = env[str(relation)].search(
+                        possible_domain).read(['id', 'name']
+                    )
+                except:
+                    choice_values = env[str(relation)].search([]).read(
+                        ['id', 'name']
+                    )
             """
             TODO x2many
 
@@ -276,10 +285,10 @@ class WebsiteSale(main.website_sale):
         # get the product.products that satisfy the product domain.
         filtered_pp = env['product.product'].search(
         extra_domain_product_product).read(['product_tmpl_id'])
-            associated_templates = []
-            # generate a list of ids of the template ids of found products 
-            for pp in filtered_pp:
-                associated_templates.append(pp['product_tmpl_id'][0])
+        associated_templates = []
+        # generate a list of ids of the template ids of found products 
+        for pp in filtered_pp:
+            associated_templates.append(pp['product_tmpl_id'][0])
         # apply on product.template extra filters
         # 1. had to belong to associated templates,
         # 2. has to be in the previously returned product_template subset.
