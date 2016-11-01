@@ -117,7 +117,8 @@ class WebsiteSale(main.website_sale):
                     for info in  comodel_info
                         info['display_name']
                         domain_set.append(info[relation_field])
-                    domain += [('id', 'in', domain_set)]
+                                        sql = "select MIN({0}), MAX({0}) FROM product_product".format(attr.name)
+domain += [('id', 'in', domain_set)]
                 """
         if search:
             domain_subtitle = \
@@ -200,20 +201,23 @@ class WebsiteSale(main.website_sale):
 		    attr.name)[attr.name]['store']:
 		try:
 		    # using new format, (willbe mandatory in python 3)
-		    cr.execute(
-			"select MIN({0}), MAX({0}) FROM"
-			" product_template".format(attr.name)
-			)
+		    sql = ("select MIN({0}), MAX({0}) FROM product_template " 
+			   "where id in "
+			   "(select product_id from product_categ_rel " 
+			   "where categ_id = {1}) ").format(
+				attr.name, category
+			    )
+		    cr.execute(sql)
 		except:
 		    # being this a DB call if the field
 		    # lives actually on  product_product
-		    cr.execute(
-			"select MIN({0}), MAX({0}) FROM"
-			" product_product".format(attr.name)
-			)
-
-		# MARIAM You where executing a 
-		# selection query and not fetching
+		    sql = ("select MIN({0}), MAX({0}) FROM product_product " 
+			   "where product_tmpl_id in "
+			   "(select product_id from product_categ_rel " 
+			   "where categ_id = {1}) ").format(
+				attr.name, category
+			    )
+		    cr.execute(sql)
 		range_result = cr.fetchone()
 		# managing the case of (none,none) there will never
 		# be the (none, value) case because then  min=max
@@ -222,6 +226,11 @@ class WebsiteSale(main.website_sale):
 		else:
 		    choice_values = (range_result[0], range_result[1])
 	    else:
+		# removing because doesn't perform
+		pass
+		# so will also pop the option out of the view
+	
+                """
 		prds = env['product.template'].search([])
 		choice_values = (
 		    prds.sorted(
@@ -231,6 +240,7 @@ class WebsiteSale(main.website_sale):
 			key=lambda x: eval('x.{0}'.format(attr.name))
 		    )[-1].read([attr.name])[0][attr.name]
 		)
+		"""
 	elif attr.ttype == 'selection':
 	    options = env[attr.model].fields_get(
 		    attr.name)[attr.name]['selection']
