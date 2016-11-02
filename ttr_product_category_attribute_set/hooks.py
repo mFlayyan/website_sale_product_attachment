@@ -5,6 +5,7 @@ from openerp import SUPERUSER_ID
 from openerp.tools import misc
 import imp
 import logging
+from openerp.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ def pre_init_hook(cr):
         scriptfile, '', ('py', 'r', imp.PY_SOURCE)
     )
     support_script.generate(cr=cr)
-    print('Copying views and models in module locations')
+    print 'Copying views and models in module locations'
     from shutil import move
     move(
         support_script.genpath + support_script.XMLDataFileName,
@@ -48,8 +49,8 @@ the pre init hook
 def post_init_hook(cr, pool):
     # test to make runBot pass on non Technotrading dbs
     cr.execute(
-       "select * from information_schema.columns where " 
-       "table_name='product_product' and column_name='magento_sku'"   
+        "select * from information_schema.columns where "
+        "table_name='product_product' and column_name='magento_sku'"
     )
     if not cr.fetchall():
         return
@@ -80,7 +81,7 @@ def post_init_hook(cr, pool):
     website.
     """
 
-    
+
     cr.execute("select id, magento_sku from product_product")
     product_name_association = cr.dictfetchall()
     # Get all product on website, with sku , name and id
@@ -101,18 +102,17 @@ def post_init_hook(cr, pool):
         cur_product_len += 1
         # get the magento product confronting it by name
         mag_product = [
-                e for e in product_list_complete if e[
-                    'sku'
-                    ] == product_name_association[product_rec['magento_sku']]
-                ]
+            e for e in product_list_complete if e[
+                'sku'
+            ] == product_name_association[product_rec['magento_sku']]
+        ]
         if mag_product:
             prd_info = support_script.connect_tt(
-               cr=cr).catalog_product.info(
-                    mag_product[0]['id']
-            )
+                cr=cr).catalog_product.info(
+                    mag_product[0]['id'])
             # get the attribute list of the products set
             prd_attributes = support_script.connect_tt(
-               cr=cr).catalog_product_attribute.list(prd_info['set'])
+                cr=cr).catalog_product_attribute.list(prd_info['set'])
             """
             _logger.debug(
                'DATA_IMPORT_LOG: Starting data import for product %s , id %s',
@@ -177,28 +177,25 @@ def post_init_hook(cr, pool):
                             data_to_write = prd_info[attribute['code']]
 
                             if odoo_type == 'Boolean':
-                                data_to_write == bool(data_to_write)
+                                data_to_write = bool(data_to_write)
                             elif odoo_type in [
                                     'Unknown', 'undecided_price',
                                     'undecided_multiselect',
-                                    'undecided_media_image'
-                                    ]:
+                                    'undecided_media_image']:
                                 _logger.debug(
                                     "Found an Unknown field: %s ,"
                                     "type: %s", prefix + str(
-                                        attribute['code'], str(odoo_type))
+                                        attribute['code']), str(odoo_type)
                                     )
                                 continue
                             elif odoo_type in ['Selection']:
-                                """managing case of lambda func in select"""
+                                # managing case of lambda func in select
                                 test_lambda_func = lambda: 0
                                 selection = product_rec._fields[
                                     field_to_copy_to[0]].selection
-                                if isinstance(
-                                        selection, type(
-                                            test_lambda_func)
-                                        ) and selection.__name__ \
-                                        == test_lambda_func.__name__:
+                                if isinstance(selection, type(test_lambda_func)
+                                             ) and selection.__name__ \
+                                            == test_lambda_func.__name__:
                                     odoo_selection = product_rec._fields[
                                         field_to_copy_to[0]].selection(
                                             product_rec
@@ -207,8 +204,8 @@ def post_init_hook(cr, pool):
                                     """we also have to mange the case
                                     the selection is a function
                                     and eval it on out current """
-                                elif type(selection) == 'str':
-                                    odoo_selection = eval(
+                                elif isinstance(selection, str):
+                                    odoo_selection = safe_eval(
                                         product_rec._fields[
                                             field_to_copy_to[0]].selection(
                                                 product_rec
@@ -226,16 +223,14 @@ def post_init_hook(cr, pool):
                                 but I could not access that attribute.
                                 checking type of first selection
                                 """
-                                if type([odoo_selection][0]) == 'int':
+                                if isinstance([odoo_selection][0], int):
                                     _logger.debug(
                                         'INTEGER SELECTION MANAGE %s -- %s',
-                                        data_to_write,  field_to_copy_to[0]
+                                        data_to_write, field_to_copy_to[0]
                                     )
                                     data_to_write = int(data_to_write)
                             product_rec.write(
-                                {
-                                 field_to_copy_to[0]: data_to_write
-                                }
+                                {field_to_copy_to[0]: data_to_write}
                             )
                             # _logger.debug(
                             #    'WRITTEN %s IN FIELD %s',
@@ -256,25 +251,21 @@ def post_init_hook(cr, pool):
                         if prefix + str(attribute['code']) == 'ttr_price':
                             data_to_write = prd_info[attribute['code']]
                             product_rec.write(
-                                {
-                                 'price': data_to_write
-                                }
+                                {'price': data_to_write}
                             )
                             continue
                         if prefix + str(attribute['code']) == 'ttr_weight':
                             data_to_write = prd_info[attribute['code']]
                             product_rec.write(
-                                {
-                                 'weight': data_to_write
-                                }
+                                {'weight': data_to_write}
                             )
                             continue
                         _logger.debug(
-                                'DATA_IMPORT_LOG: attribute %s has a'
-                                'specific policy: \" %s \" -- TODO',
-                                prefix + str(attribute['code']),
-                                attr_rel[attribute['code']][2],
-                            )
+                            'DATA_IMPORT_LOG: attribute %s has a'
+                            'specific policy: \" %s \" -- TODO',
+                            prefix + str(attribute['code']),
+                            attr_rel[attribute['code']][2],
+                        )
                 if not attribute['code'] in product_rec._fields:
                     continue
                     """
