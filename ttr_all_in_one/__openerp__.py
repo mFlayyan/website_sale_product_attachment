@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'All Technotrading modules',
     'summary': 'Pulls all technotrading modules',
