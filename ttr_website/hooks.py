@@ -4,8 +4,9 @@
 from openerp import api, SUPERUSER_ID
 
 
-def post_init_hook(cr, pool):
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def post_init_hook(cursor, pool):
+    # pylint: disable=W0613
+    env = api.Environment(cursor, SUPERUSER_ID, {})
     create_public_categories(env)
 
 
@@ -16,7 +17,7 @@ def create_public_categories(env):
         'name': 'Magento',
     })
     for private_category in env['product.category'].search(
-        [], order='parent_left'
+            [], order='parent_left'
     ):
         public_category = env['product.public.category'].create({
             'name': private_category.name,

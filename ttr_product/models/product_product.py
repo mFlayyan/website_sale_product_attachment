@@ -101,8 +101,8 @@ class ProductProduct(models.Model):
         GROUP BY TP.product_id;"""
         # TODO: replace fixed ids my xmlids
         self.env.cr.execute(sql, (365, 91, 182))
-        for product_id, stock_period_min, turnover_average, stock_period_max,\
-                purchase_multiple, purchase_draft in self.env.fetchall():
+        for product_id, stock_period_min, turnover_average, stock_period_max_,\
+                purchase_multiple_, purchase_draft in self.env.fetchall():
             turnover_average = float_round(
                 turnover_average, self._fields['turnover_average'].digits)
             this = self.browse(product_id)
@@ -117,9 +117,10 @@ class ProductProduct(models.Model):
                     ) + .5, 0))
                 values = {
                     'turnover_average': turnover_average,
-                    'ultimate_purchase': False if purchase_draft else
-                    fields.Date.to_string(
-                        date.today() + timedelta(days=stock_days))
+                    'ultimate_purchase':
+                    False if purchase_draft else fields.Date.to_string(
+                        date.today() + timedelta(days=stock_days)
+                    )
                 }
             else:  # remove data when supply method no longer = "buy"
                 values = {
