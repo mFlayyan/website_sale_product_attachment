@@ -30,9 +30,9 @@ class ProductPublicCategory(models.Model):
 
     # MAKING A WHITELIST, more secure.
     included_field_types = [
-        'char' , 'text', 'boolean', 
+        'char', 'text', 'boolean',
         'selection',  'monetary', 'float',
-        'integer', 'many2one' , 'datetime' , 'date']
+        'integer', 'many2one', 'datetime', 'date']
     # explitiley writng default 'and' in domain for readability
     category_attributes = fields.Many2many(
         comodel_name='ir.model.fields',
