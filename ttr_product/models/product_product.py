@@ -103,8 +103,6 @@ class ProductProduct(models.Model):
         self.env.cr.execute(sql, (365, 91, 182))
         for product_id, stock_period_min, turnover_average, stock_period_max_,\
                 purchase_multiple_, purchase_draft in self.env.fetchall():
-            stock_period_max
-            purchase_multiple
             turnover_average = float_round(
                 turnover_average, self._fields['turnover_average'].digits)
             this = self.browse(product_id)
