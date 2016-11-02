@@ -13,7 +13,6 @@
     ],
     'update_xml': [
         'purchase_proposal.xml',
-        'report/purchase_report.xml',
         'view/partner_view.xml',
     ],
     'installable': False,
