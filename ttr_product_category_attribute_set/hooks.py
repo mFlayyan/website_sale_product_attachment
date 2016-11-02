@@ -32,11 +32,11 @@ def pre_init_hook(cr):
     print 'Copying views and models in module locations'
     from shutil import move
     move(
-        support_script.genpath + support_script.XMLDataFileName,
-        support_script.datapath + support_script.XMLDataFileName)
+        support_script.GENPATH + support_script.XMLDataFileName,
+        support_script.DATAPATH + support_script.XMLDataFileName)
     move(
-        support_script.genpath + support_script.DefinitionFileName,
-        support_script.modelpath + support_script.DefinitionFileName)
+        support_script.GENPATH + support_script.DefinitionFileName,
+        support_script.MODELPATH + support_script.DefinitionFileName)
 
 
 """

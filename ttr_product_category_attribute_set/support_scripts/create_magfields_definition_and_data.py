@@ -59,16 +59,16 @@ for the new fields in odoo pre migration
 
 
 magento_to_odoo_type_mapping = {
-       'text': 'Char',
-       'textarea': 'Text',
-       'date': 'Date',
-       'boolean': 'Boolean',
-       'select': 'Selection',
-       '': 'unknown',
-       'price': 'undecided_price',
-       'multiselect': 'undecided_multiselect',
-       'media_image': 'undecided_media_image',
-        }
+    'text': 'Char',
+    'textarea': 'Text',
+    'date': 'Date',
+    'boolean': 'Boolean',
+    'select': 'Selection',
+    '': 'unknown',
+    'price': 'undecided_price',
+    'multiselect': 'undecided_multiselect',
+    'media_image': 'undecided_media_image',
+}
 
 """
 other unmapped  types, investigate
@@ -78,10 +78,10 @@ other unmapped  types, investigate
 """
 
 excluded_types = [
-   '',
-   'price',
-   'multiselect',
-   'media_image'
+    '',
+    'price',
+    'multiselect',
+    'media_image'
 ]
 
 """
@@ -435,18 +435,18 @@ references
 """
 # remove /odoo from end of path and leave just parts as rootpath
 
-genpath = ('%s/technotrading/ttr_product_category_attribute_set'
+GENPATH = ('%s/technotrading/ttr_product_category_attribute_set'
            '/support_scripts/') % os.path.dirname(os.path.abspath(__file__))
-modelpath = ('%s/technotrading/ttr_product_category_attribute_set'
+MODELPATH = ('%s/technotrading/ttr_product_category_attribute_set'
              '/models/') % os.path.dirname(os.path.abspath(__file__))
-datapath = ('%s/technotrading/ttr_product_category_attribute_set'
+DATAPATH = ('%s/technotrading/ttr_product_category_attribute_set'
             '/data/') % os.path.dirname(os.path.abspath(__file__))
 excluded_attrs = []
 DefinitionFileName = 'product_template_imported_fields.py'
-DefinitionFilePathAndName = genpath + DefinitionFileName
+DefinitionFilePathAndName = GENPATH + DefinitionFileName
 XMLDataFileName = 'imported_categories.xml'
-XMLDataFilePathAndName = genpath + XMLDataFileName
-ExcludedFileName = genpath + 'excluded.py'
+XMLDataFilePathAndName = GENPATH + XMLDataFileName
+ExcludedFileName = GENPATH + 'excluded.py'
 prefix = "ttr_"
 
 
