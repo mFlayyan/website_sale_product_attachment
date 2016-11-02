@@ -49,7 +49,7 @@ def post_init_hook(cr, pool):
     # test to make runBot pass on non Technotrading dbs
     cr.execute(
        "select * from information_schema.columns where " 
-       "table_name='product_product' and column_name='magento_sku'";   
+       "table_name='product_product' and column_name='magento_sku'"   
     )
     if not cr.fetchall():
         return
