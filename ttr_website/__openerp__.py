@@ -18,6 +18,7 @@
         'website_sale',
     ],
     "data": [
+        "data/ir_ui_view.xml",
         "data/website.xml",
         "data/website_menu.xml",
         "views/templates.xml",
