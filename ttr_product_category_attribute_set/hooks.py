@@ -18,7 +18,7 @@ Has been excluded from manifest on purpose
 script will be launched manually
 """
 
-def pre_init_hook(cr): 
+def pre_init_hook(cr):
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/'
         'create_magfields_definition_and_data.py'
@@ -35,10 +35,10 @@ def pre_init_hook(cr):
     #must move file not to leave generated file around (would be extended on next install)
     from shutil import move
     move(
-        support_script.genpath + support_script.XMLDataFileName, 
+        support_script.genpath + support_script.XMLDataFileName,
         support_script.datapath + support_script.XMLDataFileName)
     move(
-        support_script.genpath + support_script.DefinitionFileName, 
+        support_script.genpath + support_script.DefinitionFileName,
         support_script.modelpath + support_script.DefinitionFileName)
 
 
@@ -50,8 +50,8 @@ the pre init hook
 def post_init_hook(cr, pool):
     # test to make runBot pass on non Technotrading dbs
     cr.execute(
-       "select * from information_schema.columns where " 
-       "table_name='product_product' and column_name='magento_sku'";   
+       "select * from information_schema.columns where "
+       "table_name='product_product' and column_name='magento_sku'"
     )
     if not cr.fetchall():
         return
@@ -69,7 +69,7 @@ def post_init_hook(cr, pool):
     #duck type clean if non-magento db
 
     """
-    fetch all products. at that point assign to the product the correct 
+    fetch all products. at that point assign to the product the correct
     internal category.
     every product will  have values for it's attibutes.
     how to connect a product with the magento product?
@@ -87,7 +87,7 @@ def post_init_hook(cr, pool):
     website.
     """
 
-    
+
     cr.execute("select id, magento_sku from product_product")
     product_name_association = cr.dictfetchall()
     # Get all product on website, with sku , name and id
@@ -134,7 +134,7 @@ def post_init_hook(cr, pool):
             ).next()
             """
             get the category (Already existing)
-            (model, object id) using the same formatting stream used in 
+            (model, object id) using the same formatting stream used in
             creation of data.xml
             """
             category_odoo = env['ir.model.data'].get_object_reference(
@@ -189,12 +189,12 @@ def post_init_hook(cr, pool):
                                 selection = product_rec._fields[field_to_copy_to[0]].selection
                                 if  isinstance(selection, type(test_lambda_func)) and selection.__name__ == test_lambda_func.__name__:
                                    odoo_selection = product_rec._fields[field_to_copy_to[0]].selection(product_rec)
-                                   callable_selections += 1 
+                                   callable_selections += 1
                                    """we also have to maage the case the selection is a function
                                    and eval it on out current """
                                 elif type(selection) == 'str':
                                     odoo_selection = eval(product_rec._fields[field_to_copyto[0]].selection(product_rec))
-                                    str_selections += 1 
+                                    str_selections += 1
                                 else:
                                     odoo_selection =  product_rec._fields[field_to_copy_to[0]].selection[1]
                                     norm_selections +=1
@@ -274,6 +274,6 @@ def post_init_hook(cr, pool):
             )
     _logger.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
                   'normal selection fields %s -- string selection fields %s --'
-                  'fields not found on website %s', 
+                  'fields not found on website %s',
                   callable_selections, str_selections, norm_selections,
                   not_found)
