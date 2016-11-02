@@ -2,7 +2,7 @@ from openerp import http
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.translate import _
-
+                        
 """
 NOTE:
 do not redifine constants in the same model
@@ -46,7 +46,10 @@ class WebsiteSale(main.website_sale):
                 # if it's not in template look in product.
                 # ASSIGNMENT: explain why don't we find fields like
                 # 'code' in model=product.template
-                att = ir_model.search([('name', '=', csa[0])])[0]
+                att = ir_model.search([
+		    ('name', '=', csa[0]),
+                    ('model', '=', 	
+		])[0]
                 # we will search through ORM on product.product so m
                 # IMPORTANT NOTE AND EXPLANATION 1-11-2016 used to need a 2 phase 
                 # search because I was headstrung on working on ir_model_fields. 
@@ -143,10 +146,13 @@ class WebsiteSale(main.website_sale):
         # optimization: if result is already NULL  return!!!!!, allows to remove an
         # if below too.
 
-        if not result.qcontext['products'] or not category:
+        category_specific_attributes = category.category_attributes
+        # case category has no attributes
+        if ( not category_specific_attributes 
+                or not result.qcontext['products'] or not category):
             return result
 
-	#TODO we may want some additional filters for the generic no category view?
+        #TODO we may want some additional filters for the generic no category view?
         # in that case we need to save them on the website , make a many2many on website
         # and fetch those (if they exist)
 
@@ -157,7 +163,7 @@ class WebsiteSale(main.website_sale):
         # them as a domain filter.
         website_product_filter_attributes = []
         for attr_name in post.keys():
-            """ using the ttr_extra prefix and then removing it
+            """ using the  prefix and then removing it
             to allow product variants and our new product fields to
             work together"""
             if attr_name.startswith(filter_prefix):
@@ -170,10 +176,6 @@ class WebsiteSale(main.website_sale):
             website_product_filter_attributes
         )
 
-        category_specific_attributes = category.category_attributes
-        # case category has no attributes
-        if not category_specific_attributes:
-            return result
 
         choice_values = []
         for attr in category_specific_attributes:
@@ -302,14 +304,18 @@ class WebsiteSale(main.website_sale):
         else:
             ppg = main.PPG
         
-        # !!!! Important note: products in my result is just the first page of products not the entire list, 
+        # !!!! Important note: products in my result is just the first page 
+        # of products not the entire list, 
         # this is bad, i need the entire list.
-        # what happens if amongst the products on page 1 none correspond to my extra filter?
-        # i get an empty page, and maybe on page 2,3,4 was the product i needed.
-        # https://github.com/OCA/OCB/blob/9.0/addons/website_sale/controllers/main.py#L239
+        # what happens if amongst the products on page 1 none correspond to 
+        # my extra filter?
+        # i get an empty page, and maybe on page 2,3,4 was the product 
+        # i needed.
+        # https://github.com/OCA/OCB/blob/9.0/addons/website_sale
+        # /controllers/main.py#L239
         
         """
-        this solution is a little "copy and pasty" ,  we are redoing twice a search.
+        this solution is a little "copy and pasty", we are redoing twice a search.
         It would allmost call for getting rid of super altoghether, but super still does other stuff (product style...)
 	and we don't want to brteak the chain of inheritance.
         the structure of website_sale/shop doesn't allow me to do differently.
@@ -318,6 +324,9 @@ class WebsiteSale(main.website_sale):
         
         product_obj =  env['product.template']
         attrib_values = result.qcontext['attrib_values']
+        # put your extra variables in the context keys
+        
+
 	domain = self._get_search_domain(search, category, attrib_values) 
         product_count = product_obj.search_count(
             domain + [('id', 'in', associated_templates)]
