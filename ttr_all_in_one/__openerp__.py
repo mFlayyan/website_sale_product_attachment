@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'All Technotrading modules',
     'summary': 'Pulls all technotrading modules',
@@ -6,7 +7,7 @@
     'author': 'Therp BV',
     'category': 'Specific Industry Applications',
     'depends': [
-        'ttr_reports',
+        # 'ttr_reports',
         'ttr_account',
         # 'ttr_delivery',
         # 'ttr_purchase',

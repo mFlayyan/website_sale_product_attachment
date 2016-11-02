@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="website_sale.products_categories" model="ir.ui.view">
+            <field name="active">1</field>
+        </record>
+        <record id="website_sale.option_collapse_products_categories" model="ir.ui.view">
+            <field name="active">1</field>
+        </record>
+        <record id="website_sale.products_list_view" model="ir.ui.view">
+            <field name="active">1</field>
+        </record>
+        <record id="website_sale.products_description" model="ir.ui.view">
+            <field name="active">1</field>
+        </record>
+    </data>
+</openerp>

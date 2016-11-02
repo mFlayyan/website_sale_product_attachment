@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Technotrading stock customizations',
     'summary': 'Supports custom stock valuation and statistics',
