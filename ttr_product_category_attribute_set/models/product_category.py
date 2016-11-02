@@ -10,7 +10,7 @@ class product_category(models.Model):
     product_field_ids = fields.Many2many(
         comodel_name='ir.model.fields', string='Extra Attributes for category',
         help='These attributes are for the category',
-        domain=lambda self: ['|',
-            ('model', '=', 'product.product'), 
+        domain=lambda self: [
+            ('model', '=', 'product.product')
         ]
     )
