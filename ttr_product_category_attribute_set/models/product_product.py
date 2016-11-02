@@ -7,6 +7,11 @@ from lxml import etree
 
 
 def view_get_insert_extra(self, view_id, view_type, res):
+    """
+    dynamically add tab with extra fields and 
+    the extra fields of the category in view. 
+    called by fields view get of both p.t. and p.p
+    """
     if (view_type == 'form') and ('notebook' in res['arch']):
         eview = etree.fromstring(res['arch'])
         notebook = eview.xpath("//notebook")

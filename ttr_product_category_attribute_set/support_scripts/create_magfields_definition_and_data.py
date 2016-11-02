@@ -4,6 +4,9 @@ import sys
 
 
 def search_in_file_XML(filename, str_to_search):
+    """
+    search in XML
+    """
     try:
         file_obj = open(filename, 'r')
         for line in file_obj:
@@ -17,6 +20,9 @@ def search_in_file_XML(filename, str_to_search):
 
 
 def search_in_file(filename, string_to_tosearch, prefix=''):
+    """
+    search in file
+    """
     str1 = prefix + string_to_tosearch + " = "
     str2 = prefix + string_to_tosearch + " ("
     str3 = prefix + string_to_tosearch + " not found"
@@ -33,6 +39,9 @@ def search_in_file(filename, string_to_tosearch, prefix=''):
 
 
 def append_to_file(filename, string_to_append):
+    """
+    append to file
+    """
     try:
         file_obj = open(filename, 'a')
     except:
@@ -442,8 +451,10 @@ prefix = "ttr_"
 
 
 def connect_tt(cr=None):
+    """
+    creates the magento connection using DB info
+    """
     from magento import MagentoAPI
-
     """
     if connecting from odoo pass db and user
     if called via command line fetch from command line.
@@ -476,6 +487,9 @@ def connect_tt_db_user(dbname, user):
 
 
 def generate(cr=None, dbname=None, user=None, manual=False):
+    """
+    generate XML data of categories and model definitions
+    """
     if user and dbname and manual:
         magento = connect_tt_db_user(dbname, user)
     elif cr:
