@@ -6,7 +6,7 @@
     'author': 'Therp BV',
     'category': 'Specific Industry Applications',
     'depends': [
-        'ttr_reports',
+        # 'ttr_reports',
         'ttr_account',
         # 'ttr_delivery',
         # 'ttr_purchase',
@@ -15,6 +15,7 @@
         'ttr_product',
         'ttr_product_category_attribute_set',
         'ttr_website',
+        'l10n_nl',
     ],
     'installable': True,
 }
