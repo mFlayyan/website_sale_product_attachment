@@ -16,7 +16,6 @@
         'ttr_product',
         'ttr_product_category_attribute_set',
         'ttr_website',
-        'l10n_nl',
     ],
     'installable': True,
 }
