@@ -2,15 +2,16 @@ from openerp import http
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.translate import _
-                        
+
 """
 NOTE:
 do not redifine constants in the same model
 if not necessary, call them from the father class
 """
 
-filter_prefix='webshop_product_filter_'
-policy_prefix='policy_' + filter_prefix
+filter_prefix = 'webshop_product_filter_'
+policy_prefix = 'policy_' + filter_prefix
+
 
 class WebsiteSale(main.website_sale):
 
@@ -22,7 +23,6 @@ class WebsiteSale(main.website_sale):
     def _get_domain_for_cat_specific_attributes(
             self, env, category_specific_attributes, search, allposts):
         domain_product_product = []
-        domain_product_template = []
         """
         based on the values posted from form create an extra domain
         for our new filters.
@@ -35,29 +35,17 @@ class WebsiteSale(main.website_sale):
         domain_subtitle = ""
         if category_specific_attributes:
             ir_model = env['ir.model.fields']
-            product_product_model = env['product.product']
             for csa in category_specific_attributes:
-                # remove filter_prefix 
+                # remove filter_prefix
                 # it was added in the template to distinguish from
                 # the normal odoo attributes
                 csa[0] = csa[0][len(filter_prefix):]
                 # because we are working on the ir.fields table
                 # we cannot take advantage of odoo inheritance,
                 # if it's not in template look in product.
-                # ASSIGNMENT: explain why don't we find fields like
-                # 'code' in model=product.template
                 att = ir_model.search([
-		    ('name', '=', csa[0]),
-                    ('model', '=', 	
-		])[0]
-                # we will search through ORM on product.product so m
-                # IMPORTANT NOTE AND EXPLANATION 1-11-2016 used to need a 2 phase 
-                # search because I was headstrung on working on ir_model_fields. 
-                # Obviously when doing that
-                # you need to search separately for PT stuff and PP stuff.
-                # just using the ORM  ON PRODUCT PRODUCT. 
-                # checking if it is a non stored field!
-                # e.g. default for function fields is non-stored
+                    ('name', '=', csa[0]),
+                    ('model', '=', 'product.template')], limit=1)
                 if att.ttype in ['char', 'text']:
                     domain_product_product += [(csa[0], 'ilike', csa[1])]
                     domain_subtitle = domain_subtitle + \
@@ -66,13 +54,14 @@ class WebsiteSale(main.website_sale):
                 elif att.ttype in ['boolean']:
                     convert = {'on': True, 'off': False}
                     domain_product_product += [
-                            (csa[0], '=', convert[csa[1]])
-                            ]
+                        (csa[0], '=', convert[csa[1]])
+                        ]
                     domain_subtitle = \
                         domain_subtitle + att.field_description + " = " + \
                         str(convert[csa[1]]) + "      "
-                elif att.ttype in ['selection',  'monetary', 'float',
-                        'integer', 'many2one' , 'datetime' , 'date']:
+                elif att.ttype in [
+                        'selection', 'monetary', 'float',
+                        'integer', 'many2one', 'datetime', 'date']:
                     policy_for_filter = \
                         policy_prefix + csa[0]
                     # setting default operator for fields without "policy"
@@ -113,7 +102,8 @@ class WebsiteSale(main.website_sale):
                     for info in  comodel_info
                         info['display_name']
                         domain_set.append(info[relation_field])
-                        sql = "select MIN({0}), MAX({0}) FROM product_product".format(attr.name)
+                        sql = "select MIN({0}), MAX({0})
+                        FROM product_product".format(attr.name)
                     domain += [('id', 'in', domain_set)]
                  """
         if search:
@@ -134,27 +124,23 @@ class WebsiteSale(main.website_sale):
                 posts_clean.append(post)
         return posts_clean
 
+    def _get_search_domain(self, search, category, attrib_values):
+        domain = super(WebsiteSale, self)._get_search_domain(
+                search=search, category=category, attrib_values=attrib_values)
+        webshop_product_filter_domain = request.context.get(
+            'webshop_product_filter_domain', []
+        )
+        domain += webshop_product_filter_domain
+        return domain
+
     @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         env = request.env
         cr = request.cr
         attributes_dict = {}
         category_specific_attributes = []
-        result = super(WebsiteSale, self).shop(
-            page=page, category=category, search=search, ppg=ppg, **post
-        )
-        # optimization: if result is already NULL  return!!!!!, allows to remove an
-        # if below too.
-
-        category_specific_attributes = category.category_attributes
-        # case category has no attributes
-        if ( not category_specific_attributes 
-                or not result.qcontext['products'] or not category):
-            return result
-
-        #TODO we may want some additional filters for the generic no category view?
-        # in that case we need to save them on the website , make a many2many on website
-        # and fetch those (if they exist)
+        if category:
+            category_specific_attributes = category.category_attributes
 
         # Do not use the previous attribute_value or
         # product.attribute.value model. that is for standard attribute
@@ -175,8 +161,6 @@ class WebsiteSale(main.website_sale):
         website_product_filter_attributes = self.sanitize_post(
             website_product_filter_attributes
         )
-
-
         choice_values = []
         for attr in category_specific_attributes:
             """
@@ -190,7 +174,8 @@ class WebsiteSale(main.website_sale):
             you where adding an 'int', dont' confuse odoo types
             with python types
             """
-            if attr.ttype in ['float', 'integer', 'datetime', 'date', 'monetary']:
+            if attr.ttype in [
+                    'float', 'integer', 'datetime', 'date', 'monetary']:
                 # if the field is not a stored field , skip the DB sql
                 # range and use ORM to calc range.
                 if env['product.template'].fields_get(
@@ -198,9 +183,10 @@ class WebsiteSale(main.website_sale):
 
                     try:
                         # using new format, (willbe mandatory in python 3)
-                        sql = ("select MIN({0}), MAX({0}) FROM product_template " 
-                               "where id in "
-                               "(select product_template_id from product_public_category_product_template_rel " 
+                        sql = ("select MIN({0}), MAX({0}) FROM "
+                               "product_template where id in "
+                               "(select product_template_id from "
+                               "product_public_category_product_template_rel "
                                "where categ_id = {1}) ").format(
                                    attr.name, category.id
                                )
@@ -208,10 +194,11 @@ class WebsiteSale(main.website_sale):
                     except:
                         # being this a DB call if the field
                         # lives actually on  product_product
-			
-                        sql = ("select MIN({0}), MAX({0}) FROM product_product " 
-                               "where product_tmpl_id in "
-                               "(select product_template_id from product_public_category_product_template_rel " 
+
+                        sql = ("select MIN({0}), MAX({0}) FROM "
+                               "product_product where product_tmpl_id in "
+                               "(select product_template_id from  "
+                               "product_public_category_product_template_rel "
                                "where categ_id = {1}) ").format(
                                     attr.name, category.id
                                )
@@ -220,9 +207,9 @@ class WebsiteSale(main.website_sale):
                     # managig the case of (none,none) there will never
                     # be the (none, value) case because then  min=max
                     if range_result[0] is None:
-                       choice_values = (0, 0)
+                        choice_values = (0, 0)
                     else:
-                       choice_values = (range_result[0], range_result[1])
+                        choice_values = (range_result[0], range_result[1])
                 else:
                     # removing because doesn't perform
                     # so will also pop the option out of the view
@@ -230,8 +217,8 @@ class WebsiteSale(main.website_sale):
                         [attr.name, post[attr.name]]
                     )
                     del post[attr.name]
-                    # TODO THIS MAY CAUSE user problems, he adds a attibute in 
-                    # the backend and never sees it in the frontend 
+                    # TODO THIS MAY CAUSE user problems, he adds a attibute in
+                    # the backend and never sees it in the frontend
                     # perhaps should filter on domain.
                     """
                     prds = env['product.template'].search([])
@@ -259,15 +246,12 @@ class WebsiteSale(main.website_sale):
                     attr.name)[attr.name]['domain']
                 try:
                     choice_values = env[str(relation)].search(
-                        possible_domain).read(['id', 'name']
-                    )
+                        possible_domain).read(['id', 'name'])
                 except:
                     choice_values = env[str(relation)].search([]).read(
-                        ['id', 'name']
-                    )
+                        ['id', 'name'])
             """
             TODO x2many
-
             elif attr.ttype in ['one2many']:
                 relation = env[attr.model].fields_get(
                 attr.name)[attr.name]['relation']
@@ -283,74 +267,31 @@ class WebsiteSale(main.website_sale):
             attributes_dict[attr] = choice_values
         extra_domain_product_product, extra_domain_subtitle = \
             self._get_domain_for_cat_specific_attributes(
-            env, website_product_filter_attributes, search, post
+                env, website_product_filter_attributes, search, post
             )
-        # get the product.products that satisfy the product domain.
-        filtered_pp = env['product.product'].search(
-        extra_domain_product_product).read(['product_tmpl_id'])
-        associated_templates = []
-        # generate a list of ids of the template ids of found products 
-        for pp in filtered_pp:
-            associated_templates.append(pp['product_tmpl_id'][0])
-        # apply on product.template extra filters
-        # 1. had to belong to associated templates,
-        # 2. has to be in the previously returned product_template subset.
-        if ppg:
-            try:
-                ppg = int(ppg)
-            except ValueError:
-                ppg = main.PPG
-            post["ppg"] = ppg
-        else:
-            ppg = main.PPG
-        
-        # !!!! Important note: products in my result is just the first page 
-        # of products not the entire list, 
-        # this is bad, i need the entire list.
-        # what happens if amongst the products on page 1 none correspond to 
-        # my extra filter?
-        # i get an empty page, and maybe on page 2,3,4 was the product 
-        # i needed.
-        # https://github.com/OCA/OCB/blob/9.0/addons/website_sale
-        # /controllers/main.py#L239
-        
-        """
-        this solution is a little "copy and pasty", we are redoing twice a search.
-        It would allmost call for getting rid of super altoghether, but super still does other stuff (product style...)
-	and we don't want to brteak the chain of inheritance.
-        the structure of website_sale/shop doesn't allow me to do differently.
-        notice the cool injection of my domain in product_count
-        """
-        
-        product_obj =  env['product.template']
-        attrib_values = result.qcontext['attrib_values']
-        # put your extra variables in the context keys
-        
-
-	domain = self._get_search_domain(search, category, attrib_values) 
-        product_count = product_obj.search_count(
-            domain + [('id', 'in', associated_templates)]
-        )
-        # url is hardcoded in shop method. :-(
-        # todo if the module becomes more modular (with global constants) update this
-	url = '/shop'
-        pager = request.website.pager(
-            url=url, total=product_count, page=page, 
-            step=ppg, scope=7, url_args=post
-        )
-        products = product_obj.search(
-            domain + [('id', 'in', associated_templates)], 
-            limit=ppg, 
-            offset=pager['offset'], 
-            order=self._get_search_order(post)
+        if extra_domain_product_product:
+            filtered_pp = env['product.product'].search(
+                extra_domain_product_product).read(['product_tmpl_id'])
+            associated_templates = []
+            # generate a list of ids of the template ids of found products
+            for product in filtered_pp:
+                associated_templates.append(product['product_tmpl_id'][0])
+            """
+            plugging in our new filter in _get_search_domain
+            in website sale
+            """
+            # put your extra domain in the context keys
+            # will be used in the _get_search_domain overwrite
+            if associated_templates:
+                request.context['webshop_product_filter_domain'] = [
+                    ('id', 'in', associated_templates)]
+        result = super(WebsiteSale, self).shop(
+            page=page, category=category, search=search, ppg=ppg, **post
         )
         result.qcontext.update({
-            'products': products,
-            'bins': main.table_compute().process(products, ppg),
             'extra_domain_subtitle': extra_domain_subtitle,
             'filters': attributes_dict or None,
             'filter_prefix': filter_prefix,
             'policy_prefix': policy_prefix,
-            'pager': pager,}
-        )
+            })
         return result
