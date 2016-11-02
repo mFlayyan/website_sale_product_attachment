@@ -46,6 +46,13 @@ the pre init hook
 
 
 def post_init_hook(cr, pool):
+    # test to make runBot pass on non Technotrading dbs
+    cr.execute(
+       "select * from information_schema.columns where " 
+       "table_name='product_product' and column_name='magento_sku'";   
+    )
+    if not cr.fetchall():
+        return
     env = Environment(cr, SUPERUSER_ID, {})
     scriptfile = misc.file_open(
         'ttr_product_category_attribute_set/support_scripts/'
@@ -72,6 +79,8 @@ def post_init_hook(cr, pool):
     the migrated database has incopatible SKU'S with the SKUS i find in
     website.
     """
+
+    
     cr.execute("select id, magento_sku from product_product")
     product_name_association = cr.dictfetchall()
     # Get all product on website, with sku , name and id
