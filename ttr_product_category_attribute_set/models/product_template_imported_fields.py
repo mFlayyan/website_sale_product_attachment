@@ -93,50 +93,49 @@ class ProductTemplate(models.Model):
         selection=[('', '-- Selecteer a.u.b. --'),
                    ([{'value': 'base/default', 'label': 'default'}], 'base'),
                    ([
-                     {
-                      'value': 'technotrading/technotrading',
-                      'label': 'technotrading'
-                     },
-                     {
-                      'value': 'technotrading/default',
-                      'label': 'default'
-                     }
-                    ], 'technotrading'),
+                       {
+                           'value': 'technotrading/technotrading',
+                           'label': 'technotrading'
+                       },
+                       {
+                           'value': 'technotrading/default',
+                           'label': 'default'
+                       }
+                   ], 'technotrading'),
                    ([
-                     {
-                      'value': 'default/hellopress',
-                      'label': 'hellopress'
-                     },
-                     {
-                      'value': 'default/default',
-                      'label': 'default'
-                     },
-                     {
-                      'value': 'default/modern',
-                      'label': 'modern'
-                     },
-                     {
-                       'value': 'default/blank',
-                       'label': 'blank'
-                     },
-                     {
-                       'value': 'default/iphone',
-                       'label': 'iphone'
-                     },
-                     {
-                       'value': 'default/_technotrading',
-                       'label': '_technotrading'
-                     },
-                     {
-                       'value': 'default/_technotrading.bk',
-                       'label': '_technotrading.bk'
-                     },
-                     {
-                       'value': 'default/nosales',
-                       'label': 'nosales'
-                     }
-                    ],
-                    'default')])
+                       {
+                           'value': 'default/hellopress',
+                           'label': 'hellopress'
+                       },
+                       {
+                           'value': 'default/default',
+                           'label': 'default'
+                       },
+                       {
+                           'value': 'default/modern',
+                           'label': 'modern'
+                       },
+                       {
+                           'value': 'default/blank',
+                           'label': 'blank'
+                       },
+                       {
+                           'value': 'default/iphone',
+                           'label': 'iphone'
+                       },
+                       {
+                           'value': 'default/_technotrading',
+                           'label': '_technotrading'
+                       },
+                       {
+                           'value': 'default/_technotrading.bk',
+                           'label': '_technotrading.bk'
+                       },
+                       {
+                           'value': 'default/nosales',
+                           'label': 'nosales'
+                       }
+                   ], 'default')])
     ttr_country_of_manufacture = fields.Selection(
         string='Country of Manufacture', ttr_mag_attribute=True,
         selection=[('', ' '),
@@ -311,8 +310,8 @@ class ProductTemplate(models.Model):
                    ('524', 'Alkaline AAA cells, 3 x 1.5 V'),
                    ('664', 'Compressed air driven turbo-alternator'),
                    ('525', 'LR20/R20 primary cells'),
-                   (
-                    '1179', 'LR6 primary cells to IEC60086, Alkaline AA cells'
+                   ('1179',
+                    'LR6 primary cells to IEC60086, Alkaline AA cells'
                    ),
                    ('526', 'primaire cells, 2 x 1.5 V'),
                    ('527', 'Primairy cell, 2 x 1.5 V'),

@@ -466,9 +466,9 @@ def connect_tt(cr=None):
         import re
         location = re.sub('http://', '', location)[:-1]
         magento = MagentoAPI(
-                  location, '80',
-                  apiusername, apipass
-                )
+            location, '80',
+            apiusername, apipass
+        )
         return magento
     except:
         return
@@ -498,6 +498,7 @@ def generate(cr=None, dbname=None, user=None, manual=False):
         return False
     # don't look for module structure , put files in running dir iof manual
     if manual:
+        # redefining from mouter scope, but makes sense
         DefinitionFilePathAndName = DefinitionFileName
         XMLDataFilePathAndName = XMLDataFileName
     ExcludedFileName = 'excluded.py'
@@ -531,9 +532,9 @@ def generate(cr=None, dbname=None, user=None, manual=False):
             if attribute['type']:
                 field_mapping = []
                 attribute_in_file = search_in_file(
-                        DefinitionFilePathAndName,
-                        attribute['code'],
-                        prefix)
+                    DefinitionFilePathAndName,
+                    attribute['code'],
+                    prefix)
 
                 """
                 we will not create the field definition
@@ -547,8 +548,8 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                         model_string = ("# field %s not found in dictionary,"
                                         "has the client created new fields "
                                         "since the mapping?") % (
-                                    prefix + attribute['code'],
-                                )
+                                            prefix + attribute['code'],
+                                        )
                         append_to_file(ExcludedFileName, model_string)
                     # even if already in file it is an excluded type
                     excluded_attrs.append(attribute['code'])
@@ -564,13 +565,13 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                 model_string = (
                                     "    %s = fields.%s(string='%s',"
                                     "ttr_mag_attribute=True"
-                                        ) % (
-                                       prefix + attribute['code'],
-                                       magento_to_odoo_type_mapping[
-                                            attribute['type']
-                                       ],
-                                       attr_rel[attribute['code']][1]
-                                    )
+                                ) % (
+                                    prefix + attribute['code'],
+                                    magento_to_odoo_type_mapping[
+                                        attribute['type']
+                                    ],
+                                    attr_rel[attribute['code']][1]
+                                )
                             else:
                                 attribute_options = \
                                     magento.catalog_product_attribute.options(
@@ -590,13 +591,13 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                     "ttr_mag_attribute=True,\n"
                                     "                          "
                                     "    selection=%s") % (
-                                       prefix + attribute['code'],
-                                       magento_to_odoo_type_mapping[
-                                           attribute['type']],
-                                       attr_rel[attribute['code']][1],
-                                       str(attribute_selection).replace(
-                                           "'),", "'),\n"
-                                           "                          ")
+                                        prefix + attribute['code'],
+                                        magento_to_odoo_type_mapping[
+                                            attribute['type']],
+                                        attr_rel[attribute['code']][1],
+                                        str(attribute_selection).replace(
+                                            "'),", "'),\n"
+                                            "                          ")
                                     )
                                 if has_integer_index:
                                     model_string += (", \n                  "
@@ -619,7 +620,7 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                 )
                         if attr_rel[attribute['code']][2] == 'DELETE':
                             model_string = (
-                                    "    # NOTE: %s field ttr_%s (%s)") % (
+                                "    # NOTE: %s field ttr_%s (%s)") % (
                                     attr_rel[attribute['code']][2],
                                     attribute['code'],
                                     attr_rel[attribute['code']][1],
@@ -636,28 +637,28 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                     break
                             if len(target_field) > 0:
                                 model_string = (
-                                        "    # MGR NOTE: the data from field "
-                                        "ttr_%s  (%s)"
-                                        "should be moved to field ttr_%s (%s)"
-                                        " at migration time"
-                                        ) % (
-                                            attribute['code'],
-                                            attr_rel[attribute['code']][1],
-                                            target_field,
-                                            attr_rel[target_field][1]
-                                        )
+                                    "    # MGR NOTE: the data from field "
+                                    "ttr_%s  (%s)"
+                                    "should be moved to field ttr_%s (%s)"
+                                    " at migration time"
+                                ) % (
+                                    attribute['code'],
+                                    attr_rel[attribute['code']][1],
+                                    target_field,
+                                    attr_rel[target_field][1]
+                                )
                             # (it's not an id number, just a migration note)
                             else:
                                 policy = attr_rel[attribute['code']][2]
                                 model_string = (
-                                        "# MGR NOTE: the data from field"
-                                        " ttr_%s (%s) should be migrated with"
-                                        " specified policy: %s "
-                                        ) % (
-                                            attribute['code'],
-                                            attr_rel[attribute['code']][1],
-                                            policy
-                                        )
+                                    "# MGR NOTE: the data from field"
+                                    " ttr_%s (%s) should be migrated with"
+                                    " specified policy: %s "
+                                ) % (
+                                    attribute['code'],
+                                    attr_rel[attribute['code']][1],
+                                    policy
+                                )
                 append_to_file(ExcludedFileName, model_string)
                 excluded_attrs.append(attribute['code'])
                 # mapping between new attribute fields and magento
@@ -669,8 +670,8 @@ def generate(cr=None, dbname=None, user=None, manual=False):
         # clean up unused attributes that are in the dict but where not fetched
         for key in attr_rel:
             attribute_in_file = search_in_file(
-                    DefinitionFilePathAndName, key, prefix) or search_in_file(
-                            ExcludedFileName, key, prefix)
+                DefinitionFilePathAndName, key, prefix) or search_in_file(
+                    ExcludedFileName, key, prefix)
             if not attribute_in_file:
                 excluded_attrs.append(key)
         print("SET %s/%s total attrs: %s , attrs for this set: %s ,"
@@ -679,18 +680,18 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                   str(attribute_n),
                   str(len(
                       [
-                        x for x in attributes if x['code']
-                        not in excluded_attrs
+                          x for x in attributes if x['code']
+                          not in excluded_attrs
                       ]
                   ))))
         # XML gen
         category_id_name = "cat_%sattribute_%s" % (
-                prefix,
-                attribute_set['name'].replace(
-                    " ", "_").replace(
-                        "/", "_").replace("-", "_").replace(
-                            '&', '_and_').lower()
-                )
+            prefix,
+            attribute_set['name'].replace(
+                " ", "_").replace(
+                    "/", "_").replace("-", "_").replace(
+                        '&', '_and_').lower()
+        )
         view_in_odoo = search_in_file_XML(
             XMLDataFilePathAndName, category_id_name
         )
@@ -708,10 +709,10 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                         "\n                 <field name=\"product_field_ids\""
                         "eval=\"%s\"/>"
                         "\n     </record>") % (
-                    category_id_name, attribute_set['name'].replace(
-                        " ", "_").replace("/", "_").replace(
-                            "-", "_").replace('&', '_and_').lower(),
-                    product_field_ids_data)
+                            category_id_name, attribute_set['name'].replace(
+                                " ", "_").replace("/", "_").replace(
+                                    "-", "_").replace('&', '_and_').lower(),
+                            product_field_ids_data)
             append_to_file(XMLDataFilePathAndName, xml_text)
 
     XMLDatatemplate_post = "    </data>\n</openerp>"

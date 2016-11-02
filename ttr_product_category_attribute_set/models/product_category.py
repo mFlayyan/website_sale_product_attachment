@@ -4,7 +4,10 @@
 from openerp import fields, models
 
 
-class product_category(models.Model):
+class ProductCategory(models.Model):
+    """
+    extend PT to allow extra attributes per category
+    """
     _inherit = 'product.category'
 
     product_field_ids = fields.Many2many(
