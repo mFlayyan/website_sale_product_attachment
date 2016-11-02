@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "category": "Website",
     "depends": ['website_sale'
-    ],
+                ],
     "data": [
         'views/product_website.xml'
     ],
