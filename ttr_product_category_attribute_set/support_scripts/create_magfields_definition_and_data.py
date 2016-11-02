@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-         
-
+# -*- encoding: utf-8 -*-
+import os
+import sys
 
 
 def search_in_file_XML(filename, str_to_search):
@@ -13,6 +14,7 @@ def search_in_file_XML(filename, str_to_search):
         return False
     file_obj.close()
     return False
+
 
 def search_in_file(filename, string_to_tosearch, prefix=''):
     str1 = prefix + string_to_tosearch + " = "
@@ -29,60 +31,59 @@ def search_in_file(filename, string_to_tosearch, prefix=''):
     file_obj.close()
     return False
 
+
 def append_to_file(filename, string_to_append):
     try:
-       file_obj = open(filename, 'a')
+        file_obj = open(filename, 'a')
     except:
-       file_obj = open(filename, 'w+')
+        file_obj = open(filename, 'w+')
     file_obj.write(string_to_append)
     file_obj.write("\n")
     file_obj.close()
 
 """
 The CREATION OF THE FIELDS SHOULD BE HARDCODED
-This code is now movesd to a script that will 
-generate fields and XML data 
+This code is now movesd to a script that will
+generate fields and XML data
 for the new fields in odoo pre migration
 """
 
 
-magento_to_odoo_type_mapping = { 
-       'text': 'Char', 
-       'textarea': 'Text', 
-       'date': 'Date', 
-       'boolean': 'Boolean', 
+magento_to_odoo_type_mapping = {
+       'text': 'Char',
+       'textarea': 'Text',
+       'date': 'Date',
+       'boolean': 'Boolean',
        'select': 'Selection',
        '': 'unknown',
        'price': 'undecided_price',
        'multiselect': 'undecided_multiselect',
        'media_image': 'undecided_media_image',
-        }        
+        }
 
 """
 other unmapped  types, investigate
-    price( is already syncd with odoo.. should be float?  
+    price( is already syncd with odoo.. should be float?
     multiselect     many2many? a kind of array?
     media_image ..needed?
 """
 
 excluded_types = [
-   '', 
-   'price', 
-   'multiselect', 
+   '',
+   'price',
+   'multiselect',
    'media_image'
 ]
-
-
 
 """
 mapping of fields:
 
-    { field_name: [ internal_id_reference, Description, migration policy], .... }
+ { field_name: [ internal_id_reference, Description, migration policy], .... }
 
 migration policy:
     <KEEP> make  a new attribute
     <DELETE> do not, it has been flagged for deletion
-    <NUMBER>  It should not be generated, please move the data to 
+    <NUMBER>  It should not be generated, please move the data to
         the field with internal id <NUMBER>
     <ANY OTHER STRING> explanation on what to do during migration
 """
@@ -94,11 +95,14 @@ attr_rel = {
     'sku': [63, 'Technotrading number', 'KEEP'],
     'price': [64, 'Price', 'to odoo field price'],
     'special_price': [65, 'Special Price', 'migrated through pricelists'],
-    'special_from_date': [66, 'Special Price From Date', 'migrated through pricelists'],
-    'special_to_date': [67, 'Special Price To Date', 'migrated through pricelists'],
+    'special_from_date':
+        [66, 'Special Price From Date', 'migrated through pricelists'],
+    'special_to_date':
+        [67, 'Special Price To Date', 'migrated through pricelists'],
     'cost': [68, 'Cost', 'to odoo field'],
     'weight': [69, 'Weight', 'to_odoo_field weight'],
-    'manufacturer': [70, 'Manufacturer', 'migrate through product_manufacturer'],
+    'manufacturer':
+        [70, 'Manufacturer', 'migrate through product_manufacturer'],
     'meta_title': [71, 'Meta Title', 'KEEP'],
     'meta_keyword': [72, 'Meta Keywords', 'KEEP'],
     'meta_description': [73, 'Meta Description', 'KEEP'],
@@ -133,14 +137,17 @@ attr_rel = {
     'thumbnail_label': [102, 'Thumbnail Label', 'DELETE'],
     'created_at': [103, '', 'to odoo field'],
     'updated_at': [104, '', 'to odoo field'],
-    'enable_googlecheckout': [109, 'Is Product Available for Purchase with Google Checkout', 'KEEP'],
+    'enable_googlecheckout':
+        [109, 'Is Product Available for Purchase with Google Checkout',
+         'KEEP'],
     'gift_message_available': [110, 'Allow Gift Message', 'KEEP'],
     'price_type': [111, '', 'DELETE'],
     'sku_type': [112, '', 'DELETE'],
     'weight_type': [113, '', 'DELETE'],
     'price_view': [114, 'Price View', 'KEEP'],
     'shipment_type': [115, 'Shipment', 'KEEP'],
-    'links_purchased_separately': [116, 'Links can be purchased separately', 'KEEP'],
+    'links_purchased_separately':
+        [116, 'Links can be purchased separately', 'KEEP'],
     'samples_title': [117, 'Samples title', 'KEEP'],
     'links_title': [118, 'Links title', 'DELETE'],
     'links_exist': [119, '', 'DELETE'],
@@ -149,8 +156,14 @@ attr_rel = {
     'verkoopeenheid': [122, 'Sales unit', 'KEEP'],
     'branche': [124, 'Branche', 'DELETE'],
     'pressure_ratio': [125, 'Pressure Ratio', 'KEEP'],
-    'height': [129, 'Height', 'migrate with  https://github.com/OCA/product-attribute.git'],
-    'width': [130, 'Width', 'migrate with  https://github.com/OCA/product-attribute.git'],
+    'height':
+        [129,
+         'Height',
+         'migrate with  https://github.com/OCA/product-attribute.git'],
+    'width': [
+        130,
+        'Width',
+        'migrate with  https://github.com/OCA/product-attribute.git'],
     'paint_sprayer_gewicht': [131, 'Weight', '69'],
     'luchtslang': [132, 'Airhose', 'KEEP'],
     'aansluiting': [133, 'Air inlet', '237'],
@@ -169,7 +182,8 @@ attr_rel = {
     'temperature_class': [146, 'Temperature Class', 'KEEP'],
     'safety_light_weight': [147, 'Weight', '69'],
     'ip': [148, 'IP', 'KEEP'],
-    'safety_lights_max_temperature_surface': [149, 'Max Temperature Surface', 'DELETE'],
+    'safety_lights_max_temperature_surface':
+        [149, 'Max Temperature Surface', 'DELETE'],
     'safety_lights_input_voltage': [150, 'Voltage', '310'],
     'recharge_time': [152, 'Recharge Time', 'KEEP'],
     'safety_lights_air_pressure': [153, 'Air Pressure', '137'],
@@ -208,7 +222,10 @@ attr_rel = {
     'effective_reach': [187, 'Effective Reach', 'DELETE'],
     'recoil': [188, 'Recoil', 'DELETE'],
     'max_water_inlet_temperature': [189, 'Max water inlet temp', 'DELETE'],
-    'dimensions': [190, 'Dimensions LxWxH', 'migrate using https://github.com/OCA/product-attribute.git'],
+    'dimensions':
+        [190,
+         'Dimensions LxWxH',
+         'migrate using https://github.com/OCA/product-attribute.git'],
     'power_consumption': [191, 'Power Consumption', '200'],
     'temperature_range': [192, 'Temperature Range', 'KEEP'],
     'electrostatic_protection': [193, 'Electrostatic Protection', 'DELETE'],
@@ -228,7 +245,8 @@ attr_rel = {
     'cutting_depth': [207, 'Cutting Depth', 'DELETE'],
     'cutting_cap_mild_steel': [208, 'Cutting cap mild steel', 'DELETE'],
     'cutting_cap_aluminium': [209, 'Cutting cap aluminium', 'DELETE'],
-    'cutting_cap_stainless_steel': [210, 'Cutting cap stainless steel', 'DELETE'],
+    'cutting_cap_stainless_steel':
+        [210, 'Cutting cap stainless steel', 'DELETE'],
     'planing_width': [211, 'Planing Width', 'DELETE'],
     'working_width': [212, 'Working Width', 'DELETE'],
     'pad_size_lxb': [213, 'Pad Size L x B', 'KEEP'],
@@ -347,8 +365,9 @@ attr_rel = {
     'vacuum_cleaner_hz': [330, 'Hz', 'KEEP'],
     'vacuum_cleaner_watt': [331, 'Watt', '200'],
     'geared_trolley': [332, 'Capacity', 'DELETE'],
-    'capacity_plain_trolley': [333, 'Capacity', '176'],           
-    'airless_paint_spray_max_pressure': [335, 'airless_paint_spray_max_pressure', '139'],
+    'capacity_plain_trolley': [333, 'Capacity', '176'],
+    'airless_paint_spray_max_pressure':
+        [335, 'airless_paint_spray_max_pressure', '139'],
     'clothing_size': [336, 'clothing_size', '236'],
     'compressor_capacity': [337, 'compressor_capacity', '203'],
     'dimensions_sandblaster': [338, 'dimensions_sandblaster', '190'],
@@ -359,12 +378,17 @@ attr_rel = {
     'impa2': [361, 'impa2', '240'],
     'impa3': [362, 'impa3', '241'],
     'impa4': [363, 'impa4', '242'],
-    'impact_wrench_bolt_capacity': [364, 'impact_wrench_bolt_capacity', '174'],
-    'industr_lighting_consumedpower': [365, 'industr_lighting_frequency', '200'],
+    'impact_wrench_bolt_capacity':
+        [364, 'impact_wrench_bolt_capacity', '174'],
+    'industr_lighting_consumedpower':
+        [365, 'industr_lighting_frequency', '200'],
     'industr_lighting_frequency': [366, 'industr_lighting_frequency', '330'],
-    'industr_lighting_luminous_flux': [367, 'industr_lighting_luminous_flux', '142'],
-    'industr_lighting_power_voltage': [368, 'industr_lighting_power_voltage', '310'],
-    'industr_lighting_protection': [369, 'industr_lighting_protection', '148'],
+    'industr_lighting_luminous_flux':
+        [367, 'industr_lighting_luminous_flux', '142'],
+    'industr_lighting_power_voltage':
+        [368, 'industr_lighting_power_voltage', '310'],
+    'industr_lighting_protection':
+        [369, 'industr_lighting_protection', '148'],
     'industr_lighting_weight': [370, 'industr_lighting_weight', '69'],
     'mah': [371, 'mah', 'KEEP'],
     'optimum_work_pressure': [372, 'optimum_work_pressure', '137'],
@@ -373,17 +397,21 @@ attr_rel = {
     'paint_sprayer_lengte': [375, 'paint_sprayer_lengte', '138'],
     'paint_sprayer_luchtslang': [376, 'paint_sprayer_luchtslang', '140'],
     'paint_sprayer_luchtverbruik': [377, 'paint_sprayer_luchtverbruik', '134'],
-    'paint_sprayer_normale_werkdruk': [378, 'paint_sprayer_normale_werkdruk', '137'],
+    'paint_sprayer_normale_werkdruk':
+        [378, 'paint_sprayer_normale_werkdruk', '137'],
     'paint_sprayer_toerental': [379, 'paint_sprayer_toerental', '135'],
     'paint_sprayer_width': [380, 'paint_sprayer_width', '130'],
-    'paint_sprayers_pressure_ratio': [381, 'paint_sprayers_pressure_ratio', '125'],
+    'paint_sprayers_pressure_ratio':
+        [381, 'paint_sprayers_pressure_ratio', '125'],
     'saferty_lights_lightbulb': [382, 'saferty_lights_lightbulb', '141'],
-    'safety_lights_area_of_classification': [383, 'safety_lights_area_of_classification', '144'],
+    'safety_lights_area_of_classification':
+        [383, 'safety_lights_area_of_classification', '144'],
     'safety_lights_certification': [384, 'safety_lights_certification', '145'],
     'safety_lights_ip': [385, 'safety_lights_ip', '148'],
     'safety_lights_light_output': [386, 'safety_lights_light_output', '142'],
     'safety_lights_recharge_time': [387, 'safety_lights_recharge_time', '152'],
-    'safety_lights_temperature_class': [388, 'safety_lights_temperature_class', '146'],
+    'safety_lights_temperature_class':
+        [388, 'safety_lights_temperature_class', '146'],
     'test': [389, 'test', 'DELETE'],
     'testpump_bar': [390, 'testpump_bar', '137'],
     'type_batterij': [391, 'type_batterij', '200'],
@@ -392,39 +420,40 @@ attr_rel = {
 }
 
 """
-here we will save all attributes that where deleted, moved, 
-not found in dict so to keep them out of the XML 
+here we will save all attributes that where deleted, moved,
+not found in dict so to keep them out of the XML
 references
 """
-import os
 # remove /odoo from end of path and leave just parts as rootpath
 
-genpath = '%s/technotrading/ttr_product_category_attribute_set/support_scripts/' %  os.path.dirname(os.path.abspath(__file__))
-modelpath  = '%s/technotrading/ttr_product_category_attribute_set/models/' %  os.path.dirname(os.path.abspath(__file__))
-datapath  = '%s/technotrading/ttr_product_category_attribute_set/data/' %  os.path.dirname(os.path.abspath(__file__))
+genpath = ('%s/technotrading/ttr_product_category_attribute_set'
+           '/support_scripts/') % os.path.dirname(os.path.abspath(__file__))
+modelpath = ('%s/technotrading/ttr_product_category_attribute_set'
+             '/models/') % os.path.dirname(os.path.abspath(__file__))
+datapath = ('%s/technotrading/ttr_product_category_attribute_set'
+            '/data/') % os.path.dirname(os.path.abspath(__file__))
 excluded_attrs = []
 DefinitionFileName = 'product_template_imported_fields.py'
 DefinitionFilePathAndName = genpath + DefinitionFileName
 XMLDataFileName = 'imported_categories.xml'
-XMLDataFilePathAndName = genpath + XMLDataFileName 
+XMLDataFilePathAndName = genpath + XMLDataFileName
 ExcludedFileName = genpath + 'excluded.py'
 prefix = "ttr_"
 
-import sys
 
-def connect_tt(cr=None): 
+def connect_tt(cr=None):
     from magento import MagentoAPI
-    
-    """ 
+
+    """
     if connecting from odoo pass db and user
     if called via command line fetch from command line.
     """
     try:
-	sql = "SELECT location, apiusername, apipass FROM external_referential"
+        sql = "SELECT location, apiusername, apipass FROM external_referential"
         cr.execute(sql)
-	location, apiusername, apipass = cr.fetchall()[0]
+        location, apiusername, apipass = cr.fetchall()[0]
         import re
-        location = re.sub('http://','', location)[:-1] 
+        location = re.sub('http://', '', location)[:-1]
         magento = MagentoAPI(
                   location, '80',
                   apiusername, apipass
@@ -439,8 +468,8 @@ def connect_tt_db_user(dbname, user):
     try:
         con = None
         connectionstring = "dbname=%s user=%s" % (dbname, user)
-	con = psycopg2.connect(connectionstring)   
-	cur = con.cursor()
+        con = psycopg2.connect(connectionstring)
+        cur = con.cursor()
         return connect_tt(cr=cur)
     except:
         return
@@ -455,57 +484,59 @@ def generate(cr=None, dbname=None, user=None, manual=False):
         return False
     # don't look for module structure , put files in running dir iof manual
     if manual:
-    	DefinitionFilePathAndName = DefinitionFileName
+        DefinitionFilePathAndName = DefinitionFileName
         XMLDataFilePathAndName = XMLDataFileName
-	ExcludedFileName = 'excluded.py'
+    ExcludedFileName = 'excluded.py'
     # add file starts here so it works for manual and non manual
 
     definition_template = ("# -*- coding: utf-8 -*-"
                            "\n# © 2016 Therp BV <http://therp.nl>"
-		           "\n# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)."
-		           "\nfrom openerp import fields, models"
-		           "\n"
-		           "\n"
-		           "class ProductTemplate(models.Model):\n"
-		           "    _inherit = 'product.template'\n")
+                           "\n# License AGPL-3.0 or later "
+                           "(http://www.gnu.org/licenses/agpl.html)."
+                           "\nfrom openerp import fields, models"
+                           "\n"
+                           "\n"
+                           "class ProductTemplate(models.Model):\n"
+                           "    _inherit = 'product.template'\n")
     append_to_file(DefinitionFilePathAndName, definition_template)
     XMLDatatemplate_pre = "<openerp>\n    <data>\n"
     append_to_file(XMLDataFilePathAndName, XMLDatatemplate_pre)
-	
+
     attribute_sets = magento.catalog_product_attribute_set.list()
-    print("==== Module ttr_product_category post_init_hook: Starting import attribute sets from magento ====")
-    set_n=0
+    print("==== Module ttr_product_category post_init_hook:"
+          "Starting import attribute sets from magento ====")
+    set_n = 0
     set_all = len(attribute_sets)
     for attribute_set in attribute_sets:
         set_n += 1
         attributes = magento.catalog_product_attribute.list(
             [attribute_set['set_id']]
         )
-        attribute_n=0
+        attribute_n = 0
         for attribute in attributes:
             if attribute['type']:
                 field_mapping = []
                 attribute_in_file = search_in_file(
-                        DefinitionFilePathAndName, 
-                        attribute['code'], 
+                        DefinitionFilePathAndName,
+                        attribute['code'],
                         prefix)
-                        
+
                 """
-                we will not create the field definition 
-                even if it isn't in the file, it will just 
+                we will not create the field definition
+                even if it isn't in the file, it will just
                 inject the explanation as a comment, a sort
                 of automatic documentation.
                 """
                 if attribute['code'] not in attr_rel:
                     if not attribute_in_file:
-                        attribute_n +=1
+                        attribute_n += 1
                         model_string = ("# field %s not found in dictionary,"
-                            "has the client created new fields since"
-                            " the mapping?") % (
+                                        "has the client created new fields "
+                                        "since the mapping?") % (
                                     prefix + attribute['code'],
                                 )
                         append_to_file(ExcludedFileName, model_string)
-                    #even if already in file it is an excluded type
+                    # even if already in file it is an excluded type
                     excluded_attrs.append(attribute['code'])
                 else:
                     if not attribute_in_file:
@@ -520,45 +551,59 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                     "    %s = fields.%s(string='%s',"
                                     "ttr_mag_attribute=True"
                                         ) % (
-                                       prefix + attribute['code'],  
-                                        magento_to_odoo_type_mapping[attribute['type']],
-                                        attr_rel[attribute['code']][1]
+                                       prefix + attribute['code'],
+                                       magento_to_odoo_type_mapping[
+                                            attribute['type']
+                                       ],
+                                       attr_rel[attribute['code']][1]
                                     )
                             else:
-                                attribute_options = magento.catalog_product_attribute.options(
-                                    int(attribute['attribute_id']), 
-                                )
+                                attribute_options = \
+                                    magento.catalog_product_attribute.options(
+                                        int(attribute['attribute_id']),
+                                    )
                                 # implementing size=-1 for integer indexes
                                 has_integer_index = isinstance(
                                     attribute_options[0]['value'], int
                                 )
                                 attribute_selection = [
-                                        (x['value'], x['label']) for x in attribute_options
-                                        ]
+                                    (
+                                        x['value'], x['label']
+                                    ) for x in attribute_options
+                                ]
                                 model_string = (
                                     "    %s = fields.%s(string='%s', "
-                                    "ttr_mag_attribute=True,\n                            "
+                                    "ttr_mag_attribute=True,\n"
+                                    "                          "
                                     "    selection=%s") % (
-                                       prefix + attribute['code'],  
-                                        magento_to_odoo_type_mapping[attribute['type']],
-                                        attr_rel[attribute['code']][1],
-                                        str(attribute_selection).replace(
-                                            "'),", "'),\n                            ")
+                                       prefix + attribute['code'],
+                                       magento_to_odoo_type_mapping[
+                                           attribute['type']],
+                                       attr_rel[attribute['code']][1],
+                                       str(attribute_selection).replace(
+                                           "'),", "'),\n"
+                                           "                          ")
                                     )
                                 if has_integer_index:
-                                    model_string += ", \n                                size=-1"
+                                    model_string += (", \n                  "
+                                                     "            size=-1")
                             if attribute['type'] in excluded_types:
-                                model_string = ("    \n\"\"\"\n NOTE: undecided/excluded type:"
-                                       "\n     %s \n    "
-                                       "Will have to run gen script to refresh XML" 
-                                       "again if you decide to use these \n\"\"\"" 
-                                       ) % model_string
+                                model_string = (
+                                    "    \n\"\"\"\n NOTE:"
+                                    "undecided/excluded type:"
+                                    "\n     %s \n    "
+                                    "Will have to run gen script to "
+                                    "refresh XML again if you decide "
+                                    "to use these \n\"\"\""
+                                ) % model_string
                                 append_to_file(ExcludedFileName, model_string)
                                 excluded_attrs.append(attribute['code'])
                             else:
-                                append_to_file(DefinitionFilePathAndName, model_string +")")
-
-                        if attr_rel[attribute['code']][2] =='DELETE':  
+                                append_to_file(
+                                    DefinitionFilePathAndName,
+                                    model_string + ")"
+                                )
+                        if attr_rel[attribute['code']][2] == 'DELETE':
                             model_string = (
                                     "    # NOTE: %s field ttr_%s (%s)") % (
                                     attr_rel[attribute['code']][2],
@@ -567,45 +612,46 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                                     )
                             append_to_file(ExcludedFileName, model_string)
                             excluded_attrs.append(attribute['code'])
-                        if (attr_rel[attribute['code']][2] !='DELETE' and 
-                                attr_rel[attribute['code']][2] !='KEEP'): 
-                            target_field=''
+                        if (attr_rel[attribute['code']][2] != 'DELETE' and
+                                attr_rel[attribute['code']][2] != 'KEEP'):
+                            target_field = ''
                             for key in attr_rel:
-                                if str(attr_rel[key][0]) == attr_rel[attribute['code']][2]:
+                                if str(attr_rel[key][0]) == attr_rel[
+                                        attribute['code']][2]:
                                     target_field = key
                                     break
-                            if len(target_field)>0:
+                            if len(target_field) > 0:
                                 model_string = (
-                                        "    # MGR NOTE: the data from field ttr_%s  (%s)"
-                                        "should be moved to field ttr_%s (%s) at migration time"
+                                        "    # MGR NOTE: the data from field "
+                                        "ttr_%s  (%s)"
+                                        "should be moved to field ttr_%s (%s)"
+                                        " at migration time"
                                         ) % (
-                                            attribute['code'], 
+                                            attribute['code'],
                                             attr_rel[attribute['code']][1],
                                             target_field,
                                             attr_rel[target_field][1]
                                         )
-                            #(it's not an id number, just a migration note)
+                            # (it's not an id number, just a migration note)
                             else:
-                                policy =  attr_rel[attribute['code']][2]
+                                policy = attr_rel[attribute['code']][2]
                                 model_string = (
-                                        "# MGR NOTE: the data from field" 
-                                        " ttr_%s (%s) should be migrated with" 
+                                        "# MGR NOTE: the data from field"
+                                        " ttr_%s (%s) should be migrated with"
                                         " specified policy: %s "
                                         ) % (
-                                            attribute['code'], 
+                                            attribute['code'],
                                             attr_rel[attribute['code']][1],
                                             policy
                                         )
-			    append_to_file(ExcludedFileName, model_string)
-                            excluded_attrs.append(attribute['code'])
-                        # mapping between new attribute fields and magento fields
-                        # maybe not needed if code is unique
-                        if attribute['code'] not in excluded_attrs:
-                            field_mapping.append(
-                                {attribute['code']: attribute['attribute_id']}
-                            )
-
-       
+                append_to_file(ExcludedFileName, model_string)
+                excluded_attrs.append(attribute['code'])
+                # mapping between new attribute fields and magento
+                # fieds not needed if code is unique
+                if attribute['code'] not in excluded_attrs:
+                    field_mapping.append(
+                        {attribute['code']: attribute['attribute_id']}
+                    )
         # clean up unused attributes that are in the dict but where not fetched
         for key in attr_rel:
             attribute_in_file = search_in_file(
@@ -613,34 +659,51 @@ def generate(cr=None, dbname=None, user=None, manual=False):
                             ExcludedFileName, key, prefix)
             if not attribute_in_file:
                 excluded_attrs.append(key)
-        print("SET %s/%s total attrs: %s , attrs for this set: %s , excluded: %s" % (
-	    str(set_n) , str(set_all), str(len(attr_rel)), str(attribute_n) , str(len([x for x in attributes if x['code'] not in excluded_attrs]))))
+        print("SET %s/%s total attrs: %s , attrs for this set: %s ,"
+              " excluded: %s" % (
+                  str(set_n), str(set_all), str(len(attr_rel)),
+                  str(attribute_n),
+                  str(len(
+                      [
+                        x for x in attributes if x['code']
+                        not in excluded_attrs
+                      ]
+                  ))))
         # XML gen
         category_id_name = "cat_%sattribute_%s" % (
                 prefix,
-                attribute_set['name'].replace(" ", "_").replace("/","_").replace("-","_").replace('&', '_and_').lower()
+                attribute_set['name'].replace(
+                    " ", "_").replace(
+                        "/", "_").replace("-", "_").replace(
+                            '&', '_and_').lower()
                 )
-        view_in_odoo = search_in_file_XML(XMLDataFilePathAndName, category_id_name)
+        view_in_odoo = search_in_file_XML(
+            XMLDataFilePathAndName, category_id_name
+        )
         if not view_in_odoo:
-            product_field_ids_data = str([
-                "(4,ref('ttr_product_category_attribute_set."
-                "field_product_template_ttr_%s'))" % x['code'] for x in attributes if x['code'] not in excluded_attrs]
+            product_field_ids_data = str(
+                [
+                    "(4,ref('ttr_product_category_attribute_set."
+                    "field_product_template_ttr_%s'))" % x['code']
+                    for x in attributes if x['code'] not in excluded_attrs
+                ]
                 ).replace("\"", "")
             xml_text = ("    <record id=\"%s\" "
                         "model=\"product.category\"> "
                         "\n                 <field name=\"name\">%s</field>"
-                        "\n                 <field name=\"product_field_ids\" eval=\"%s\"/>"
+                        "\n                 <field name=\"product_field_ids\""
+                        "eval=\"%s\"/>"
                         "\n     </record>") % (
                     category_id_name, attribute_set['name'].replace(
-                        " ", "_").replace("/","_").replace(
-                            "-","_").replace('&', '_and_').lower(), 
+                        " ", "_").replace("/", "_").replace(
+                            "-", "_").replace('&', '_and_').lower(),
                     product_field_ids_data)
             append_to_file(XMLDataFilePathAndName, xml_text)
 
     XMLDatatemplate_post = "    </data>\n</openerp>"
     append_to_file(XMLDataFilePathAndName, XMLDatatemplate_post)
 
-# you can call this via command line, but it is not 
+# you can call this via command line, but it is not
 # advised , it may give uninstall problems
 # ideally, this module creates it's views and fields when installed
 # fetching a snapshot from the magento website.
