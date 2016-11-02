@@ -101,8 +101,10 @@ class ProductProduct(models.Model):
         GROUP BY TP.product_id;"""
         # TODO: replace fixed ids my xmlids
         self.env.cr.execute(sql, (365, 91, 182))
-        for product_id, stock_period_min, turnover_average, _stock_period_max,\
-                _purchase_multiple, purchase_draft in self.env.fetchall():
+        for product_id, stock_period_min, turnover_average, stock_period_max_,\
+                purchase_multiple_, purchase_draft in self.env.fetchall():
+            stock_period_max
+            purchase_multiple
             turnover_average = float_round(
                 turnover_average, self._fields['turnover_average'].digits)
             this = self.browse(product_id)
