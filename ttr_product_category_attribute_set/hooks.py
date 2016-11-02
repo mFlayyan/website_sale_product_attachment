@@ -56,7 +56,6 @@ def post_init_hook(cr, pool):
         scriptfile, '', ('py', 'r', imp.PY_SOURCE)
     )
     all_odoo_products = env['product.product'].sudo().search([])
-
     """
     fetch all products. at that point assign to the product the correct
     internal category.
