@@ -146,15 +146,17 @@ def prepare_attributes(
                 # price are mostly the ones.)
                 if prefix + str(attribute['code']) == 'ttr_price':
                     data_to_write = prd_info[attribute['code']]
-                    product_rec.write(
-                        {'price': data_to_write}
-                    )
+                    # TODO skipping price write conflicts with computes
+                    # product_rec.write(
+                    #    {'price': data_to_write}
+                    # )
                     continue
                 if prefix + str(attribute['code']) == 'ttr_weight':
+                    # TOFO Skipping WEIGHTprice write conflicts with computes
                     data_to_write = prd_info[attribute['code']]
-                    product_rec.write(
-                        {'weight': data_to_write}
-                    )
+                    # product_rec.write(
+                    #    {'weight': data_to_write}
+                    # )
                     continue
                 LOGGER.debug(
                     'DATA_IMPORT_LOG: attribute %s has a'
