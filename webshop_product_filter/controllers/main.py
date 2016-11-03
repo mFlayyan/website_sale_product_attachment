@@ -128,17 +128,17 @@ def get_range(env, cursor, category, attr):
         #    key=lambda x: eval('x.{0}'.format(attr.name))
         #    )[-1].read([attr.name])[0][attr.name]
         # )
-        if sql:
-            cursor.execute(sql)
-            range_result = cursor.fetchone()
-            # managing the case of (none,none) there will never
-            # be the (none, value) case because then  min=max
-            # note it will never return just None it will allways
-            # return at least (none, none)
-            if range_result[0] is None:
-                return (0, 0)
-            else:
-                return (range_result[0], range_result[1])
+    if sql:
+        cursor.execute(sql)
+        range_result = cursor.fetchone()
+        # managing the case of (none,none) there will never
+        # be the (none, value) case because then  min=max
+        # note it will never return just None it will allways
+        # return at least (none, none)
+        if range_result[0] is None:
+            return (0, 0)
+        else:
+            return (range_result[0], range_result[1])
     return False
 
 
@@ -150,8 +150,10 @@ def manage_attribute_types(env, cursor, category, attr):
         if not choice_values:
             return False
     elif attr.ttype == 'selection':
-        options = attr.__getattribute__('selection')
+        options = 
         if not isinstance(options, list):
+            import pudb            
+            pudb.set_trace()
             choice_values = safe_eval(options)
         else:
             choice_values = options
