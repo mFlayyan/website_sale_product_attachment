@@ -3,14 +3,9 @@ from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.translate import _
 
-"""
-NOTE:
-do not redifine constants in the same model
-if not necessary, call them from the father class
-"""
 
-filter_prefix = 'webshop_product_filter_'
-policy_prefix = 'policy_' + filter_prefix
+FILTER_PREFIX = 'webshop_product_filter_'
+POLICY_PREFIX = 'policy_' + FILTER_PREFIX
 
 
 class WebsiteSale(main.website_sale):
@@ -20,7 +15,7 @@ class WebsiteSale(main.website_sale):
     account all the new stuff we are filtering for
     """
 
-    def _get_domain_for_cat_specific_attributes(
+    def get_domain_for_cat_specific_attributes(
             self, env, category_specific_attributes, search, allposts):
         domain_product_product = []
         """
@@ -36,10 +31,10 @@ class WebsiteSale(main.website_sale):
         if category_specific_attributes:
             ir_model = env['ir.model.fields']
             for csa in category_specific_attributes:
-                # remove filter_prefix
+                # remove FILTER_PREFIX
                 # it was added in the template to distinguish from
                 # the normal odoo attributes
-                csa[0] = csa[0][len(filter_prefix):]
+                csa[0] = csa[0][len(FILTER_PREFIX):]
                 # because we are working on the ir.fields table
                 # we cannot take advantage of odoo inheritance,
                 # if it's not in template look in product.
@@ -63,7 +58,7 @@ class WebsiteSale(main.website_sale):
                         'selection', 'monetary', 'float',
                         'integer', 'many2one', 'datetime', 'date']:
                     policy_for_filter = \
-                        policy_prefix + csa[0]
+                        POLICY_PREFIX + csa[0]
                     # setting default operator for fields without "policy"
                     operator = "="
                     # mapping policy options
@@ -126,7 +121,7 @@ class WebsiteSale(main.website_sale):
 
     def _get_search_domain(self, search, category, attrib_values):
         domain = super(WebsiteSale, self)._get_search_domain(
-                search=search, category=category, attrib_values=attrib_values)
+            search=search, category=category, attrib_values=attrib_values)
         webshop_product_filter_domain = request.context.get(
             'webshop_product_filter_domain', []
         )
@@ -152,12 +147,12 @@ class WebsiteSale(main.website_sale):
             """ using the  prefix and then removing it
             to allow product variants and our new product fields to
             work together"""
-            if attr_name.startswith(filter_prefix):
+            if attr_name.startswith(FILTER_PREFIX):
                 website_product_filter_attributes.append(
                     [attr_name, post[attr_name]]
                 )
         # remove empty char searches from ONLY the
-        # filter_prefixed posts
+        # FILTER_PREFIXed posts
         website_product_filter_attributes = self.sanitize_post(
             website_product_filter_attributes
         )
@@ -177,32 +172,30 @@ class WebsiteSale(main.website_sale):
             if attr.ttype in [
                     'float', 'integer', 'datetime', 'date', 'monetary']:
                 # if the field is not a stored field , skip the DB sql
-                # range and use ORM to calc range.
-                if env['product.template'].fields_get(
-                        attr.name)[attr.name]['store']:
-
-                    try:
-                        # using new format, (willbe mandatory in python 3)
+                # range and use ORM to calc range. 
+                sql = ''
+                attr_info = env[
+                    'product.product'].fields_get(attr.name)[attr.name]
+                # removing try catch by asking where is the field
+                if attr_info['store'] and 'related' not in attr_info.keys(): 
+                    sql = ("select MIN({0}), MAX({0}) FROM "
+                           "product_product where product_tmpl_id in "
+                           "(select product_template_id from  "
+                           "product_public_category_product_template_rel "
+                           "where product_public_category_id = {1}) ").format(
+                               attr.name, category.id
+                           )
+                if attr_info['store'] and 'related' in attr_info.keys(): 
+                    if att_info['related'][0] == 'product_tmpl_id':
                         sql = ("select MIN({0}), MAX({0}) FROM "
                                "product_template where id in "
                                "(select product_template_id from "
                                "product_public_category_product_template_rel "
-                               "where categ_id = {1}) ").format(
+                               "where product_public_catgory_id = {1}) ").format(
                                    attr.name, category.id
                                )
-                        cr.execute(sql)
-                    except:
-                        # being this a DB call if the field
-                        # lives actually on  product_product
-
-                        sql = ("select MIN({0}), MAX({0}) FROM "
-                               "product_product where product_tmpl_id in "
-                               "(select product_template_id from  "
-                               "product_public_category_product_template_rel "
-                               "where categ_id = {1}) ").format(
-                                    attr.name, category.id
-                               )
-                        cr.execute(sql)
+                if sql:
+                    cr.execute(sql)
                     range_result = cr.fetchone()
                     # managig the case of (none,none) there will never
                     # be the (none, value) case because then  min=max
@@ -266,7 +259,7 @@ class WebsiteSale(main.website_sale):
             """
             attributes_dict[attr] = choice_values
         extra_domain_product_product, extra_domain_subtitle = \
-            self._get_domain_for_cat_specific_attributes(
+            self.get_domain_for_cat_specific_attributes(
                 env, website_product_filter_attributes, search, post
             )
         if extra_domain_product_product:
@@ -291,7 +284,7 @@ class WebsiteSale(main.website_sale):
         result.qcontext.update({
             'extra_domain_subtitle': extra_domain_subtitle,
             'filters': attributes_dict or None,
-            'filter_prefix': filter_prefix,
-            'policy_prefix': policy_prefix,
+            'FILTER_PREFIX': FILTER_PREFIX,
+            'POLICY_PREFIX': POLICY_PREFIX,
             })
         return result

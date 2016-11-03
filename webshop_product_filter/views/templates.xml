@@ -36,23 +36,23 @@
                         <div class="form-control"
                             style="height:100%;">
                             <label
-                                t-attf-for="#{filter_prefix}#{f.name}">
+                                t-attf-for="#{FILTER_PREFIX}#{f.name}">
                                 <t t-esc="f.field_description"/>
                             </label>
                             <input
                                 t-if="f.ttype in ['char', 'text']"
-                                t-attf-id="#{filter_prefix}#{f.name}"
+                                t-attf-id="#{FILTER_PREFIX}#{f.name}"
                                 class=" search-query oe_search_box form-control"
                                 type="text"
-                                t-attf-name="#{filter_prefix}#{f.name}"
+                                t-attf-name="#{FILTER_PREFIX}#{f.name}"
                                 t-attf-placeholder="contains ..."
                                 />
                             <div 
                                 t-if="f.ttype in ['integer','float']"
                                 >
                                 <select
-                                    t-attf-id="#{policy_prefix}#{f.name}"
-                                    t-attf-name="#{policy_prefix}#{f.name}"
+                                    t-attf-id="#{POLICY_PREFIX}#{f.name}"
+                                    t-attf-name="#{POLICY_PREFIX}#{f.name}"
                                     >
                                     <option value="disable" selected="selected">Disable option</option>
                                     <option value="exact">Exact value</option>
@@ -62,11 +62,11 @@
                                 <span t-esc="filters[f][0]"/>
                                 <input 
                                     class="form-control"
-                                    t-attf-id="#{filter_prefix}#{f.name}"
+                                    t-attf-id="#{FILTER_PREFIX}#{f.name}"
                                     type="range"
                                     t-attf-min="filters[f][0]"
                                     t-attf-max="filters[f][1]"
-                                    t-attf-name="#{filter_prefix}#{f.name}"
+                                    t-attf-name="#{FILTER_PREFIX}#{f.name}"
                                     t-attf-value="filters[f][0]"
                                     />
                                 <span t-esc="filters[f][1]"/>
@@ -77,8 +77,8 @@
                                 >
 
                                 <select
-                                    t-attf-id="#{policy_prefix}#{f.name}"
-                                    t-attf-name="#{policy_prefix}#{f.name}"
+                                    t-attf-id="#{POLICY_PREFIX}#{f.name}"
+                                    t-attf-name="#{POLICY_PREFIX}#{f.name}"
                                     >
                                     <option value="disable" selected="selected">Disable option</option>
                                     <option value="exact">Exact </option>
@@ -86,23 +86,23 @@
                                     <option value="less">Before</option>
                                 </select>
 				 <input
-					t-attf-id="#{filter_prefix}#{f.name}"
+					t-attf-id="#{FILTER_PREFIX}#{f.name}"
 					class="search-query oe_search_box form-control"
 					type="date"
-					t-attf-name="#{filter_prefix}#{f.name}"
+					t-attf-name="#{FILTER_PREFIX}#{f.name}"
 					placeholder="dd-mm-yyy  (after this date)"
 				/>
 			    </div>
 
                             <input
                                 t-if="f.ttype == 'boolean'"
-                                t-attf-id="#{filter_prefix}#{f.name}"
+                                t-attf-id="#{FILTER_PREFIX}#{f.name}"
                                 type="checkbox"
-                                t-attf-name="#{filter_prefix}#{f.name}"
+                                t-attf-name="#{FILTER_PREFIX}#{f.name}"
                                 />
                             <select
                                 t-if="f.ttype == 'selection'"
-                                t-attf-name="#{filter_prefix}#{f.name}"
+                                t-attf-name="#{FILTER_PREFIX}#{f.name}"
                                 >
                                 <option>
                                 </option>
@@ -114,7 +114,7 @@
                             </select>
                             <select
                                 t-if="f.ttype == 'many2one'"
-                                t-attf-name="#{filter_prefix}#{f.name}"
+                                t-attf-name="#{FILTER_PREFIX}#{f.name}"
                                 >
                                 <option value=""></option>
                                 <t t-foreach="filters[f]" t-as="opt">
@@ -126,7 +126,7 @@
                             <!-- maybe future one2many support
                                 <select
                                     t-if="f.ttype == 'one2many'"
-                                    t-attf-name="#{filter_prefix}#{f.name}"
+                                    t-attf-name="#{FILTER_PREFIX}#{f.name}"
                                     >
                                     <t t-foreach="filters[f][2]" t-as="opt">
                                         <option t-att-value="opt[filters[f][1]]">
