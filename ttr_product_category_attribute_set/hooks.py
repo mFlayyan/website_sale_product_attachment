@@ -173,10 +173,10 @@ def prepare_attributes(
                 LOGGER.debug(
                     'DATA_IMPORT_LOG: attribute from %s COPY'
                     'to %s failed for product %s',
-                    prefix + str(attribute['code']),
-                    prefix + str(field_to_copy_to[0]),
-                    str(product_rec['name']) + ' id:' + str(
-                        product_rec['id']
+                    prefix + attribute['code'],
+                    prefix + field_to_copy_to[0],
+                    product_rec.name + ' id:' + str(
+                        product_rec.id
                     )
                 )
 
