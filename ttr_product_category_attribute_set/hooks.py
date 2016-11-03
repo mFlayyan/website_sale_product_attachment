@@ -255,6 +255,7 @@ def post_init_hook(cursor, pool):
             # get the category (Already existing)
             # (model, object id) using the same formatting stream used in
             # creation of data.xml
+            
             category_odoo = env['ir.model.data'].get_object_reference(
                 prefix + 'product_category_attribute_set',
                 'cat_' + prefix + 'attribute_' + category['name'].replace(

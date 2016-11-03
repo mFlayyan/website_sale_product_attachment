@@ -725,8 +725,6 @@ def generate(cr=None, dbname=None, user=None, manual=False):
 # when uninstalled it uninstalles the same fields.
 # if we launch this manually after installation we may have problems
 # i had a 2 hour puzzle to figure this out.
-#MANUAL SCRIPT DOES NOT COPY ANYMORE.  SAFER.
-
 
 if __name__ == "__main__":
     dbname = sys.argv[1]
