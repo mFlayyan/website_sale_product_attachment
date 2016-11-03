@@ -237,8 +237,9 @@ def post_init_hook(cursor, pool):
         if mag_product:
             prd_info = support_script.connect_tt(
                 cr=cursor).catalog_product.info(
-                    mag_product[0]['id'])
+                    mag_product[0]['product_id'])
             # get the attribute list of the products set
+            
             prd_attributes = support_script.connect_tt(
                 cr=cursor).catalog_product_attribute.list(prd_info['set'])
 
