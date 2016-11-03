@@ -209,7 +209,7 @@ def post_init_hook(cursor, pool):
     prefix = support_script.prefix
     magento_to_odoo_type_mapping = support_script.magento_to_odoo_type_mapping
     cursor.execute("select id, magento_sku from product_product")
-    product_name_association = cursor.dictfetchall()
+    product_name_association = dict(cursor.fetchall())
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt(
         cr=cursor).catalog_product.list()
@@ -232,7 +232,7 @@ def post_init_hook(cursor, pool):
         mag_product = [
             e for e in product_list_complete if e[
                 'sku'
-            ] == product_name_association[product_rec['magento_sku']]
+            ] == product_name_association[product_rec.id]
         ]
         if mag_product:
             prd_info = support_script.connect_tt(
