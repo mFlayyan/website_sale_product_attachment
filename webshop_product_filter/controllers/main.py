@@ -2,7 +2,7 @@ from openerp import http
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.translate import _
-
+from psycopg2.extensions import AsIs
 
 FILTER_PREFIX = 'webshop_product_filter_'
 POLICY_PREFIX = 'policy_' + FILTER_PREFIX
@@ -183,7 +183,7 @@ class WebsiteSale(main.website_sale):
                            "(select product_template_id from  "
                            "product_public_category_product_template_rel "
                            "where product_public_category_id = {1}) ").format(
-                               attr.name, category.id
+                               AsIs(attr.name), AsIs(category.id)
                            )
                 if attr_info['store'] and 'related' in attr_info.keys(): 
                     if att_info['related'][0] == 'product_tmpl_id':
@@ -192,7 +192,7 @@ class WebsiteSale(main.website_sale):
                                "(select product_template_id from "
                                "product_public_category_product_template_rel "
                                "where product_public_catgory_id = {1}) ").format(
-                                   attr.name, category.id
+                                   AsIs(attr.name), AsIs(category.id)
                                )
                 if sql:
                     cr.execute(sql)
