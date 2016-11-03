@@ -35,11 +35,6 @@ def pre_init_hook(cursor):
         support_script.MODELPATH + support_script.DefinitionFileName)
 
 
-# after module init copy data in the fields, using
-# the same migration policy set in the script called in
-# the pre init hook
-
-
 def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                stats, prd_info, product_rec, attribute):
     odoo_type = magento_to_odoo_type_mapping[
@@ -106,7 +101,7 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
     return write_result
 
 
-def commit_attributes(
+def prepare_attributes(
         prefix, stats, attr_rel, magento_to_odoo_type_mapping,
         product_rec, prd_info, prd_attributes):
     """
@@ -182,6 +177,11 @@ def commit_attributes(
                         product_rec['id']
                     )
                 )
+
+# after module init copy data in the fields, using
+# the same migration policy set in the script called in
+# the pre init hook
+
 
 
 def post_init_hook(cursor, pool):
@@ -265,7 +265,7 @@ def post_init_hook(cursor, pool):
             product_rec.write({'categ_id': category_odoo})
             # scan all attributes, and then use migration policy fetched from
             # import script ( so we have complete consistency)
-            commit_attributes(
+            prepare_attributes(
                 prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes)
         else:

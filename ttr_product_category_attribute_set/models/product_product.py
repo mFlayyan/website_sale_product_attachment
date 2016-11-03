@@ -8,8 +8,8 @@ from lxml import etree
 
 def view_get_insert_extra(self, view_id, view_type, res):
     """
-    dynamically add tab with extra fields and 
-    the extra fields of the category in view. 
+    dynamically add tab with extra fields and
+    the extra fields of the category in view.
     called by fields view get of both p.t. and p.p
     """
     if (view_type == 'form') and ('notebook' in res['arch']):
@@ -28,11 +28,11 @@ def view_get_insert_extra(self, view_id, view_type, res):
         existing_fields = {}
         field2category = {}
         all_categories = self.env['product.category'].search([])
-        """
-        Cannot scan all 202 categories and create the nodes
-        bad perfoermance hit inserting 1 page and then filtering
-        the fields. Also faster to test.
-        """
+
+        # Cannot scan all 202 categories and create the nodes
+        # bad perfoermance hit inserting 1 page and then filtering
+        # the fields. Also faster to test.
+
         for mag_category in all_categories:
             for mag_field in mag_category.product_field_ids:
                 if mag_field.name in existing_fields:

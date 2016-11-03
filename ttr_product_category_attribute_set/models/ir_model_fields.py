@@ -4,7 +4,7 @@
 from openerp import fields, models
 
 
-class ir_model_fields(models.Model):
+class IrModelFields(models.Model):
     _inherit = 'ir.model.fields'
 
     ttr_mag_attribute = fields.Boolean(
