@@ -7,22 +7,22 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Sales",
-    "description": """
+    "summary": """
 Extends Product category to have attribute sets for
 emulating the old magento attribute groups.
 """,
-    "depends": [ 
+    "depends": [
         'sale',
     ],
     "data": [
         'data/imported_categories.xml',
         'views/product_category.xml',
         ],
-    #post LOAD works only on OCA
+    # post LOAD works only on OCA
     "post_init_hook": "post_init_hook",
-    # pre init hook has been disabled. the data will be generated once 
+    # pre init hook has been disabled. the data will be generated once
     # through manual call of the script and then committed as is.
-    # "pre_init_hook": "pre_init_hook", 
+    # "pre_init_hook": "pre_init_hook",
     "auto_install": False,
     "installable": True,
     "application": False,

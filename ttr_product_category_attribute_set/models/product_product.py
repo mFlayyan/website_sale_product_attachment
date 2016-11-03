@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import api, fields, models
+from openerp import api, models
 from openerp.osv import orm
 from lxml import etree
 
-def view_get_insert_extra(self, view_id, view_type, toolbar, submenu, res):
+
+def view_get_insert_extra(self, view_id, view_type, res):
+    """
+    dynamically add tab with extra fields and
+    the extra fields of the category in view.
+    called by fields view get of both p.t. and p.p
+    """
     if (view_type == 'form') and ('notebook' in res['arch']):
         eview = etree.fromstring(res['arch'])
         notebook = eview.xpath("//notebook")
@@ -22,11 +28,11 @@ def view_get_insert_extra(self, view_id, view_type, toolbar, submenu, res):
         existing_fields = {}
         field2category = {}
         all_categories = self.env['product.category'].search([])
-        """
-        Cannot scan all 202 categories and create the nodes
-        bad perfoermance hit inserting 1 page and then filtering
-        the fields. Also faster to test.
-        """
+
+        # Cannot scan all 202 categories and create the nodes
+        # bad perfoermance hit inserting 1 page and then filtering
+        # the fields. Also faster to test.
+
         for mag_category in all_categories:
             for mag_field in mag_category.product_field_ids:
                 if mag_field.name in existing_fields:
@@ -58,15 +64,14 @@ class ProductProduct(models.Model):
 
     @api.model
     def fields_view_get(
-            self, view_id=None, view_type='form', toolbar=False, submenu=False):
+            self, view_id=None, view_type='form',
+            toolbar=False, submenu=False):
         res_original = super(ProductProduct, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu
         )
         res = view_get_insert_extra(
-            self, view_id=view_id, view_type=view_type, toolbar=toolbar,
-            submenu=submenu, res=res_original
-        )
+            self, view_id=view_id, view_type=view_type, res=res_original)
         return res
 
 
@@ -75,13 +80,12 @@ class ProductTemplate(models.Model):
 
     @api.model
     def fields_view_get(
-            self, view_id=None, view_type='form', toolbar=False, submenu=False):
+            self, view_id=None, view_type='form',
+            toolbar=False, submenu=False):
         res_original = super(ProductTemplate, self).fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar, 
+            view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu
         )
         res = view_get_insert_extra(
-            self, view_id=view_id, view_type=view_type, toolbar=toolbar,
-            submenu=submenu, res=res_original
-        )
+            self, view_id=view_id, view_type=view_type, res=res_original)
         return res

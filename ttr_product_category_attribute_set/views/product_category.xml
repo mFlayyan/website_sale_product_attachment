@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
     <data>
         <record id="product_category_form_ext" model="ir.ui.view">
             <field name="name">product_category.form.extend</field>
@@ -27,4 +27,4 @@
 
 
     </data>
-</openerp>
+</odoo>
