@@ -2,6 +2,7 @@ from openerp import http
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.translate import _
+from openerp.tools.safe_eval import safe_eval
 from psycopg2.extensions import AsIs
 
 FILTER_PREFIX = 'webshop_product_filter_'
@@ -237,8 +238,11 @@ class WebsiteSale(main.website_sale):
                 relation = attr.__getattribute__('relation')
                 # what happens if the m2o has it's own domain?
                 possible_domain = attr.__getattribute__('domain') or []
-                choice_values = env[str(relation)].search(
-                    possible_domain).read(['id', 'name'])
+                if isinstance(possible_domain, str):
+                    possible_domain = safe_eval(possible_domain)
+                if isinstance(possible_domain, list):
+                    choice_values = env[str(relation)].search(
+                        possible_domain).read(['id', 'name'])
             """
             TODO x2many
             elif attr.ttype in ['one2many']:
