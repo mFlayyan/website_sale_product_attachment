@@ -24,7 +24,7 @@ def pre_init_hook(cursor):
         'create_magfields_definition_and_data',
         scriptfile, '', ('py', 'r', imp.PY_SOURCE)
     )
-    support_script.generate(cursor=cursor)
+    support_script.generate(cr=cursor)
     print 'Copying views and models in module locations'
     from shutil import move
     move(
@@ -185,6 +185,7 @@ def prepare_attributes(
 
 
 def post_init_hook(cursor, pool):
+    # pylint: disable=W0613
     # test to make runBot pass on non Technotrading dbs
     cursor.execute(
         "select * from information_schema.columns where "
@@ -211,12 +212,12 @@ def post_init_hook(cursor, pool):
     product_name_association = cursor.dictfetchall()
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt(
-        cursor=cursor).catalog_product.list()
+        cr=cursor).catalog_product.list()
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
     # Get all the attribute sets from website(already exist as odoo categories)
     prd_sets = support_script.connect_tt(
-        cursor=cursor).catalog_product_attribute_set.list()
+        cr=cursor).catalog_product_attribute_set.list()
     cur_product_len = 0
     stats = {
         'norm_selections': 0,
@@ -235,11 +236,11 @@ def post_init_hook(cursor, pool):
         ]
         if mag_product:
             prd_info = support_script.connect_tt(
-                cursor=cursor).catalog_product.info(
+                cr=cursor).catalog_product.info(
                     mag_product[0]['id'])
             # get the attribute list of the products set
             prd_attributes = support_script.connect_tt(
-                cursor=cursor).catalog_product_attribute.list(prd_info['set'])
+                cr=cursor).catalog_product_attribute.list(prd_info['set'])
 
             # LOGGER.debug(
             #    'DATA_IMPORT_LOG: Starting data import for product'
