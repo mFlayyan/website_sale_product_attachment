@@ -199,6 +199,8 @@ class WebsiteSale(main.website_sale):
                     range_result = cr.fetchone()
                     # managig the case of (none,none) there will never
                     # be the (none, value) case because then  min=max
+                    # note it will never return just None it will allways
+                    # return at least (none, none)
                     if range_result[0] is None:
                         choice_values = (0, 0)
                     else:
