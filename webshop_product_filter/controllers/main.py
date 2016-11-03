@@ -172,12 +172,12 @@ class WebsiteSale(main.website_sale):
             if attr.ttype in [
                     'float', 'integer', 'datetime', 'date', 'monetary']:
                 # if the field is not a stored field , skip the DB sql
-                # range and use ORM to calc range. 
+                # range and use ORM to calc range.
                 sql = ''
                 attr_info = env[
                     'product.product'].fields_get(attr.name)[attr.name]
                 # removing try catch by asking where is the field
-                if attr_info['store'] and 'related' not in attr_info.keys(): 
+                if attr_info['store'] and 'related' not in attr_info.keys():
                     sql = ("select MIN({0}), MAX({0}) FROM "
                            "product_product where product_tmpl_id in "
                            "(select product_template_id from  "
@@ -185,7 +185,7 @@ class WebsiteSale(main.website_sale):
                            "where product_public_category_id = {1}) ").format(
                                AsIs(attr.name), AsIs(category.id)
                            )
-                if attr_info['store'] and 'related' in attr_info.keys(): 
+                if attr_info['store'] and 'related' in attr_info.keys():
                     if att_info['related'][0] == 'product_tmpl_id':
                         sql = ("select MIN({0}), MAX({0}) FROM "
                                "product_template where id in "
@@ -234,17 +234,11 @@ class WebsiteSale(main.website_sale):
                 # attr.selection.__name__ == test_lambda_func.__name__:
                 choice_values = options
             elif attr.ttype in ['many2one']:
-                relation = env[attr.model].fields_get(
-                    attr.name)[attr.name]['relation']
+                relation = attr.__getattribute__('relation')
                 # what happens if the m2o has it's own domain?
-                possible_domain = env[attr.model].fields_get(
-                    attr.name)[attr.name]['domain']
-                try:
-                    choice_values = env[str(relation)].search(
-                        possible_domain).read(['id', 'name'])
-                except:
-                    choice_values = env[str(relation)].search([]).read(
-                        ['id', 'name'])
+                possible_domain = attr.__getattribute__('domain') or []
+                choice_values = env[str(relation)].search(
+                    possible_domain).read(['id', 'name'])
             """
             TODO x2many
             elif attr.ttype in ['one2many']:
