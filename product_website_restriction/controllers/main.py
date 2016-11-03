@@ -10,10 +10,3 @@ class WebsiteSale(main.website_sale):
             search=search, category=category, attrib_values=attrib_values)
         domain += [('websites_ids', 'in', http.request.website.id)]
         return domain
-
-    @http.route()
-    def shop(self, page=0, category=None, search='', ppg=False, **post):
-        result = super(WebsiteSale, self).shop(
-            page=page, category=category, search=search, ppg=ppg, **post
-        )
-        return result
