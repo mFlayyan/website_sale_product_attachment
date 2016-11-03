@@ -150,10 +150,9 @@ def manage_attribute_types(env, cursor, category, attr):
         if not choice_values:
             return False
     elif attr.ttype == 'selection':
-        options = 
+        options = env[attr.model].fields_get(
+            attr.name)[attr.name]['selection']
         if not isinstance(options, list):
-            import pudb            
-            pudb.set_trace()
             choice_values = safe_eval(options)
         else:
             choice_values = options
