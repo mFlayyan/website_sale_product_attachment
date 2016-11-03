@@ -6,8 +6,7 @@
       <field name="inherit_id" ref="product.product_template_form_view" />
       <field name="arch" type="xml">
 	<xpath expr="//field[@name='list_price']" position="before">
-	  <field name="websites" widget="many2many_checkboxes" label="website"/>
-	  
+	  <field name="websites_ids" widget="many2many_checkboxes" label="website"/>
 	</xpath>
       </field>
     </record>

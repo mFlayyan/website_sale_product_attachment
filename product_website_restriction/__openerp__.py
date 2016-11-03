@@ -7,12 +7,9 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Website",
-    "depends": ['website_sale'
-                ],
+    "depends": ['website_sale',
+    ],
     "data": [
         'views/product_website.xml'
     ],
-    "auto_install": False,
-    "installable": True,
-    "application": False,
 }
