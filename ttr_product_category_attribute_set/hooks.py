@@ -241,7 +241,9 @@ def post_init_hook(cursor, pool):
                 cr=cursor).catalog_product.info(
                     mag_product[0]['product_id'])
             # get the attribute list of the products set
-            
+            # if the sku is not there exit the loop
+            if not prd_info:
+                continue
             prd_attributes = support_script.connect_tt(
                 cr=cursor).catalog_product_attribute.list(prd_info['set'])
 
