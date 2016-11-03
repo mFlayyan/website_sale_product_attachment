@@ -24,16 +24,11 @@ class ProductPublicCategory(models.Model):
     NOTE: maybe a whitelist is more secure  #TODO
     ASSIGNMENT: why is a whitelist more secure?
     """
-
-    excluded_field_types = \
-        ['reference', 'binary', 'html', 'many2many', 'one2many']
-
     # MAKING A WHITELIST, more secure.
     included_field_types = [
         'char', 'text', 'boolean',
-        'selection',  'monetary', 'float',
+        'selection', 'monetary', 'float',
         'integer', 'many2one', 'datetime', 'date']
-    # explitiley writng default 'and' in domain for readability
     category_attributes = fields.Many2many(
         comodel_name='ir.model.fields',
         string='categories',

@@ -85,14 +85,14 @@
                                     <option value="more">After</option>
                                     <option value="less">Before</option>
                                 </select>
-				 <input
-					t-attf-id="#{FILTER_PREFIX}#{f.name}"
-					class="search-query oe_search_box form-control"
-					type="date"
-					t-attf-name="#{FILTER_PREFIX}#{f.name}"
-					placeholder="dd-mm-yyy  (after this date)"
-				/>
-			    </div>
+                 <input
+                    t-attf-id="#{FILTER_PREFIX}#{f.name}"
+                    class="search-query oe_search_box form-control"
+                    type="date"
+                    t-attf-name="#{FILTER_PREFIX}#{f.name}"
+                    placeholder="dd-mm-yyy  (after this date)"
+                />
+                </div>
 
                             <input
                                 t-if="f.ttype == 'boolean'"

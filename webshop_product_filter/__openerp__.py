@@ -6,6 +6,9 @@
     "version": "9.0.1.0.0",
     "author": "Therp BV",
     "license": "AGPL-3",
+    "summary": "Allows to associate product attributes to categories and"
+               " filter by those attributes when the category is selected"
+               " on the website",
     "depends": ['website_sale'],
     "data": [
         'views/templates.xml',
