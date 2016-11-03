@@ -48,8 +48,8 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             'undecided_media_image']:
         LOGGER.debug(
             "Found an Unknown field: %s ,"
-            "type: %s", prefix + str(
-                attribute['code']), str(odoo_type)
+            "type: %s", prefix + 
+                attribute['code'], odoo_type
         )
         return False
     elif odoo_type in ['Selection']:
@@ -275,13 +275,13 @@ def post_init_hook(cursor, pool):
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
-                str(product_rec.name)
+                product_rec.name
             )
             stats['not_found'] += 1
         if cur_product_len % 100 == 0:
             LOGGER.debug(
                 'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-                str(product_rec),
+                product_rec.name,
                 cur_product_len,
                 len(all_odoo_products)
             )
