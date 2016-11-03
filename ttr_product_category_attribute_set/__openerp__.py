@@ -7,7 +7,7 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Sales",
-    "description": """
+    "summary": """
 Extends Product category to have attribute sets for
 emulating the old magento attribute groups.
 """,
