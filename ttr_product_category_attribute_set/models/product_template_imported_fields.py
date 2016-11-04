@@ -5,6 +5,7 @@ from openerp import fields, models
 
 
 class ProductTemplate(models.Model):
+    # pylint: disable=R7980
     _inherit = 'product.template'
 
     ttr_price_view = fields.Selection(

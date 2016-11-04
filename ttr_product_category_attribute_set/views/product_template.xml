@@ -16,7 +16,7 @@
                     <field name="ttr_merk_type" />
                     <field name="ttr_sku" />
                 </field>
-		    </field>
+            </field>
         </record>
         <record model="ir.ui.view" id="product_template_form_view">
             <field name="model">product.template</field>

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import api, models
-from openerp.osv import orm
+from openerp import api, models, osv
 from lxml import etree
 
 
@@ -51,7 +50,7 @@ def view_get_insert_extra(self, view_id, view_type, res):
                 '{"invisible": [("categ_id", "not in", [%s])]}' % (
                     ','.join(map(str, field2category[field.get('name')])),
                 )
-            orm.setup_modifiers(field)
+            osv.orm.setup_modifiers(field)
         res['arch'] = etree.tostring(eview)
         # postprocess returns a tuple (arch, fields)
         res_fields = self.env['ir.ui.view'].postprocess_and_fields(
@@ -69,6 +68,7 @@ class ProductProduct(models.Model):
     def fields_view_get(
             self, view_id=None, view_type='form',
             toolbar=False, submenu=False):
+        # pylint: disable=W0221
         res_original = super(ProductProduct, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu
@@ -85,6 +85,7 @@ class ProductTemplate(models.Model):
     def fields_view_get(
             self, view_id=None, view_type='form',
             toolbar=False, submenu=False):
+        # pylint: disable=W0221
         res_original = super(ProductTemplate, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu
