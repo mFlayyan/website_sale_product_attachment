@@ -48,8 +48,8 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             'undecided_media_image']:
         LOGGER.debug(
             "Found an Unknown field: %s ,"
-            "type: %s", prefix + str(
-                attribute['code']), str(odoo_type)
+            "type: %s", prefix + 
+                attribute['code'], odoo_type
         )
         return False
     elif odoo_type in ['Selection']:
@@ -146,15 +146,17 @@ def prepare_attributes(
                 # price are mostly the ones.)
                 if prefix + str(attribute['code']) == 'ttr_price':
                     data_to_write = prd_info[attribute['code']]
-                    product_rec.write(
-                        {'price': data_to_write}
-                    )
+                    # TODO skipping price write conflicts with computes
+                    # product_rec.write(
+                    #    {'price': data_to_write}
+                    # )
                     continue
                 if prefix + str(attribute['code']) == 'ttr_weight':
+                    # TOFO Skipping WEIGHTprice write conflicts with computes
                     data_to_write = prd_info[attribute['code']]
-                    product_rec.write(
-                        {'weight': data_to_write}
-                    )
+                    # product_rec.write(
+                    #    {'weight': data_to_write}
+                    # )
                     continue
                 LOGGER.debug(
                     'DATA_IMPORT_LOG: attribute %s has a'
@@ -171,10 +173,10 @@ def prepare_attributes(
                 LOGGER.debug(
                     'DATA_IMPORT_LOG: attribute from %s COPY'
                     'to %s failed for product %s',
-                    prefix + str(attribute['code']),
-                    prefix + str(field_to_copy_to[0]),
-                    str(product_rec['name']) + ' id:' + str(
-                        product_rec['id']
+                    prefix + attribute['code'],
+                    prefix + field_to_copy_to[0],
+                    product_rec.name + ' id:' + str(
+                        product_rec.id
                     )
                 )
 
@@ -209,7 +211,7 @@ def post_init_hook(cursor, pool):
     prefix = support_script.prefix
     magento_to_odoo_type_mapping = support_script.magento_to_odoo_type_mapping
     cursor.execute("select id, magento_sku from product_product")
-    product_name_association = cursor.dictfetchall()
+    product_name_association = dict(cursor.fetchall())
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt(
         cr=cursor).catalog_product.list()
@@ -232,13 +234,16 @@ def post_init_hook(cursor, pool):
         mag_product = [
             e for e in product_list_complete if e[
                 'sku'
-            ] == product_name_association[product_rec['magento_sku']]
+            ] == product_name_association[product_rec.id]
         ]
         if mag_product:
             prd_info = support_script.connect_tt(
                 cr=cursor).catalog_product.info(
-                    mag_product[0]['id'])
+                    mag_product[0]['product_id'])
             # get the attribute list of the products set
+            # if the sku is not there exit the loop
+            if not prd_info:
+                continue
             prd_attributes = support_script.connect_tt(
                 cr=cursor).catalog_product_attribute.list(prd_info['set'])
 
@@ -272,13 +277,13 @@ def post_init_hook(cursor, pool):
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
-                str(product_rec.name)
+                product_rec.name
             )
             stats['not_found'] += 1
         if cur_product_len % 100 == 0:
             LOGGER.debug(
                 'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-                str(product_rec),
+                product_rec.name,
                 cur_product_len,
                 len(all_odoo_products)
             )
