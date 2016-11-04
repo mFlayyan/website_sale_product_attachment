@@ -110,7 +110,7 @@ def prepare_attributes(
     """
     for attribute in prd_attributes:
 
-        if not attribute['code'] in product_rec._fields:
+        if not prefix + attribute['code'] in product_rec._fields:
             # These are all the deleted attributes.
             LOGGER.debug(
                 'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s',
@@ -274,19 +274,18 @@ def post_init_hook(cursor, pool):
             prepare_attributes(
                 prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes)
+            LOGGER.debug(
+                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
+               product_rec.name,
+               cur_product_len,
+               len(all_odoo_products)
+        )
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
                 product_rec.name
             )
             stats['not_found'] += 1
-        if cur_product_len % 100 == 0:
-            LOGGER.debug(
-                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-                product_rec.name,
-                cur_product_len,
-                len(all_odoo_products)
-            )
     LOGGER.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
                  'normal selection fields %s -- string selection fields %s --'
                  'fields not found on website %s',
