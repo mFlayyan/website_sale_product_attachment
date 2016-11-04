@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import api, models, osv
+from openerp import api, models, osv, _
 from lxml import etree
 
 
@@ -21,7 +21,7 @@ def view_get_insert_extra(self, view_id, view_type, res):
         # to one page called shared if it sits in multiple categories
         # but that's the case with all fields, so better have one page
         shared_fields_page = etree.SubElement(
-            notebook, 'page', {'string': 'Category Attributes'})
+            notebook, 'page', {'string': _('Category Attributes')})
         shared_fields_group = etree.SubElement(
             shared_fields_page, 'group')
         existing_fields = {}
