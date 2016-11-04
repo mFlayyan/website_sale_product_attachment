@@ -160,7 +160,9 @@ def manage_attribute_types(env, cursor, category, attr):
     elif attr.ttype in ['many2one']:
         relation = attr.__getattribute__('relation')
         # what happens if the m2o has it's own domain?
-        possible_domain = attr.getattr('domain', [])
+        # the default seems not to work returns false if the key does not exist
+        # need to put []
+        possible_domain = getattr(attr, 'domain', []) or []
         if isinstance(possible_domain, basestring):
             possible_domain = safe_eval(possible_domain)
         # not putting elif as qequested  here because if
@@ -227,12 +229,15 @@ class WebsiteSale(main.website_sale):
         website_product_filter_attributes = sanitize_post(
             website_product_filter_attributes
         )
+        website_product_filter_names = [
+            x[0] for x in website_product_filter_attributes]
         for attr in category_specific_attributes:
             choice_values = manage_attribute_types(env, cursor, category, attr)
             # Note: this is a cool option to manage all together
             # selection fields without options, or other invalid choices
             # just pop them out
-            if not choice_values:
+            if (not choice_values
+                    and attr.name in website_product_filter_names):
                 # so will also pop the option out of the view
                 website_product_filter_attributes.remove(
                     [attr.name, post[attr.name]]
