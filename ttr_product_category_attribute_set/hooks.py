@@ -37,6 +37,7 @@ def pre_init_hook(cursor):
 
 def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                stats, prd_info, product_rec, attribute):
+    write_result = False
     odoo_type = magento_to_odoo_type_mapping[
         attribute['type']]
     data_to_write = prd_info[attribute['code']]
@@ -62,9 +63,7 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                     == test_lambda_func.__name__:
             odoo_selection = product_rec._fields[
                 field_to_copy_to[0]].selection(
-                    product_rec
-                )
-            stats['callable_selections'] += 1
+                    product_rec)
             # we also have to mange the case
             # the selection is a function
             # and eval it on out current
@@ -91,14 +90,20 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                 data_to_write, field_to_copy_to[0]
             )
             data_to_write = int(data_to_write)
-    write_result = product_rec.write(
-        {field_to_copy_to[0]: data_to_write}
-    )
-    LOGGER.debug(
-        'WRITTEN %s IN FIELD %s',
-        data_to_write, field_to_copy_to[0]
-    )
-    return write_result
+
+        selection_options = [
+            x[0] for x in  product_rec._fields[
+                field_to_copy_to[0]].selection(product_rec)
+        ]
+        if data_to_write in selection_options:
+            write_result = product_rec.write(
+                {field_to_copy_to[0]: data_to_write}
+            )
+            LOGGER.debug(
+                'WRITTEN %s IN FIELD %s',
+                data_to_write, field_to_copy_to[0]
+            )
+    return write_result 
 
 
 def prepare_attributes(
