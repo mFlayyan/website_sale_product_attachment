@@ -37,6 +37,7 @@ def pre_init_hook(cursor):
 
 def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                stats, prd_info, product_rec, attribute):
+    write_result = False
     odoo_type = magento_to_odoo_type_mapping[
         attribute['type']]
     data_to_write = prd_info[attribute['code']]
@@ -62,9 +63,7 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                     == test_lambda_func.__name__:
             odoo_selection = product_rec._fields[
                 field_to_copy_to[0]].selection(
-                    product_rec
-                )
-            stats['callable_selections'] += 1
+                    product_rec)
             # we also have to mange the case
             # the selection is a function
             # and eval it on out current
@@ -91,14 +90,20 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                 data_to_write, field_to_copy_to[0]
             )
             data_to_write = int(data_to_write)
-    write_result = product_rec.write(
-        {field_to_copy_to[0]: data_to_write}
-    )
-    LOGGER.debug(
-        'WRITTEN %s IN FIELD %s',
-        data_to_write, field_to_copy_to[0]
-    )
-    return write_result
+
+        selection_options = [
+            x[0] for x in  product_rec._fields[
+                field_to_copy_to[0]].selection(product_rec)
+        ]
+        if data_to_write in selection_options:
+            write_result = product_rec.write(
+                {field_to_copy_to[0]: data_to_write}
+            )
+            LOGGER.debug(
+                'WRITTEN %s IN FIELD %s',
+                data_to_write, field_to_copy_to[0]
+            )
+    return write_result 
 
 
 def prepare_attributes(
@@ -110,7 +115,7 @@ def prepare_attributes(
     """
     for attribute in prd_attributes:
 
-        if not attribute['code'] in product_rec._fields:
+        if not prefix + attribute['code'] in product_rec._fields:
             # These are all the deleted attributes.
             LOGGER.debug(
                 'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s',
@@ -274,19 +279,18 @@ def post_init_hook(cursor, pool):
             prepare_attributes(
                 prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes)
+            LOGGER.debug(
+                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
+               product_rec.name,
+               cur_product_len,
+               len(all_odoo_products)
+        )
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
                 product_rec.name
             )
             stats['not_found'] += 1
-        if cur_product_len % 100 == 0:
-            LOGGER.debug(
-                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-                product_rec.name,
-                cur_product_len,
-                len(all_odoo_products)
-            )
     LOGGER.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
                  'normal selection fields %s -- string selection fields %s --'
                  'fields not found on website %s',

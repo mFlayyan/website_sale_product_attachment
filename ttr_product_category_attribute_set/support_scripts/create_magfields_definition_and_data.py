@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 import os
 import sys
+import logging
 
+LOGGER = logging.getLogger(__name__)
 
 def search_in_file_XML(filename, str_to_search):
     """
@@ -67,7 +69,7 @@ magento_to_odoo_type_mapping = {
     '': 'unknown',
     'price': 'undecided_price',
     'multiselect': 'undecided_multiselect',
-    'media_image': 'undecided_media_image',
+    'media_image': 'undecided_media_image'
 }
 
 """
@@ -471,7 +473,8 @@ def connect_tt(cr=None):
         )
         return magento
     except:
-        return
+        LOGGER.exception("Unexpected error")
+        raise
 
 
 def connect_tt_db_user(dbname, user):
@@ -483,7 +486,8 @@ def connect_tt_db_user(dbname, user):
         cur = con.cursor()
         return connect_tt(cr=cur)
     except:
-        return
+        LOGGER.exception("Unexpected error")
+        raise 
 
 
 def generate(cr=None, dbname=None, user=None, manual=False):
