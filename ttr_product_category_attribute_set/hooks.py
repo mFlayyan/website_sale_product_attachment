@@ -49,8 +49,7 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             'undecided_media_image']:
         LOGGER.debug(
             "Found an Unknown field: %s ,"
-            "type: %s", prefix + 
-                attribute['code'], odoo_type
+            "type: %s", prefix + attribute['code'], odoo_type
         )
         return False
     elif odoo_type in ['Selection']:
@@ -103,7 +102,7 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                 'WRITTEN %s IN FIELD %s',
                 data_to_write, field_to_copy_to[0]
             )
-    return write_result 
+    return write_result
 
 
 def prepare_attributes(
@@ -150,7 +149,7 @@ def prepare_attributes(
                 # managing specific transitions (weight and
                 # price are mostly the ones.)
                 if prefix + str(attribute['code']) == 'ttr_price':
-                    data_to_write = prd_info[attribute['code']]
+                    # data_to_write = prd_info[attribute['code']]
                     # TODO skipping price write conflicts with computes
                     # product_rec.write(
                     #    {'price': data_to_write}
@@ -158,7 +157,7 @@ def prepare_attributes(
                     continue
                 if prefix + str(attribute['code']) == 'ttr_weight':
                     # TOFO Skipping WEIGHTprice write conflicts with computes
-                    data_to_write = prd_info[attribute['code']]
+                    # data_to_write = prd_info[attribute['code']]
                     # product_rec.write(
                     #    {'weight': data_to_write}
                     # )
@@ -281,10 +280,10 @@ def post_init_hook(cursor, pool):
                 product_rec, prd_info, prd_attributes)
             LOGGER.debug(
                 'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-               product_rec.name,
-               cur_product_len,
-               len(all_odoo_products)
-        )
+                product_rec.name,
+                cur_product_len,
+                len(all_odoo_products)
+            )
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
