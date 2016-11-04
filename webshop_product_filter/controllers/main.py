@@ -6,6 +6,7 @@ import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.translate import _
 from openerp.tools.safe_eval import safe_eval
 from psycopg2.extensions import AsIs
+import collections
 
 FILTER_PREFIX = 'webshop_product_filter_'
 POLICY_PREFIX = 'policy_' + FILTER_PREFIX
@@ -159,10 +160,12 @@ def manage_attribute_types(env, cursor, category, attr):
     elif attr.ttype in ['many2one']:
         relation = attr.__getattribute__('relation')
         # what happens if the m2o has it's own domain?
-        possible_domain = attr.__getattribute__('domain') or []
-        if isinstance(possible_domain, str):
+        possible_domain = attr.getattr('domain', [])
+        if isinstance(possible_domain, basestring):
             possible_domain = safe_eval(possible_domain)
-        if isinstance(possible_domain, list):
+        # not putting elif as qequested  here because if
+        # the safe_eval was a string needs to go in here after safe_eval
+        if isinstance(possible_domain, (list, collections.Iterable)):
             choice_values = env[str(relation)].search(
                 possible_domain).read(['id', 'name'])
 
