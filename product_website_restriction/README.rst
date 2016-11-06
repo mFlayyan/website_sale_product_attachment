@@ -4,4 +4,5 @@
 Define Products Available In Each Website
 =========================================
 
-This module was written to extend the functionality of products to support restricting products to website shops
+This module was written to extend the functionality of products to support restricting products to website shops.
+

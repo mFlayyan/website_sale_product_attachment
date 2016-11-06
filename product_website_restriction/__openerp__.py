@@ -7,7 +7,9 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Website",
-    "depends": ['website_sale',
+    "summary": "restrict products to all/some/no websites",
+    "depends": [
+        'website_sale',
     ],
     "data": [
         'views/product_website.xml'
