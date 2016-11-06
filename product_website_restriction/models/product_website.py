@@ -1,5 +1,5 @@
-# coding: utf-8
-from openerp import api, fields, models
+# -*- coding: utf-8 -*-
+from openerp import fields, models
 
 
 class ProductTemplate(models.Model):
