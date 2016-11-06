@@ -6,5 +6,7 @@ class ProductTemplate(models.Model):
 
     websites_ids = fields.Many2many(
         comodel_name='website', string='Websites That Have This Product',
-        help='These are the websites that will have this product, please take into consideration that selecting no website is considered as all websites are selected',
+        help='These are the websites that will have this product,\n'\
+        'please take into consideration that selecting no website is\n'\
+        'considered as all websites are selected',
     )
