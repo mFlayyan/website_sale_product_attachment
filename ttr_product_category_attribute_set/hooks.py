@@ -86,19 +86,9 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # fields where individuated by size-1
         # but I could not access that attribute.
         # checking type of first selection
-        
-        
         # Important BUGFIX, I searched to see if the 
         # attribute index was a digit, but that is wrong
         # the only way to see if it is an integer index in DB
-        # uis to check the size -1 attribute
-        # fields that have set size-1 are allways returning 0 is is
-        # not saved on the DB (all values null)
-        # so I am going back to the isdigit method
-        # if env['ir.model.fields'].search(
-        #        [('name', '=', field_to_copy_to[0]),
-        #         ('model', '=', 'product.template')]).__getattribute__(
-        #             'size') == -1:
 
         if isinstance(odoo_selection[0][0], int):   
             LOGGER.debug(
