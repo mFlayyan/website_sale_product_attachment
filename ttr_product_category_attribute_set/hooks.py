@@ -92,15 +92,21 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # attribute index was a digit, but that is wrong
         # the only way to see if it is an integer index in DB
         # uis to check the size -1 attribute
-        if env['ir.model.fields'].search(
-                [('name', '=', field_to_copy_to[0]),
-                 ('model', '=', 'product.product')]).__getattribute__(
-                     'size') == -1:
+        # fields that have set size-1 are allways returning 0 is is
+        # not saved on the DB (all values null)
+        # so I am going back to the isdigit method
+        # if env['ir.model.fields'].search(
+        #        [('name', '=', field_to_copy_to[0]),
+        #         ('model', '=', 'product.template')]).__getattribute__(
+        #             'size') == -1:
+
+        if isinstance(odoo_selection[0][0], int):   
             LOGGER.debug(
                 'INTEGER SELECTION MANAGE %s -- %s',
                 data_to_write, field_to_copy_to[0]
             )
-            data_to_write = int(data_to_write)
+            if data_to_write:
+                data_to_write = int(data_to_write)
 
         selection_options = [
             x[0] for x in  product_rec._fields[
@@ -114,7 +120,8 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             )
             return write_dict
 
-    write_dict[field_to_copy_to[0]] = data_to_write
+    if data_to_write:
+        write_dict[field_to_copy_to[0]] = data_to_write
 
     LOGGER.debug(
         'ADDED %s IN FIELD %s to writedict',
