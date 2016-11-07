@@ -35,8 +35,11 @@ def pre_init_hook(cursor):
         support_script.MODELPATH + support_script.DefinitionFileName)
 
 
-def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
-               stats, prd_info, product_rec, attribute):
+def add_write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
+                   stats, prd_info, product_rec, attribute, write_dict):
+    """
+     called on a attribute it adds the write/copy to the dictionary
+    """
     write_result = False
     odoo_type = magento_to_odoo_type_mapping[
         attribute['type']]
@@ -95,32 +98,28 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                 field_to_copy_to[0]].selection(product_rec)
         ]
         if data_to_write in selection_options:
-            write_result = product_rec.write(
-                {field_to_copy_to[0]: data_to_write}
-            )
+            write_dict[field_to_copy_to[0]] = data_to_write
             LOGGER.debug(
-                'WRITTEN %s IN FIELD %s',
+                'ADDED %s IN FIELD %s',
                 data_to_write, field_to_copy_to[0]
             )
-            return write_result
+            return write_dict
 
-    write_result = product_rec.write(
-        {field_to_copy_to[0]: data_to_write}
-    )
+    write_dict[field_to_copy_to[0]] = data_to_write
+
     LOGGER.debug(
-        'WRITTEN %s IN FIELD %s',
+        'ADDED %s IN FIELD %s to writedict',
         data_to_write, field_to_copy_to[0]
     )
-
-    return write_result
+    return write_dict
 
 
 def prepare_attributes(
         prefix, stats, attr_rel, magento_to_odoo_type_mapping,
-        product_rec, prd_info, prd_attributes):
+        product_rec, prd_info, prd_attributes, write_dict={}):
     """
-    scans all attributes and writes the data or copies it in
-    the right location
+    scans all attributes and write and returns the write dictionary for 
+    that product and the copy dictionary for that product
     """
     for attribute in prd_attributes:
 
@@ -178,21 +177,12 @@ def prepare_attributes(
                     prefix + str(attribute['code']),
                     attr_rel[attribute['code']][2],
                 )
-            # write the data
-            write_result = write_data(
+            # create the write data
+            write_dict = add_write_data(
                 magento_to_odoo_type_mapping, prefix, field_to_copy_to,
-                stats, prd_info, product_rec, attribute
+                stats, prd_info, product_rec, attribute, write_dict
             )
-            if not write_result:
-                LOGGER.debug(
-                    'DATA_IMPORT_LOG: attribute from %s COPY'
-                    'to %s failed for product %s',
-                    prefix + attribute['code'],
-                    prefix + field_to_copy_to[0],
-                    product_rec.name + ' id:' + str(
-                        product_rec.id
-                    )
-                )
+    return write_dict
 
 # after module init copy data in the fields, using
 # the same migration policy set in the script called in
@@ -285,15 +275,22 @@ def post_init_hook(cursor, pool):
             product_rec.write({'categ_id': category_odoo})
             # scan all attributes, and then use migration policy fetched from
             # import script ( so we have complete consistency)
-            prepare_attributes(
+            write_dict = prepare_attributes(
                 prefix, stats, attr_rel, magento_to_odoo_type_mapping,
-                product_rec, prd_info, prd_attributes)
-            LOGGER.debug(
-                'DATA_IMPORT_LOG: done product:%s --- %s/%s',
-                product_rec.name,
-                cur_product_len,
-                len(all_odoo_products)
-            )
+                product_rec, prd_info, prd_attributes, write_dict={})
+        write_result = product_rec.write(write_dict)
+        if not write_result:
+            LOGGER.debug('Failed to write %s on product %s',
+                         write_dict,
+                         product_rec)
+        LOGGER.debug(
+            'DATA_IMPORT_LOG: done product:%s --- %s/%s --'
+            'written dict %s',
+            product_rec.name,
+            cur_product_len,
+            len(all_odoo_products),
+            write_dict
+        )
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
