@@ -93,7 +93,7 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # the only way to see if it is an integer index in DB
         # uis to check the size -1 attribute
         if env['ir.model.fields'].search(
-                [('name', '=', 'ttr_enable_googlecheckout'),
+                [('name', '=', field_to_copy_to[0]),
                  ('model', '=', 'product.product')]).__getattribute__(
                      'size') == -1:
             LOGGER.debug(
