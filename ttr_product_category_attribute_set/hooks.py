@@ -278,25 +278,26 @@ def post_init_hook(cursor, pool):
             write_dict = prepare_attributes(
                 prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes, write_dict={})
-        write_result = product_rec.write(write_dict)
-        if not write_result:
-            LOGGER.debug('Failed to write %s on product %s',
-                         write_dict,
-                         product_rec)
-        LOGGER.debug(
-            'DATA_IMPORT_LOG: done product:%s --- %s/%s --'
-            'written dict %s',
-            product_rec.name,
-            cur_product_len,
-            len(all_odoo_products),
-            write_dict
-        )
         else:
             LOGGER.debug(
                 "DATA_IMPORT_LOG: product %s not found on website",
                 product_rec.name
             )
             stats['not_found'] += 1
+
+        write_result = product_rec.write(write_dict)
+        if not write_result:
+            LOGGER.debug('Failed to write %s on product %s',
+                         write_dict,
+                         product_rec)
+            LOGGER.debug(
+                'DATA_IMPORT_LOG: done product:%s --- %s/%s --'
+                'written dict %s',
+                product_rec.name,
+                cur_product_len,
+                len(all_odoo_products),
+                write_dict
+            )
     LOGGER.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
                  'normal selection fields %s -- string selection fields %s --'
                  'fields not found on website %s',
