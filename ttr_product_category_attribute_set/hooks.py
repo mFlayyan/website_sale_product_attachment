@@ -105,8 +105,8 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         if data_to_write in selection_options:
             write_dict[field_to_copy_to[0]] = data_to_write
             LOGGER.debug(
-                'ADDED %s IN FIELD %s',
-                data_to_write, field_to_copy_to[0]
+                'ADDED FIELD %s to writedict',
+                field_to_copy_to[0]
             )
             return write_dict
 
@@ -114,8 +114,8 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         write_dict[field_to_copy_to[0]] = data_to_write
 
     LOGGER.debug(
-        'ADDED %s IN FIELD %s to writedict',
-        data_to_write, field_to_copy_to[0]
+        'ADDED FIELD %s to writedict',
+        field_to_copy_to[0]
     )
     return write_dict
 
