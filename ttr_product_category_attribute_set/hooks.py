@@ -94,7 +94,8 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # uis to check the size -1 attribute
         if env['ir.model.fields'].search(
                 [('name', '=', 'ttr_enable_googlecheckout'),
-                 ('model', '=', 'product.product')]).__getattribute__('size'):
+                 ('model', '=', 'product.product')]).__getattribute__(
+                     'size') == -1:
             LOGGER.debug(
                 'INTEGER SELECTION MANAGE %s -- %s',
                 data_to_write, field_to_copy_to[0]
