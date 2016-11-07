@@ -102,6 +102,16 @@ def write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                 'WRITTEN %s IN FIELD %s',
                 data_to_write, field_to_copy_to[0]
             )
+            return write_result
+
+    write_result = product_rec.write(
+        {field_to_copy_to[0]: data_to_write}
+    )
+    LOGGER.debug(
+        'WRITTEN %s IN FIELD %s',
+        data_to_write, field_to_copy_to[0]
+    )
+
     return write_result
 
 
