@@ -35,7 +35,7 @@ def pre_init_hook(cursor):
         support_script.MODELPATH + support_script.DefinitionFileName)
 
 
-def add_write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
+def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                    stats, prd_info, product_rec, attribute, write_dict):
     """
      called on a attribute it adds the write/copy to the dictionary
@@ -86,7 +86,15 @@ def add_write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # fields where individuated by size-1
         # but I could not access that attribute.
         # checking type of first selection
-        if isinstance([odoo_selection][0], int):
+        
+        
+        # Important BUGFIX, I searched to see if the 
+        # attribute index was a digit, but that is wrong
+        # the only way to see if it is an integer index in DB
+        # uis to check the size -1 attribute
+        if env['ir.model.fields'].search(
+                [('name', '=', 'ttr_enable_googlecheckout'),
+                 ('model', '=', 'product.product')]).__getattribute__('size'):
             LOGGER.debug(
                 'INTEGER SELECTION MANAGE %s -- %s',
                 data_to_write, field_to_copy_to[0]
@@ -115,7 +123,7 @@ def add_write_data(magento_to_odoo_type_mapping, prefix, field_to_copy_to,
 
 
 def prepare_attributes(
-        prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+        env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
         product_rec, prd_info, prd_attributes, write_dict={}):
     """
     scans all attributes and write and returns the write dictionary for 
@@ -179,7 +187,7 @@ def prepare_attributes(
                 )
             # create the write data
             write_dict = add_write_data(
-                magento_to_odoo_type_mapping, prefix, field_to_copy_to,
+                env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                 stats, prd_info, product_rec, attribute, write_dict
             )
     return write_dict
@@ -234,6 +242,8 @@ def post_init_hook(cursor, pool):
 
     for product_rec in all_odoo_products:
         cur_product_len += 1
+        write_dict = {}
+        write_result = False
         # get the magento product confronting it by name
         mag_product = [
             e for e in product_list_complete if e[
@@ -276,7 +286,7 @@ def post_init_hook(cursor, pool):
             # scan all attributes, and then use migration policy fetched from
             # import script ( so we have complete consistency)
             write_dict = prepare_attributes(
-                prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+                env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes, write_dict={})
         else:
             LOGGER.debug(
@@ -285,7 +295,9 @@ def post_init_hook(cursor, pool):
             )
             stats['not_found'] += 1
 
-        write_result = product_rec.write(write_dict)
+        if write_dict:
+            LOGGER.debug('starting to write %s', write_dict)
+            write_result = product_rec.write(write_dict)
         if not write_result:
             LOGGER.debug('Failed to write %s on product %s',
                          write_dict,
