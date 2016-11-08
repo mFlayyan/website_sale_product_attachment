@@ -304,8 +304,8 @@ def post_init_hook(cursor, pool):
                          write_dict,
                          product_rec)
         LOGGER.debug(
-            'DATA_IMPORT_LOG: done product:%s --- %s/%s --'
-            'written dict %s',
+            '----COMPLETED PRODUCT-----DATA_IMPORT_LOG: done product:%s'
+            '--- %s/%s --written dict %s',
             product_rec.name,
             cur_product_len,
             len(all_odoo_products),
