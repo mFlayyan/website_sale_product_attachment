@@ -303,14 +303,14 @@ def post_init_hook(cursor, pool):
             LOGGER.debug('Failed to write %s on product %s',
                          write_dict,
                          product_rec)
-            LOGGER.debug(
-                'DATA_IMPORT_LOG: done product:%s --- %s/%s --'
-                'written dict %s',
-                product_rec.name,
-                cur_product_len,
-                len(all_odoo_products),
-                write_dict
-            )
+        LOGGER.debug(
+            'DATA_IMPORT_LOG: done product:%s --- %s/%s --'
+            'written dict %s',
+            product_rec.name,
+            cur_product_len,
+            len(all_odoo_products),
+            write_dict
+        )
     LOGGER.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
                  'normal selection fields %s -- string selection fields %s --'
                  'fields not found on website %s',
