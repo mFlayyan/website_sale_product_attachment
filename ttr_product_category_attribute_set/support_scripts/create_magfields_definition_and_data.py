@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 import os
 import sys
+import logging
 
+LOGGER = logging.getLogger(__name__)
 
 def search_in_file_XML(filename, str_to_search):
     """
@@ -67,7 +69,7 @@ magento_to_odoo_type_mapping = {
     '': 'unknown',
     'price': 'undecided_price',
     'multiselect': 'undecided_multiselect',
-    'media_image': 'undecided_media_image',
+    'media_image': 'undecided_media_image'
 }
 
 """
@@ -448,6 +450,8 @@ XMLDataFileName = 'imported_categories.xml'
 XMLDataFilePathAndName = GENPATH + XMLDataFileName
 ExcludedFileName = GENPATH + 'excluded.py'
 prefix = "ttr_"
+CONNECTION_MAGENTO = False
+
 
 
 def connect_tt(cr=None):
@@ -459,6 +463,9 @@ def connect_tt(cr=None):
     if connecting from odoo pass db and user
     if called via command line fetch from command line.
     """
+    global CONNECTION_MAGENTO
+    if CONNECTION_MAGENTO:
+        return CONNECTION_MAGENTO
     try:
         sql = "SELECT location, apiusername, apipass FROM external_referential"
         cr.execute(sql)
@@ -469,9 +476,11 @@ def connect_tt(cr=None):
             location, '80',
             apiusername, apipass
         )
+        CONNECTION_MAGENTO = magento
         return magento
     except:
-        return
+        LOGGER.exception("Unexpected error")
+        raise
 
 
 def connect_tt_db_user(dbname, user):
@@ -483,7 +492,8 @@ def connect_tt_db_user(dbname, user):
         cur = con.cursor()
         return connect_tt(cr=cur)
     except:
-        return
+        LOGGER.exception("Unexpected error")
+        raise 
 
 
 def generate(cr=None, dbname=None, user=None, manual=False):
