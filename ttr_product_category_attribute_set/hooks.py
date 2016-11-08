@@ -39,6 +39,8 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
                    stats, prd_info, product_rec, attribute, write_dict):
     """
      called on a attribute it adds the write/copy to the dictionary
+     leaving env and prefix in arguments even if unused, may be needed
+     if uncommenting logging.
     """
     write_result = False
     odoo_type = magento_to_odoo_type_mapping[
@@ -86,7 +88,7 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # fields where individuated by size-1
         # but I could not access that attribute.
         # checking type of first selection
-        # Important BUGFIX, I searched to see if the 
+        # Important BUGFIX, I searched to see if the
         # attribute index was a digit, but that is wrong
         # the only way to see if it is an integer index in DB
         if isinstance(odoo_selection[0][0], int):
@@ -127,7 +129,7 @@ def prepare_attributes(
         env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
         product_rec, prd_info, prd_attributes, write_dict={}):
     """
-    scans all attributes and write and returns the write dictionary for 
+    scans all attributes and write and returns the write dictionary for
     that product and the copy dictionary for that product
     """
     for attribute in prd_attributes:
@@ -227,13 +229,13 @@ def post_init_hook(cursor, pool):
     product_name_association = dict(cursor.fetchall())
     # Get all product on website, with sku , name and id
     product_list_complete = support_script.connect_tt(
-       support_script.CONNECTION_MAGENTO, cr=cursor).catalog_product.list()
+        support_script.CONNECTION_MAGENTO, cr=cursor).catalog_product.list()
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
     # Get all the attribute sets from website(already exist as odoo categories)
     prd_sets = support_script.connect_tt(
         support_script.CONNECTION_MAGENTO, cr=cursor
-            ).catalog_product_attribute_set.list()
+        ).catalog_product_attribute_set.list()
     cur_product_len = 0
     stats = {
         'norm_selections': 0,
@@ -255,16 +257,16 @@ def post_init_hook(cursor, pool):
         if mag_product:
             prd_info = support_script.connect_tt(
                 support_script.CONNECTION_MAGENTO, cr=cursor
-                    ).catalog_product.info(
-                        mag_product[0]['product_id'])
+                ).catalog_product.info(
+                    mag_product[0]['product_id'])
             # get the attribute list of the products set
             # if the sku is not there exit the loop
             if not prd_info:
                 continue
             prd_attributes = support_script.connect_tt(
-                support_script.CONNECTION_MAGENTO,cr=cursor
-                   ).catalog_product_attribute.list(prd_info['set'])
-    
+                support_script.CONNECTION_MAGENTO, cr=cursor
+                ).catalog_product_attribute.list(prd_info['set'])
+
             # LOGGER.debug(
             #    'DATA_IMPORT_LOG: Starting data import for product'
             #    ' %s , id %s',
