@@ -228,14 +228,12 @@ def post_init_hook(cursor, pool):
     cursor.execute("select id, magento_sku from product_product")
     product_name_association = dict(cursor.fetchall())
     # Get all product on website, with sku , name and id
-    product_list_complete = support_script.connect_tt(
-        support_script.CONNECTION_MAGENTO, cr=cursor).catalog_product.list()
+    product_list_complete = support_script.connect_tt(cr=cursor).catalog_product.list()
     # get our dictionary of fields with migration policies
     attr_rel = support_script.attr_rel
     # Get all the attribute sets from website(already exist as odoo categories)
     prd_sets = support_script.connect_tt(
-        support_script.CONNECTION_MAGENTO, cr=cursor
-        ).catalog_product_attribute_set.list()
+        cr=cursor).catalog_product_attribute_set.list()
     cur_product_len = 0
     stats = {
         'norm_selections': 0,
@@ -255,16 +253,13 @@ def post_init_hook(cursor, pool):
             ] == product_name_association[product_rec.id]
         ]
         if mag_product:
-            prd_info = support_script.connect_tt(
-                support_script.CONNECTION_MAGENTO, cr=cursor
-                ).catalog_product.info(
-                    mag_product[0]['product_id'])
+            prd_info = support_script.connect_tt(cr=cursor
+                ).catalog_product.info(mag_product[0]['product_id'])
             # get the attribute list of the products set
             # if the sku is not there exit the loop
             if not prd_info:
                 continue
-            prd_attributes = support_script.connect_tt(
-                support_script.CONNECTION_MAGENTO, cr=cursor
+            prd_attributes = support_script.connect_tt(cr=cursor
                 ).catalog_product_attribute.list(prd_info['set'])
 
             # LOGGER.debug(

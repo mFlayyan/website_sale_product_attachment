@@ -453,7 +453,7 @@ prefix = "ttr_"
 CONNECTION_MAGENTO = None
 
 
-def connect_tt(CONNECTION_MAGENTO, cr=None):
+def connect_tt(cr=None):
     """
     creates the magento connection using DB info
     """
@@ -488,7 +488,7 @@ def connect_tt_db_user(dbname, user):
         connectionstring = "dbname=%s user=%s" % (dbname, user)
         con = psycopg2.connect(connectionstring)
         cur = con.cursor()
-        return connect_tt(CONNECTION_MAGENTO, cr=cur)
+        return connect_tt(cr=cur)
     except:
         LOGGER.exception("Unexpected error")
         raise 
@@ -501,7 +501,7 @@ def generate(cr=None, dbname=None, user=None, manual=False):
     if user and dbname and manual:
         magento = connect_tt_db_user(dbname, user)
     elif cr:
-        magento = connect_tt(CONNECTION_MAGENTO, cr)
+        magento = connect_tt(cr)
     else:
         return False
     # don't look for module structure , put files in running dir iof manual
