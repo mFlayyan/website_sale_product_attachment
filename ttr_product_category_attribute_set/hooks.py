@@ -25,7 +25,7 @@ def pre_init_hook(cursor):
         scriptfile, '', ('py', 'r', imp.PY_SOURCE)
     )
     support_script.generate(cr=cursor)
-    print 'Copying views and models in module locations'
+    LOGGER.debug('Copying views and models in module locations')
     from shutil import move
     move(
         support_script.GENPATH + support_script.XMLDataFileName,
@@ -90,10 +90,10 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         # attribute index was a digit, but that is wrong
         # the only way to see if it is an integer index in DB
         if isinstance(odoo_selection[0][0], int):
-            LOGGER.debug(
-                'INTEGER SELECTION MANAGE %s -- %s',
-                data_to_write, field_to_copy_to[0]
-            )
+            # LOGGER.debug(
+            #    'INTEGER SELECTION MANAGE %s -- %s',
+            #    data_to_write, field_to_copy_to[0]
+            # )
             if data_to_write:
                 data_to_write = int(data_to_write)
 
@@ -103,10 +103,10 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
         ]
         if data_to_write in selection_options:
             write_dict[field_to_copy_to[0]] = data_to_write
-            LOGGER.debug(
-                'ADDED FIELD %s to writedict',
-                field_to_copy_to[0]
-            )
+            # LOGGER.debug(
+            #    'ADDED FIELD %s to writedict',
+            #    field_to_copy_to[0]
+            # )
             return write_dict
         else:
             LOGGER.debug(
@@ -116,10 +116,10 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             return write_dict
     if data_to_write:
         write_dict[field_to_copy_to[0]] = data_to_write
-    LOGGER.debug(
-        'ADDED FIELD %s to writedict',
-        field_to_copy_to[0]
-    )
+    # LOGGER.debug(
+    #    'ADDED FIELD %s to writedict',
+    #    field_to_copy_to[0]
+    # )
     return write_dict
 
 
@@ -300,20 +300,20 @@ def post_init_hook(cursor, pool):
             stats['not_found'] += 1
 
         if write_dict:
-            LOGGER.debug('starting to write %s', write_dict)
+            # LOGGER.debug('starting to write %s', write_dict)
             write_result = product_rec.write(write_dict)
         if not write_result:
             LOGGER.debug('Failed to write %s on product %s',
                          write_dict,
                          product_rec)
-        LOGGER.debug(
-            '----COMPLETED PRODUCT-----DATA_IMPORT_LOG: done product:%s'
-            '--- %s/%s --written dict %s',
-            product_rec.name,
-            cur_product_len,
-            len(all_odoo_products),
-            write_dict
-        )
+        # LOGGER.debug(
+        #    '----COMPLETED PRODUCT-----DATA_IMPORT_LOG: done product:%s'
+        #    '--- %s/%s --written dict %s',
+        #    product_rec.name,
+        #    cur_product_len,
+        #    len(all_odoo_products),
+        #    write_dict
+        # )
     LOGGER.debug('DATA_IMPORT_LOG: ALL DONE callable selection fields %s -- '
                  'normal selection fields %s -- string selection fields %s --'
                  'fields not found on website %s',
