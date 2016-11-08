@@ -450,7 +450,8 @@ XMLDataFileName = 'imported_categories.xml'
 XMLDataFilePathAndName = GENPATH + XMLDataFileName
 ExcludedFileName = GENPATH + 'excluded.py'
 prefix = "ttr_"
-CONNECTION_MAGENTO = None
+CONNECTION_MAGENTO = False
+
 
 
 def connect_tt(cr=None):
@@ -462,6 +463,7 @@ def connect_tt(cr=None):
     if connecting from odoo pass db and user
     if called via command line fetch from command line.
     """
+    global CONNECTION_MAGENTO
     if CONNECTION_MAGENTO:
         return CONNECTION_MAGENTO
     try:
