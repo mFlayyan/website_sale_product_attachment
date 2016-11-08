@@ -50,10 +50,10 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             'Unknown', 'undecided_price',
             'undecided_multiselect',
             'undecided_media_image']:
-        LOGGER.debug(
-            "Found an Unknown field: %s ,"
-            "type: %s", prefix + attribute['code'], odoo_type
-        )
+        # LOGGER.debug(
+        #    "Found an Unknown field: %s ,"
+        #    "type: %s", prefix + attribute['code'], odoo_type
+        # )
         return False
     elif odoo_type in ['Selection']:
         # managing case of lambda func in select
@@ -109,10 +109,10 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
             # )
             return write_dict
         else:
-            LOGGER.debug(
-                'SELECTION OPTION NOT PRESENT NOT ADDED FIELD %s to writedict',
-                field_to_copy_to[0]
-            )
+            # LOGGER.debug(
+            #    'SELECTION OPTION NOT PRESENT NOT ADDED FIELD %s to writedict',
+            #    field_to_copy_to[0]
+            # )
             return write_dict
     if data_to_write:
         write_dict[field_to_copy_to[0]] = data_to_write
@@ -134,12 +134,12 @@ def prepare_attributes(
 
         if not prefix + attribute['code'] in product_rec._fields:
             # These are all the deleted attributes.
-            LOGGER.debug(
-                'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s',
-                attribute['code'],
-                product_rec.name,
-                product_rec.id
-            )
+            # LOGGER.debug(
+            #    'DATA_IMPORT_LOG: ATTR %s NOT PRESENT pr:%s id:%s',
+            #    attribute['code'],
+            #    product_rec.name,
+            #    product_rec.id
+            # )
             continue
         if attribute['code'] in prd_info.keys():
             if attr_rel[attribute['code']][2] == 'DELETE':
@@ -156,11 +156,11 @@ def prepare_attributes(
                         )
                     ]
                 if not field_to_copy_to:
-                    LOGGER.debug(
-                        'IMPORTANT: not found with id %s , '
-                        'the field %s should be copied there',
-                        attr_rel[attribute['code']][2],
-                        attribute['code'])
+                    # LOGGER.debug(
+                    #    'IMPORTANT: not found with id %s , '
+                    #    'the field %s should be copied there',
+                    #    attr_rel[attribute['code']][2],
+                    #    attribute['code'])
                     continue
 
             else:
@@ -180,12 +180,12 @@ def prepare_attributes(
                     #    {'weight': data_to_write}
                     # )
                     continue
-                LOGGER.debug(
-                    'DATA_IMPORT_LOG: attribute %s has a'
-                    'specific policy: \" %s \" -- TODO',
-                    prefix + str(attribute['code']),
-                    attr_rel[attribute['code']][2],
-                )
+                # LOGGER.debug(
+                #    'DATA_IMPORT_LOG: attribute %s has a'
+                #    'specific policy: \" %s \" -- TODO',
+                #    prefix + str(attribute['code']),
+                #    attr_rel[attribute['code']][2],
+                # )
             # create the write data
             write_dict = add_write_data(
                 env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
@@ -290,22 +290,22 @@ def post_init_hook(cursor, pool):
             # scan all attributes, and then use migration policy fetched from
             # import script ( so we have complete consistency)
             write_dict = prepare_attributes(
-                 env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+                env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes, write_dict={})
         else:
-            LOGGER.debug(
-                "DATA_IMPORT_LOG: product %s not found on website",
-                product_rec.name
-            )
+            # LOGGER.debug(
+            #    "DATA_IMPORT_LOG: product %s not found on website",
+            #    product_rec.name
+            # )
             stats['not_found'] += 1
 
         if write_dict:
             # LOGGER.debug('starting to write %s', write_dict)
             write_result = product_rec.write(write_dict)
-        if not write_result:
-            LOGGER.debug('Failed to write %s on product %s',
-                         write_dict,
-                         product_rec)
+        # if not write_result:
+            # LOGGER.debug('Failed to write %s on product %s',
+            #             write_dict,
+            #             product_rec)
         # LOGGER.debug(
         #    '----COMPLETED PRODUCT-----DATA_IMPORT_LOG: done product:%s'
         #    '--- %s/%s --written dict %s',
