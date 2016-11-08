@@ -450,9 +450,10 @@ XMLDataFileName = 'imported_categories.xml'
 XMLDataFilePathAndName = GENPATH + XMLDataFileName
 ExcludedFileName = GENPATH + 'excluded.py'
 prefix = "ttr_"
+CONNECTION_MAGENTO = None
 
 
-def connect_tt(cr=None):
+def connect_tt(CONNECTION_MAGENTO, cr=None):
     """
     creates the magento connection using DB info
     """
@@ -461,6 +462,8 @@ def connect_tt(cr=None):
     if connecting from odoo pass db and user
     if called via command line fetch from command line.
     """
+    if CONNECTION_MAGENTO:
+        return CONNECTION_MAGENTO
     try:
         sql = "SELECT location, apiusername, apipass FROM external_referential"
         cr.execute(sql)
@@ -471,6 +474,7 @@ def connect_tt(cr=None):
             location, '80',
             apiusername, apipass
         )
+        CONNECTION_MAGENTO = magento
         return magento
     except:
         LOGGER.exception("Unexpected error")
