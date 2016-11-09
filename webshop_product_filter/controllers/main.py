@@ -10,11 +10,18 @@ import collections
 FILTER_PREFIX = 'webshop_product_filter_'
 POLICY_PREFIX = 'policy_' + FILTER_PREFIX
 
+def complete_subtitle(search, domain_sub):
+    if search:
+        domain_sub = domain_sub + _(" search in name for ") + search
+    if search or domain_sub:
+        domain_sub = _("Currently active filters: ") + domain_sub + "."
+    return domain_sub
+
+
 def get_domain_for_cat_specific_attributes(
         env, category_specific_attributes, search, allposts):
     domain_product_product = []
     domain_subtitle = ""
-
     # based on the values posted from form create an extra domain
     # for our new filters.
     # this domain will be passed to website_sale_products.
@@ -22,12 +29,9 @@ def get_domain_for_cat_specific_attributes(
     # integrating seamlessley with the main search (on product name)
     # and the variant/attribute search, in case the customer wanted to use
     # those too)
-
-    if not  category_specific_attributes:
-        if search:
-            domain_subtitle = _("Currently active filters: ") + _(
-                " search in name for ") + search
-        return domain_product_product, domain_subtitle
+    if not category_specific_attributes:
+        domain_subtitle = complete_subtitle(search, domain_subtitle)
+        return [], domain_subtitle
     ir_model = env['ir.model.fields']
     for csa in category_specific_attributes:
         # remove FILTER_PREFIX
@@ -95,12 +99,7 @@ def get_domain_for_cat_specific_attributes(
                 domain_subtitle = \
                     domain_subtitle + att.field_description + \
                     " " + operator + " " + display +  "        "
-    if search:
-        domain_subtitle = \
-            domain_subtitle + _(" search in name for ") + search
-    if domain_subtitle:
-        domain_subtitle = _("Currently active filters: ") + \
-            domain_subtitle + "."
+    domain_subtitle = complete_subtitle(search, domain_subtitle)
     return domain_product_product, domain_subtitle
 
 def sanitize_post(posts):
