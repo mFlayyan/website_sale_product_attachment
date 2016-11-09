@@ -7,6 +7,7 @@
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Website",
+    "summary": "add attachments to products and show them in shop",
     "depends": ['website_sale', 'document'],
     "data": [
         'views/attachements_view.xml',

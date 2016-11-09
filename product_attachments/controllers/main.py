@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import http
 import openerp.addons.website_sale.controllers.main as main
 
@@ -10,8 +11,7 @@ class WebsiteSale(main.website_sale):
             product=product, category=category, search=search, **kwargs
         )
 
-        product = result.qcontext['product']
         result.qcontext.update({
-             'attachments': product.attachments,
-                })
+            'attachments': product.attachments,
+        })
         return result
