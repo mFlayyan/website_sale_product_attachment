@@ -125,7 +125,7 @@ def add_write_data(magento_to_odoo_type_mapping, field_to_copy_to,
 
 
 def prepare_attributes(
-        env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+        prefix, stats, attr_rel, magento_to_odoo_type_mapping,
         product_rec, prd_info, prd_attributes, write_dict):
     """
     scans all attributes and write and returns the write dictionary for
@@ -241,8 +241,7 @@ def post_init_hook(cursor, pool):
     }
     
     for product_rec in all_odoo_products:
-        cur_product_len += 1
-        write_dict={}
+        write_dict = {}
         # get the magento product confronting it by name
         mag_product = [
             e for e in product_list_complete if e[
@@ -284,7 +283,7 @@ def post_init_hook(cursor, pool):
             # scan all attributes, and then use migration policy fetched from
             # import script ( so we have complete consistency)
             write_dict = prepare_attributes(
-                env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+                prefix, stats, attr_rel, magento_to_odoo_type_mapping,
                 product_rec, prd_info, prd_attributes, write_dict)
         else:
             # LOGGER.debug(
@@ -295,7 +294,7 @@ def post_init_hook(cursor, pool):
 
         if write_dict:
             # LOGGER.debug('starting to write %s', write_dict)
-            write_result = product_rec.write(write_dict)
+            product_rec.write(write_dict)
         # if not write_result:
             # LOGGER.debug('Failed to write %s on product %s',
             #             write_dict,
