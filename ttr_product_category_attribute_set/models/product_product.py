@@ -35,7 +35,8 @@ def view_get_insert_extra(self, view_id, view_type, res):
         for mag_category in all_categories:
             for mag_field in mag_category.product_field_ids:
                 # don't add fields that were added by some view
-                if eview.xpath('//field[@name="%s"]' % mag_field.name):
+                if mag_field.name not in existing_fields and\
+                   eview.xpath('//field[@name="%s"]' % mag_field.name):
                     continue
                 if mag_field.name in existing_fields:
                     field2category[mag_field.name].append(
