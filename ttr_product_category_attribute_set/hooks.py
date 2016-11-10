@@ -35,14 +35,13 @@ def pre_init_hook(cursor):
         support_script.MODELPATH + support_script.DefinitionFileName)
 
 
-def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
+def add_write_data(magento_to_odoo_type_mapping, field_to_copy_to,
                    stats, prd_info, product_rec, attribute, write_dict):
     """
      called on a attribute it adds the write/copy to the dictionary
      leaving env and prefix in arguments even if unused, may be needed
      if uncommenting logging.
     """
-    write_result = False
     odoo_type = magento_to_odoo_type_mapping[
         attribute['type']]
     data_to_write = prd_info[attribute['code']]
@@ -126,8 +125,8 @@ def add_write_data(env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
 
 
 def prepare_attributes(
-        env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
-        product_rec, prd_info, prd_attributes, write_dict={}):
+        prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+        product_rec, prd_info, prd_attributes, write_dict):
     """
     scans all attributes and write and returns the write dictionary for
     that product and the copy dictionary for that product
@@ -190,7 +189,7 @@ def prepare_attributes(
                 # )
             # create the write data
             write_dict = add_write_data(
-                env, magento_to_odoo_type_mapping, prefix, field_to_copy_to,
+                magento_to_odoo_type_mapping, field_to_copy_to,
                 stats, prd_info, product_rec, attribute, write_dict
             )
     return write_dict
@@ -234,7 +233,6 @@ def post_init_hook(cursor, pool):
     # Get all the attribute sets from website(already exist as odoo categories)
     prd_sets = support_script.connect_tt(
         cr=cursor).catalog_product_attribute_set.list()
-    cur_product_len = 0
     stats = {
         'norm_selections': 0,
         'callable_selections': 0,
@@ -243,9 +241,7 @@ def post_init_hook(cursor, pool):
     }
 
     for product_rec in all_odoo_products:
-        cur_product_len += 1
         write_dict = {}
-        write_result = False
         # get the magento product confronting it by name
         mag_product = [
             e for e in product_list_complete if e[
@@ -287,8 +283,8 @@ def post_init_hook(cursor, pool):
             # scan all attributes, and then use migration policy fetched from
             # import script ( so we have complete consistency)
             write_dict = prepare_attributes(
-                env, prefix, stats, attr_rel, magento_to_odoo_type_mapping,
-                product_rec, prd_info, prd_attributes, write_dict={})
+                prefix, stats, attr_rel, magento_to_odoo_type_mapping,
+                product_rec, prd_info, prd_attributes, write_dict)
         else:
             # LOGGER.debug(
             #    "DATA_IMPORT_LOG: product %s not found on website",
@@ -298,7 +294,7 @@ def post_init_hook(cursor, pool):
 
         if write_dict:
             # LOGGER.debug('starting to write %s', write_dict)
-            write_result = product_rec.write(write_dict)
+            product_rec.write(write_dict)
         # if not write_result:
             # LOGGER.debug('Failed to write %s on product %s',
             #             write_dict,
