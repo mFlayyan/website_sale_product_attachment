@@ -17,8 +17,8 @@ emulating the old magento attribute groups.
     "data": [
         'data/imported_categories.xml',
         'views/product_category.xml',
-        ],
-    # post LOAD works only on OCA
+        'views/product_template.xml',
+    ],
     "post_init_hook": "post_init_hook",
     # pre init hook has been disabled. the data will be generated once
     # through manual call of the script and then committed as is.

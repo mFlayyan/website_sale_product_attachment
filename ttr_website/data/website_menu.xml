@@ -15,6 +15,13 @@
             <field name="sequence" type="int">10</field>
             <field name="website_id" ref="website_alt0"/>
         </record>
+        <record id="menu_shop_alt0" model="website.menu">
+            <field name="name">Shop</field>
+            <field name="url">/shop</field>
+            <field name="parent_id" ref="main_menu_alt0"/>
+            <field name="sequence" type="int">20</field>
+            <field name="website_id" ref="website_alt0"/>
+        </record>
         <record id="menu_contactus_alt0" model="website.menu">
             <field name="name">Contact us</field>
             <field name="url">/page/contactus</field>
@@ -31,6 +38,13 @@
             <field name="url">/page/homepage</field>
             <field name="parent_id" ref="main_menu_alt1"/>
             <field name="sequence" type="int">10</field>
+            <field name="website_id" ref="website_alt1"/>
+        </record>
+        <record id="menu_shop_alt1" model="website.menu">
+            <field name="name">Shop</field>
+            <field name="url">/shop</field>
+            <field name="parent_id" ref="main_menu_alt1"/>
+            <field name="sequence" type="int">20</field>
             <field name="website_id" ref="website_alt1"/>
         </record>
         <record id="menu_contactus_alt1" model="website.menu">

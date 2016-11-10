@@ -16,6 +16,9 @@
         'ttr_product',
         'ttr_product_category_attribute_set',
         'ttr_website',
+        'disable_odoo_online',
+        'res_config_settings_enterprise_remove',
+        'product_website_restriction',
     ],
     'installable': True,
 }
