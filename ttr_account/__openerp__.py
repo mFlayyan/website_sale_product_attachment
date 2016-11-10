@@ -11,5 +11,6 @@
     ],
     'data': [
         'views/account_invoice.xml',
+        'reports/account_report.xml',
     ],
 }
