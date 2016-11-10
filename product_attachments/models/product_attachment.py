@@ -34,5 +34,5 @@ class ProductAttachment(models.Model):
                                            "&field=datas&filename_field=datas_fname"+\
                                            "&id=%s" % attachment.id,
                                     'res_id': self.id,})
-        result = result and res
+            result = result and res
         return result
