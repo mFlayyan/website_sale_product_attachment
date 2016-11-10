@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="shop_attachment_dir" model="document.directory">
+      <field name="name">shop_attachments_dir</field>
+    </record>
+  </data>
+</openerp>

@@ -12,6 +12,7 @@
     "data": [
         'views/attachements_view.xml',
         'views/product_attachment.xml',
+        'views/shop_direcotory.xml',
         'security/ir.model.access.csv',
     ],
     "auto_install": False,

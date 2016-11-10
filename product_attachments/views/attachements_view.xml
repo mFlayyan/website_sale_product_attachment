@@ -2,11 +2,11 @@
   <data>
     <template id="product_attachments" inherit_id="website_sale.product">
       <xpath expr="//p[@class='text-muted']" position="after">
-        <t t-if="attachments">
+        <t t-if="product.attachments">
           <hr/>
           <h4 class="text-muted"> Informational documents </h4>
-          <t t-foreach="attachments" t-as="a">
-            <a t-att-href="a.url">
+          <t t-foreach="product.attachments" t-as="a">
+            <a t-att-href="'web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=datas_fname&amp;id=%s' % a.id">
               <t t-esc="a.name"/>
             </a>
             <br/>
