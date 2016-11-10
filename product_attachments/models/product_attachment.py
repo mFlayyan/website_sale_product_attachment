@@ -25,6 +25,7 @@ class ProductAttachment(models.Model):
 
     @api.multi
     def write(self, vals, context=None):
+        self.ensure_one()
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         result = super(ProductAttachment, self).write(vals, context=context)
 
