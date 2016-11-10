@@ -19,6 +19,8 @@
         'disable_odoo_online',
         'res_config_settings_enterprise_remove',
         'product_website_restriction',
+        'account_banking_sepa_direct_debit',
+        'account_banking_sepa_credit_transfer',
     ],
     'installable': True,
 }
