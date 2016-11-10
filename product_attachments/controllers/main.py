@@ -11,6 +11,7 @@ class WebsiteSale(main.website_sale):
             product=product, category=category, search=search, **kwargs
         )
 
+        product = result.qcontext['product']
         result.qcontext.update({
             'attachments': product.attachments,
         })
