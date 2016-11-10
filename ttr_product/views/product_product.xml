@@ -40,5 +40,16 @@
                 </field>
             </field>
         </record>
+        <record id="product_form_view_sale_order_button" model="ir.ui.view">
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="sale.product_form_view_sale_order_button" />
+            <field name="arch" type="xml">
+                <!-- disable counting as this has a major speed penalty when
+                     loading the product form /-->
+                <field name="sales_count" position="replace">
+                    <span class="o_stat_text">Sale orders</span>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>
