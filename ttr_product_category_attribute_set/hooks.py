@@ -239,7 +239,7 @@ def post_init_hook(cursor, pool):
         'str_selections' :0,
         'not_found':0
     }
-    
+
     for product_rec in all_odoo_products:
         write_dict = {}
         # get the magento product confronting it by name
