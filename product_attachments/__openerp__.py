@@ -14,6 +14,7 @@
         'views/product_attachment.xml',
         'views/shop_direcotory.xml',
         'security/ir.model.access.csv',
+        'security/document_filter.xml',
     ],
     "auto_install": False,
     "installable": True,
