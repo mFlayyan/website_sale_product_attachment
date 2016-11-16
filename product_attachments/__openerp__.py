@@ -8,11 +8,10 @@
     "license": "AGPL-3",
     "category": "Website",
     "summary": "add attachments to products and show them in shop",
-    "depends": ['website_sale', 'document'],
+    "depends": ['website_sale'],
     "data": [
         'views/attachements_view.xml',
         'views/product_attachment.xml',
-        'views/shop_direcotory.xml',
         'security/ir.model.access.csv',
         'security/document_filter.xml',
     ],

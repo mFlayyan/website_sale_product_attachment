@@ -6,11 +6,9 @@
           <hr/>
           <h4 class="text-muted"> Informational documents </h4>
           <t t-foreach="product.attachments" t-as="a">
-            <page string="attachments page">
-              <a t-att-href="'/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=datas_fname&amp;id=%s' % a.id">
-                <t t-esc="a.name"/>
-              </a>
-            </page>
+            <a t-attf-href="/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=datas_fname&amp;id={{a.id}}">
+              <t t-esc="a.name"/>
+            </a>
             <br/>
           </t>
         </t>
