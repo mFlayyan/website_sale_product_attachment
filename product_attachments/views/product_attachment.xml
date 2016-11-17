@@ -5,7 +5,7 @@
       <field name="model">product.template</field>
       <field name="inherit_id" ref="product.product_template_form_view"/>
       <field name="arch" type="xml">
-        <xpath expr="//page[@string='Accounting']" position="after">
+        <xpath expr="//page[@name='sales']" position="after">
           <page name="attachments" string="Attachments">
             <field name="attachments" widget="many2many_binary" label="Attachments" context="{'default_shared_public':True, 'default_res_id':id}"/>
           </page>
