@@ -12,6 +12,10 @@
         # 'ttr_delivery',
         # 'ttr_purchase',
         # 'ttr_sale',
+        # TODO: we need this dependency now, but this
+        # becomes redundant when we can depend on ttr_sale
+        # remove the following line when this happens
+        'sale',
         'ttr_stock',
         'ttr_product',
         'ttr_product_category_attribute_set',
@@ -23,6 +27,9 @@
         'account_banking_sepa_direct_debit',
         'account_banking_sepa_credit_transfer',
         'web_sheet_full_width',
+    ],
+    'data': [
+        'security/res_groups.xml',
     ],
     'installable': True,
 }
