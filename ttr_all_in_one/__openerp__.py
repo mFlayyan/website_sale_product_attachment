@@ -22,6 +22,7 @@
         'product_website_restriction',
         'account_banking_sepa_direct_debit',
         'account_banking_sepa_credit_transfer',
+        'web_sheet_full_width',
     ],
     'installable': True,
 }
