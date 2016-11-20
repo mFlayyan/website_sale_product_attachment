@@ -14,8 +14,9 @@
         # 'ttr_sale',
         # TODO: we need this dependency now, but this
         # becomes redundant when we can depend on ttr_sale
-        # remove the following line when this happens
+        # remove the following lines when this happens
         'sale',
+        'purchase',
         'ttr_stock',
         'ttr_product',
         'ttr_product_category_attribute_set',
