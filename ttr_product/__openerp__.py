@@ -11,6 +11,7 @@
     "depends": [
         'product',
         'stock',
+        'ttr_product_category_attribute_set',
         # TODO: add dependency after
         # https://github.com/OCA/account-financial-reporting/pull/80
         # is migrated
