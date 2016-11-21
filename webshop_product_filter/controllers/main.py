@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import collections
 from openerp import _, http
 from openerp.http import request
 import openerp.addons.website_sale.controllers.main as main
 from openerp.tools.safe_eval import safe_eval
 from psycopg2.extensions import AsIs
-import collections
 
 FILTER_PREFIX = 'webshop_product_filter_'
 POLICY_PREFIX = 'policy_' + FILTER_PREFIX
@@ -214,7 +214,7 @@ class WebsiteSale(main.website_sale):
         # new attributes. we must add thoste to our querystring and interpret
         # them as a domain filter.
         website_product_filter_attributes = []
-        for attr_name in post.keys():
+        for attr_name in post:
             # using the  prefix and then removing it
             # to allow product variants and our new product fields to
             # work together

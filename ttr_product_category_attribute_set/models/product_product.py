@@ -69,7 +69,7 @@ class ProductProduct(models.Model):
     def fields_view_get(
             self, view_id=None, view_type='form',
             toolbar=False, submenu=False):
-        # pylint: disable=W0221
+        # pylint: disable=W0221,E1120
         res_original = super(ProductProduct, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu
@@ -86,7 +86,7 @@ class ProductTemplate(models.Model):
     def fields_view_get(
             self, view_id=None, view_type='form',
             toolbar=False, submenu=False):
-        # pylint: disable=W0221
+        # pylint: disable=W0221,E1120
         res_original = super(ProductTemplate, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=submenu

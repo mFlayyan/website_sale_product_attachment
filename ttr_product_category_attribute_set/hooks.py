@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import imp
+import logging
 from openerp.api import Environment
 from openerp import SUPERUSER_ID
 from openerp.tools import misc
-import imp
-import logging
 from openerp.tools.safe_eval import safe_eval
 
 LOGGER = logging.getLogger(__name__)
