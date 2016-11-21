@@ -54,5 +54,30 @@
             <field name="sequence" type="int">60</field>
             <field name="website_id" ref="website_alt1"/>
         </record>
+        <record id="main_menu_alt2" model="website.menu">
+            <field name="name">Top Menu</field>
+            <field name="website_id" ref="website_alt2"/>
+        </record>
+        <record id="menu_homepage_alt2" model="website.menu">
+            <field name="name">Home</field>
+            <field name="url">/page/homepage</field>
+            <field name="parent_id" ref="main_menu_alt2"/>
+            <field name="sequence" type="int">10</field>
+            <field name="website_id" ref="website_alt2"/>
+        </record>
+        <record id="menu_shop_alt2" model="website.menu">
+            <field name="name">Shop</field>
+            <field name="url">/shop</field>
+            <field name="parent_id" ref="main_menu_alt2"/>
+            <field name="sequence" type="int">20</field>
+            <field name="website_id" ref="website_alt2"/>
+        </record>
+        <record id="menu_contactus_alt2" model="website.menu">
+            <field name="name">Contact us</field>
+            <field name="url">/page/contactus</field>
+            <field name="parent_id" ref="main_menu_alt2"/>
+            <field name="sequence" type="int">60</field>
+            <field name="website_id" ref="website_alt2"/>
+        </record>
     </data>
 </openerp>

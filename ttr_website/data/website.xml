@@ -28,5 +28,14 @@
             <field name="language_ids" search="[('code', 'in', ['en_US', 'nl_NL'])]"/>
             <field name="default_lang_id" search="[('code', '=', 'nl_NL')]"/>
         </record>
+        <record id="website_alt2" model="website">
+            <field name="name">heffenenhijsen.nl</field>
+            <!-- This wants to become the domain on the live server
+            <field name="domain">heffenenhijsen.nl</field>
+            /-->
+            <field name="domain">technotrading3.therp.nl</field>
+            <field name="language_ids" search="[('code', 'in', ['en_US', 'nl_NL'])]"/>
+            <field name="default_lang_id" search="[('code', '=', 'nl_NL')]"/>
+        </record>
     </data>
 </openerp>
