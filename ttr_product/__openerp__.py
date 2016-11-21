@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Technotrading product customizations",
-    "version": "9.0.1.0.0",
+    "version": "9.0.1.0.1",
     "author": "Therp BV",
     "license": "AGPL-3",
     "category": "Sales Management",
@@ -11,10 +11,7 @@
     "depends": [
         'product',
         'stock',
-        # TODO: add dependency after
-        # https://github.com/OCA/account-financial-reporting/pull/80
-        # is migrated
-        # 'product_harmonized_system',
+        'product_harmonized_system',
     ],
     "data": [
         "views/product_template.xml",
