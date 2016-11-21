@@ -7,4 +7,8 @@ class ProductAttachments(models.Model):
     attachments = fields.Many2many(
         comodel_name='ir.attachment',
         string='Attachments',
+        domain=[
+            ('shared_public', '=', True),
+            ('res_model', '=', 'product.template'),
+        ]
     )
