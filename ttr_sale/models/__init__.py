@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from . import models
-from .hooks import pre_init_hook
+from . import sale_order_line
+from . import sale_order

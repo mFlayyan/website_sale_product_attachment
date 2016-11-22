@@ -11,11 +11,10 @@
         'ttr_account',
         # 'ttr_delivery',
         # 'ttr_purchase',
-        # 'ttr_sale',
+        'ttr_sale',
         # TODO: we need this dependency now, but this
-        # becomes redundant when we can depend on ttr_sale
+        # becomes redundant when we can depend on ttr_purchase
         # remove the following lines when this happens
-        'sale',
         'purchase',
         'ttr_stock',
         'ttr_product',
