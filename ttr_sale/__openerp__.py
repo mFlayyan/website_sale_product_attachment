@@ -1,19 +1,16 @@
+# -*- coding: utf-8 -*-
+# © 2012-2016 Therp BV <http://therp.nl>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    'name': 'ttr_sale',
-    'description': '''Technotrading Sale Customizations''',
+    'name': 'Technotrading Sale Customizations',
     'application': True,
-    'version': '6.1.r041',
-    'author': 'Therp',
-    'category': 'ttr modules',
-    'website': 'http://technotrading.nl',
-    'email': 'info@technotrading.nl',
+    'version': '9.0.1.0.0',
+    'author': 'Therp BV',
+    "category": "Sales Management",
     'depends': [
-        'base',
         'sale',
     ],
-    'update_xml': [
-        'view/sale_view.xml',
-        'report/sale_report.xml',
-        ],
-    'installable': False,
+    'data': [
+        "views/sale_order.xml",
+    ],
 }
