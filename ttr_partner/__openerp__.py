@@ -2,7 +2,7 @@
 # © 2016 Therp BV <http://therp.nl>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    "name": "ttr_partner",
+    "name": "Technotrading partner customizations",
     "version": "9.0.1.0.0",
     "author": "Therp BV",
     "license": "AGPL-3",
