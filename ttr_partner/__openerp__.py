@@ -6,14 +6,12 @@
     "version": "9.0.1.0.0",
     "author": "Therp BV",
     "license": "AGPL-3",
-    "category": "",
-    "summary": "This module contains custom fields and function related to partners.",
+    "category": "Customer Relationship Management",
+    "summary": "Custom fields and function related to partners.",
     "depends": [
         'base',
     ],
     "data": [
         'views/res_partner_action.xml',
     ],
-   "installable": True,
-   "application": False,
 }
