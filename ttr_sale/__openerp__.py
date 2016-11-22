@@ -13,4 +13,5 @@
     'data': [
         "views/sale_order.xml",
     ],
+    'pre_init_hook': 'pre_init_hook',
 }
