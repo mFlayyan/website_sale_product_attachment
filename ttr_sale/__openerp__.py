@@ -6,6 +6,7 @@
     'application': True,
     'version': '9.0.1.0.0',
     'author': 'Therp BV',
+    'summary': 'Adds changes specific to technotrading',
     "category": "Sales Management",
     'depends': [
         'sale',
