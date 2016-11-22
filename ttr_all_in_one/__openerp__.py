@@ -28,6 +28,7 @@
         'account_banking_sepa_direct_debit',
         'account_banking_sepa_credit_transfer',
         'web_sheet_full_width',
+        'ttr_partner',
     ],
     'data': [
         'security/res_groups.xml',
