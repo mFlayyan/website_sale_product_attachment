@@ -16,12 +16,14 @@
         # if so, this is fine, if not, the dependency belongs into
         # ttr_website_sale
         'website_sale',
+        'ttr_product_category_attribute_set',
     ],
     "data": [
         "data/ir_ui_view.xml",
         "data/website.xml",
         "data/website_menu.xml",
         "views/templates.xml",
+        "views/extra_fields_view.xml",
     ],
     'post_init_hook': 'post_init_hook',
 }

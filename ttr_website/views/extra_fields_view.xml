@@ -1,0 +1,21 @@
+<openerp>
+  <data>
+    <template id="product_attachments" inherit_id="website_sale.product">
+      <xpath expr="//a[@id='add_to_cart']" position="after">
+        <t t-if="product.default_code or product.ttr_impa1">
+          <hr/>
+          <t t-if="product.default_code">
+            <h6 class="text-muted"> Internal Reference:
+              <t t-esc="product.default_code"/>
+            </h6>
+          </t>
+          <t t-if="product.ttr_impa1">
+            <h6 class="text-muted">IMPA code:
+              <t t-esc="product.ttr_impa1"/>
+            </h6>
+          </t>
+        </t>
+      </xpath>
+    </template>
+  </data>
+</openerp>
