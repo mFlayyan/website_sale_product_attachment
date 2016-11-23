@@ -6,7 +6,7 @@
           <hr/>
           <h4 class="text-muted"> Informational documents </h4>
           <t t-foreach="product.attachments" t-as="a">
-            <a t-attf-href="/web/binary/saveas?model=ir.attachment&amp;field=datas&amp;filename_field=datas_fname&amp;id={{a.id}}">
+            <a t-attf-href="/attachments/attachment/#{slug(a)}">
               <t t-esc="a.name"/>
             </a>
             <br/>
@@ -16,7 +16,3 @@
     </template>
   </data>
 </openerp>
-
-
-
-
