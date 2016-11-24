@@ -4,16 +4,16 @@
 {
     "name": "Offer Product Attachments",
     "version": "9.0.1.0.0",
-    "author": "Therp BV",
+    "author": "Therp BV,Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Website",
     "summary": "add attachments to products and show them in shop",
-    "depends": ['website_sale'],
+    "depends": [
+        'website_sale'
+    ],
     "data": [
         'views/attachements_view.xml',
         'views/product_attachment.xml',
-        'security/ir.model.access.csv',
-        'security/document_filter.xml',
     ],
     "auto_install": False,
     "installable": True,
