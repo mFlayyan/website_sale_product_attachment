@@ -12,3 +12,4 @@ When migrating, respect the following rules:
 - adapt license headers to match the [OCA default](https://github.com/OCA/maintainer-tools/blob/master/template/module/__init__.py#L1), but also include existing copyrights if applicable
 - if not technically impossible, create one MR per module
 # website_sale_product_attachment
+# website_sale_product_attachment
