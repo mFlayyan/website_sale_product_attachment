@@ -11,5 +11,3 @@ When migrating, respect the following rules:
 - don't migrate blindly. Always think back if there's already a module doing what's done there or similar, and rather use those when available
 - adapt license headers to match the [OCA default](https://github.com/OCA/maintainer-tools/blob/master/template/module/__init__.py#L1), but also include existing copyrights if applicable
 - if not technically impossible, create one MR per module
-# website_sale_product_attachment
-# website_sale_product_attachment
