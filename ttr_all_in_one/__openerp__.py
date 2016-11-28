@@ -28,6 +28,7 @@
         'account_banking_sepa_credit_transfer',
         'web_sheet_full_width',
         'ttr_partner',
+        'website_sale_product_attachment',
     ],
     'data': [
         'security/res_groups.xml',
