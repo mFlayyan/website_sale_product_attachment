@@ -9,8 +9,8 @@ import openerp.addons.website_sale.controllers.main as main
 
 class WebsiteSale(main.website_sale):
 
-    @http.route('''/attachments/attachment/<model("ir.attachment")'''
-                ''':attachment>''', type='http', auth="public", website=True)
+    @http.route('/attachments/attachment/<model("ir.attachment")'
+                ':attachment>', type='http', auth="public", website=True)
     def download_attachment(self, attachment):
         if attachment.public and attachment.res_model == 'product.template':
             filecontent = base64.b64decode(attachment.datas)
